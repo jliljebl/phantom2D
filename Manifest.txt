@@ -1,0 +1,2 @@
+Main-Class: animator.phantom.controller.Phantom2D
+

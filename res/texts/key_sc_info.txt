@@ -1,0 +1,116 @@
+--- Instructions for creating keyboard shortcuts ---
+
+Phantom2D uses Java platform KeyStroke strings to specify keyboard shortcuts.
+
+String specifying keyboard shortcut must have following syntax:
+
+    <modifiers> <key>
+
+	modifiers := shift | control | ctrl | meta | alt | altGraph 
+	key := KeyEvent key code name
+
+Here are some examples:
+
+	"INSERT" => Insert key
+	"Y" => y key
+	"control DELETE" => Delete key while holding down control key
+	"alt shift X" => x key while holding down alt and shift keys
+
+List of KeyEvent key code names:
+	
+	0...9		Number keys coded with number.
+
+  	A...Z		Letter keys coded with CAPITAL letter.
+
+	DOWN		Non-numpad down arrow key.
+	LEFT		Non-numpad left arrow key.
+	RIGHT		Non-numpad right arrow key.
+	UP		Non-numpad up arrow key.
+
+	F1		Functions keys
+	F2
+	F3
+	F4
+	F5
+	F6
+	F7
+	F8
+	F9
+	F10
+	F11
+	F12
+
+	ALT
+	ALT_GRAPH
+	AMPERSAND
+	ASTERISK
+	AT		
+	BACK_QUOTE
+	BACK_SLASH
+	BACK_SPACE
+	BRACELEFT
+	BRACERIGHT
+	CANCEL
+	CAPS_LOCK
+	CIRCUMFLEX
+	CLEAR
+	CLOSE_BRACKET
+	COLON 
+	COMMA
+	CONTROL
+	DELETE
+	DOLLAR 		
+	DOWN
+	END
+	ENTER
+	EQUALS
+	ESCAPE
+	EURO_SIGN
+	EXCLAMATION_MARK
+	HELP
+	HOME
+	INSERT
+	KP_DOWN 		Numeric keypad down arrow key.
+	KP_LEFT 		Numeric keypad left arrow key.
+	KP_RIGHT 		Numeric keypad right arrow key.
+	KP_UP 		Numeric keypad up arrow key.
+	LEFT_PARENTHESIS
+	META
+	MINUS
+	MODECHANGE
+	NUM_LOCK
+	NUMBER_SIGN
+	NUMPAD0
+	NUMPAD1
+	NUMPAD2
+	NUMPAD3
+	NUMPAD4
+	NUMPAD5
+	NUMPAD6
+	NUMPAD7
+	NUMPAD8
+	NUMPAD9
+	OPEN_BRACKET
+	PAGE_DOWN
+	PAGE_UP
+	PASTE
+	PAUSE
+	PERIOD		
+	PLUS		
+	RIGHT_PARENTHESIS	
+	SCROLL_LOCK
+	SEMICOLON 	
+	SHIFT
+	SLASH 		
+	SPACE
+	STOP
+	SUBTRACT
+	TAB
+	UNDERSCORE 	
+	WINDOWS		 Microsoft Windows "Windows" key.
+
+           
+
+
+
+
