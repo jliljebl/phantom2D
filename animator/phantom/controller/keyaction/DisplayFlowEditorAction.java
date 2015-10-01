@@ -23,12 +23,12 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import animator.phantom.controller.GUIComponents;
+//import animator.phantom.controller.GUIComponents;
 
 public class DisplayFlowEditorAction extends AbstractAction
 {
 	public void actionPerformed( ActionEvent e )
 	{
-		GUIComponents.getAnimatorFrame().flowButton.doClick();
+		//GUIComponents.getAnimatorFrame().flowButton.doClick();
 	}
 }

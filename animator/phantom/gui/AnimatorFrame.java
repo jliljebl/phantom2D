@@ -107,9 +107,8 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	private RenderAreaPanel renderArea;
 	private BinsAreaPanel binAreaPanel;
 	private JPanel topLeftHolder;
-	private JPanel bottomLeftHolder;
+	private JPanel paramEditHolder;
 			
-	public JToggleButton flowButton;
 	public JToggleButton timelineButton;
 	public JToggleButton splineButton;
 
@@ -172,7 +171,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		binAreaPanel = new BinsAreaPanel( ProjectController.getBins(), this );
 		renderArea = new RenderAreaPanel();
 
-
 		topLeftHolder = new JPanel();
 		topLeftHolder.setLayout(new BoxLayout( topLeftHolder, BoxLayout.Y_AXIS));
 		topLeftHolder.add( binAreaPanel );
@@ -204,6 +202,10 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		flowHolder = new JPanel();
 		flowHolder.add( flowScrollPane );
 		flowViewPort = flowScrollPane.getViewport();
+		 
+		JPanel flowPane = new JPanel();
+		flowPane.setLayout( new EditorsLayout() );
+		flowPane.add( flowHolder );
 
 		//---------------------------------------- view editor
 		ViewEditor viewEdit = new ViewEditor( ProjectController.getScreenSize() );
@@ -238,16 +240,17 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		//-------------------------------------------- bottom left panel
 		editFrame = new ParamEditFrame();
 		nodesPanel = new NodesPanel();
-
-		bottomLeftHolder = new JPanel();
-		bottomLeftHolder.setLayout(new BoxLayout( bottomLeftHolder, BoxLayout.Y_AXIS));
-		bottomLeftHolder.add( editFrame );
 		
-		JPanel bottomLeftPanel = new JPanel();
-		bottomLeftPanel.setLayout(new BoxLayout( bottomLeftPanel, BoxLayout.Y_AXIS));
+		paramEditHolder = new JPanel();
+		paramEditHolder.setLayout(new BoxLayout( paramEditHolder, BoxLayout.Y_AXIS));
+		paramEditHolder.add( editFrame );
+		
+		JPanel paramEditPanelPanel = new JPanel();
+		paramEditPanelPanel.setLayout(new BoxLayout( paramEditPanelPanel, BoxLayout.Y_AXIS));
 
-		bottomLeftPanel.add( Box.createRigidArea( new Dimension( 0, 4 ) ) );
-		bottomLeftPanel.add( bottomLeftHolder );
+		paramEditPanelPanel.add( Box.createRigidArea( new Dimension( 0, 4 ) ) );
+		paramEditPanelPanel.add( paramEditHolder );
+		
 
 		//----------------------------------------------- preview
 		previewUpdater = new PreViewUpdater();
@@ -338,27 +341,22 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		keyEditorPanel.add( keyEditorScrollPane );
 
 		//-------------------------------------- editor switch buttons.
-		flowButton = PHButtonFactory.getToggleButton("Composition", 90 );
 		timelineButton = PHButtonFactory.getToggleButton("Timeline", 90 );
 		splineButton = PHButtonFactory.getToggleButton("Spline", 90 );
 
-		flowButton.setFont( GUIResources.BIG_BUTTONS_FONT );
 		timelineButton.setFont( GUIResources.BIG_BUTTONS_FONT );
 		splineButton.setFont( GUIResources.BIG_BUTTONS_FONT );
 
-		flowButton.addActionListener( this );
 		timelineButton.addActionListener( this );
 		splineButton.addActionListener( this );
 		
 		ButtonGroup beGroup = new ButtonGroup();
-		beGroup.add( flowButton );
 		beGroup.add( timelineButton );
 		beGroup.add( splineButton );
-		beGroup.setSelected( flowButton.getModel(), true );
+		beGroup.setSelected( timelineButton.getModel(), true );
 
 		editSwitchButtons = new JPanel();
 		editSwitchButtons.setLayout(new BoxLayout( editSwitchButtons, BoxLayout.X_AXIS));
-		editSwitchButtons.add( flowButton );
 		editSwitchButtons.add( timelineButton );
 		editSwitchButtons.add( splineButton );
 
@@ -392,21 +390,25 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		bottomRow.setLayout(new BoxLayout( bottomRow, BoxLayout.X_AXIS));
 		bottomRow.add( editSwitchButtons );
 		bottomRow.add( Box.createRigidArea(new Dimension( 10, 0 ) ) );
-		bottomRow.add( flowButtonsPane );
+		bottomRow.add( tlineButtonsPane );
 		bottomRow.add( Box.createHorizontalGlue() );
-
+		
 		//------------------------------------------------------------------- build all
 		contentPane = new JPanel();
 		
 		editorsPane = new JPanel();
 		editorsPane.setLayout( new EditorsLayout() );
-		editorsPane.add( flowHolder );
+		editorsPane.add( timelinePanel );
 		 
 		AnimatorFrameLayout frameLayout = new AnimatorFrameLayout( 	screenViewsPanel,
+										paramEditPanelPanel,
+										previewControl,
 										editorsPane,
 										bottomRow );
 		contentPane.setLayout( frameLayout );
  		contentPane.add( screenViewsPanel );
+ 		contentPane.add( paramEditPanelPanel );
+ 		contentPane.add( previewControl );
 		contentPane.add( editorsPane );
 		contentPane.add( bottomRow );
 		
@@ -414,8 +416,8 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		ContentPaneLayout rclayout = new ContentPaneLayout();
 		realContentPanel.setLayout( rclayout );
 		realContentPanel.add( topLeftPanel );
-		realContentPanel.add( bottomLeftPanel );
-		realContentPanel.add( previewControl );
+		realContentPanel.add( flowPane );
+		realContentPanel.add( flowButtonsPane );
 		realContentPanel.add( contentPane );
 
 		//--- global keyactions.
@@ -495,25 +497,8 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	//----------------------------------------------- Editor change buttons.
 	public void actionPerformed( ActionEvent e )
 	{
-		if( e.getSource() == flowButton ) displayFlow();
 		if( e.getSource() == timelineButton ) displayTimeline();
 		if( e.getSource() == splineButton ) displaySpline();
-	}
-
-	public void displayFlow()
-	{
-		editorsPane.removeAll();
-		editorsPane.add( flowHolder );
-		
-		bottomRow.removeAll();
-		bottomRow.add( editSwitchButtons );
-		bottomRow.add( Box.createRigidArea(new Dimension( 10, 0 ) ) );
-		bottomRow.add( flowButtonsPane );
-		bottomRow.add( Box.createHorizontalGlue() );
-
-		if( !initializing ) bottomRow.validate();
-		if( !initializing ) editorsPane.validate();
-		if( !initializing ) repaint();
 	}
 
 	public void displayTimeline()

@@ -33,8 +33,6 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 import animator.phantom.controller.GUIComponents;
-import animator.phantom.controller.MemoryManager;
-import animator.phantom.controller.RenderModeController;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.project.Project;
 import animator.phantom.renderer.FileSource;

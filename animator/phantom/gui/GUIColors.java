@@ -40,7 +40,7 @@ public class GUIColors
 	public static Color flowGridColor = new Color( 52, 52, 52 );// new Color( 166, 166, 166 );
 	
 	//--- View Editor
-	public static Color viewEditorBGColor = new Color( 62, 62, 70 );// new Color( 166, 166, 166 );
+	public static Color viewEditorBGColor = new Color( 128, 128, 128 );// new Color( 166, 166, 166 );
 	
 	//--- FlowBox
 	public static Color BOX_textColor = Color.WHITE;

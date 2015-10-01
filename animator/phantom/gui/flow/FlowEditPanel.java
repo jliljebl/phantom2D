@@ -711,12 +711,14 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 			FlowBox selectedBox = lookUpGrid.getBox( e.getX(), e.getY() );
 			if( selectedBox != null )
 			{
+				System.out.println("wwwwffrr");
 				selectedBox.setSelected( true );
 				if( !selectedBoxes.contains( selectedBox ) )
 					selectedBoxes.addElement( selectedBox );
 				repaint();
 				ParamEditController.displayEditFrame( selectedBox.getImageOperation() );
 			}
+			System.out.println("eeegggee");
 		}
 	}
 	public void mouseEntered(MouseEvent e){}

@@ -247,7 +247,7 @@ public class UserActions
 		panel.add( area );
 		panel.add( larea );
 
-		int retVal = DialogUtils.showMultiInput( panel );
+		DialogUtils.showMultiInput( panel );
 
 		int p = parents.getSelectedIndex();
 		int ac = actions.getSelectedIndex();

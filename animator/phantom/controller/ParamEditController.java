@@ -32,12 +32,13 @@ public class ParamEditController
 	//--- Param edit window can handle null input.	
 	public static void displayEditFrame( ImageOperation iop )
 	{
-		if( paramEditFrame == null ) paramEditFrame = new ParamEditFrame();
+		//if( paramEditFrame == null ) paramEditFrame = new ParamEditFrame();
 		//--- These need to have own references
 		FlowController.setEditTargetNode( iop );
 		FilterStackController.setEditTarget( iop );
 		editTarget = iop;
 		paramEditFrame.display( iop );
+		System.out.println("eeee");
 	}
 	//--- Called when no iop selected.
 	public static void clearEditframe()

@@ -19,7 +19,6 @@ package animator.phantom.gui.modals.render;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -50,8 +49,6 @@ import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.gui.modals.MCheckBox;
 import animator.phantom.gui.modals.MComboBox;
 import animator.phantom.gui.modals.MFileSelect;
-import animator.phantom.gui.modals.MInputArea;
-import animator.phantom.gui.modals.MInputPanel;
 import animator.phantom.gui.modals.MTextField;
 import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 
@@ -69,7 +66,6 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 	private static final int RANGE_GAP = 40;
 	private static final int RANGE_PAD = 350;
 	private static final int WIDTH = 600;
-	private static final int SETTINGS_ROW_HEIGHT = 30;
 	private static final int SETTINGS_ROW_GAP = 8;
 	private static final int PROG_HEIGHT = 15;
 

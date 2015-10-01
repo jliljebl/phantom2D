@@ -56,14 +56,12 @@ import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 import animator.phantom.gui.view.editlayer.MergeEditLayer;
 import animator.phantom.gui.view.editlayer.ViewEditorLayer;
 import animator.phantom.plugin.PhantomPlugin;
-import animator.phantom.project.Bin;
 import animator.phantom.project.MovieFormat;
 import animator.phantom.project.Project;
 import animator.phantom.renderer.FileSequenceSource;
 import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
-//import animator.phantom.renderer.MovieSource;
 import animator.phantom.renderer.RenderFlow;
 import animator.phantom.renderer.RenderNode;
 import animator.phantom.renderer.imagemerge.BasicTwoMergeIOP;
@@ -75,7 +73,6 @@ import animator.phantom.renderer.param.Param;
 import animator.phantom.undo.PhantomUndoManager;
 import animator.phantom.xml.ImageOperationXML;
 import animator.phantom.xml.PhantomXML;
-//import animator.phantom.renderer.threedee.*;
 
 //--- Code for actions asked by the user with menu selections.
 public class MenuActions
@@ -727,8 +724,7 @@ public class MenuActions
 		MInputPanel panel = new MInputPanel( "Set View Editor Height" );
 		panel.add( area );
 
-		int retVal = DialogUtils.showMultiInput( panel, 450, 110 );
-		//if( retVal != DialogUtils.OK_OPTION ) return null;
+		DialogUtils.showMultiInput( panel, 450, 110 );
 	}
 	
 	public static void reloadSelected()

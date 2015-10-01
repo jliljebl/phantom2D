@@ -76,11 +76,7 @@ public class EditorsController
 		if( !GUIComponents.viewEditor.mouseActionUnderway() 
 			&& !timelineDragInProgress )
 		{
-			//int currentFrame = TimeLineController.getCurrentFrame();
-		
 			MovieRenderer movieRenderer = new MovieRenderer(  ProjectController.getFlow(), MovieRenderer.FULL_SIZE, 1 );
-			//movieRenderer.setRenderFrame( currentFrame );
-
 
 			if( viewMode == TARGET_VIEW )
 			{

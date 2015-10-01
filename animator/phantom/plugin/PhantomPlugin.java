@@ -284,16 +284,6 @@ public abstract class PhantomPlugin implements Comparable<Object>
 		innerInit( piop );
 		addMergeEditors();
 	}
-	/*
-	// --- init plugin type THREE_DEE
-	private void initThreeDee()
-	{
-		checkInit();
-		Plugin3DSourceIOP pliop = new Plugin3DSourceIOP( this );
-		innerInit( pliop );
-		addThreeDeeEditors();
-	}
-	*/
 	//--- Cretaes iop edit panel and 
 	private void innerInit( ImageOperation  iop )
 	{

@@ -75,10 +75,11 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 		p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
 		p2.add( render);
 		p2.add( stopPreviewRender );
+		p2.add( Box.createHorizontalGlue() );
 		
 		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
 		add( p2 );
-		add( normalizedTimeline );
+		//add( normalizedTimeline );
 	}
 
 	public void updatePlayButton()

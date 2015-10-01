@@ -267,11 +267,7 @@ public class EditorPersistance extends PhantomDocUtils
 	{
 		prefs.putValue( key, value );
 	}
-	/*
-	public static void setPref( String key, float value )
-	{
-		prefs.putValue( key, value );
-	}*/
+
 	//--- Pref get
 	public static int getIntPref( String key )
 	{
@@ -289,13 +285,6 @@ public class EditorPersistance extends PhantomDocUtils
 	{
 		return prefs.getBoolean( key );
 	}
-
-	/*
-	public static void restoreDefault( String key )
-	{
-		prefs.restoreDefault( key );
-	}
-	*/
 	
 	//--- recent files
 	public static Vector<File> getRecentProjects(){ return recent; }

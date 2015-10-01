@@ -30,6 +30,8 @@ import animator.phantom.controller.EditorPersistance;
 public class AnimatorFrameLayout implements LayoutManager
 {
 	private Component viewArea;
+	private Component paramEditFrame;
+	private Component previewControl;
 	private Component editorArea;
 	private Component bottomRow;
 	
@@ -37,40 +39,58 @@ public class AnimatorFrameLayout implements LayoutManager
 
 	public static int MID_Y = EditorPersistance.getIntPref( EditorPersistance.LAYOUT_MID ); //does not need to  be static like this
 	public static int VIEW_H = MID_Y;
+	public static int PARAM_EDIT_WIDTH = 300;
 	public static int MIDDLE_ROW_HEIGHT = 0;
 	public static int BOTTOM_ROW_HEIGHT = 44;
+	public static int PREVIEW_HEIGHT = 44;
 	
 	public AnimatorFrameLayout( 	Component viewArea,
+					Component paramEditFrame,
+					Component previewControl,
 					Component editorArea,
 					Component bottomRow)
 	{
 		this.viewArea = viewArea;
+		this.paramEditFrame = paramEditFrame;
+		this.previewControl = previewControl;
 		this.editorArea = editorArea;
 		this.bottomRow = bottomRow;
 	}
 
-    	public void layoutContainer(Container cont) 
+    public void layoutContainer(Container cont) 
 	{
 		synchronized (cont.getTreeLock()) 
 		{
 			containerSize = cont.getSize();
 
 			int comps = cont.getComponentCount();
+
 			for (int i = 0 ; i < comps ; i++) 
 			{
 				Component c = cont.getComponent(i);
 				if( c == viewArea ) layoutViewPane(c);
+				if( c == paramEditFrame ) layoutParamEditFrame(c);
+				if( c == previewControl ) layoutPreviewControl(c);
 				if( c == editorArea ) layoutEditorPane(c);
 				if( c == bottomRow ) layoutBottomRow(c);
 			}
 		}
-    	}
+    }
 
 	private void layoutViewPane( Component pane )
 	{
-		pane.setBounds( 0, 0, containerSize.width, VIEW_H );
+		pane.setBounds( 0, 0, containerSize.width - PARAM_EDIT_WIDTH, VIEW_H );
 	}
 
+	private void layoutParamEditFrame( Component pane )
+	{
+		pane.setBounds(  containerSize.width - PARAM_EDIT_WIDTH, 0, PARAM_EDIT_WIDTH, VIEW_H - PREVIEW_HEIGHT);
+	}
+	private void layoutPreviewControl( Component pane )
+	{
+		pane.setBounds(  containerSize.width - PARAM_EDIT_WIDTH, VIEW_H - PREVIEW_HEIGHT, PARAM_EDIT_WIDTH, PREVIEW_HEIGHT);
+	}
+	
 	private void layoutEditorPane( Component pane )
 	{
 		pane.setBounds( 0, VIEW_H + MIDDLE_ROW_HEIGHT, containerSize.width - 6, containerSize.height - MID_Y - MIDDLE_ROW_HEIGHT - BOTTOM_ROW_HEIGHT);

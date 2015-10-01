@@ -27,16 +27,16 @@ import java.awt.Toolkit;
 
 public class ContentPaneLayout implements LayoutManager
 {
-	public static int LEFT_WIDTH = 326;
-	private static int PREVIEW_HEIGHT = 69;
-
+	public static int LEFT_WIDTH = 500;
+	private static int PREVIEW_HEIGHT = 44;
+	public static int MEDIA_PANEL_HEIGHT = 200;
 	
 	//--- Constructor
 	public ContentPaneLayout(){}
 
 	//--- Layout is performed here.
-	//--- NOTE: This all depends on that components are added into container in order BigEditor, SwitchButtons, ActionButtons.
-    	public void layoutContainer(Container cont) 
+	//--- NOTE: This all depends on that components are added into container in case order.
+    public void layoutContainer(Container cont) 
 	{
 		synchronized ( cont.getTreeLock() )
 		{
@@ -50,29 +50,30 @@ public class ContentPaneLayout implements LayoutManager
 					//--- Media
 					case 0:
 						c.setBounds(	0,
-								0,
-								LEFT_WIDTH,
-								(containerSize.height - PREVIEW_HEIGHT ) / 2 );
+										0,
+										LEFT_WIDTH,
+										MEDIA_PANEL_HEIGHT );
 						break;
-					//--- Param edit
+					//--- Flow view
 					case 1:
-						c.setBounds( 	0,
-								(containerSize.height - PREVIEW_HEIGHT) / 2 + 1,
-								LEFT_WIDTH,
-								containerSize.height - (containerSize.height  - PREVIEW_HEIGHT )/ 2 - PREVIEW_HEIGHT );
+						c.setBounds( 	6,
+										MEDIA_PANEL_HEIGHT,
+										LEFT_WIDTH - 6,
+										containerSize.height - MEDIA_PANEL_HEIGHT - PREVIEW_HEIGHT - 2 );
 						break;
-					case 2:
+					//--- Preview panel
+					case 2: 
 						c.setBounds( 	0,
-								(containerSize.height - PREVIEW_HEIGHT),
-								LEFT_WIDTH,
-								PREVIEW_HEIGHT );
+										(containerSize.height - PREVIEW_HEIGHT),
+										LEFT_WIDTH,
+										PREVIEW_HEIGHT );
 						break;
 					//--- Big editors
 					case 3:
 						c.setBounds( 	LEFT_WIDTH + 1,
-								0,
-								containerSize.width - LEFT_WIDTH - 1,
-								containerSize.height );
+										0,
+										containerSize.width - LEFT_WIDTH - 1,
+										containerSize.height );
 		
 					default:
 						break;
@@ -81,7 +82,7 @@ public class ContentPaneLayout implements LayoutManager
 		
 			}
 		}
-    	}
+    }
 
 	//---------------------------------------------------- LAYOUT MANAGER METHODS
 	//--- noop
@@ -93,6 +94,5 @@ public class ContentPaneLayout implements LayoutManager
 		return Toolkit.getDefaultToolkit().getScreenSize();
 	}
 	public Dimension minimumLayoutSize(Container cont ){ return new Dimension( 1152, 768 ); }
-
 
 }//end class

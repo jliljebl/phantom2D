@@ -67,11 +67,15 @@ public class ParamEditFrame extends JPanel
 	{
 		removeAll();
 		if( editIOP == null )
+		{
 			 add( emptyPanel );
+		}
 		else
 		{
 			JPanel editPanel = editIOP.reGetEditFrame();
+			
 			add( editPanel );
+			editPanel.setVisible( true );
 		}
 
 		validate();

@@ -25,9 +25,9 @@ import animator.phantom.renderer.param.AnimationKeyFrame;
 
 
 /*
-A bezier curve between two AnimationKeyFrame objects.
+A Bezier curve between two AnimationKeyFrame objects.
 
-All bezier values are expressed using following kind of bezier curve. 
+All Bezier values are expressed using following kind of bezier curve. 
 Because x == time and this is used only for animated parameters.
 
 

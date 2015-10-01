@@ -164,7 +164,7 @@ public class BinsAreaPanel extends JPanel implements ActionListener
 		binPanel.setPreferredSize( new Dimension( BINPANEL_WIDTH, BINPANEL_HEIGHT ));
 		binPanel.setMaximumSize( new Dimension( BINPANEL_WIDTH, BINPANEL_HEIGHT ));
 
-		add( holder );
+		//add( holder );
 		add( buttonsPanel );
 		add( binPanel );
 
