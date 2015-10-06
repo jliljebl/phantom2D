@@ -41,7 +41,7 @@ public class WriteRenderThread extends Thread
 		this.start = start;
 		this.end = end;
 		this.frameName = frameName;
-		this.targetFolder = RenderModeController.getTargetFolder();
+		this.targetFolder = RenderModeController.getWriteFolder();
 		this.zeroPadDigits = RenderModeController.getZeroPadding();
 	}
 

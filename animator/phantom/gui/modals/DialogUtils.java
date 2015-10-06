@@ -328,9 +328,11 @@ public class DialogUtils
 	
 		int selectedValue = showMultiInput( panel, 500, 110 );
 		
-		System.out.println(selectedValue);
-
-		return -1;	
+		if ( selectedValue == 1) //OK button
+		{
+			return slider.getIntValue();
+		}
+		else return -1;	
 	}
 
 	

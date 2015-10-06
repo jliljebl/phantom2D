@@ -96,6 +96,7 @@ public class MFileSelect extends MInputField implements ActionListener
 
 	private File getFile()
 	{
+		//--- Folder select
 		if( type == JFileChooser.DIRECTORIES_ONLY )
 		{
 			JFileChooser fileChoose = new JFileChooser();

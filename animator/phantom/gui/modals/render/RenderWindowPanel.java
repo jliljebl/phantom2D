@@ -35,6 +35,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -84,12 +85,12 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 	private JLabel elapsed = new JLabel("");
 	private JLabel proj = new JLabel();
 
-	private JTextField from = new JTextField();
-	private JTextField to = new JTextField();
 	private JLabel fromTC = new JLabel();
 	private JLabel toTC = new JLabel();
 	private JLabel lengthFrames = new JLabel();
 
+	private MFileSelect tfs;
+	
 	public PHProgressBar pbar = new PHProgressBar();
 
 	private int framesCount;
@@ -136,13 +137,14 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		setOut.addActionListener( this );
 		
 		File targetFolder = RenderModeController.getWriteFolder();
-		MFileSelect tfs = new MFileSelect( "Render Output Folder", "Select folder for frames", 25, targetFolder, null );
+		tfs = new MFileSelect( "Render Output Folder", "Select folder for frames", 25, targetFolder, null );
 		tfs.setType( JFileChooser.DIRECTORIES_ONLY );
 		
 		String fname = RenderModeController.getFrameName();
 		if( fname == null ) fname = "frame";
 		MTextField framename = new MTextField( "Frame name", 75, fname );
-		
+		framename.setTextFieldSize( 160 );
+
 		String[] padOtps = { "3 digits","4 digits","5 digits", "no padding" };
 		MComboBox pad = new MComboBox( "Zero padding", 75, padOtps );		
 		MCheckBox overWrite = new MCheckBox( "Overwrite without warning", true );
@@ -463,14 +465,8 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 	{
 		if( e.getSource() == render )
 		{
-			/*
-			if( CodecController.encProg == null &&
-			    CodecController.movieOn )
-			{
-				UserActions.displayNoEncoderInfo();
-			}
-
-			if( RenderModeController.getTargetFolder() == null )
+			File targetFolder = tfs.getSelectedFile();
+			if( targetFolder == null )
 			{
 				String[] options = { "Ok" };
 				String[] bLines = { "No folder selected for frames" };
@@ -478,43 +474,11 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 				DialogUtils.showTwoTextStyleDialog( JOptionPane.WARNING_MESSAGE, "Render info", options, bLines, tLines, window );
 				return;
 			}
+			RenderModeController.setWriteFolder( targetFolder );
 
-			int start = parseTCString( from.getText() );
-			int end = parseTCString( to.getText() );
-			if( start < 0 || end < 0 )
-			{
-				String[] text = { "There was error parsing timecode values in FROM or TO input boxes. Use format MM:SS:FF" };
-				DialogUtils.showTwoStyleInfoForParent( "Render Info", text, window, DialogUtils.WARNING_MESSAGE );
-				return;
-			}
-
-			if( start >= end )
-			{
-				String[] text = { "FROM timecode value has to be earlier then TO timecode value." };
-				DialogUtils.showTwoStyleInfoForParent( "Render Info", text, window, DialogUtils.WARNING_MESSAGE );
-				return;
-			}
-
-			if( end >  ProjectController.getLength() )
-			{
-				String[] text = { "TO timecode value is later then timeline's last frame." };
-				DialogUtils.showTwoStyleInfoForParent( "Render Info", text, window, DialogUtils.WARNING_MESSAGE );
-				return;
-			}
-			if( CodecController.movieOn && (CodecController.movieFileName == null || CodecController.movieFileName.length() == 0 ))
-			{
-				String[] text = { "Movie file name entry is empty. Give proper name for movie." };
-				DialogUtils.showTwoStyleInfoForParent( "Render Info", text, window, DialogUtils.WARNING_MESSAGE );
-				return;
-			}
-			*/
-			
-			int start = parseTCString( from.getText() );
-			int end = parseTCString( to.getText() );
-			
+			int start = RenderModeController.writeRangeStart;
+			int end = RenderModeController.writeRangeEnd;		
 			int fps =  ProjectController.getFramesPerSecond();
-			from.setText(  TimeLineDisplayPanel.parseTimeCodeString( start, 6, fps ));
-			to.setText(  TimeLineDisplayPanel.parseTimeCodeString( end, 6, fps ));
 
 			RenderModeController.setWriteRange( start, end );
 			RenderModeController.startWriteRender();
@@ -526,21 +490,32 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		if( e.getSource() == setIn )
 		{
 			DialogUtils.setDialogParent( window );
-			
-			DialogUtils.showFrameSelectDialog("Set Render Start Frame", "Render start frame:", 0, 0, 125);
+			int startFrame = DialogUtils.showFrameSelectDialog("Set Render Start Frame", "Render start frame:", RenderModeController.writeRangeStart, 0,  RenderModeController.writeRangeEnd);
 			
 			DialogUtils.setDialogParent( null );
-			repaint();
+			if ( startFrame != -1)
+			{
+				RenderModeController.writeRangeStart = startFrame;
+				updateRangeValuesGUI();
+				repaint();
+			}
 		}
 
 		if( e.getSource() == setOut )
 		{
 			DialogUtils.setDialogParent( window );
 			
-			DialogUtils.showFrameSelectDialog("Set Render End Frame", "Render end frame:", 0, 0, 125);
+			int endFrame = DialogUtils.showFrameSelectDialog("Set Render End Frame", "Render end frame:", RenderModeController.writeRangeEnd, RenderModeController.writeRangeStart,  ProjectController.getLength());
+
+			if ( endFrame != -1)
+			{
+				RenderModeController.writeRangeEnd = endFrame;
+				updateRangeValuesGUI();
+				repaint();
+			}
 			
 			DialogUtils.setDialogParent( null );
-			repaint();
+
 		}
 		
 		if( e.getSource() == stop )
@@ -557,4 +532,13 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		}
 	}
 
+	private void updateRangeValuesGUI()
+	{
+		int fps =  ProjectController.getFramesPerSecond();
+		fromTC.setText( TimeLineDisplayPanel.parseTimeCodeString( RenderModeController.writeRangeStart, 6, fps ));
+		toTC.setText( TimeLineDisplayPanel.parseTimeCodeString( RenderModeController.writeRangeEnd, 6, fps ));
+		lengthFrames.setText( Integer.toString(RenderModeController.writeRangeEnd - RenderModeController.writeRangeStart ) + " frames");
+		repaint();
+	}
+	
 }//end class

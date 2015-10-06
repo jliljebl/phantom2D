@@ -107,12 +107,6 @@ public class RenderModeController
 	public static void setWriteFolder( File folder ){ targetFolder = folder; }
 	public static File getWriteFolder(){ return targetFolder; }
 
-	public static File getTargetFolder()
-	{
-		return null;
-		//return GUIComponents.renderArea.tfs.getSelectedFile(); 
-	}
-
 	public static void setZeroPadding( int val ){ zeroPadDigits = val; }
 	public static int getZeroPadding(){ return zeroPadDigits; }
 
