@@ -58,6 +58,7 @@ public class ShapePlugin extends PhantomPlugin
 	public ShapePlugin()
 	{
 		initPlugin( FULL_SCREEN_MOVING_SOURCE );
+		//getIOP().setCenterable();
 	}
 
 	public void buildDataModel()
@@ -132,7 +133,7 @@ public class ShapePlugin extends PhantomPlugin
 
 		shape.draw( g, new Rectangle( 0, 0, width,  height ));
 	}
-
+	
 	public ViewEditorLayer getEditorLayer()
 	{
  		return new ShapeEditLayer( this );

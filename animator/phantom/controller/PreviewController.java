@@ -68,6 +68,16 @@ public class PreviewController
 		startFrame = -1;
 		endFrame = -1;//exclusive
 	}
+
+	public static void clear()
+	{
+		locked = false;
+		frames = null;
+		singleFrame = null;
+		startFrame = -1;
+		endFrame = -1;//exclusive
+	}
+	
 	//------------------------------------------------ PARAMS INTERFACE
 	//--- Locking
 	public static void setLocked( boolean locked_ ){ locked = locked_; }
@@ -134,7 +144,6 @@ public class PreviewController
 
 		movieRenderer = new MovieRenderer(  ProjectController.getFlow(), renderSize, 1 );
 
-		//RenderModeController.setWriteRender( false );//--- this is not write render
 		RenderModeController.setGlobalRenderMode( quality );
 
 		BufferedImage frameImg = movieRenderer.renderSingleFrame( currentFrame );

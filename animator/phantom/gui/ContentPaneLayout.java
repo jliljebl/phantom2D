@@ -28,7 +28,7 @@ import java.awt.Toolkit;
 public class ContentPaneLayout implements LayoutManager
 {
 	public static int LEFT_WIDTH = 500;
-	private static int PREVIEW_HEIGHT = 44;
+	private static int FLOW_BUTTONS_HEIGHT = 44;
 	public static int MEDIA_PANEL_HEIGHT = 200;
 	
 	//--- Constructor
@@ -59,14 +59,14 @@ public class ContentPaneLayout implements LayoutManager
 						c.setBounds( 	6,
 										MEDIA_PANEL_HEIGHT,
 										LEFT_WIDTH - 6,
-										containerSize.height - MEDIA_PANEL_HEIGHT - PREVIEW_HEIGHT - 2 );
+										containerSize.height - MEDIA_PANEL_HEIGHT - FLOW_BUTTONS_HEIGHT - 2 );
 						break;
-					//--- Preview panel
+					//--- Flow buttons
 					case 2: 
 						c.setBounds( 	0,
-										(containerSize.height - PREVIEW_HEIGHT),
+										(containerSize.height - FLOW_BUTTONS_HEIGHT),
 										LEFT_WIDTH,
-										PREVIEW_HEIGHT );
+										FLOW_BUTTONS_HEIGHT );
 						break;
 					//--- Big editors
 					case 3:

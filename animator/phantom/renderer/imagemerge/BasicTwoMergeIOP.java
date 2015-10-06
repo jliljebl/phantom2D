@@ -49,6 +49,7 @@ public class BasicTwoMergeIOP extends RenderModeIOP
 		registerParameter( useOverRule );
 		setIOPToHaveSwitches();
 		setMaskInput( false );
+		setCenterable();
 	}
 
 	public ParamEditPanel getEditPanelInstance()

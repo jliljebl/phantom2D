@@ -39,7 +39,6 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
-import animator.phantom.controller.Application;
 import animator.phantom.controller.FlowController;
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.KeyActionController;
@@ -62,7 +61,7 @@ public class ListFileSourcePanel extends JPanel implements MouseListener, Action
 	private  JMenuItem deleteFileSource;
 
 	private static final int HEIGHT = 22;
-	private static final int WIDTH = Application.SMALL_WINDOW_WIDTH - 40;
+	private static final int WIDTH = ContentPaneLayout.LEFT_WIDTH - 36;
 	private static final Dimension COMP_SIZE = new Dimension( WIDTH, HEIGHT );
 	private static final Dimension NAME_SIZE = new Dimension( WIDTH - 35, HEIGHT );
 	private static final Dimension PAD = new Dimension( 5, 0);

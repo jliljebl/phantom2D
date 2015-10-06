@@ -104,7 +104,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	private JPanel bottomRow;
 	private PreViewUpdater previewUpdater;
 
-	private RenderAreaPanel renderArea;
+	//private RenderAreaPanel renderArea;
 	private BinsAreaPanel binAreaPanel;
 	private JPanel topLeftHolder;
 	private JPanel paramEditHolder;
@@ -169,7 +169,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 
 		//------------------------------ media panel
 		binAreaPanel = new BinsAreaPanel( ProjectController.getBins(), this );
-		renderArea = new RenderAreaPanel();
 
 		topLeftHolder = new JPanel();
 		topLeftHolder.setLayout(new BoxLayout( topLeftHolder, BoxLayout.Y_AXIS));
@@ -237,7 +236,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		screenViewsPanel.add( viewPanel );
 		screenViewsPanel.add( buttonRowHolder );
 
-		//-------------------------------------------- bottom left panel
+		//-------------------------------------------- param edit
 		editFrame = new ParamEditFrame();
 		nodesPanel = new NodesPanel();
 		
@@ -388,11 +387,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		//------------------------------------------- bottom row
 		bottomRow = new JPanel();
 		bottomRow.setLayout(new BoxLayout( bottomRow, BoxLayout.X_AXIS));
-		bottomRow.add( editSwitchButtons );
-		bottomRow.add( Box.createRigidArea(new Dimension( 10, 0 ) ) );
-		bottomRow.add( tlineButtonsPane );
-		bottomRow.add( Box.createHorizontalGlue() );
-		
+	
 		//------------------------------------------------------------------- build all
 		contentPane = new JPanel();
 		
@@ -474,7 +469,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		//GUIComponents.clipVertSlider = clipVSlider;
 		GUIComponents.normTlineDisp = normTline;
 		GUIComponents.nodesPanel = nodesPanel;
-		GUIComponents.renderArea = renderArea;
+		//GUIComponents.renderArea = renderArea;
 		GUIComponents.tlineControls = tlineControls;
 		//--- These needs init
 		TimeLineController.initClipEditorGUI();
@@ -487,6 +482,8 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		setDefaultCloseOperation( WindowConstants.DO_NOTHING_ON_CLOSE );
 		setExtendedState( getExtendedState()|JFrame.MAXIMIZED_BOTH );
 
+		displayTimeline();
+		 
 		AppUtils.printTitle( "INIT GUI DONE!" );
 		initializing = false;
 

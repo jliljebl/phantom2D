@@ -73,7 +73,7 @@ public class BinsAreaPanel extends JPanel implements ActionListener
 	//--- GUI parameters
 	private static final int SCROLL_WIDTH_INSET = 0;
 	private static final int SCROLL_HEIGHT_INSET = 0;
-	private static final int BINPANEL_WIDTH = 320;
+	private static final int BINPANEL_WIDTH = ContentPaneLayout.LEFT_WIDTH;
 	private static int BINPANEL_HEIGHT;
 	private static final int BINPANEL_HEIGHT_PAD = 121;
  	private static final int INFO_HEIGHT = 45;

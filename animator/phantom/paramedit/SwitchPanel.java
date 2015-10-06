@@ -45,7 +45,6 @@ import animator.phantom.gui.GUIResources;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.SwitchData;
 import animator.phantom.renderer.imagemerge.BasicTwoMergeIOP;
-// anchor centering needs stuff from here 
 
 /**
 * A GUI component for turning nodes on / off, setting render interpolations, parenting, looping and othet functionality.
@@ -158,7 +157,8 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 		add( p6 );
 		add( Box.createRigidArea( new Dimension(20,0 ) ));
 		add( parentButton );
-		add( centerAnchor );
+		if (iop.getCenterable() == true )
+			add( centerAnchor );
 		add( filterStackButton );
 		add( Box.createHorizontalGlue() );
 
@@ -221,16 +221,21 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 		if( source == bicubic )  switches.interpolation = SwitchData.BICUBIC;
 		if( source == centerAnchor )
 		{
-			int width;
-			int height;
-			if( iop instanceof BasicTwoMergeIOP )
+			int width = 100;
+			int height = 100;
+			if( iop.getFileSource() == null )
 			{
-				Rectangle r = ((BasicTwoMergeIOP) iop).getImageSize();
-				width = r.width;
-				height = r.height;
+				if ( iop instanceof BasicTwoMergeIOP )
+				{
+					Rectangle r = ((BasicTwoMergeIOP) iop).getImageSize();
+					if (r == null ) return;//merge is not defined
+					width = r.width;
+					height = r.height;
+				}
 			}
 			else
 			{
+
 				width = iop.getFileSource().getImageWidth();
 				height = iop.getFileSource().getImageHeight();
 			}

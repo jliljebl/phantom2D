@@ -54,9 +54,9 @@ public class TimeLineDisplayPanel extends JPanel implements MouseListener, Mouse
 	private static final int MIN_PIXELS_FOR_SECOND_STEP = 50;
 	
 	private static final Color FRAME_POINTER_COLOR = new Color( 184, 51, 51 );
-	private static final Color PREVIEW_AREA_COLOR = new Color( 65,160,60 );
+	private static final Color SCALE_TICKS_COLOR = new Color( 158, 163, 167 );
+	private static final Color PREVIEW_AREA_COLOR = new Color( 92, 111, 190 );
 
-	//--- Prerendered images for timelines in different scales and draw params.
 	private static final int TIMECODE_Y = 17 ;
 	private static final Font TIME_CODE_FONT = new Font("Monospaced", Font.PLAIN, 12 );
 
@@ -117,13 +117,12 @@ public class TimeLineDisplayPanel extends JPanel implements MouseListener, Mouse
 	//----------------------------------------- GRAPHICS
 	public void paintComponent( Graphics g )
 	{
-
 		Dimension d = getSize();
 	 
 		float pixPerFrame = TimeLineController.getCurrentScaleMultiplier();
 		int timeLinePos = TimeLineController.getTimeLinePosition();
 
-		g.setColor( Color.white );
+		g.setColor( GUIColors.darkBgColor );
 		g.fillRect( 0, 0, d.width, d.height );
 
 		Graphics2D g2 = (Graphics2D) g;
@@ -146,7 +145,7 @@ public class TimeLineDisplayPanel extends JPanel implements MouseListener, Mouse
 					pixPerFrame );
 
 		g.fillRect(  framePointerX - 1, 0, 5, CURRENT_FRAME_HEIGHT - 1 );
-		g.setColor( Color.white );
+		g.setColor( SCALE_TICKS_COLOR );
 		g.drawLine( framePointerX + 1 , 0, framePointerX + 1 , CURRENT_FRAME_HEIGHT - 1 );
 	}
 
@@ -159,16 +158,9 @@ public class TimeLineDisplayPanel extends JPanel implements MouseListener, Mouse
 		int movieLength = ProjectController.getLength();
 
 		int xOffset = Math.round( pixPerFrame * timeLinePos );
-		
-		//--- Length of required scale strip in pixels
-		int scaleLength = Math.round( movieLength * pixPerFrame );
-		
-		//--- Paint background
-		g.setColor( GUIColors.timeLineScaleColor );//new Color( 236, 240,250) 
-		g.fillRect( 0, 0, scaleLength, 22 );
 
 		//--- Draw frame marks
-		g.setColor( Color.black );
+		g.setColor( SCALE_TICKS_COLOR );
 		drawFrameMarks( g, pixPerFrame, xOffset, movieLength );
 		drawSecondMarks( g, pixPerFrame, xOffset, movieLength );
 
@@ -198,7 +190,6 @@ public class TimeLineDisplayPanel extends JPanel implements MouseListener, Mouse
 	//--- Draws desired size mark for each second
 	private void drawSecondMarks( Graphics2D g, float pixelsPerFrame, int xOff, int framesInMovie )
 	{
-	
 		int mark_height = BIG_MARK_HEIGHT;
 	
 		Line2D.Float line = new Line2D.Float();

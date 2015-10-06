@@ -112,7 +112,7 @@ public class GUIResources
 // 	public static String mergeQButton = resourcePath + "mergeQButton.png";
 	public static String viewTargetInFlow = resourcePath + "viewTargetInFlow.png";
 	public static String editTargetInFlow = resourcePath + "editTargetInFlow.png";
-	public static String editTargetInFlowDark = resourcePath + "editTargetInFlowDark.png";
+	//public static String editTargetInFlowDark = resourcePath + "editTargetInFlowDark.png";
 	//public static String renameInFlow = resourcePath + "renameInFlow.png";
 	public static String showGrid = resourcePath + "showGrid.png";
 
@@ -221,6 +221,7 @@ public class GUIResources
 	//public static String tLock = resourcePath + "tLock.png";
 	//public static String tLockPressed = resourcePath + "tLockPressed.png";
 	public static String stopPreviewRender = resourcePath + "stopPreviewRender.png";
+	public static String trashPreviewRender = resourcePath + "trashPreview.png";
 	public static String noPreview = resourcePath +	"noPreview.png";
 	public static String lockIcon = resourcePath + "lockIcon.png";
 

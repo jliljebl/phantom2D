@@ -39,7 +39,7 @@ public class AnimatorFrameLayout implements LayoutManager
 
 	public static int MID_Y = EditorPersistance.getIntPref( EditorPersistance.LAYOUT_MID ); //does not need to  be static like this
 	public static int VIEW_H = MID_Y;
-	public static int PARAM_EDIT_WIDTH = 300;
+	public static int PARAM_EDIT_WIDTH = 350;
 	public static int MIDDLE_ROW_HEIGHT = 0;
 	public static int BOTTOM_ROW_HEIGHT = 44;
 	public static int PREVIEW_HEIGHT = 44;

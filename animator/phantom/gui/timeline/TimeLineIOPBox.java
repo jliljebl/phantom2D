@@ -43,7 +43,7 @@ public class TimeLineIOPBox
 	private static final int EDIT_DRAW_Y = 4;
 
 	private static final BufferedImage lockIcon = GUIResources.getResourceBufferedImage( GUIResources.lockIcon );
-	private static final BufferedImage editIcon = GUIResources.getResourceBufferedImage( GUIResources.editTargetInFlowDark );
+	private static final BufferedImage editIcon = GUIResources.getResourceBufferedImage( GUIResources.editTargetInFlow );
 
 	//--- Font
 	private static Font boxFont = GUIResources.EDITOR_COLUMN_ITEM_FONT;

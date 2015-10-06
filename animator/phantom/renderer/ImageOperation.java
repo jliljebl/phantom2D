@@ -161,7 +161,9 @@ public abstract class ImageOperation implements Comparable<Object>
 
 	//--- If true only visible and motionblur checkboxes displayed
 	private boolean reducedSwitches = false;
-
+	//--- if true, a button enabling centering anchor point is presented to user
+	private boolean centerable = false;
+	
 	//--- First frame of ImageOperation in the timeline.
 	protected int beginFrame = 0;
 	//--- Maximum length of program. Is discarded if FREE_LENGTH. Default value not meaningfull.
@@ -365,7 +367,8 @@ public abstract class ImageOperation implements Comparable<Object>
 		switches = new SwitchData();
 		reducedSwitches = useReducedSwitchesDisplay;
 	}
-
+	public void setCenterable(){ centerable = true; }
+	public boolean getCenterable(){ return centerable; }
 	public SwitchData getSwitches(){ return switches; }
 	//--- 
 	public Vector<KeyFrameParam> getKeyFrameParams(){ return kfParams; }

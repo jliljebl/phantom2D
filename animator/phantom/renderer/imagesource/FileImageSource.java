@@ -53,6 +53,7 @@ public class FileImageSource extends MovingBlendedIOP
 		registerMovingBlendParams();
 		setAsSource();
 		setIOPToHaveSwitches();
+		setCenterable();
 	}
 	
 	public ParamEditPanel getEditPanelInstance()

@@ -44,6 +44,7 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 	private JButton render = new JButton( GUIResources.getIcon( GUIResources.renderPreview));
 	private JToggleButton loop = new JToggleButton( GUIResources.getIcon( GUIResources.loop ));
 	private JButton stopPreviewRender = new JButton( GUIResources.getIcon( GUIResources.stopPreviewRender ));
+	private JButton trashPreviewRender = new JButton( GUIResources.getIcon( GUIResources.trashPreviewRender ));
 	private ImageIcon playIcon =  GUIResources.getIcon( GUIResources.play );
 	private ImageIcon pauseIcon =  GUIResources.getIcon( GUIResources.pause );
 	private JButton playStop = new JButton( playIcon );
@@ -54,6 +55,7 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 	{
 		GUIResources.prepareMediumButton( loop, this, "Loop preview");
 		GUIResources.prepareMediumButton( stopPreviewRender, this, "Stop Preview Render");
+		GUIResources.prepareMediumButton( trashPreviewRender, this, "Clear Preview");
 		GUIResources.prepareMediumButton( toPreviousFrame, this, "Previous frame" );
 		GUIResources.prepareMediumButton( playStop, this, "Previous frame" );
 		GUIResources.prepareMediumButton( toNextFrame, this, "Next frame" );
@@ -75,6 +77,8 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 		p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
 		p2.add( render);
 		p2.add( stopPreviewRender );
+		p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
+		p2.add( trashPreviewRender );
 		p2.add( Box.createHorizontalGlue() );
 		
 		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
@@ -104,6 +108,11 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 		if( e.getSource() == stopPreviewRender )
 		{
 			PreviewController.abortPreviewRender();
+		}
+		if( e.getSource() == trashPreviewRender )
+		{
+			PreviewController.clear();
+			UpdateController.updateCurrentFrameDisplayers( false );
 		}
 		if( PreviewController.getIsLocked() )return;
 		//--- navigate 
