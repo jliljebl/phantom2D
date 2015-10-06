@@ -21,6 +21,7 @@ package animator.phantom.gui.modals.render;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -31,12 +32,15 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import animator.phantom.controller.MenuActions;
 import animator.phantom.controller.ProjectController;
@@ -69,19 +73,22 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 	private static final int SETTINGS_ROW_GAP = 8;
 	private static final int PROG_HEIGHT = 15;
 
-	private JButton setFrameSettins;
-	private JButton setRenderSettins;
+	private JButton setIn;
+	private JButton setOut;
 	public JButton render;//--- public: state set from WriteRenderThread
 	public JButton stop;//--- public: state set from WriteRenderThread
 	public JButton exit;//--- public: state set from WriteRenderThread
 
 	private JLabel lastTime = new JLabel("");
-	private JLabel rendering = new JLabel("Not rendering");
+	private JLabel rendering = new JLabel("Not started");
 	private JLabel elapsed = new JLabel("");
 	private JLabel proj = new JLabel();
 
 	private JTextField from = new JTextField();
 	private JTextField to = new JTextField();
+	private JLabel fromTC = new JLabel();
+	private JLabel toTC = new JLabel();
+	private JLabel lengthFrames = new JLabel();
 
 	public PHProgressBar pbar = new PHProgressBar();
 
@@ -94,27 +101,26 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 	{
 		this.window = window;
 
+		//--- build components
 		render = PHButtonFactory.getButton( "Render" );//--- public: state set from WriteRenderThread
 		stop = PHButtonFactory.getButton( "Stop" );//--- public: state set from WriteRenderThread
 		exit = PHButtonFactory.getButton( "Exit" );//--- public: state set from WriteRenderThread
-
-		setFrameSettins =  PHButtonFactory.getButton( "Set" );
-		setRenderSettins = PHButtonFactory.getButton( "Set" );
-
-		proj.setText( "Project: " + ProjectController.getName() );
+		setIn =  PHButtonFactory.getButton( "Set" );
+		setOut = PHButtonFactory.getButton( "Set" );
 
 		int fps =  ProjectController.getFramesPerSecond();
-		from.setText(  TimeLineDisplayPanel.parseTimeCodeString( RenderModeController.writeRangeStart, 6, fps ));
-		to.setText(  TimeLineDisplayPanel.parseTimeCodeString( RenderModeController.writeRangeEnd, 6, fps ));
-
+		fromTC.setText( TimeLineDisplayPanel.parseTimeCodeString( RenderModeController.writeRangeStart, 6, fps ));
+		toTC.setText( TimeLineDisplayPanel.parseTimeCodeString( RenderModeController.writeRangeEnd, 6, fps ));
+		lengthFrames.setText( Integer.toString(RenderModeController.writeRangeEnd - RenderModeController.writeRangeStart ) + " frames");
+		
 		stop.setEnabled( false );
 
 		lastTime.setHorizontalAlignment( SwingConstants.LEFT );
 		rendering.setHorizontalAlignment( SwingConstants.LEFT );
 		elapsed.setHorizontalAlignment( SwingConstants.LEFT );
 
-		setFrameSettins.setFont( GUIResources.BASIC_FONT_12 );
-		setRenderSettins.setFont( GUIResources.BASIC_FONT_12 );
+		setIn.setFont( GUIResources.BASIC_FONT_12 );
+		setOut.setFont( GUIResources.BASIC_FONT_12 );
 		render.setFont( GUIResources.BASIC_FONT_12 );
 		stop.setFont( GUIResources.BASIC_FONT_12 );
 		exit.setFont( GUIResources.BASIC_FONT_12 );
@@ -126,11 +132,9 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		render.addActionListener( this );
 		stop.addActionListener( this );
 		exit.addActionListener( this );
-		setFrameSettins.addActionListener( this );
-		setRenderSettins.addActionListener( this );
-
-		//--- Save settings
-
+		setIn.addActionListener( this );
+		setOut.addActionListener( this );
+		
 		File targetFolder = RenderModeController.getWriteFolder();
 		MFileSelect tfs = new MFileSelect( "Render Output Folder", "Select folder for frames", 25, targetFolder, null );
 		tfs.setType( JFileChooser.DIRECTORIES_ONLY );
@@ -140,23 +144,10 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		MTextField framename = new MTextField( "Frame name", 75, fname );
 		
 		String[] padOtps = { "3 digits","4 digits","5 digits", "no padding" };
-		MComboBox pad = new MComboBox( "Zero padding", 75, padOtps );
-		
+		MComboBox pad = new MComboBox( "Zero padding", 75, padOtps );		
 		MCheckBox overWrite = new MCheckBox( "Overwrite without warning", true );
 
-
-		//--- Set render values.
-		/*
-		//RenderModeController.setOutFrameType( (String) outputFileType.getValue() );
-		RenderModeController.setFrameName( framename.getStringValue() );
-		RenderModeController.setWriteFolder( tfs.getSelectedFile() );
-		int zpad = pad.getSelectedIndex();
-		if( zpad == 3 ) zpad = -1;
-		else zpad = zpad + 3;
-		RenderModeController.setZeroPadding( zpad );
-		*/
-
-
+		//--- build panels and layout
 		JPanel setpanel = new JPanel();
 		setpanel.setLayout( new BoxLayout( setpanel, BoxLayout.Y_AXIS) );
 		setpanel.add( Box.createRigidArea( new Dimension(0,10) ) );
@@ -167,11 +158,7 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		setpanel.add( pad );
 		setpanel.add( Box.createRigidArea( new Dimension(0,SETTINGS_ROW_GAP) ) );
 		setpanel.add( overWrite );
-
-		Border b1 = BorderFactory.createLineBorder( GUIColors.frameBorder );
-		Border b2 = BorderFactory.createTitledBorder( b1, "Settings");
-		Border b3 = BorderFactory.createCompoundBorder( b2, BorderFactory.createEmptyBorder( 0, BORDER_GAP, BORDER_GAP, BORDER_GAP) );	
-		setpanel.setBorder( b3 );
+		setBorder( "Frame Output", setpanel );
 
 		JPanel top = new JPanel();
 		top.setLayout( new BoxLayout( top, BoxLayout.X_AXIS) );
@@ -185,25 +172,31 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		rlfrom.setFont( GUIResources.BASIC_FONT_12 );
 		rangePanel.add( rlfrom );
 		rangePanel.add( Box.createRigidArea( new Dimension(SET_BUTTONS_GAP, 0) ) );
-		rangePanel.add( from );
+		rangePanel.add( fromTC );
+		rangePanel.add( Box.createRigidArea( new Dimension(SET_BUTTONS_GAP, 0) ) );
+		rangePanel.add( setIn );
 		rangePanel.add( Box.createRigidArea( new Dimension(RANGE_GAP,0)));
 		JLabel rlto = new JLabel( "To:" );
 		rlto.setFont( GUIResources.BASIC_FONT_12 );
 		rangePanel.add( rlto );
 		rangePanel.add( Box.createRigidArea( new Dimension(SET_BUTTONS_GAP, 0) ) );
-		rangePanel.add( to );
-		rangePanel.add( Box.createRigidArea( new Dimension(RANGE_PAD,0)));
+		rangePanel.add( toTC );
+		rangePanel.add( Box.createRigidArea( new Dimension(SET_BUTTONS_GAP, 0) ) );
+		rangePanel.add( setOut );
+		rangePanel.add( Box.createRigidArea( new Dimension(RANGE_GAP, 0)));
+		JLabel lenLabel = new JLabel( "Length:" );
+		lenLabel.setFont( GUIResources.BASIC_FONT_12 );
+		rangePanel.add( lenLabel );
+		rangePanel.add( Box.createRigidArea( new Dimension(SET_BUTTONS_GAP, 0) ) );
+		rangePanel.add( lengthFrames );
 		rangePanel.add( Box.createHorizontalGlue() );
-		Border m1 = BorderFactory.createLineBorder( GUIColors.frameBorder );
-		Border m2 = BorderFactory.createTitledBorder( m1, "Range");
-		Border m3 = BorderFactory.createCompoundBorder( m2, BorderFactory.createEmptyBorder( 0, BORDER_GAP, BORDER_GAP, BORDER_GAP) );
-		rangePanel.setBorder( m3 );
+		setBorder( "Range", rangePanel );
 
 		JPanel middle = new JPanel();
 		middle.setLayout( new BoxLayout( middle, BoxLayout.X_AXIS) );
-		middle.add( Box.createRigidArea( new Dimension(SIDE_GAP,0) ) );
+		middle.add( Box.createRigidArea( new Dimension(SIDE_GAP, 0) ) );
 		middle.add( rangePanel );
-		middle.add( Box.createRigidArea( new Dimension(SIDE_GAP,0) ) );
+		middle.add( Box.createRigidArea( new Dimension(SIDE_GAP, 0) ) );
 
 		JPanel renderedP = new JPanel();
 		JPanel lastTimeP = new JPanel();
@@ -257,23 +250,59 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		rendPanel.add( progPanel );
 		rendPanel.add( Box.createRigidArea( new Dimension( 0, PROG_BUTTONS_GAP )));
 		rendPanel.add( buttonsPanel );
-		Border b4 = BorderFactory.createLineBorder( GUIColors.frameBorder );
-		Border b5 = BorderFactory.createTitledBorder( b4, "Render");
-		Border b6 = BorderFactory.createCompoundBorder( b5, BorderFactory.createEmptyBorder( 0, BORDER_GAP, BORDER_GAP, BORDER_GAP) );	
-		rendPanel.setBorder( b6 );
 
 		JPanel bottom = new JPanel();
 		bottom.setLayout( new BoxLayout( bottom, BoxLayout.X_AXIS) );
-		bottom.add( Box.createRigidArea( new Dimension(SIDE_GAP,0) ) );
+		bottom.add( Box.createRigidArea( new Dimension(SIDE_GAP, 0) ) );
 		bottom.add( rendPanel );
-		bottom.add( Box.createRigidArea( new Dimension(SIDE_GAP,0) ) );
+		bottom.add( Box.createRigidArea( new Dimension(SIDE_GAP, 0) ) );
 
 		setLayout( new BoxLayout( this, BoxLayout.Y_AXIS) );
-		add( Box.createRigidArea( new Dimension( 0,TOP_GAP )));
+		add( Box.createRigidArea( new Dimension( 0, 12 )));
 		add( top );
+		add( Box.createRigidArea( new Dimension( 0, 24 )));
 		add( middle );
+		add( Box.createRigidArea( new Dimension( 0, 48 )));
 		add( bottom );
 		add( Box.createRigidArea( new Dimension( 0,BOTTOM_GAP )));
+	}
+
+	private void setBorder( String title, JPanel pane )
+	{
+		EmptyBorder b1 = new EmptyBorder( new Insets( 0,0,0,0 )); 
+		TitledBorder b2 = (TitledBorder) BorderFactory.createTitledBorder( 	b1,
+								title,
+								TitledBorder.CENTER,
+								TitledBorder.TOP );
+		b2.setTitleColor( GUIColors.grayTitle );
+	
+			//void 	setTitleFont(Font titleFont)
+		Border b3 = BorderFactory.createCompoundBorder( b2, BorderFactory.createEmptyBorder( 8, 0, 10, 0));
+		pane.setBorder( b3 );
+	}
+
+	protected JPanel getRow( JComponent leftComponent, JComponent rightComponent)
+	{
+		JPanel rowPanel = new JPanel();
+			
+		JPanel leftPanel = new JPanel();
+		leftPanel.setLayout( new BoxLayout( leftPanel, BoxLayout.X_AXIS) );
+		leftPanel.add( leftComponent );
+		leftPanel.add(  Box.createHorizontalGlue() );
+
+		JPanel rightPanel = new JPanel();
+		rightPanel.setLayout( new BoxLayout( rightPanel, BoxLayout.X_AXIS) );
+		rightPanel.add( rightComponent );
+		rightPanel.add( Box.createHorizontalGlue() );
+
+		leftComponent.setFont(  GUIResources.BASIC_FONT_12 );
+ 		rightComponent.setFont( GUIResources.BASIC_FONT_12 );
+ 		
+		rowPanel.setLayout( new GridLayout(0,2) );
+		rowPanel.add( leftPanel );
+		rowPanel.add( rightPanel );
+
+		return rowPanel;
 	}
 
 	public void renderStart( int framesCount )
@@ -400,8 +429,6 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		return frames;
 	}
 
-	//private String getCommaSeparated
-
 	private String getNumberString( String tc )
 	{
 		StringTokenizer st = new StringTokenizer( tc, ":" );
@@ -410,7 +437,6 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		while( st.hasMoreTokens() )
 		{
 			String token = st.nextToken();
-			System.out.println(token);
 			numberString = numberString + token;
 		}
 
@@ -497,22 +523,26 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 			exit.setEnabled( false );
 		}
 
-		if( e.getSource() == setFrameSettins )
+		if( e.getSource() == setIn )
 		{
 			DialogUtils.setDialogParent( window );
-			MenuActions.setFrameOutputSettings();
+			
+			DialogUtils.showFrameSelectDialog("Set Render Start Frame", "Render start frame:", 0, 0, 125);
+			
 			DialogUtils.setDialogParent( null );
 			repaint();
 		}
 
-		if( e.getSource() == setRenderSettins )
+		if( e.getSource() == setOut )
 		{
 			DialogUtils.setDialogParent( window );
-			MenuActions.setRenderSettings();
+			
+			DialogUtils.showFrameSelectDialog("Set Render End Frame", "Render end frame:", 0, 0, 125);
+			
 			DialogUtils.setDialogParent( null );
 			repaint();
 		}
-
+		
 		if( e.getSource() == stop )
 		{
 			RenderModeController.stopWriteRender();

@@ -42,12 +42,9 @@ import animator.phantom.renderer.param.ColorSelectTarget;
 //--- A collection class to create one-liner modal windows.
 public class DialogUtils
 {
-	//public static final int CLOSED_OPTION = -1;
 	public static final int OK_OPTION = 1;
-	//public static final int CANCEL_OPTION = 0;
 
 	public static final int  WARNING_MESSAGE = PHDialog.WARNING_MESSAGE;
-	//public static final int  PLAIN_MESSAGE = PHDialog.PLAIN_MESSAGE;
 
 	private static SimpleAttributeSet HELVETICA_12 = new SimpleAttributeSet();
 
@@ -65,7 +62,6 @@ public class DialogUtils
 
 	public static void setDialogParent( Component parent ){ currentParent = parent; }
 
-	
 	public static String getTextInput( 	String title,
 					String text,
 					String defaultText,
@@ -108,7 +104,7 @@ public class DialogUtils
 	
 		MDialog dialog = new MDialog( (Frame) parent,  ip.getTitle(), p,  width, height, showCancel );
 
-		dialog.setVisible( true );//this blocks
+		dialog.setVisible( true );//this blocks until button pressed
  
 		int selectedValue = dialog.getResponseValue();
 
@@ -116,33 +112,7 @@ public class DialogUtils
 		//--- as defined here.
 		return selectedValue;
 	}
-	/*
-	public static void showTextAreaOKDialog( String title, String text, int width, int height )
-	{
-		JTextArea pane = new JTextArea();
-		try
-		{
-			pane.getDocument().insertString( 0, text, HELVETICA_12 );
-		}
-		catch( Exception e )
-		{
-			
-		}
-		pane.setEditable( false );
-			pane.setBackground( GUIColors.textAreaBG );
-		pane.setLineWrap( true );
-		pane.setWrapStyleWord( true );
-		pane.setCaretPosition( 0 );
 
-		JScrollPane viewScrollPane = new JScrollPane( pane,
-			 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-			 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
-		viewScrollPane.setPreferredSize( new Dimension( width, height ) );
-		String[] options = { "Ok" };
-		PHDialog dialog = new PHDialog( GUIComponents.getAnimatorFrame(), title, options, viewScrollPane, PHDialog.PLAIN_MESSAGE );
-		dialog.setVisible( true );
-	}
-	*/
 	public static void showPanelOKDialog( JPanel panel, String title, int width, int height )
 	{
 		String[] options = { "Ok" };
@@ -150,14 +120,6 @@ public class DialogUtils
 		PHDialog dialog = new PHDialog( GUIComponents.getAnimatorFrame(), title, options, panel, PHDialog.PLAIN_MESSAGE );
 		dialog.setVisible( true );//blocks
 	}
-
-	/*
-	public static JOptionPane getImportClipDialog( JPanel msgPanel )
-	{
-		Object[] options = { "Cancel" };
-		return new JOptionPane( msgPanel, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null, options );
-	}
-	*/
 	
 	public static void showTwoStyleInfo( String boldText, String text, int type )
 	{
@@ -169,7 +131,6 @@ public class DialogUtils
 	{
 		String[] bLines = { boldText };
 		String[] options = { "Ok" };
-		//BufferedImage[] icons = { PHButtonFactory.OK_IMG };
 
 		showTwoTextStyleDialog( type, 
 					null, 
@@ -178,20 +139,7 @@ public class DialogUtils
 					tLines, 
 					GUIComponents.getAnimatorFrame() );
 	}
-	/*
-	public static void showTwoStyleInfoForParent( String boldText, String[] tLines, Component parent, int type )
-	{
-		String[] bLines = { boldText };
-		String[] options = { "Ok" };
-		//BufferedImage[] icons = { PHButtonFactory.OK_IMG };
-		showTwoTextStyleDialog( type, 
-					null, 
-					options, 
-					bLines, 
-					tLines, 
-					parent );
-	}
-	*/
+
 	public static int showTwoTextStyleDialog( int type, String title, String[] options, String boldText, String text )
 	{
 		String[] bLines = { boldText };
@@ -361,34 +309,31 @@ public class DialogUtils
 		left.add( new JLabel( "Length:" ) );
 		right.add( getSmallRigid() );
 		right.add( getRightLabel( length ) );
-/*
-		left.add( new JLabel( "Frames per second:" ) );
-		right.add( getSmallRigid() );
-		right.add( getRightLabel( ( new Integer( project.getFramesPerSecond() ) ).toString()  ) );
 
-		left.add( new JLabel( "Nodes in flow:" ) );
-		right.add( getSmallRigid() );
-		right.add( getRightLabel( ( new Integer( project.getRenderFlow().getSize() ) ).toString()  ) );
-
-		left.add( new JLabel( "File sources:" ) );
-		right.add( getSmallRigid() );
-		right.add( getRightLabel( ( new Integer( project.getFileSources().size() ) ).toString()  ) );
-
-		left.add( new JLabel( "Bins:" ) );
-		right.add( getSmallRigid() );
-		right.add( getRightLabel( ( new Integer( project.getBins().size() ) ).toString()  ) );
-
-		int W = 500; 
-		int H = 18; // height per line
-		int INFO_LINES = 9;
-		//panel.setPreferredSize( new Dimension( W, H * INFO_LINES ) );
-		//panel.pack();
-*/
 		String[] options = { "Ok" };	
 		PHDialog dialog = new PHDialog( GUIComponents.getAnimatorFrame(), "File Source Info", options, panel, PHDialog.PLAIN_MESSAGE );
 		dialog.setVisible( true );//blocks
 	}
 
+		
+	public static int showFrameSelectDialog( String title, String msg, int value, int lowerBound, int higherBound )
+	{
+		MFrameSlider slider = new MFrameSlider(msg,  150, 250, value, lowerBound, higherBound );
+	
+		MInputArea area = new MInputArea( "" );
+		area.add( slider );
+	
+		MInputPanel panel = new MInputPanel( title );
+		panel.add( area );
+	
+		int selectedValue = showMultiInput( panel, 500, 110 );
+		
+		System.out.println(selectedValue);
+
+		return -1;	
+	}
+
+	
 	private static JLabel getRightLabel( String s )
 	{
 		JLabel l = new JLabel( s );

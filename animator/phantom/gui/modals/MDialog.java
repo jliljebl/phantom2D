@@ -44,12 +44,6 @@ public class MDialog extends JDialog implements ActionListener,  WindowListener
 	private PHButtonRow buttonRow;
 	private int response = -99;
 
-	/*
-	public MDialog( Frame owner, String title, Component msg, int width, int height )
-	{
-		this( owner, title, msg, width, height, true );
-	}
-	*/
 	public MDialog( Frame owner, String title, Component msg, int width, int height, boolean displayCancel )
 	{
 	

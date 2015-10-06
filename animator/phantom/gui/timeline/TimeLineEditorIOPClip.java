@@ -275,7 +275,7 @@ public class TimeLineEditorIOPClip
 				if( iop.frameInClipArea( kfMovieFrame ) )
 				{
 					int kfX = Math.round( ( kfMovieFrame - pos) * frameMultiplier );
-					g.drawImage( keyFrameImg, kfX - 5, iy + 1, null );
+					g.drawImage( keyFrameImg, kfX - 5, iy - 3, null );
 				}
 			}
 		}

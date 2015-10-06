@@ -103,7 +103,7 @@ public class UserActions
 		{
 					String[] buttons = {"Ok"};
 					String[] bLines = { "File import failed" };
-					String[] tLines = {     "Phantom2D is unable to complete file import.",
+					String[] tLines = {  "Phantom2D is unable to complete file import.",
 								"It may be that you are trying to import corrupt files or", 
 								"files of a type that is not supported by Phantom2D." };
 					DialogUtils.showTwoTextStyleDialog( JOptionPane.WARNING_MESSAGE, null, buttons, bLines, tLines );

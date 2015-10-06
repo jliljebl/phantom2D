@@ -109,8 +109,10 @@ public class RenderModeController
 
 	public static File getTargetFolder()
 	{
-		return GUIComponents.renderArea.tfs.getSelectedFile(); 
+		return null;
+		//return GUIComponents.renderArea.tfs.getSelectedFile(); 
 	}
+
 	public static void setZeroPadding( int val ){ zeroPadDigits = val; }
 	public static int getZeroPadding(){ return zeroPadDigits; }
 

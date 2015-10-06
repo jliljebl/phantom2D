@@ -28,7 +28,6 @@ import animator.phantom.gui.AnimatorFrame;
 import animator.phantom.gui.AnimatorMenu;
 import animator.phantom.gui.BinsAreaPanel;
 import animator.phantom.gui.NodesPanel;
-import animator.phantom.gui.RenderAreaPanel;
 import animator.phantom.gui.flow.FlowEditPanel;
 import animator.phantom.gui.flow.RenderFlowViewButtons;
 import animator.phantom.gui.keyframe.KFColumnPanel;
@@ -100,9 +99,6 @@ public class GUIComponents
 	public static NormalizedTimelineDisplay normTlineDisp;
 	public static TimeLineControls tlineControls;
 	public static NodesPanel nodesPanel;
-
-
-	public static RenderAreaPanel renderArea;
 	
 	public static void reset()
 	{
