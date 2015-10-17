@@ -27,7 +27,7 @@ import animator.phantom.controller.RenderModeController;
 //--- An abstract base class for iops that have their rendering affected by render blend / motion blur / interpolation  mode settings.
 public abstract class RenderModeIOP extends ImageOperation
 {
-	//--- Overides iop motion blur with global if needed
+	//--- Overrides iop motion blur with global if needed
 	protected boolean getCurrentMotionBlur()
 	{
 		boolean motionBlur = getMotionBlur();
@@ -42,7 +42,7 @@ public abstract class RenderModeIOP extends ImageOperation
 		return  blendMode;
 	}
 
-	//--- Overides iop interpolation with global if needed
+	//--- Overrides iop interpolation with global if needed
 	protected int getCurrentInterpolation()
 	{
 		int interpolation = getInterpolation();
@@ -60,20 +60,4 @@ public abstract class RenderModeIOP extends ImageOperation
 			Blender.cutEdges( srcImg );
 	}
 
-	//--- Returns input mask that is quarenteen to screen sized
-	/*
-	protected BufferedImage getScreenSizedMask()
-	{
-		BufferedImage mask = getInputMask();
-		if( mask != null )
-		{
-			if( mask.getWidth() != renderedImage.getWidth() 
-				|| mask.getHeight() != renderedImage.getHeight() )
-			{
-				mask = PluginUtils.getAlphaCopy(renderedImage.getWidth(), renderedImage.getHeight(), mask );
-			}
-		}
-		return mask;
-	}
-	*/
 }//end class

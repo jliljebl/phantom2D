@@ -49,6 +49,8 @@ import animator.phantom.controller.ProjectController;
 import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.view.editlayer.ViewEditorLayer;
+import animator.phantom.paramedit.AnimationParentPanel;
+import animator.phantom.paramedit.FilterStackPanel;
 import animator.phantom.paramedit.MaskSwitchPanel;
 import animator.phantom.paramedit.OnOffPanel;
 import animator.phantom.paramedit.OutputsNumberSelector;
@@ -78,7 +80,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	public static final int INPUT_MASK_OUTPUT_ALPHA = 1;
 	//--- Used to determine if scrollpane should be used or not
 	private static final int SCROLL_HEIGHT_PAD = 125;
-	private static final int SCROLL_TEST_PAD = 30;
+	//private static final int SCROLL_TEST_PAD = 30;
 	//--- Looping modes
 	public static final int NO_LOOPING = 0;
 	public static final int LOOP = 1;
@@ -738,8 +740,10 @@ public abstract class ImageOperation implements Comparable<Object>
 	{
 		if( editFrame == null )
 		{
-			boolean scrollPaneNeeded = Application.getParamEditHeight() - SCROLL_HEIGHT_PAD - SCROLL_TEST_PAD < 
-								getEditPanel().getPreferredSize().getHeight();
+			//boolean scrollPaneNeeded = Application.getParamEditHeight() - SCROLL_HEIGHT_PAD - SCROLL_TEST_PAD < 
+			//					getEditPanel().getPreferredSize().getHeight();
+			boolean scrollPaneNeeded = true;
+
 			editFrame = new JPanel();
 			editFrame.setLayout(new BoxLayout( editFrame, BoxLayout.Y_AXIS));
 			editFrame.add( Box.createRigidArea( new Dimension( 0, 5 ) ) );
@@ -747,14 +751,20 @@ public abstract class ImageOperation implements Comparable<Object>
 			editFrame.add( Box.createRigidArea( new Dimension( 0, 5 ) ) );
 
 			//--- Must have switches or OnOffPanel
+			AnimationParentPanel animParentPanel = null;
+			FilterStackPanel filterStackPanel = null;
+
 			if( switches == null )
 				switchPanel = new OnOffPanel( this );
 			else if( reducedSwitches )
 				switchPanel = new MaskSwitchPanel( this );
 			else
+			{
+				animParentPanel = new AnimationParentPanel( this );
+				filterStackPanel = new FilterStackPanel( this );
 				switchPanel = new SwitchPanel( this );
-			System.out.print(switchPanel);
-			System.out.print(editFrame);
+			}
+			
 			editFrame.add( switchPanel );
 
 			JPanel addPanel = editFrame;
@@ -776,6 +786,14 @@ public abstract class ImageOperation implements Comparable<Object>
 				addPanel.add( new RowSeparator() );
 			}
 
+			if ( animParentPanel != null)
+				addPanel.add( animParentPanel );
+			
+			if( filterStackPanel != null )
+			{
+				addPanel.add( filterStackPanel );
+			}
+			
 			if( scrollPaneNeeded )
 			{
 				JScrollPane scrollPane = new JScrollPane( addPanel,
@@ -787,6 +805,9 @@ public abstract class ImageOperation implements Comparable<Object>
 							Application.getParamEditHeight() - SCROLL_HEIGHT_PAD ) );
 				editFrame.add( scrollPane );
 			}
+			
+
+			
 		}
 
 		return editFrame;

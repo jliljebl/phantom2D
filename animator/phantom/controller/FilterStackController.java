@@ -35,7 +35,6 @@ public class FilterStackController
 		if( GUIComponents.filterStackEdit != null )
 			return;
 		GUIComponents.filterStackEdit = new FilterStackEdit( iop );
-
 	}
 
 	public static void closeEditor()

@@ -1,11 +1,8 @@
 package animator.phantom.renderer.plugin;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 
-import com.jhlabs.image.GlintFilter;
 import com.jhlabs.image.OilFilter;
-import com.jhlabs.image.SwimFilter;
+
 
 import animator.phantom.plugin.PhantomPlugin;
 

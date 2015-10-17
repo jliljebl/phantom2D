@@ -32,7 +32,7 @@ import javax.swing.border.TitledBorder;
 
 import animator.phantom.gui.GUIColors;
 
-class MultiInputDialogPanel extends JPanel
+public class MultiInputDialogPanel extends JPanel
 {
 	public MultiInputDialogPanel( MInputPanel iPanel )
 	{

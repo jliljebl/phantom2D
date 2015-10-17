@@ -108,7 +108,6 @@ public class UserActions
 								"files of a type that is not supported by Phantom2D." };
 					DialogUtils.showTwoTextStyleDialog( JOptionPane.WARNING_MESSAGE, null, buttons, bLines, tLines );
 		}
-		 
 	}
 
 	public static void displayWrongFileChars( String fileName, String wrongChar )
@@ -214,7 +213,7 @@ public class UserActions
 		parentIops.remove( iop );
 		int pselindex = 0;
 		int typeselindex = 0;
-		//---- ?
+
 		if( iop.parentNodeID != -1 ) 
 		{
 			ImageOperation piop = ( FlowController.getNode( iop.parentNodeID )).getImageOperation();

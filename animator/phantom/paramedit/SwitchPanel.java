@@ -78,7 +78,6 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 	//--- Source buttons
 	private JButton centerAnchor = new JButton(  GUIResources.getIcon( GUIResources.centerAnchor));
 	private JToggleButton leafTrans = new JToggleButton(  GUIResources.getIcon( GUIResources.leafTrans));
-	private JButton parentButton = new JButton(  GUIResources.getIcon( GUIResources.transformGroup ));
 	private JButton filterStackButton = new JButton(  GUIResources.getIcon( GUIResources.filterStack ));
 
 	/**
@@ -109,7 +108,6 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 
 		GUIResources.prepareMediumButton( centerAnchor, this, "Center Anchor" );
 		GUIResources.prepareMediumButton( leafTrans, this, "Make leaf node background transparent. Use Source Alpha will be selected also. " );
-		GUIResources.prepareMediumButton( parentButton, this, "Launch parent dialog" );
 		GUIResources.prepareMediumButton( filterStackButton,  this, "Edit pre-transform Filters" );
 		leafTrans.setSelectedIcon( new ImageIcon( GUIResources.leafTransPressed ));
 
@@ -156,7 +154,7 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 		add( p5 );
 		add( p6 );
 		add( Box.createRigidArea( new Dimension(20,0 ) ));
-		add( parentButton );
+		//add( parentButton );
 		if (iop.getCenterable() == true )
 			add( centerAnchor );
 		add( filterStackButton );
@@ -243,9 +241,6 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 			iop.getCoords().yAnchor.setValue( TimeLineController.getCurrentFrame(), (float) height / 2.0f );
 			UpdateController.updateCurrentFrameDisplayers( false );
 		}
-
-		if( source == parentButton )
-			UserActions.manageAnimationSettings( iop );
 
 		if( source == filterStackButton )
 			FilterStackController.displayEditor( iop );

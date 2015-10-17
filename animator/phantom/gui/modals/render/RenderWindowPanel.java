@@ -37,13 +37,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import animator.phantom.controller.MenuActions;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.RenderModeController;
 import animator.phantom.gui.GUIColors;
@@ -60,16 +58,13 @@ import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 //--- GUI panel for render info setting and render progress display.
 public class RenderWindowPanel extends JPanel implements ActionListener
 {
-	private static final int TOP_GAP = 5;
 	private static final int SIDE_GAP = 10;
 	private static final int BUTTONS_GAP = 20;
 	private static final int SET_BUTTONS_GAP = 10;
 	private static final int BOTTOM_GAP = 20;
 	private static final int INFO_PROG_GAP = 6;
 	private static final int PROG_BUTTONS_GAP = 6;
-	private static final int BORDER_GAP = 10;
 	private static final int RANGE_GAP = 40;
-	private static final int RANGE_PAD = 350;
 	private static final int WIDTH = 600;
 	private static final int SETTINGS_ROW_GAP = 8;
 	private static final int PROG_HEIGHT = 15;
@@ -466,7 +461,6 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 
 			int start = RenderModeController.writeRangeStart;
 			int end = RenderModeController.writeRangeEnd;		
-			int fps =  ProjectController.getFramesPerSecond();
 
 			RenderModeController.setWriteRange( start, end );
 			RenderModeController.startWriteRender();

@@ -110,14 +110,12 @@ import animator.phantom.renderer.plugin.SpreadPlugin;
 import animator.phantom.renderer.plugin.StampPlugin;
 import animator.phantom.renderer.plugin.StripesPlugin;
 import animator.phantom.renderer.plugin.SwimPlugin;
-import animator.phantom.renderer.plugin.TestPlugin;
 import animator.phantom.renderer.plugin.ThresholdPlugin;
 import animator.phantom.renderer.plugin.TritonePlugin;
 import animator.phantom.renderer.plugin.TwirlPlugin;
 import animator.phantom.renderer.plugin.TwotonePlugin;
 import animator.phantom.renderer.plugin.UnsharpPlugin;
 import animator.phantom.renderer.plugin.WoodPlugin;
-//import animator.phantom.renderer.threedee.*;
 
 public class IOPLibraryInitializer
 {
