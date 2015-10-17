@@ -19,6 +19,7 @@ package animator.phantom.gui.flow;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -50,6 +51,8 @@ public class RenderFlowViewButtons extends JPanel implements ActionListener
 		GUIResources.prepareMediumButton( connectBoxes, this, "Connect selected boxes  F6" );
 		GUIResources.prepareMediumButton( disConnectBoxes, this, "Disconnect selected boxes  F7" );
 		GUIResources.prepareMediumButton( showGrid, this, "Show Grid" );
+
+		infoText.setFont( GUIResources.BASIC_FONT_10 );
 		
 		JPanel p = new JPanel();
 		p.setLayout(new BoxLayout( p, BoxLayout.X_AXIS));
@@ -57,6 +60,8 @@ public class RenderFlowViewButtons extends JPanel implements ActionListener
 		p.add( lineUpBoxes );
 		p.add( connectBoxes );
 		p.add( disConnectBoxes );
+		p.add( Box.createRigidArea( new Dimension(12, 10)));
+		p.add( infoText );
 		
 		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
 		add( Box.createVerticalGlue() );

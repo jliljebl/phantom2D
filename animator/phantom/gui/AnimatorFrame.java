@@ -104,7 +104,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	private JPanel bottomRow;
 	private PreViewUpdater previewUpdater;
 
-	//private RenderAreaPanel renderArea;
 	private BinsAreaPanel binAreaPanel;
 	private JPanel topLeftHolder;
 	private JPanel paramEditHolder;

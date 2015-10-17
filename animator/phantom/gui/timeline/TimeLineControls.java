@@ -8,9 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import animator.phantom.controller.TimeLineController;
 import animator.phantom.gui.GUIResources;
 
-public class TimeLineControls implements ChangeListener,  ActionListener
+public class TimeLineControls implements  ActionListener
 {
 	private TimeLinePositionSlider positionSlider;
 	
@@ -31,18 +32,21 @@ public class TimeLineControls implements ChangeListener,  ActionListener
 		panel.add( zoomIn );
 		panel.add( zoomOut );
 	}
-	public void stateChanged(ChangeEvent e) 
-	{
-		
-	}
 
 	public void update()
 	{
 		positionSlider.repaint();
 	}
-	public void actionPerformed(ActionEvent arg0) 
+
+	public void actionPerformed( ActionEvent e ) 
 	{
-		
+		if( e.getSource() == zoomIn )
+			TimeLineController.zoomIn();
+
+		if( e.getSource() == zoomOut )
+			TimeLineController.zoomOut();
+
+		TimeLineController.scaleOrPosChanged();
 	}
 
 }//end class

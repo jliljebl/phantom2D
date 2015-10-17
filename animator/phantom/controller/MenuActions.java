@@ -349,6 +349,9 @@ public class MenuActions
 			TimeLineController.initClipEditorGUI();
 			FlowController.clearSelection();
 		}
+		
+		GUIComponents.renderFlowButtons.repaint();
+		
 	}
 
 	public static void showProjectInfo()

@@ -110,6 +110,7 @@ import animator.phantom.renderer.plugin.SpreadPlugin;
 import animator.phantom.renderer.plugin.StampPlugin;
 import animator.phantom.renderer.plugin.StripesPlugin;
 import animator.phantom.renderer.plugin.SwimPlugin;
+import animator.phantom.renderer.plugin.TestPlugin;
 import animator.phantom.renderer.plugin.ThresholdPlugin;
 import animator.phantom.renderer.plugin.TritonePlugin;
 import animator.phantom.renderer.plugin.TwirlPlugin;
@@ -165,7 +166,8 @@ public class IOPLibraryInitializer
 		IOPLibrary.registerIOP( new ColorCorrectorIOP(), "Color" );
 		IOPLibrary.registerPlugin( new ColorizePlugin(), "Color" );
 		IOPLibrary.registerPlugin( new MaxRGBPlugin(), "Color" );
-
+		//IOPLibrary.registerPlugin( new TestPlugin(),  "Color" );
+		
 		//--- Noise
 		IOPLibrary.registerPlugin( new DespecklePlugin(), "Noise" );
 		IOPLibrary.registerPlugin( new DitherPlugin(), "Noise" );

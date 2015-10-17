@@ -332,18 +332,6 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		rendering.setText( "Rendering " + Integer.toString( currentFrame ) + " of " + Integer.toString( framesCount ) );
 	}
 
-	/*
-	public void clearLastElaps()
-	{
-		lastTime.setText( " " );
-		elapsed.setText( " " );
-	}
-
-	public void displayMovieFileSize( int size )
-	{
-		rendering.setText( "Encoding clip " +  Integer.toString( size ) + " B");
-	}
-	*/
 	public void renderingDone()
 	{
 		rendering.setText( "Rendering done");
