@@ -1,5 +1,7 @@
 package animator.phantom.paramedit;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -16,16 +18,22 @@ import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
 import animator.phantom.renderer.parent.AbstractParentMover;
 
-public class AnimationParentPanel extends JPanel
+public class AnimationParentPanel extends JPanel implements ActionListener
 {
 	private ImageOperation iop;
+	private Vector <ImageOperation> parentIops;
+	private MComboBox parents;
+	private MComboBox actions;
+	private MComboBox looping;
 
+	private boolean initializing = true;
+	
 	public AnimationParentPanel( ImageOperation iop )
 	{
 		this.iop = iop;
-
-		Vector <ImageOperation> parentIops = FlowController.getAnimatebleIops();
+		parentIops = FlowController.getAnimatebleIops();
 		parentIops.remove( iop );
+		
 		int pselindex = 0;
 		int typeselindex = 0;
 
@@ -41,15 +49,22 @@ public class AnimationParentPanel extends JPanel
 		for( int i = 1; i < parentIops.size() + 1; i++ )
 			options[ i ] = parentIops.elementAt( i - 1 ).getName();
 
-		MComboBox parents = new MComboBox( "Animation parent", 75, options );
-		MComboBox actions = new MComboBox( "Follow", 75, AbstractParentMover.types );
+		parents = new MComboBox( "Animation parent", 75, options );
+		parents.addActionListener( this );
+		actions = new MComboBox( "Follow", 75, AbstractParentMover.types );
+		actions.addActionListener( this );
 		parents.setSelectedIndex( pselindex );
 		actions.setSelectedIndex( typeselindex );
-	
+		if( iop.parentNodeID == -1 )
+		{
+			actions.setEnabled( false );
+		}
+				
 		String[] loopOptions = { "no looping","loop","ping-pong" };
-		MComboBox looping = new MComboBox( "Looping mode", 75, loopOptions );
+		looping = new MComboBox( "Looping mode", 75, loopOptions );
 		looping.setSelectedIndex( iop.getLooping() );
-		
+		looping.addActionListener( this );
+
 		MInputArea area = new MInputArea( "Animation Settings" );
 		area.add( parents );
 		area.add( actions );
@@ -61,13 +76,21 @@ public class AnimationParentPanel extends JPanel
 		MultiInputDialogPanel multi = new MultiInputDialogPanel( panel );
 		
 		add( multi );
+		
+		initializing = false;
 	}
-		/*
-		DialogUtils.showMultiInput( panel );
 
+	public void actionPerformed( ActionEvent e )
+	{
+		if ( initializing ) return;
+		
 		int p = parents.getSelectedIndex();
 		int ac = actions.getSelectedIndex();
-		if( p == 0 ) iop.setParentMover( -1, -1, null );
+		if( p == 0 ) 
+		{
+			actions.setEnabled( false );
+			iop.setParentMover( -1, -1, null );
+		}
 		else 
 		{
 			ImageOperation parentIOP = parentIops.elementAt( p - 1 );
@@ -80,12 +103,31 @@ public class AnimationParentPanel extends JPanel
 			{
 				RenderNode node = FlowController.getNode( parentIOP );
 				iop.setParentMover( ac, node.getID(), parentIOP  );
+				actions.setEnabled( true );
 			}
 		}
-
 		iop.setLooping( looping.getSelectedIndex() );
-		ParamEditController.reBuildEditFrame();
+		//ParamEditController.reBuildEditFrame();
 		UpdateController.valueChangeUpdate();
-		*/
 		
+	}
+	
+	private static boolean isCyclicParenting( ImageOperation child, ImageOperation parent )
+	{
+		Vector<ImageOperation> list = new Vector<ImageOperation>();
+		list.add( child );
+		if( list.contains( parent ) )
+			return true;
+		list.add( parent );
+		ImageOperation nextParent = parent.getParent();
+		while( nextParent != null )
+		{
+			if( list.contains( nextParent ) )
+				return true;
+			list.add( nextParent );
+			nextParent = nextParent.getParent();
+		}
+		return false;
+	}
+	
 }//end class

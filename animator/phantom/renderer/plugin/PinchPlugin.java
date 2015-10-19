@@ -24,7 +24,7 @@ public class PinchPlugin extends PhantomPlugin
 
 	public void buildDataModel()
 	{
-		setName( "Pinchl" );
+		setName( "Pinch" );
 
 		radius = new AnimatedValue( 100f );
 		amount = new AnimatedValue( 0.5f );

@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -24,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import animator.phantom.controller.FilterStackController;
 import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
+import animator.phantom.gui.NodesPanel;
 import animator.phantom.gui.PHButtonFactory;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
@@ -32,10 +32,8 @@ public class FilterStackPanel extends JPanel implements ActionListener
 {
 	private ImageOperation iop;
 	private JTable stackTable;
-	private JTable pluginTable ;
+	private NodesPanel nodesPanel;
 
-	private JButton addButton;
-	private JButton exitButton;
 	private JButton addFilter = new JButton( GUIResources.getIcon(  GUIResources.addClip ) );
 	private JButton deleteFilter = new JButton( GUIResources.getIcon(  GUIResources.deleteClip ) );
 	private JButton filterDown = new JButton( GUIResources.getIcon(  GUIResources.clipDown ) );
@@ -43,13 +41,10 @@ public class FilterStackPanel extends JPanel implements ActionListener
 	private JButton editTargetButton;
 
 	private static final int ROW_HEIGHT = 20;
-	private static final int MID_GAP = 30;
 	private static final int BUTTON_TABLE_GAP = 4;
 	private static final int TABLES_WIDTH = 266;
-	private static final int PLUGIN_TABLE_HEIGHT = 200;
 	private static final int STACK_TABLE_HEIGHT = 140;
 	private static final int NAME_PANEL_PAD = 8;
-	private static final int NAME_PANEL_GAP = 12;
 	private static final int SUB_TITLE_GAP = 2;
 
 	private static Vector<ImageOperation> filters;
@@ -66,32 +61,10 @@ public class FilterStackPanel extends JPanel implements ActionListener
 		GUIResources.prepareMediumButton( filterDown, this, "Move Selected Filter Down" );
 		GUIResources.prepareMediumButton( filterUp, this, "Move Selected Filter Up" );
 
-		JPanel p = new JPanel();
-		p.setLayout(new BoxLayout( p, BoxLayout.Y_AXIS));
-
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new BoxLayout( namePanel, BoxLayout.X_AXIS));
 		namePanel.add( Box.createRigidArea( new Dimension( NAME_PANEL_PAD, 0 ) ) );
 		namePanel.add( iop.getNamePanel() );
-		
-		//addButton =  PHButtonFactory.getButton("Add To Stack"  );
-		//addButton.addActionListener( this );
-
-		//JPanel filterButtons = new JPanel();
-		//filterButtons.setLayout(new BoxLayout( filterButtons, BoxLayout.X_AXIS));
-		//filterButtons.add( addButton );
-		//filterButtons.add( Box.createHorizontalGlue() );
-
-		pluginTable = new JTable( getFilterTableModel() );
-		pluginTable.setPreferredScrollableViewportSize(new Dimension( TABLES_WIDTH, PLUGIN_TABLE_HEIGHT));
-		pluginTable.setFillsViewportHeight( true );
-		pluginTable.setColumnSelectionAllowed( false );
-		pluginTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		pluginTable.setShowGrid( false );
-		pluginTable.setRowHeight( ROW_HEIGHT );
-		pluginTable.setFont( GUIResources.BOLD_FONT_12 );
-
-		JScrollPane pluginScrollPane = new JScrollPane( pluginTable );
 
 		editTargetButton = PHButtonFactory.getButton( "Edit" );
 		editTargetButton.addActionListener( this );
@@ -105,7 +78,7 @@ public class FilterStackPanel extends JPanel implements ActionListener
 		stackButtons.add( Box.createHorizontalGlue() );
 		stackButtons.add( editTargetButton );
 
-		stackTable = new JTable(  new CustomTableModel( new Vector<Vector<String>>(), "" ) );
+		stackTable = new JTable( new CustomTableModel( new Vector<Vector<String>>(), "" ) );
 		stackTable.setPreferredScrollableViewportSize(new Dimension( TABLES_WIDTH, STACK_TABLE_HEIGHT));
 		stackTable.setFillsViewportHeight( true );
 		stackTable.setColumnSelectionAllowed( false );
@@ -118,51 +91,30 @@ public class FilterStackPanel extends JPanel implements ActionListener
 
 		JScrollPane stackScrollPane = new JScrollPane( stackTable );
 
-		//exitButton = PHButtonFactory.getButton( "Exit" );
-		//exitButton.addActionListener( this );
+		nodesPanel = new NodesPanel();
+		nodesPanel.setPreferredSize(new Dimension( 300, 186 ));
 
-		//JPanel exitButtonPanel = new JPanel();
-		//exitButtonPanel.setLayout(new BoxLayout( exitButtonPanel, BoxLayout.X_AXIS));
-		//exitButtonPanel.add( Box.createHorizontalGlue() );
-		//exitButtonPanel.add( exitButton );
-
-		//JPanel top = new JPanel();
-		//top.setLayout(new BoxLayout( top, BoxLayout.Y_AXIS));
-		//top.add( Box.createRigidArea( new Dimension( 0, SUB_TITLE_GAP ) ) );
-		//top.add( filterButtons );
-		//top.add( Box.createRigidArea( new Dimension( 0, BUTTON_TABLE_GAP ) ) );
-		//top.add( pluginScrollPane );
-
-		JPanel bottom = new JPanel();
-		bottom.setLayout(new BoxLayout( bottom, BoxLayout.Y_AXIS));
-		bottom.add( Box.createRigidArea( new Dimension( 0, SUB_TITLE_GAP ) ) );
-		bottom.add( stackButtons );
-		bottom.add( Box.createRigidArea( new Dimension( 0, BUTTON_TABLE_GAP ) ) );
-		bottom.add( stackScrollPane );
-
-		//p.add( namePanel );
-		//p.add( Box.createRigidArea( new Dimension( 0, NAME_PANEL_GAP ) ) );
-		//p.add( top );
-		//p.add( Box.createRigidArea( new Dimension( 0, 12 ) ) );
-		p.add( bottom );
-		p.add( Box.createRigidArea( new Dimension( 0, MID_GAP ) ) );
-		//p.add( exitButtonPanel ); 
-
-
-		add( p );
-
+		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
+		add( Box.createRigidArea( new Dimension( 0, SUB_TITLE_GAP ) ) );
+		add( stackButtons );
+		add( Box.createRigidArea( new Dimension( 0, BUTTON_TABLE_GAP ) ) );
+		add( stackScrollPane );
+		add( nodesPanel );
+		
 		EmptyBorder b1 = new EmptyBorder( new Insets( 0,0,0,0 )); 
 		TitledBorder b2 = (TitledBorder) BorderFactory.createTitledBorder( 	b1,
-								"Filter Stack",
+								"Pre-composite Filters",
 								TitledBorder.CENTER,
 								TitledBorder.TOP );
 		b2.setTitleColor( GUIColors.grayTitle );
-		Border b3 = BorderFactory.createCompoundBorder( b2, BorderFactory.createEmptyBorder( 0, 0, 0, 0));
+		Border b3 = BorderFactory.createCompoundBorder( b2, BorderFactory.createEmptyBorder( 0, 0, 0, 4));
 		setBorder( b3 );
+	
 	}
 
 	public ImageOperation getIop(){ return iop; }
 
+	/*
 	private CustomTableModel getFilterTableModel()
 	{
 		Vector<Vector<String>> data = new Vector<Vector<String>>();
@@ -171,7 +123,7 @@ public class FilterStackPanel extends JPanel implements ActionListener
 
 		return new CustomTableModel( data, "Plugin name" );
 	}
-
+	*/
 	public void initFilterStack()
 	{
 		initFilterStack( stackTable.getSelectedRow() );
@@ -191,7 +143,7 @@ public class FilterStackPanel extends JPanel implements ActionListener
 			data.add( getRowVec( filter.getName() + target ) );
 		}
 		Vector<String> colNames = new Vector<String>();
-		colNames.add( "Filter Stack" );
+		colNames.add( "" );
 	
 		CustomTableModel stackModel = (CustomTableModel) stackTable.getModel();
 		stackModel.setDataVector( data, colNames );
@@ -206,15 +158,18 @@ public class FilterStackPanel extends JPanel implements ActionListener
 	{
 		Vector<String> vec = new Vector<String>();
 		vec.add( str );
-		//vec.add( new ImageIcon(PHButtonFactory.EXIT_IMG ) );
 		return vec;
 	}
 
 	public void actionPerformed( ActionEvent e )
 	{
-		if( e.getSource() == addButton )
-			FilterStackController.addFilter( iop, filters.elementAt( pluginTable.getSelectedRow() ) );
-
+			System.out.println("ret");
+		if( e.getSource() == addFilter )
+		{	
+			//fstack = new FilterStackEdit( iop );
+			System.out.println("g");
+			//FilterStackController.addFilter( iop, filters.elementAt( pluginTable.getSelectedRow() ) );
+		}
 		if( e.getSource() == deleteFilter )
 			FilterStackController.removeFilter( iop, stackTable.getSelectedRow() );
 
@@ -227,8 +182,8 @@ public class FilterStackPanel extends JPanel implements ActionListener
 		if( e.getSource() == editTargetButton )
 			FilterStackController.setStackIOPEditTarget( iop, stackTable.getSelectedRow() );
 
-		if( e.getSource() == exitButton )
-			FilterStackController.closeEditor();
+		//if( e.getSource() == exitButton )
+		//	FilterStackController.closeEditor();
 	}
 
 	class CustomTableModel extends DefaultTableModel

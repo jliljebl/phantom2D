@@ -1429,14 +1429,13 @@ public class MenuActions
 	//--- ???????? values arent going anywhere ? 
 	public static void setMemorySettings()
 	{
-		
 		MTextInfo previewFrame = new MTextInfo( "Available preview frames", MemoryManager.getPreviewSizeEstimate() );
-		MTextInfo previewMem = new MTextInfo( "Available preview memory", MemoryManager.getMBString( MemoryManager.getPreviewSizeEstimate()) );
+		//MTextInfo previewMem = new MTextInfo( "Available preview memory", MemoryManager.getMBString( MemoryManager.getPreviewSizeEstimate()) );
 		MTextInfo freeMem = new MTextInfo( "Free memory after start-up",  MemoryManager.getMBString( MemoryManager.getAppFreeMem() ) );
 		
 		MInputArea museArea = new MInputArea( "Memory Use Estimates" );
 		museArea.add( previewFrame );
-		museArea.add( previewMem );
+		//museArea.add( previewMem );
 		museArea.add( freeMem );
 		
 		MTextField maxMem = new MTextField( "Max. memory consumption MB", 60, 1024 );
@@ -1444,12 +1443,12 @@ public class MenuActions
 		MInputArea mArea = new MInputArea( "Memory Settings" );
 		mArea.add( maxMem );
 
- 		MTextField cacheShare = new MTextField( "Cache / preview share %", 125, new Integer( (int) (( 1.0f - MemoryManager.PREVIEW_SHARE ) * 100.0f ) ));
+ 		MTextField cacheShare = new MTextField( "Cache / (cache + preview) %", 125, new Integer( (int) (( 1.0f - MemoryManager.PREVIEW_SHARE ) * 100.0f ) ));
  		cacheShare.setTextFieldSize( 60 );
 		MTextField viewshare = new MTextField( "View Editor cache share %", 125, new Integer( ((int) (MemoryManager.VIEW_EDITOR_SHARE * 100.0f )) ));
 		viewshare.setTextFieldSize( 60 );
 
-		MInputArea cArea = new MInputArea( "Cache" );
+		MInputArea cArea = new MInputArea( "Memory Cache" );
 		cArea.add( cacheShare );
 		cArea.add( viewshare );
 
@@ -1457,7 +1456,7 @@ public class MenuActions
 		panel.add( museArea );
 		panel.add( mArea );
 		panel.add( cArea );
-		
+
 		int retVal = DialogUtils.showMultiInput( panel, 450, 330 );
 		if( retVal != DialogUtils.OK_OPTION ) return;
 	}

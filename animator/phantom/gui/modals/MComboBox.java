@@ -19,6 +19,8 @@ package animator.phantom.gui.modals;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JComboBox;
 
 public class MComboBox extends MInputField
@@ -55,7 +57,8 @@ public class MComboBox extends MInputField
 	}
 
 	public void addActionListener( MActionListener l ){ comboBox.addActionListener( l ); }
-
+	public void addActionListener( ActionListener l ){ comboBox.addActionListener( l ); }
+	
 	public void setOptions( String[] options ) 
 	{ 
 		comboBox.removeAllItems();

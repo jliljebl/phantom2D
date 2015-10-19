@@ -478,13 +478,13 @@ public abstract class ImageOperation implements Comparable<Object>
 			receivedCopy = RenderNode.getImageClone( renderedImage );
 		}
 		//--- if were looping (out of clip area at this point) get the looped frame that
-		//--- corrsponds to a frame in clip area.
+		//--- corresponds to a frame in clip area.
 		int loopedFrame = getLoopedFrame( frame );
-		//--- AnimCoords are accecssed elsewhere too so access to them needs to be synchronized
-		//--- because they are being temporally replased with a clone here.
+		//--- AnimCoords are accessed elsewhere too so access to them needs to be synchronized
+		//--- because they are being temporarily replaced with a clone here.
 		synchronized( acLock )
 		{	
-			//--- Now we have meaningfull input for all types of iops.
+			//--- Now we have meaningful input for all types of iops.
 			//--- Do coordinate transform.
 			//--- Looped is transformed with both looped and unlooped coords
 			if( looping == NO_LOOPING ) 
@@ -760,8 +760,11 @@ public abstract class ImageOperation implements Comparable<Object>
 				switchPanel = new MaskSwitchPanel( this );
 			else
 			{
-				animParentPanel = new AnimationParentPanel( this );
-				filterStackPanel = new FilterStackPanel( this );
+				if( isFilterStackIop == false )
+				{
+					animParentPanel = new AnimationParentPanel( this );
+					filterStackPanel = new FilterStackPanel( this );
+				}
 				switchPanel = new SwitchPanel( this );
 			}
 			
@@ -786,9 +789,12 @@ public abstract class ImageOperation implements Comparable<Object>
 				addPanel.add( new RowSeparator() );
 			}
 
-			if ( animParentPanel != null)
+			if ( animParentPanel != null )
+			{
+				addPanel.add( Box.createRigidArea( new Dimension( 0, 12 ) ) );
 				addPanel.add( animParentPanel );
-			
+			}
+
 			if( filterStackPanel != null )
 			{
 				addPanel.add( filterStackPanel );
@@ -805,9 +811,6 @@ public abstract class ImageOperation implements Comparable<Object>
 							Application.getParamEditHeight() - SCROLL_HEIGHT_PAD ) );
 				editFrame.add( scrollPane );
 			}
-			
-
-			
 		}
 
 		return editFrame;

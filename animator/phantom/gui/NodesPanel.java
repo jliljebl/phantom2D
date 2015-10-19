@@ -38,11 +38,9 @@ import animator.phantom.renderer.ImageOperation;
 
 public class NodesPanel extends JPanel
 {
-	private static final int AREA_BORDER_GAP = 5;
-	
 	private Vector<String> groups;
 	private int groupIndex = 0;
-
+	
 	private Vector<Vector<ImageOperation>> groupIops;
 	
 	private NodeSelectPanel groupsTable;
@@ -52,12 +50,14 @@ public class NodesPanel extends JPanel
 		
 	public NodesPanel()
 	{
+		 initContents();
+		
 		setLayout( new BoxLayout( this, BoxLayout.X_AXIS));
 
 		add( Box.createRigidArea(new Dimension( 0, 6 )));
 
 		JPanel contentPanel = new JPanel();
-		contentPanel.setLayout( new TwoItemRowLayout( 120, -1,  6, false));
+		contentPanel.setLayout( new TwoItemRowLayout( 130, -1,  6, false));
 		
 		JScrollPane gsp = initGroupsTable();
 		contentPanel.add( gsp );
@@ -66,66 +66,86 @@ public class NodesPanel extends JPanel
 		contentPanel.add( nsp );
 				
 		add( contentPanel );
-		
 		add( Box.createRigidArea(new Dimension( 0, 6 ) ) );
-				
-		Border b1 = BorderFactory.createLineBorder( GUIColors.frameBorder );
-		Border b2 = BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 4, AREA_BORDER_GAP + 4, AREA_BORDER_GAP + 2, AREA_BORDER_GAP), b1 );
-		
-		setBorder( b2 );
 
 		validate();
 		repaint();
 	}
 
-	private JScrollPane initGroupsTable()
+	private void initContents()
 	{
 		groups = IOPLibrary.getGroupKeys();
-		groupsTable = new NodeSelectPanel( this, false );
-		groupsTable.setColor( GUIColors.grayTitle );
-		groupsTable.init( groups, null);
-		groupsTable.setSelected( groupIndex );
-		JScrollPane sp = new JScrollPane( 	groupsTable,		 
-							ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
-							ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
-		return sp;
-	}
-
-	private JScrollPane initNodesTable()
-	{
+	
 		groupIops = new Vector<Vector<ImageOperation>>();
-
 		for( String group : groups )
 		{
 			Vector<ImageOperation> iops = new Vector<ImageOperation>();
 			@SuppressWarnings("rawtypes")
 			Vector iopsObjs = IOPLibrary.getGroupContents( group );
 			Collections.sort( iops );
-
+	
 			for( int j = 0; j < iopsObjs.size(); j++ )
 			{
 				Object o = iopsObjs.elementAt( j );
 				if( o instanceof ImageOperation )
 				{
 					ImageOperation iop = (ImageOperation) o;
-					iops.add( iop );	
+					if( iop.makeAvailableInFilterStack == true )
+							iops.add( iop );	
 				}
 				else
 				{
 					PhantomPlugin p = (PhantomPlugin) o;
-					iops.add( p.getIOP() );
+					if( p.getType() == PhantomPlugin.FILTER )
+					{
+						//--- No merge type filters can be stack filters.
+						if( !p.getIOP().hasMaskInput() && p.getIOP().getInputsCount() == 2 )
+							continue;
+	
+						iops.add( p.getIOP() );
+					}
 				}
-
+	
 			}
 			groupIops.add( iops );
 		}
+		
+		// Remove empty groups
+		Vector<Vector<ImageOperation>> removeIopVectors = new Vector<Vector<ImageOperation>>();
+		Vector<String> removeGroups = new Vector<String>();
+		for( int i = 0; i < groups.size(); i++ )
+		{
+			Vector<ImageOperation> iopGroup = groupIops.elementAt( i );
+			if( iopGroup.size() == 0)
+			{
+				removeIopVectors.add( iopGroup );
+				removeGroups.add( groups.elementAt( i ) );
+			}
+		}
+		groups.removeAll( removeGroups );
+		groupIops.removeAll( removeIopVectors );
+	}
+	
+	private JScrollPane initGroupsTable()
+	{
 
+		groupsTable = new NodeSelectPanel( this, false );
+		groupsTable.setColor( GUIColors.grayTitle );
+		groupsTable.init( groups, null );
+		groupsTable.setSelected( groupIndex );
+		JScrollPane sp = new JScrollPane( 	groupsTable,		 
+							ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+							ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 
+		return sp;
+	}
 
+	private JScrollPane initNodesTable()
+	{
 		nodesTable = new NodeSelectPanel( this, true );
 		displayGroupNodes();
 		JScrollPane sp = new JScrollPane( nodesTable,		 
-						  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+						  ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 						  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 		return sp;
 	}
@@ -141,6 +161,7 @@ public class NodesPanel extends JPanel
 		}
 
 		nodesTable.init( nodeNames, dragImg );
+		nodesTable.setSelected( 0 ); 
 	}
 	
 	public void selectionChanged( NodeSelectPanel source )

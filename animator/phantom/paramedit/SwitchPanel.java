@@ -57,7 +57,6 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 	private ImageOperation iop;
 	private SwitchData switches;
 	
-	//--- Labels
 	private JLabel mbLabel = new JLabel( GUIResources.getIcon( GUIResources.motionBlurLabel ) );
 	private JLabel smoothLabel = new JLabel( GUIResources.getIcon( GUIResources.alfaLineLabel ) );
 	private JLabel visLabel = new JLabel( GUIResources.getIcon( GUIResources.iris ) );
@@ -65,12 +64,10 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 	private JLabel bicLabel = new JLabel( GUIResources.getIcon( GUIResources.bicubic ) );
 	private JLabel nearLabel = new JLabel( GUIResources.getIcon( GUIResources.nearest ) );
 
-	//--- CheckBoxes
 	private JCheckBox mbBox = new JCheckBox();
 	private JCheckBox smoothBox = new JCheckBox();
 	private JCheckBox visBox = new JCheckBox();
 
-	//--- Radiobuttons
 	private JRadioButton nearest = new JRadioButton();
 	private JRadioButton bilinear = new JRadioButton();
 	private JRadioButton bicubic = new JRadioButton();
@@ -78,7 +75,6 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 	//--- Source buttons
 	private JButton centerAnchor = new JButton(  GUIResources.getIcon( GUIResources.centerAnchor));
 	private JToggleButton leafTrans = new JToggleButton(  GUIResources.getIcon( GUIResources.leafTrans));
-	private JButton filterStackButton = new JButton(  GUIResources.getIcon( GUIResources.filterStack ));
 
 	/**
 	* Constructor with <code>ImageOperation</code>.
@@ -108,7 +104,6 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 
 		GUIResources.prepareMediumButton( centerAnchor, this, "Center Anchor" );
 		GUIResources.prepareMediumButton( leafTrans, this, "Make leaf node background transparent. Use Source Alpha will be selected also. " );
-		GUIResources.prepareMediumButton( filterStackButton,  this, "Edit pre-transform Filters" );
 		leafTrans.setSelectedIcon( new ImageIcon( GUIResources.leafTransPressed ));
 
 		ButtonGroup group = new ButtonGroup();
@@ -154,10 +149,9 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 		add( p5 );
 		add( p6 );
 		add( Box.createRigidArea( new Dimension(20,0 ) ));
-		//add( parentButton );
 		if (iop.getCenterable() == true )
 			add( centerAnchor );
-		add( filterStackButton );
+
 		add( Box.createHorizontalGlue() );
 
 		Dimension size = new Dimension( ParamEditResources.EDIT_ROW_SIZE.width, ParamEditResources.EDIT_ROW_SIZE.height * 2 );
@@ -242,8 +236,8 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 			UpdateController.updateCurrentFrameDisplayers( false );
 		}
 
-		if( source == filterStackButton )
-			FilterStackController.displayEditor( iop );
+		//if( source == filterStackButton )
+		//	FilterStackController.displayEditor( iop );
 
 	}
 

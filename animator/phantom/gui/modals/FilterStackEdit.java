@@ -41,6 +41,7 @@ import javax.swing.table.DefaultTableModel;
 
 import animator.phantom.controller.FilterStackController;
 import animator.phantom.gui.GUIResources;
+import animator.phantom.gui.NodesPanel;
 import animator.phantom.gui.PHButtonFactory;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
@@ -84,9 +85,6 @@ public class FilterStackEdit extends JFrame implements ActionListener
 		GUIResources.prepareMediumButton( filterDown, this, "Move Selected Filter Down" );
 		GUIResources.prepareMediumButton( filterUp, this, "Move Selected Filter Up" );
 
-		JPanel p = new JPanel();
-		p.setLayout(new BoxLayout( p, BoxLayout.Y_AXIS));
-
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new BoxLayout( namePanel, BoxLayout.X_AXIS));
 		namePanel.add( Box.createRigidArea( new Dimension( NAME_PANEL_PAD, 0 ) ) );
@@ -111,6 +109,9 @@ public class FilterStackEdit extends JFrame implements ActionListener
 
 		JScrollPane pluginScrollPane = new JScrollPane( pluginTable );
 
+
+		
+			/*
 		editTargetButton = PHButtonFactory.getButton( "Set Edit Target" );
 		editTargetButton.addActionListener( this );
 
@@ -134,7 +135,15 @@ public class FilterStackEdit extends JFrame implements ActionListener
 		initFilterStack( 0 );
 
 		JScrollPane stackScrollPane = new JScrollPane( stackTable );
-
+	*/
+		editTargetButton = PHButtonFactory.getButton( "Set Edit Target" );
+		editTargetButton.addActionListener( this );
+		
+		JPanel stackButtons = new JPanel();
+		stackButtons.setLayout(new BoxLayout( stackButtons, BoxLayout.X_AXIS));
+		stackButtons.add( Box.createHorizontalGlue() );
+		stackButtons.add( editTargetButton );
+		
 		exitButton = PHButtonFactory.getButton( "Exit" );
 		exitButton.addActionListener( this );
 
@@ -144,27 +153,34 @@ public class FilterStackEdit extends JFrame implements ActionListener
 		exitButtonPanel.add( exitButton );
 
 		JPanel top = new JPanel();
-		setBorder( top, "Filters" ); 
+		//setBorder( top, "Filters" ); 
 		top.setLayout(new BoxLayout( top, BoxLayout.Y_AXIS));
 		top.add( Box.createRigidArea( new Dimension( 0, SUB_TITLE_GAP ) ) );
 		top.add( filterButtons );
 		top.add( Box.createRigidArea( new Dimension( 0, BUTTON_TABLE_GAP ) ) );
 		top.add( pluginScrollPane );
 
+		
+		NodesPanel np = new NodesPanel();
+		
+		JScrollPane stackScrollPane = new JScrollPane( np );
+		
 		JPanel bottom = new JPanel();
-		setBorder( bottom, "Filter Stack" );
+		//setBorder( bottom, "Filter Stack" );
 		bottom.setLayout(new BoxLayout( bottom, BoxLayout.Y_AXIS));
 		bottom.add( Box.createRigidArea( new Dimension( 0, SUB_TITLE_GAP ) ) );
-		bottom.add( stackButtons );
-		bottom.add( Box.createRigidArea( new Dimension( 0, BUTTON_TABLE_GAP ) ) );
 		bottom.add( stackScrollPane );
+		
 
+		JPanel p = new JPanel();
+		p.setLayout(new BoxLayout( p, BoxLayout.Y_AXIS));
 		p.add( namePanel );
-		p.add( Box.createRigidArea( new Dimension( 0, NAME_PANEL_GAP ) ) );
-		p.add( top );
+		p.add( stackButtons );
+		//p.add( Box.createRigidArea( new Dimension( 0, NAME_PANEL_GAP ) ) );
+		//p.add( top );
 		p.add( Box.createRigidArea( new Dimension( 0, 12 ) ) );
 		p.add( bottom );
-		p.add( Box.createRigidArea( new Dimension( 0, MID_GAP ) ) );
+		//p.add( Box.createRigidArea( new Dimension( 0, MID_GAP ) ) );
 		p.add( exitButtonPanel ); 
 		p.setBorder( BorderFactory.createEmptyBorder( 12, 2, 12, 8 ) );
 
@@ -177,6 +193,7 @@ public class FilterStackEdit extends JFrame implements ActionListener
 
 	public ImageOperation getIop(){ return iop; }
 
+	/*
 	private void setBorder( JPanel p, String title )
 	{
 		EmptyBorder b1 = new EmptyBorder( new Insets( 0,0,0,0 )); 
@@ -184,7 +201,8 @@ public class FilterStackEdit extends JFrame implements ActionListener
 		Border b3 = BorderFactory.createCompoundBorder( b2, BorderFactory.createEmptyBorder( 0, 20, 0, 0) );
 		p.setBorder( b3 );
 	}
-
+	*/
+	
 	private CustomTableModel getFilterTableModel()
 	{
 		Vector<Vector<String>> data = new Vector<Vector<String>>();
