@@ -7,7 +7,6 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import animator.phantom.controller.FlowController;
-import animator.phantom.controller.ParamEditController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.gui.modals.MComboBox;

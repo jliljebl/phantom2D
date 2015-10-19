@@ -29,7 +29,7 @@ import animator.phantom.controller.EditorPersistance;
 
 public class BigEditorsLayout implements LayoutManager
 {
-	public static int MID_Y = EditorPersistance.getIntPref( EditorPersistance.LAYOUT_MID );
+	//public static int MID_Y = EditorPersistance.getIntPref( EditorPersistance.LAYOUT_MID );
 
 	private int STRIP_HEIGHT = 35;
 	private int STRIP_INSET = 0;
@@ -42,7 +42,7 @@ public class BigEditorsLayout implements LayoutManager
 	public BigEditorsLayout(){}
 
 	//--- This all depends on order that components are added into container
-    	public void layoutContainer(Container cont) 
+    public void layoutContainer(Container cont) 
 	{
 		synchronized ( cont.getTreeLock() )
 		{
@@ -86,12 +86,7 @@ public class BigEditorsLayout implements LayoutManager
 	public void addLayoutComponent(String name, Component comp) {}
 	//--- noop
 	public void removeLayoutComponent(Component comp) {}
-	public Dimension preferredLayoutSize(Container cont )
-	{ 
-		return new Dimension( Toolkit.getDefaultToolkit().getScreenSize().width -  ContentPaneLayout.LEFT_WIDTH,
-					Toolkit.getDefaultToolkit().getScreenSize().height - MID_Y );
-	}
+	public Dimension preferredLayoutSize(Container cont ){ return new Dimension( 100, 100 ); }
 	public Dimension minimumLayoutSize(Container cont ){ return new Dimension( 100, 100 ); }
-
 
 }//end class

@@ -64,7 +64,8 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 	
 	//--- View
 	JMenuItem viewEditorHeight;
-
+	JMenuItem flowEditorWidth;
+	
 	//-- Project
 	JMenuItem addImage;
 	JMenuItem addImageSequence;
@@ -204,8 +205,12 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 	
 		viewEditorHeight = new JMenuItem("View Editor Height...");
 		viewEditorHeight.addActionListener(this);
-		viewMenu.add( viewEditorHeight);
+		viewMenu.add( viewEditorHeight );
 
+		flowEditorWidth = new JMenuItem("Composition Editor Width...");
+		flowEditorWidth.addActionListener(this);
+		viewMenu.add( flowEditorWidth );
+		
 		//------------------------------------ Node menu
 		JMenu iopMenu = new JMenu("Node");
 	
@@ -364,7 +369,8 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		
 		//--------------------------------------------- View menu
 		if( e.getSource() == viewEditorHeight ) MenuActions.setViewHeight();
-		
+		if( e.getSource() == flowEditorWidth ) MenuActions.setFlowWidth();
+
 		//--------------------------------------------- Project menu
 		if( e.getSource() == projectSettings ) MenuActions.setProjectProperties();
 		if( e.getSource() == kfPreferences ) MenuActions.keyframePreferences();

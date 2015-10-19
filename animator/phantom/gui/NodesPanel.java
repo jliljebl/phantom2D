@@ -24,13 +24,11 @@ import java.awt.image.BufferedImage;
 import java.util.Collections;
 import java.util.Vector;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.Border;
 
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.renderer.IOPLibrary;

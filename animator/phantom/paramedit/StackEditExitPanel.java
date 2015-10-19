@@ -31,4 +31,5 @@ public class StackEditExitPanel  extends JPanel implements ActionListener
 		UpdateController.editTargetIOPChangedFromStackEditor( null );
 		ParamEditController.displayEditFrame( GUIComponents.filterStackPanel.getIop() );
 	}
-}
+	
+}//end class

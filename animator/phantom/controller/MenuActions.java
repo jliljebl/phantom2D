@@ -38,6 +38,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import animator.phantom.blender.Blender;
+import animator.phantom.gui.AnimatorFrameLayout;
+import animator.phantom.gui.ContentPaneLayout;
 import animator.phantom.gui.FileLoadWindow;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.GUIUtils;
@@ -719,7 +721,7 @@ public class MenuActions
 	//------------------------------------------------------ view
 	public static void setViewHeight()
 	{
-		MSlider slider = new MSlider("View editor height",  150, 250, 500, 200, 800 );
+		MSlider slider = new MSlider("View editor height",  150, 250, AnimatorFrameLayout.VIEW_H, 200, 800 );
 
 		MInputArea area = new MInputArea( "" );
 		area.add( slider );
@@ -728,7 +730,31 @@ public class MenuActions
 		panel.add( area );
 
 		DialogUtils.showMultiInput( panel, 450, 110 );
+		
+		AnimatorFrameLayout.VIEW_H = slider.getIntValue();
+		
+		GUIComponents.animatorFrame.validate();
+		GUIComponents.animatorFrame.repaint();
 	}
+
+	public static void setFlowWidth()
+	{
+		MSlider slider = new MSlider("Composition editor width",  150, 250, ContentPaneLayout.LEFT_WIDTH, 350, 700 );
+
+		MInputArea area = new MInputArea( "" );
+		area.add( slider );
+
+		MInputPanel panel = new MInputPanel( "Set Composition Editor Height" );
+		panel.add( area );
+
+		DialogUtils.showMultiInput( panel, 450, 110 );
+		
+		ContentPaneLayout.LEFT_WIDTH = slider.getIntValue();
+		
+		GUIComponents.animatorFrame.validate();
+		GUIComponents.animatorFrame.repaint();
+	}
+
 	
 	public static void reloadSelected()
 	{

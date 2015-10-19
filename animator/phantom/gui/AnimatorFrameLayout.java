@@ -37,18 +37,18 @@ public class AnimatorFrameLayout implements LayoutManager
 	
 	private static Dimension containerSize;
 
-	public static int MID_Y = EditorPersistance.getIntPref( EditorPersistance.LAYOUT_MID ); //does not need to  be static like this
-	public static int VIEW_H = MID_Y;
+	//public static int MID_Y = EditorPersistance.getIntPref( EditorPersistance.LAYOUT_MID ); //does not need to  be static like this
+	public static int VIEW_H = EditorPersistance.getIntPref( EditorPersistance.LAYOUT_MID );
 	public static int PARAM_EDIT_WIDTH = 350;
 	public static int MIDDLE_ROW_HEIGHT = 0;
 	public static int BOTTOM_ROW_HEIGHT = 44;
 	public static int PREVIEW_HEIGHT = 44;
 	
 	public AnimatorFrameLayout( 	Component viewArea,
-					Component paramEditFrame,
-					Component previewControl,
-					Component editorArea,
-					Component bottomRow)
+									Component paramEditFrame,
+									Component previewControl,
+									Component editorArea,
+									Component bottomRow )
 	{
 		this.viewArea = viewArea;
 		this.paramEditFrame = paramEditFrame;
@@ -93,12 +93,12 @@ public class AnimatorFrameLayout implements LayoutManager
 	
 	private void layoutEditorPane( Component pane )
 	{
-		pane.setBounds( 0, VIEW_H + MIDDLE_ROW_HEIGHT, containerSize.width - 6, containerSize.height - MID_Y - MIDDLE_ROW_HEIGHT - BOTTOM_ROW_HEIGHT);
+		pane.setBounds( 0, VIEW_H + MIDDLE_ROW_HEIGHT, containerSize.width - 6, containerSize.height - VIEW_H - MIDDLE_ROW_HEIGHT - BOTTOM_ROW_HEIGHT);
 	}
 
 	private void layoutBottomRow(Component pane )
 	{
-		int editorHeight = containerSize.height - MID_Y - MIDDLE_ROW_HEIGHT - BOTTOM_ROW_HEIGHT;
+		int editorHeight = containerSize.height - VIEW_H - MIDDLE_ROW_HEIGHT - BOTTOM_ROW_HEIGHT;
 	
 		pane.setBounds( 0, VIEW_H + MIDDLE_ROW_HEIGHT + editorHeight, containerSize.width, BOTTOM_ROW_HEIGHT );
 	}

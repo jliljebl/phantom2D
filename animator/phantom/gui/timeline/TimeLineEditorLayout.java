@@ -84,7 +84,7 @@ public class TimeLineEditorLayout implements LayoutManager
 											- SMALL_WINDOW_WIDTH
 											- AnimFrameGUIParams.TE_WIDTH_PAD,
 											Application.getUsableScreen().height
-											- AnimatorFrameLayout.MID_Y
+											- AnimatorFrameLayout.VIEW_H
 											- AnimFrameGUIParams.TE_HEIGHT_PAD ); }
 
 	public Dimension minimumLayoutSize(Container cont ){ return new Dimension( 100, 100 ); }

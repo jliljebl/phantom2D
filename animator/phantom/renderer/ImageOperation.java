@@ -834,9 +834,8 @@ public abstract class ImageOperation implements Comparable<Object>
 		{
 			name.setText( getName() + " <Stack>" );
 			bgColor = GUIColors.filterStackColor;
+			name.setForeground( new Color( 50, 50, 50 ) );
 		}
-
-		//name.setForeground( GUIColors.PARAM_EDIT_NAME );
 
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new BoxLayout( namePanel, BoxLayout.X_AXIS));

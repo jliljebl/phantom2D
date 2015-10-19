@@ -37,10 +37,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
 
-import animator.phantom.controller.FilterStackController;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UpdateController;
-import animator.phantom.controller.UserActions;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.SwitchData;
