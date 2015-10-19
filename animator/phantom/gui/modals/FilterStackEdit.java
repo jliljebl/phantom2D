@@ -227,7 +227,7 @@ public class FilterStackEdit extends JFrame implements ActionListener
 			String target = "";
 			if( filter == FilterStackController.getEditTarget() )
 				target =  " < E >";
-;
+
 			data.add( getRowVec( filter.getName() + target ) );
 		}
 		Vector<String> colNames = new Vector<String>();

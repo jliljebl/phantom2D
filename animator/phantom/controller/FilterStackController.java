@@ -73,7 +73,6 @@ public class FilterStackController
 			}
 			addFilter.setFilterStackIOP( true );
 			addFilter.copyTimeParams( iop );
-			GUIComponents.filterStackEdit.initFilterStack( iop.getFilterStack().size() - 1 );
 			
 			UpdateController.updateCurrentFrameDisplayers( false );
 		}
@@ -85,7 +84,6 @@ public class FilterStackController
 			return;
 
 		iop.getFilterStack().removeElementAt( index );
-		GUIComponents.filterStackEdit.initFilterStack( 0 );
 
  		UpdateController.valueChangeUpdate();
 	}

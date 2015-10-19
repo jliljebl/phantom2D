@@ -45,6 +45,7 @@ import animator.phantom.gui.timeline.TimeLineEditorPanel;
 import animator.phantom.gui.timeline.TimeLineIOPColumnPanel;
 import animator.phantom.gui.view.component.ViewControlButtons;
 import animator.phantom.gui.view.component.ViewEditor;
+import animator.phantom.paramedit.FilterStackPanel;
 
 //--- Class to hold references to all GUI components.
 public class GUIComponents
@@ -93,6 +94,8 @@ public class GUIComponents
 	//--- View editor scroll pane
 	public static JScrollPane viewScrollPane;
 	//--- 
+	public static FilterStackPanel filterStackPanel;
+
 	//public static JSlider kfVertSlider;
 	//public static JSlider clipVertSlider;
 	//---

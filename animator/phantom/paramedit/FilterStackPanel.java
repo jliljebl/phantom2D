@@ -21,6 +21,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import animator.phantom.controller.FilterStackController;
+import animator.phantom.controller.GUIComponents;
+import animator.phantom.controller.ParamEditController;
+import animator.phantom.controller.UpdateController;
 import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.NodesPanel;
@@ -47,11 +50,14 @@ public class FilterStackPanel extends JPanel implements ActionListener
 	private static final int NAME_PANEL_PAD = 8;
 	private static final int SUB_TITLE_GAP = 2;
 
+	int STACK_MAX_SIZE = 7;
+	
 	private static Vector<ImageOperation> filters;
 
 	public FilterStackPanel( ImageOperation iop ) 
 	{
 		this.iop = iop;
+		GUIComponents.filterStackPanel = this;
 
 		filters = IOPLibrary.getFilters();
 		Collections.sort( filters );
@@ -114,16 +120,6 @@ public class FilterStackPanel extends JPanel implements ActionListener
 
 	public ImageOperation getIop(){ return iop; }
 
-	/*
-	private CustomTableModel getFilterTableModel()
-	{
-		Vector<Vector<String>> data = new Vector<Vector<String>>();
-		for( ImageOperation filter : filters )
-			data.add( getRowVec( filter.getName() ) );
-
-		return new CustomTableModel( data, "Plugin name" );
-	}
-	*/
 	public void initFilterStack()
 	{
 		initFilterStack( stackTable.getSelectedRow() );
@@ -139,7 +135,7 @@ public class FilterStackPanel extends JPanel implements ActionListener
 			String target = "";
 			if( filter == FilterStackController.getEditTarget() )
 				target =  " < E >";
-;
+
 			data.add( getRowVec( filter.getName() + target ) );
 		}
 		Vector<String> colNames = new Vector<String>();
@@ -160,28 +156,83 @@ public class FilterStackPanel extends JPanel implements ActionListener
 		vec.add( str );
 		return vec;
 	}
-
+	
 	public void actionPerformed( ActionEvent e )
 	{
-			System.out.println("ret");
 		if( e.getSource() == addFilter )
 		{	
-			//fstack = new FilterStackEdit( iop );
-			System.out.println("g");
-			//FilterStackController.addFilter( iop, filters.elementAt( pluginTable.getSelectedRow() ) );
-		}
-		if( e.getSource() == deleteFilter )
-			FilterStackController.removeFilter( iop, stackTable.getSelectedRow() );
+			ImageOperation selIOP = nodesPanel.getSelectedIOP();
 
-		if( e.getSource() == filterUp )
-			FilterStackController.moveFilterUp( iop, stackTable.getSelectedRow()  );
+			if( iop.getFilterStack().size() < STACK_MAX_SIZE )
+			{
+				ImageOperation addFilter;
+				if( selIOP.getPlugin() == null )
+				{
+					addFilter = IOPLibrary.getNewInstance( selIOP.getClass().getName() );
+				}
+				else//is plugin, not raw iop
+				{
+					String pluginName = selIOP.getPlugin().getClass().getName();
+					addFilter = IOPLibrary.getNewInstance( pluginName );
+
+				}
+				iop.getFilterStack().add( addFilter );
+				addFilter.setFilterStackIOP( true );
+				addFilter.copyTimeParams( iop );
+				
+				UpdateController.updateCurrentFrameDisplayers( false );
+				initFilterStack( iop.getFilterStack().size() - 1 );
+			}
+		}
+
+		if( e.getSource() == deleteFilter )
+		{
+			int index = stackTable.getSelectedRow();
+			if(  index == -1 )
+				return;
+
+			iop.getFilterStack().removeElementAt( index );
+			initFilterStack( 0 );
+	 		UpdateController.valueChangeUpdate();
+		}
 
 		if( e.getSource() == filterDown )
-			FilterStackController.moveFilterDown( iop, stackTable.getSelectedRow()  );
+		{
+			int index = stackTable.getSelectedRow();
+			if( index == iop.getFilterStack().size() - 1 || index == -1 )
+				return;
+	
+			ImageOperation filter = (ImageOperation) iop.getFilterStack().remove( index );
+			index++;
+			iop.getFilterStack().insertElementAt( filter, index );
+
+			initFilterStack( index );
+			UpdateController.valueChangeUpdate();
+		}
+
+		if( e.getSource() == filterUp )
+		{
+			int index = stackTable.getSelectedRow();
+			if( index < 1 )
+				return;
+			ImageOperation filter = (ImageOperation) iop.getFilterStack().remove( index );
+			index--;
+			iop.getFilterStack().insertElementAt( filter, index );
+			initFilterStack( index );
+	
+			UpdateController.valueChangeUpdate();
+		}
 
 		if( e.getSource() == editTargetButton )
-			FilterStackController.setStackIOPEditTarget( iop, stackTable.getSelectedRow() );
+		{
+			int index = stackTable.getSelectedRow();
+			if(  index == -1 )
+				return;
 
+			ImageOperation stackFilter = iop.getFilterStack().elementAt( index );
+			UpdateController.editTargetIOPChangedFromStackEditor( stackFilter );
+			ParamEditController.displayEditFrame( stackFilter );
+		}
 		//if( e.getSource() == exitButton )
 		//	FilterStackController.closeEditor();
 	}

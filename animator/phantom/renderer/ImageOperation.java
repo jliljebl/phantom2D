@@ -56,6 +56,7 @@ import animator.phantom.paramedit.OnOffPanel;
 import animator.phantom.paramedit.OutputsNumberSelector;
 import animator.phantom.paramedit.ParamEditResources;
 import animator.phantom.paramedit.RowSeparator;
+import animator.phantom.paramedit.StackEditExitPanel;
 import animator.phantom.paramedit.SwitchPanel;
 import animator.phantom.paramedit.panel.ParamEditPanel;
 import animator.phantom.plugin.PhantomPlugin;
@@ -800,6 +801,12 @@ public abstract class ImageOperation implements Comparable<Object>
 				addPanel.add( filterStackPanel );
 			}
 			
+			if( isFilterStackIop == true )
+			{
+				addPanel.add( Box.createRigidArea( new Dimension( 0, 24 ) ) );
+				addPanel.add( new StackEditExitPanel() );
+			}
+			
 			if( scrollPaneNeeded )
 			{
 				JScrollPane scrollPane = new JScrollPane( addPanel,
@@ -819,7 +826,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	public JPanel getNamePanel()
 	{
 		JLabel name = new JLabel();
-		Color bgColor = GUIColors.selectedColor;
+		Color bgColor = new Color( 20, 20, 20);//GUIColors.selectedColor;
 	
 		if( !isFilterStackIop )
 			name.setText( getName() );
@@ -829,7 +836,7 @@ public abstract class ImageOperation implements Comparable<Object>
 			bgColor = GUIColors.filterStackColor;
 		}
 
-		name.setForeground( GUIColors.PARAM_EDIT_NAME );
+		//name.setForeground( GUIColors.PARAM_EDIT_NAME );
 
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new BoxLayout( namePanel, BoxLayout.X_AXIS));

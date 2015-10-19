@@ -47,17 +47,17 @@ public class NodesPanel extends JPanel
 	private NodeSelectPanel nodesTable;
 	
 	private static final BufferedImage dragImg = GUIResources.getResourceBufferedImage( GUIResources.draggedNode );
-		
+
 	public NodesPanel()
 	{
 		 initContents();
 		
-		setLayout( new BoxLayout( this, BoxLayout.X_AXIS));
+		setLayout( new BoxLayout( this, BoxLayout.X_AXIS ));
 
 		add( Box.createRigidArea(new Dimension( 0, 6 )));
 
 		JPanel contentPanel = new JPanel();
-		contentPanel.setLayout( new TwoItemRowLayout( 130, -1,  6, false));
+		contentPanel.setLayout( new TwoItemRowLayout( 130, -1,  6, false ));
 		
 		JScrollPane gsp = initGroupsTable();
 		contentPanel.add( gsp );
