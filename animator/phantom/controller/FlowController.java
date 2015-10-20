@@ -161,6 +161,7 @@ public class FlowController
 		//--- Update GUI
 		ImageOperation iop = addNode.getImageOperation();
 		TimeLineController.targetIopChanged( iop );
+
 		EditorsController.addLayerForIop( iop );
 		//--- If new iop does not have edit layer we need render view editor bg 
 		//--- because layer add did not trigger render.
@@ -172,13 +173,13 @@ public class FlowController
 		//--- Params are named in editors and names are used in save/load
 		//--- and kfeditor
 		//--- Do in thread because might take 500ms+
-		final ImageOperation fholder =  iop;
+		final ImageOperation fholder = iop;
 		new Thread()
 		{
 			public void run()
 			{
-				fholder.getEditFrame();
-				//EditorsController.initKeyFrameEditor( fholder );
+				fholder.getEditFrame( false );
+				EditorsController.initKeyFrameEditor( fholder );
 			}
 		}.start();
 	}

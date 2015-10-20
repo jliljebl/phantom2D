@@ -91,8 +91,6 @@ public class BoxSelectionMode extends EditMode
 			if( !b.isSelected() && selectedBoxes.contains( b ) )
 				selectedBoxes.removeElement( b );
 		}
-
-		if( lastSelected.size() == 0 ) UpdateController.editTargetIOPChanged( null );
 	
 		editPanel.setMovingStopped();
 	}

@@ -48,7 +48,7 @@ public class OnOffPanel extends JPanel implements ItemListener, ActionListener
 	private JCheckBox visBox = new JCheckBox();
 
 	//--- Button
-	private JButton loopingButton = new JButton(  GUIResources.getIcon( GUIResources.transformGroup ));
+	//private JButton loopingButton = new JButton(  GUIResources.getIcon( GUIResources.transformGroup ));
 
 	/**
 	* Constructor with <code>ImageOperation</code>. Forplugins this ImageOperation is created when 
@@ -63,7 +63,7 @@ public class OnOffPanel extends JPanel implements ItemListener, ActionListener
 		visBox.addItemListener(this);
 
 		//--- Prepare button
-		GUIResources.prepareMediumButton( loopingButton, this, "Launch looping dialog" );
+		//GUIResources.prepareMediumButton( loopingButton, this, "Launch looping dialog" );
 
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout( new BoxLayout( labelPanel, BoxLayout.X_AXIS) );
@@ -74,7 +74,7 @@ public class OnOffPanel extends JPanel implements ItemListener, ActionListener
 		swicthPanel.setLayout( new BoxLayout( swicthPanel, BoxLayout.X_AXIS) );
 		swicthPanel.add( visBox );
 		swicthPanel.add( Box.createRigidArea( new Dimension( 50,0 ) ));
-		swicthPanel.add( loopingButton );
+		//swicthPanel.add( loopingButton );
 		swicthPanel.add( Box.createHorizontalGlue() );
 
 		JPanel onPanel = new JPanel();
@@ -121,8 +121,8 @@ public class OnOffPanel extends JPanel implements ItemListener, ActionListener
 	*/
 	public void actionPerformed(ActionEvent e)
 	{
-		if( e.getSource() == loopingButton )
-			UserActions.manageLoopSettings( iop );
+		//if( e.getSource() == loopingButton )
+		//	UserActions.manageLoopSettings( iop );
 	}
 
 }//end class

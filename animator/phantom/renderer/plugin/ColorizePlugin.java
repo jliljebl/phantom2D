@@ -23,15 +23,19 @@ import giotto2D.filters.color.Colorize;
 
 import java.awt.image.BufferedImage;
 
+import animator.phantom.paramedit.AnimValueSliderEditor;
+import animator.phantom.paramedit.IntAnimValueNumberEditor;
 import animator.phantom.paramedit.IntegerValueSliderEditor;
 import animator.phantom.plugin.PhantomPlugin;
+import animator.phantom.renderer.param.AnimatedValue;
+import animator.phantom.renderer.param.IntegerAnimatedValue;
 import animator.phantom.renderer.param.IntegerParam;
 
 public class ColorizePlugin extends PhantomPlugin
 {
-	private IntegerParam hue;
-	private IntegerParam saturation;
-	private IntegerParam lightness;
+	private AnimatedValue hue;
+	private AnimatedValue saturation;
+	private AnimatedValue lightness;
 
 	public ColorizePlugin()
 	{
@@ -42,9 +46,9 @@ public class ColorizePlugin extends PhantomPlugin
 	{
 		setName( "Colorize" );
 
-		hue = new IntegerParam( 180, 0, 360 );
-		saturation = new IntegerParam( 50, 0, 100 );
-		lightness = new IntegerParam( 0, -100, 100 );
+		hue = new AnimatedValue( 180.0f, 0.0f, 360.0f );
+		saturation = new AnimatedValue( 50.0f, 0.0f, 100.0f );
+		lightness = new AnimatedValue( 0.0f, -100.0f, 100.0f );
 
 		registerParameter( hue );
 		registerParameter( saturation );
@@ -53,9 +57,9 @@ public class ColorizePlugin extends PhantomPlugin
 
 	public void buildEditPanel()
 	{
-		IntegerValueSliderEditor hueEdit = new IntegerValueSliderEditor( "Hue", hue );
-		IntegerValueSliderEditor satEdit = new IntegerValueSliderEditor( "Saturation", saturation );
-		IntegerValueSliderEditor lightEdit = new IntegerValueSliderEditor( "Lightness", lightness );
+		AnimValueSliderEditor hueEdit = new AnimValueSliderEditor( "Hue", hue );
+		AnimValueSliderEditor satEdit = new AnimValueSliderEditor( "Saturation", saturation );
+		AnimValueSliderEditor lightEdit = new AnimValueSliderEditor( "Lightness", lightness );
 
 		addEditor( hueEdit );
 		addRowSeparator();
@@ -69,7 +73,7 @@ public class ColorizePlugin extends PhantomPlugin
 		BufferedImage flowImg = getFlowImage();
 
 		Colorize z = new Colorize();
-		z.setHSL( (double) hue.get(), (double) saturation.get(), (double) lightness.get() );
+		z.setHSL( (double) hue.getValue(frame), (double) saturation.getValue(frame), (double) lightness.getValue(frame) );
 		z.filter( flowImg );
 
 		sendFilteredImage( flowImg, frame );

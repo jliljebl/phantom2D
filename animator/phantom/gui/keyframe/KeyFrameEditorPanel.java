@@ -139,7 +139,7 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 		System.out.println("...DONE!" );
 	}
 
-	public void init( KeyFrameParam editValue, ImageOperation iop )
+	public void initEditor( KeyFrameParam editValue, ImageOperation iop )
 	{
 		this.editValue = editValue;
 		if( this.editValue == null ) this.editValue = dummyValue;//no iop to be edited

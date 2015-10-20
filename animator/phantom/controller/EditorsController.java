@@ -19,6 +19,7 @@ package animator.phantom.controller;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import java.util.Arrays;
 import java.util.Vector;
 
 import javax.swing.JLabel;
@@ -233,10 +234,17 @@ public class EditorsController
 		if( iop != null )
 		{
 			Vector<KeyFrameParam> kfs = iop.getKeyFrameParams();
-			if( kfs.size() == 0 ) GUIComponents.keyFrameEditPanel.init( null, iop );
+			
+			if( kfs.size() == 0 )
+			{
+				System.out.print( Arrays.toString(Thread.currentThread().getStackTrace()) );
+				System.out.println("2");
+				GUIComponents.keyFrameEditPanel.initEditor( null, iop );
+			}
 			else
 			{
-				GUIComponents.keyFrameEditPanel.init( kfs.elementAt( 0 ), iop );
+				System.out.println("3");
+				GUIComponents.keyFrameEditPanel.initEditor( kfs.elementAt( 0 ), iop );
 				GUIComponents.kfColumnPanel.setSelected( 0 );
 			}
 			
@@ -245,7 +253,9 @@ public class EditorsController
 		}
 		else//set to nothing selected
 		{
-			GUIComponents.keyFrameEditPanel.init( null, null );
+			System.out.println("4");
+			System.out.print( Arrays.toString(Thread.currentThread().getStackTrace()) );
+			GUIComponents.keyFrameEditPanel.initEditor( null, null );
 			setKFEditorNameLabelText( null );
 		}
 	}
@@ -263,7 +273,8 @@ public class EditorsController
 			if( node.getImageOperation() == GUIComponents.kfColumnPanel.getIOP() )
 			{
 				GUIComponents.kfColumnPanel.initGUI( null );
-				GUIComponents.keyFrameEditPanel.init( null, null );
+				System.out.println("5");
+				GUIComponents.keyFrameEditPanel.initEditor( null, null );
 				setKFEditorNameLabelText( null );
 			}
 		}
@@ -273,7 +284,8 @@ public class EditorsController
 	{
 		//--- NOTE:  Sets currentKFParam as a SIDE EFFECT!!!
 		//---------- because it may be special dunmmy value
-		GUIComponents.keyFrameEditPanel.init( editValue, iop );
+		System.out.println("1");
+		GUIComponents.keyFrameEditPanel.initEditor( editValue, iop );
 		if( currentKF != null )
 		{
 			int kfMovieFrame = currentKF.getFrame() + iop.getBeginFrame();

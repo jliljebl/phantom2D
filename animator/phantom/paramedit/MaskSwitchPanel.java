@@ -58,7 +58,7 @@ public class MaskSwitchPanel extends JPanel implements ItemListener, ActionListe
 	private JCheckBox visBox = new JCheckBox();
 
 	//--- Button
-	private JButton loopingButton = new JButton(  GUIResources.getIcon( GUIResources.transformGroup ));
+	//private JButton loopingButton = new JButton(  GUIResources.getIcon( GUIResources.transformGroup ));
 
 	/**
 	* Constructor with <code>ImageOperation</code>.
@@ -73,7 +73,7 @@ public class MaskSwitchPanel extends JPanel implements ItemListener, ActionListe
 		visLabel.setToolTipText( "Toggle On / Off" );
 
 		//--- Prepare button
-		GUIResources.prepareMediumButton( loopingButton, this, "Launch looping dialog" );
+		//GUIResources.prepareMediumButton( loopingButton, this, "Launch looping dialog" );
 
 		//-- Prepare boxes.
 		mbBox.addItemListener(this);
@@ -93,7 +93,7 @@ public class MaskSwitchPanel extends JPanel implements ItemListener, ActionListe
 		add( p1 );
 		add( p2 );
 		add( Box.createRigidArea( new Dimension( 50,0 ) ));
-		add( loopingButton );
+		//add( loopingButton );
 		add( Box.createHorizontalGlue() );
 
 		Dimension size = new Dimension( ParamEditResources.EDIT_ROW_SIZE.width, ParamEditResources.EDIT_ROW_SIZE.height * 2 );
@@ -139,8 +139,8 @@ public class MaskSwitchPanel extends JPanel implements ItemListener, ActionListe
 	*/
 	public void actionPerformed(ActionEvent e)
 	{
-		if( e.getSource() == loopingButton )
-			UserActions.manageLoopSettings( iop );
+		//if( e.getSource() == loopingButton )
+			//UserActions.manageLoopSettings( iop );
 	}
 
 }//end class

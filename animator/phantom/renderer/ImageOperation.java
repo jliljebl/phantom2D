@@ -192,7 +192,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	//--- The panel used to edit parameters
 	protected ParamEditPanel editPanel;
 	//--- The gui holding all edit components, edit panel + switch panel + name label
-	protected JPanel editFrame;
+	private JPanel editFrame;
 	//--- Panel with on/aff switch and type specific other swiches.
 	private JPanel switchPanel;
 	//--- Some IOPs do not have mask inputs.
@@ -651,8 +651,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	public void reCreateEditPanel()
 	{
 		editPanel = null;
-		editFrame = null;
-		getEditFrame();
+		getEditFrame( true );
 	}
 	//--- If isOn true, this iop is rendered.
 	public void setOnOffState( boolean isOnNow )
@@ -737,10 +736,14 @@ public abstract class ImageOperation implements Comparable<Object>
 	//--- CREATING PANEL, CREATING PANEL CREATING PANEL CREATING PANEL CREATING PANEL CREATING PANEL
 	//--- CREATING PANEL, CREATING PANEL CREATING PANEL CREATING PANEL CREATING PANEL CREATING PANEL
 	//--- Returns and builds edit frame panel for iop.
-	public synchronized JPanel getEditFrame()
+	public synchronized JPanel getEditFrame( boolean destroyFirst )
 	{
+		if ( destroyFirst == true )
+			editFrame = null;
+		
 		if( editFrame == null )
 		{
+
 			//boolean scrollPaneNeeded = Application.getParamEditHeight() - SCROLL_HEIGHT_PAD - SCROLL_TEST_PAD < 
 			//					getEditPanel().getPreferredSize().getHeight();
 			boolean scrollPaneNeeded = true;
@@ -768,7 +771,7 @@ public abstract class ImageOperation implements Comparable<Object>
 				}
 				switchPanel = new SwitchPanel( this );
 			}
-			
+
 			editFrame.add( switchPanel );
 
 			JPanel addPanel = editFrame;
@@ -868,8 +871,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	//--- Called when parent or filter stack possibly updated.
 	public JPanel reGetEditFrame()
 	{
-		editFrame = null;
-		return getEditFrame();
+		return getEditFrame( true );
 	}
 
 	//--- VIEW EDITOR LAYER, VIEW EDITOR LAYER, VIEW EDITOR LAYER, VIEW EDITOR LAYER, VIEW EDITOR LAYER
