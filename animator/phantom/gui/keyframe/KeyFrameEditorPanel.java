@@ -638,7 +638,12 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 				AnimationKeyFrame kf2 =  keyFrames.elementAt( i + 1 );
 				g.setColor( GUIColors.KF_VALUE_COLOR );
 
-				if( isLinearSeq( kf, kf2 ) )
+				if ( editValue.getStepped() == true )
+				{
+					endX = kfX( kf2 );
+					g.drawLine( kfX, kfY, endX, kfY );
+				}				
+				else if( isLinearSeq( kf, kf2 ) )
 				{
 					endX = kfX( kf2 );
 					endY = kfY( kf2 );

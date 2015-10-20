@@ -75,6 +75,7 @@ public class ValueXML extends AbstractXML
 		AnimatedValue av = (AnimatedValue)p;
 		av.setLocked( getBoolean( e, "l" ) );
 		av.setRestrictedValueRange( getBoolean( e, "r" ) );
+		av.setStepped( getBoolean( e, "stepped" ) );
 		av.setMinValue( getFloat( e, "min" ) );
 		av.setMaxValue( getFloat( e, "max" ) );
 		//--- keyframes
@@ -175,6 +176,7 @@ public class ValueXML extends AbstractXML
 		AnimatedValue av = (AnimatedValue)p;
 		e.setAttribute( "l", booleanStr( av.isLocked() ) );
 		e.setAttribute( "r", booleanStr( av.hasRestrictedValueRange() ) );
+		e.setAttribute( "stepped",  booleanStr( av.getStepped() ) );
 		e.setAttribute( "min", floatStr( av.getMinValue() ) );
 		e.setAttribute( "max", floatStr( av.getMaxValue() ) );
 		//--- keyframes

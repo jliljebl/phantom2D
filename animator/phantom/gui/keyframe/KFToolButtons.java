@@ -27,6 +27,8 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import animator.phantom.controller.EditorsController;
@@ -37,6 +39,7 @@ import animator.phantom.gui.modals.MInputArea;
 import animator.phantom.gui.modals.MInputPanel;
 import animator.phantom.gui.modals.MTextField;
 import animator.phantom.renderer.param.AnimationKeyFrame;
+import animator.phantom.renderer.param.KeyFrameParam;
 
 public class KFToolButtons extends JPanel implements ActionListener
 {
@@ -47,9 +50,11 @@ public class KFToolButtons extends JPanel implements ActionListener
 	private JButton addKF = new JButton( GUIResources.getIcon(  GUIResources.addKF ) );
 	private JButton deleteKF = new JButton( GUIResources.getIcon(  GUIResources.deleteKF ) );
 	private ImageIcon propsEnabled = GUIResources.getIcon( GUIResources.keyframeProperties );
-	private ImageIcon propsDisabled =  GUIResources.getIcon( GUIResources.keyframePropertiesDisabled ); 
+	private ImageIcon propsDisabled =  GUIResources.getIcon( GUIResources.keyframePropertiesDisabled );
+	private ImageIcon stepped =  GUIResources.getIcon( GUIResources.stepped ); 
 	private JButton kfProperties = new JButton( propsDisabled );
-
+	private JCheckBox steppedBox;
+	
 	public KFToolButtons()
 	{
 		GUIResources.prepareMediumButton( zoomIn, this, "Zoom in" );
@@ -58,10 +63,22 @@ public class KFToolButtons extends JPanel implements ActionListener
 		GUIResources.prepareMediumButton( deleteKF, this, "Delete keyframe" );
 		GUIResources.prepareMediumButton( kfProperties, this, "Selected keyframe properties" );
 
+		JLabel steppedLabel = new JLabel();
+		steppedLabel.setIcon(stepped);
+
+		steppedBox = new JCheckBox();
+		//KeyFrameParam kfParam = EditorsController.getCurrentKFParam();
+		steppedBox.setSelected( false );
+		steppedBox.addActionListener( this );
+		steppedBox.setPreferredSize( new Dimension( 20, 20 ));
+
 		JPanel p = new JPanel();
 		p.setLayout(new BoxLayout( p, BoxLayout.X_AXIS));
 		p.add( addKF );
 		p.add( deleteKF );
+		p.add( Box.createRigidArea( new Dimension( 6, 0 ) ) );
+		p.add( steppedLabel );
+		p.add( steppedBox );
 		p.add( Box.createRigidArea( new Dimension( 6, 0 ) ) );
 		p.add( zoomIn );
 		p.add( zoomOut );
@@ -84,6 +101,11 @@ public class KFToolButtons extends JPanel implements ActionListener
 			kfProperties.setIcon( propsEnabled );
 	}
 
+	public void setStepped( boolean stepped )
+	{
+		steppedBox.setSelected( stepped );
+	}
+	
 	public void actionPerformed( ActionEvent e )
 	{
 		requestFocusInWindow();
@@ -142,6 +164,13 @@ public class KFToolButtons extends JPanel implements ActionListener
 			kf.setTrailingInterpolation( trailingInterp.getSelectedIndex() + 1 );
 			kf.setLeadingTension( leadingTens.getFloatValue() );
 			kf.setTrailingTension( trailingTens.getFloatValue() );
+			EditorsController.updateKFForValueChange();
+		}
+		
+		if( e.getSource() == steppedBox )
+		{
+			KeyFrameParam kfParam = EditorsController.getCurrentKFParam();
+			kfParam.setStepped( steppedBox.isSelected() );
 			EditorsController.updateKFForValueChange();
 		}
 	}

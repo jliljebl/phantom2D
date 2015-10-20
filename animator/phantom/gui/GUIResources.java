@@ -93,7 +93,8 @@ public class GUIResources
 	public static String kfOff = resourcePath + "kfOff.png";
 	public static String kfOffDark = resourcePath + "kfOffDark.png";
 	public static String kfOffTheme = kfOff;
-
+	public static String stepped = resourcePath + "stepped.png";
+	
 	public static String addClip = resourcePath + "addClip.png";
 	public static String deleteClip = resourcePath + "deleteClip.png";
 	public static String clipDown = resourcePath + "clipDown.png";

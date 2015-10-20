@@ -55,8 +55,10 @@ public class AnimatedValue extends Param implements KeyFrameParam
 	private float maxValue = 0;
 	//--- Flag for set restrictions.
 	private boolean freeSet = false;
+	//--- Flag stepped value output.
+	private boolean stepped = false;
 	/**
-	* Used to hide parameter from keyframe editor in some rare cases. Defailt value false.
+	* Used to hide parameter from keyframe editor in some rare cases. Default value false.
 	*/
 	private boolean hideFromKFEditor = false;
 	/**
@@ -150,7 +152,7 @@ public class AnimatedValue extends Param implements KeyFrameParam
 			AnimationKeyFrame kf = keyFrames.elementAt( i );
 			//--- There is a key frame in requested frame, return it's value.
 			if( kf.getFrame() == animationFrame ) return kf.getValue();
-			//--- Leading frame is chnaged until keyframe with bigger frame found.
+			//--- Leading frame is changed until keyframe with bigger frame found.
 			if( kf.getFrame() < animationFrame ) leadingFrame = kf;
 			//--- Trailing frame is the first with bigger frame
 			if( kf.getFrame() > animationFrame )
@@ -160,6 +162,8 @@ public class AnimatedValue extends Param implements KeyFrameParam
 			}
 		}
 
+		//--- Stepped Animatedvalue objects returns leading frame value for full range between two keyframes.
+		if( stepped == true ) return leadingFrame.getValue();
 		//--- If no trailingFrame found, animationframe was after last keyframe,
 		//--- use leadingFrame's value.
 		if( trailingFrame == null ) return leadingFrame.getValue();
@@ -401,6 +405,9 @@ public class AnimatedValue extends Param implements KeyFrameParam
 	*/
 	public void setFreeSet(){ freeSet = true; }
 
+	public void setStepped( boolean stepped ){ this.stepped = stepped; }
+	public boolean getStepped(){ return this.stepped; }
+	
 	/**
 	* Sorts keyframes by frame value.
 	*/

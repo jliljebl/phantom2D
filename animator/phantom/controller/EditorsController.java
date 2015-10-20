@@ -284,7 +284,6 @@ public class EditorsController
 	{
 		//--- NOTE:  Sets currentKFParam as a SIDE EFFECT!!!
 		//---------- because it may be special dunmmy value
-		System.out.println("1");
 		GUIComponents.keyFrameEditPanel.initEditor( editValue, iop );
 		if( currentKF != null )
 		{
@@ -294,7 +293,7 @@ public class EditorsController
 			if( newKF == null )
 				GUIComponents.keyFrameEditPanel.setFocusFrame( -1 );
 		}
-
+		GUIComponents.kfControl.setStepped( editValue.getStepped() );
 		GUIComponents.kfColumnPanel.repaint();
 	}
 	//--- Set currently selected keyframe

@@ -81,5 +81,7 @@ public interface KeyFrameParam
 	* Hides param from KeyFrameEditor.
 	*/
 	//public void setHiddenFromKFEditor();
+	public void setStepped( boolean stepped );
+	public boolean getStepped();
 
 }//end interface
