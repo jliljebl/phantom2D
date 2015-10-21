@@ -128,23 +128,6 @@ public class AnimatedImageCoordinates
 		this.yAnchor = new AnimatedValue(iop, FyAnchor);
 		this.rotation = new AnimatedValue(iop, Frotation);
 	}
-
-	/**
-	* Sets all values in given frame.
-	*/ 
-	/*
-	public void setValuesForFrame( int frame, float xF, float yF, float xScaleF, float yScaleF,
-		 float xAnchorF, float yAnchorF, float rotationF )
-	{
-		x.setValue( frame, xF );
-		y.setValue( frame, yF );
-		xScale.setValue( frame, xScaleF );
-		yScale.setValue( frame, yScaleF );
-		xAnchor.setValue( frame, xAnchorF );
-		yAnchor.setValue( frame, yAnchorF );
-		rotation.setValue( frame, rotationF );
-	}	
-	*/
 	/**
 	* Retuns all parameters in Vector. Used internally when registering paramters.
 	*/

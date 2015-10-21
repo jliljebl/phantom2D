@@ -213,6 +213,8 @@ public class AnimatedValue extends Param implements KeyFrameParam
 				break;
 			}
 		}
+		//--- Stepped Animatedvalue objects returns leading frame value for full range between two keyframes.
+		if( stepped == true ) return leadingFrame.getValue();
 		//--- If no trailingFrame found, animationframe was after last keyframe,
 		//--- use its value.
 		if( trailingFrame == null ) return keyFrames.lastElement().getValue();

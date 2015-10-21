@@ -29,6 +29,7 @@ import animator.phantom.renderer.imagesource.ImageSequenceIOP;
 import animator.phantom.renderer.plugin.AlphaMergePlugin;
 import animator.phantom.renderer.plugin.AlphaReplacePlugin;
 import animator.phantom.renderer.plugin.AlphaToImagePlugin;
+import animator.phantom.renderer.plugin.AnimatedColorRGBPlugin;
 import animator.phantom.renderer.plugin.AnimatedColorSolidPlugin;
 import animator.phantom.renderer.plugin.BoxBlurPlugin;
 import animator.phantom.renderer.plugin.BrushedMetalPlugin;
@@ -208,7 +209,8 @@ public class IOPLibraryInitializer
 		IOPLibrary.registerPlugin( new ShapePlugin(), "Source" );
 		IOPLibrary.registerPlugin( new ShapeGridPlugin(), "Source" );
 		IOPLibrary.registerPlugin( new StripesPlugin(), "Source" );
-		IOPLibrary.registerPlugin( new AnimatedColorSolidPlugin(), "Source" );
+		//IOPLibrary.registerPlugin( new AnimatedColorSolidPlugin(), "Source" );
+		IOPLibrary.registerPlugin( new AnimatedColorRGBPlugin(), "Source" );
 		IOPLibrary.registerPlugin( new PatternGradientPlugin(), "Source" );
 
 		//--- Rendered Source

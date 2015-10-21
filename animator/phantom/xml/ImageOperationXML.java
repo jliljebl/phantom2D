@@ -46,8 +46,8 @@ public class ImageOperationXML extends AbstractXML
 		try
 		{
 			// NOTE: iopClass class here is usually PhantomPlugin class,
-			// called methon then creates plugin object and returns its 
-			// ImageOperation object which holds all persistant data.
+			// called method then creates plugin object and returns its 
+			// ImageOperation object which holds all persistent data.
 			ImageOperation iop = IOPLibrary.getNewInstance( iopClass );
 			
 			currentIop = iop;
@@ -63,10 +63,7 @@ public class ImageOperationXML extends AbstractXML
 				int bgtype = getInt( e, "bgtype" );
 				iop.backgroundType.set( bgtype );
 			}
-			catch( Exception ex )
-			{
-				//System.out.println( "bg exception" );
-			}
+			catch( Exception ex ){}
 
 			int maxLength = getInt( e, "maxlength" );
 			int beginFrame = getInt( e, "beginframe" );
@@ -163,7 +160,7 @@ public class ImageOperationXML extends AbstractXML
 			e.setAttribute( "class", iop.getClass().getName() );
 		else
 			e.setAttribute( "class", iop.getPlugin().getClass().getName() );
-		//--- imstance variables
+		//--- Instance variables
 		e.setAttribute( "blendmode", intStr( iop.getBlendMode() ) );
 		e.setAttribute( "bgtype", intStr( iop.backgroundType.get() ) );
 		e.setAttribute( "on", booleanStr( iop.isOn() ) );

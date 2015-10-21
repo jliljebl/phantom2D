@@ -23,16 +23,15 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import animator.phantom.paramedit.AnimColorRGBEditor;
 import animator.phantom.paramedit.AnimValueNumberEditor;
 import animator.phantom.paramedit.CheckBoxEditor;
 import animator.phantom.paramedit.IntegerComboBox;
-import animator.phantom.paramedit.ParamColorSelect;
 import animator.phantom.plugin.AbstractPluginEditLayer;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.plugin.PluginUtils;
 import animator.phantom.renderer.param.AnimatedValue;
 import animator.phantom.renderer.param.BooleanParam;
-import animator.phantom.renderer.param.ColorParam;
 import animator.phantom.renderer.param.IntegerParam;
 import animator.phantom.renderer.plugin.editlayer.GradientPluginEditLayer;
 
@@ -41,8 +40,13 @@ import com.jhlabs.image.GradientFilter;
 public class PatternGradientPlugin extends PhantomPlugin
 {
 	//--- Gradient colors
-	public ColorParam color1;
-	public ColorParam color2;
+	private AnimatedValue red1;
+	private AnimatedValue green1;
+	private AnimatedValue blue1;
+
+	private AnimatedValue red2;
+	private AnimatedValue green2;
+	private AnimatedValue blue2;
 	//--- x, and y of gradient start point.
 	public AnimatedValue x1;
 	public AnimatedValue y1;
@@ -63,8 +67,21 @@ public class PatternGradientPlugin extends PhantomPlugin
 	{
 		setName( "PatternGradient" );
 
-		color1 = new ColorParam( new Color( 0,0,0 ) );
-		color2  = new ColorParam( new Color( 255,255,255 ) );
+		red1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		green1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		blue1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+
+		red2 = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+		green2 = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+		blue2 = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+
+		red1.setParamName( "Red 1" );
+		green1.setParamName( "Green 1" );
+		blue1.setParamName( "Blue 1" );
+		
+		red2.setParamName( "Red 2" );
+		green2.setParamName( "Green 2" );
+		blue2.setParamName( "Blue 2" );
 
 		//--- NOTE: THESE ARE INITLIZED HERE BECAUSE PARAMETER DEFAULT
 		//--- VALUES DEPEND ON SCREEN SIZE WHITCH IS NOT KNOW UNTIL
@@ -77,8 +94,12 @@ public class PatternGradientPlugin extends PhantomPlugin
 		cyclic = new BooleanParam( false );
 		pattern = new IntegerParam( 0 );
 	
-		registerParameter( color1 );
-		registerParameter( color2 );
+		registerParameter( red1 );
+		registerParameter( green1 );
+		registerParameter( blue1 );
+		registerParameter( red2 );
+		registerParameter( green2 );
+		registerParameter( blue2 );
 		registerParameter( x1 );
 		registerParameter( y1 );
 		registerParameter( x2 );
@@ -89,8 +110,8 @@ public class PatternGradientPlugin extends PhantomPlugin
 
 	public void buildEditPanel()
 	{
-		ParamColorSelect colorEditor1 = new ParamColorSelect( color1, "Select color 1" );
-		ParamColorSelect colorEditor2 = new ParamColorSelect( color2, "Select color 1" );
+		AnimColorRGBEditor colorEditor1 = new AnimColorRGBEditor( "Color 1" ,  red1, green1, blue1 );
+		AnimColorRGBEditor colorEditor2  = new AnimColorRGBEditor( "Color 2", red2, green2, blue2 );
 
 		AnimValueNumberEditor xEdit1 = new AnimValueNumberEditor( "P1 X", x1 );
 		AnimValueNumberEditor yEdit1 = new AnimValueNumberEditor( "P1 Y", y1 );
@@ -129,11 +150,14 @@ public class PatternGradientPlugin extends PhantomPlugin
 	}
 
 	private GradientFilter getGradientFilter( int frame )
-	{            
+	{
+		Color color1 = new Color((int)red1.get(frame), (int)green1.get(frame), (int)blue1.get(frame) );
+		Color color2 = new Color((int)red2.get(frame), (int)green2.get(frame), (int)blue2.get(frame) );
+		
 		Point p1 = new Point( (int) x1.getValue( frame ),   (int) y1.getValue( frame ) );
 		Point p2 = new Point( (int) x2.getValue( frame ),   (int) y2.getValue( frame ) );
-		GradientFilter gf = new GradientFilter( p1, p2, color1.get().getRGB(), 
-						color2.get().getRGB(), cyclic.get(), pattern.get() + 2, GradientFilter.INT_LINEAR );// pattern.get() + 2 makes combobox selections correspond with GradientFilter types
+		GradientFilter gf = new GradientFilter( p1, p2, color1.getRGB(), 
+						color2.getRGB(), cyclic.get(), pattern.get() + 2, GradientFilter.INT_LINEAR );// pattern.get() + 2 makes combobox selections correspond with GradientFilter types
 		return gf;
 	}
 

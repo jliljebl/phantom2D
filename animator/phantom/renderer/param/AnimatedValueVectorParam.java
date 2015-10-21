@@ -27,7 +27,7 @@ import java.util.Vector;
 * This parameter can for example be used to describe a shape
 * with unknown number of animated points.
 */
-public class AnimatedValueVectorParam extends Param
+public class AnimatedValueVectorParam extends Param 
 {
 
 	private Vector<AnimatedValue> animVals = new Vector<AnimatedValue>();

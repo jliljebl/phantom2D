@@ -24,12 +24,8 @@ import giotto2D.filters.color.Colorize;
 import java.awt.image.BufferedImage;
 
 import animator.phantom.paramedit.AnimValueSliderEditor;
-import animator.phantom.paramedit.IntAnimValueNumberEditor;
-import animator.phantom.paramedit.IntegerValueSliderEditor;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.renderer.param.AnimatedValue;
-import animator.phantom.renderer.param.IntegerAnimatedValue;
-import animator.phantom.renderer.param.IntegerParam;
 
 public class ColorizePlugin extends PhantomPlugin
 {

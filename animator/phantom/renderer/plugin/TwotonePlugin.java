@@ -5,17 +5,24 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.awt.image.WritableRaster;
 
+import animator.phantom.paramedit.AnimColorRGBEditor;
 import animator.phantom.paramedit.ParamColorSelect;
 import animator.phantom.plugin.PhantomPlugin;
+import animator.phantom.renderer.param.AnimatedValue;
 import animator.phantom.renderer.param.ColorParam;
 
 import com.jhlabs.image.ArrayColormap;
 
 public class TwotonePlugin extends PhantomPlugin
 {
-	public ColorParam lightColor = new ColorParam( Color.yellow );
-	public ColorParam darkColor = new ColorParam( new Color( 0,0,0 ) );
+	private AnimatedValue redLight;
+	private AnimatedValue greenLight;
+	private AnimatedValue blueLight;
 
+	private AnimatedValue redDark;
+	private AnimatedValue greenDark;
+	private AnimatedValue blueDark;
+	
 	private int[] rbgLook = new int[256];
 
 	public static final int alpha_mask = 0x00ffffff;
@@ -32,16 +39,36 @@ public class TwotonePlugin extends PhantomPlugin
 	public void buildDataModel()
 	{
 		setName( "TwoTone" );
+		
+		redLight = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		greenLight = new AnimatedValue( 120.0f, 0.0f, 255.0f );
+		blueLight = new AnimatedValue( 255.0f, 0.0f, 255.0f );
 
-		registerParameter( lightColor );
-		registerParameter( darkColor );
+		redDark = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+		greenDark = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+		blueDark = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+
+		redLight.setParamName( "Red Light" );
+		greenLight.setParamName( "Green Light" );
+		blueLight.setParamName( "Blue Light" );
+		
+		redDark.setParamName( "Red Dark" );
+		greenDark.setParamName( "Green Dark" );
+		blueDark.setParamName( "Blue Dark" );
+		
+		registerParameter( redLight );
+		registerParameter( greenLight );
+		registerParameter( blueLight );
+		registerParameter( redDark );
+		registerParameter( greenDark );
+		registerParameter( blueDark );
 	}
 
 	public void buildEditPanel()
 	{
-		ParamColorSelect lightEditor = new ParamColorSelect( lightColor, "Light Color" );
-		ParamColorSelect darkEditor = new ParamColorSelect( darkColor, "Dark Color" );
-
+		AnimColorRGBEditor lightEditor = new AnimColorRGBEditor( "Light Color" ,  redLight, greenLight, blueLight );
+		AnimColorRGBEditor  darkEditor  = new AnimColorRGBEditor(  "Dark Color", redDark, greenDark, blueDark );
+		  
 		addEditor( lightEditor );
 		addRowSeparator();
 		addEditor( darkEditor );
@@ -51,7 +78,10 @@ public class TwotonePlugin extends PhantomPlugin
 	{
 		//--- Crate lookup for color replacement	
 		ArrayColormap cmap = new ArrayColormap();
-		cmap.setColorRange( 0, 255, darkColor.get().getRGB(), lightColor.get().getRGB() );
+		Color lightColor = new Color((int)redLight.get(frame), (int)greenLight.get(frame), (int)blueLight.get(frame) );
+		Color darkColor = new Color((int)redDark.get(frame), (int)greenDark.get(frame), (int)blueDark.get(frame) );
+
+		cmap.setColorRange( 0, 255, darkColor.getRGB(), lightColor.getRGB() );
 
 		for( int j = 0; j < 256; j++ )
 			rbgLook[ j ] = cmap.getColor( (float) j / 255.0f ) & alpha_mask;
@@ -89,4 +119,5 @@ public class TwotonePlugin extends PhantomPlugin
 		DataBufferInt dbuf = (DataBufferInt) imgRaster.getDataBuffer();
 		return dbuf.getData( 0 );
 	}
+
 }//end class

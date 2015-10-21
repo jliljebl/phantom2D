@@ -321,19 +321,6 @@ public abstract class ImageOperation implements Comparable<Object>
 			registerParameter( p );
 		}
 	}
-	/*
-	//--- Registers 3D animation parameters.
-	public void register3DCoords( AnimCoords3D coords )
-	{
-		animatedCoordinates = coords;
-		Vector<?> params = animatedCoordinates.getParamsVector();
-		for( int i = 0; i < params.size(); i++ )
-		{
-			Param p = (Param) params.elementAt( i );
-			registerParameter( p );
-		}
-	}
-	*/
 	//--- Gives newly registered Param a id String for presistance
 	private void setParamId( Param p )
 	{

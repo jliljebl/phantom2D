@@ -39,7 +39,7 @@ public class AnimatedColorSolidPlugin extends PhantomPlugin
 
 	public void buildDataModel()
 	{
-		setName( "AnimatedColorSolid" );
+		setName( "ColorSolidAnimated" );
 
 		bgColor = PluginUtils.getAnimatedColorParam( this );
 		registerParameter( bgColor );
@@ -53,7 +53,6 @@ public class AnimatedColorSolidPlugin extends PhantomPlugin
 	
 	public void doImageRendering( int frame )
 	{
-		System.out.print( "frame:" + frame );
 		Color drawC = PluginUtils.getAnimatedColor( bgColor, frame );
 
 		BufferedImage source = PluginUtils.createScreenCanvas();

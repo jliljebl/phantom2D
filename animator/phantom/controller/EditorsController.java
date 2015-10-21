@@ -207,7 +207,6 @@ public class EditorsController
 	//--- Set color/alpha display
 	public static void setAlphaDisplay( boolean showAlpha )
 	{
-		System.out.println( showAlpha );
 		alphaDisplay = showAlpha;
 		displayCurrentInViewEditor( false );
 	}
@@ -237,13 +236,11 @@ public class EditorsController
 			
 			if( kfs.size() == 0 )
 			{
-				System.out.print( Arrays.toString(Thread.currentThread().getStackTrace()) );
-				System.out.println("2");
 				GUIComponents.keyFrameEditPanel.initEditor( null, iop );
 			}
 			else
 			{
-				System.out.println("3");
+
 				GUIComponents.keyFrameEditPanel.initEditor( kfs.elementAt( 0 ), iop );
 				GUIComponents.kfColumnPanel.setSelected( 0 );
 			}
@@ -253,8 +250,6 @@ public class EditorsController
 		}
 		else//set to nothing selected
 		{
-			System.out.println("4");
-			System.out.print( Arrays.toString(Thread.currentThread().getStackTrace()) );
 			GUIComponents.keyFrameEditPanel.initEditor( null, null );
 			setKFEditorNameLabelText( null );
 		}
@@ -273,7 +268,6 @@ public class EditorsController
 			if( node.getImageOperation() == GUIComponents.kfColumnPanel.getIOP() )
 			{
 				GUIComponents.kfColumnPanel.initGUI( null );
-				System.out.println("5");
 				GUIComponents.keyFrameEditPanel.initEditor( null, null );
 				setKFEditorNameLabelText( null );
 			}

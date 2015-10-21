@@ -27,13 +27,11 @@ import java.awt.event.ItemListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import animator.phantom.controller.UpdateController;
-import animator.phantom.controller.UserActions;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.renderer.ImageOperation;
 
