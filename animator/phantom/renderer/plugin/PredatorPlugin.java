@@ -25,16 +25,15 @@ import giotto2D.filters.color.MaxRGB;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import animator.phantom.paramedit.IntegerValueSliderEditor;
+import animator.phantom.paramedit.AnimValueNumberEditor;
 import animator.phantom.plugin.PhantomPlugin;
-import animator.phantom.renderer.param.IntegerParam;
+import animator.phantom.renderer.param.AnimatedValue;
 
 import com.jhlabs.image.EdgeFilter;
 
 public class PredatorPlugin extends PhantomPlugin
 {
-	private IntegerParam size;
-
+	private AnimatedValue size;
 
 	public PredatorPlugin()
 	{
@@ -45,13 +44,13 @@ public class PredatorPlugin extends PhantomPlugin
 	{
 		setName( "Predator" );
 
-		size = new IntegerParam( 10, 1, 50 );
+		size = new AnimatedValue( 10, 1, 50 );
 		registerParameter( size );
 	}
 
 	public void buildEditPanel()
 	{
-		IntegerValueSliderEditor amountEdit = new  IntegerValueSliderEditor( "Grid size", size );
+		AnimValueNumberEditor amountEdit = new  AnimValueNumberEditor( "Grid size", size );
 		addEditor( amountEdit );
 	}
 
@@ -63,8 +62,8 @@ public class PredatorPlugin extends PhantomPlugin
 		f.filter( flowImg );
 
 		Pixelize pf = new Pixelize();
-		pf.setXSize( size.get() );
-		pf.setYSize( size.get() );
+		pf.setXSize( (int)size.get(frame) );
+		pf.setYSize( (int)size.get(frame) );
 		pf.filter( flowImg );
 
 		EdgeFilter edgeFilter = new EdgeFilter();

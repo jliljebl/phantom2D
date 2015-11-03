@@ -23,21 +23,21 @@ import giotto2D.filters.noise.ScatterRGB;
 
 import java.awt.image.BufferedImage;
 
+import animator.phantom.paramedit.AnimValueNumberEditor;
 import animator.phantom.paramedit.CheckBoxEditor;
-import animator.phantom.paramedit.IntegerValueSliderEditor;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.plugin.PluginUtils;
+import animator.phantom.renderer.param.AnimatedValue;
 import animator.phantom.renderer.param.BooleanParam;
-import animator.phantom.renderer.param.IntegerParam;
 
 public class ScatterRGBPlugin extends PhantomPlugin
 {
 	private BooleanParam correlated;
 	private BooleanParam independent;
-	private IntegerParam RNoise;
-	//private IntegerParam GNoise;
-	//private IntegerParam BNoise;
-
+	private BooleanParam animated;
+	private AnimatedValue RNoise;
+	private ScatterRGB noise;
+	
 	public ScatterRGBPlugin()
 	{
 		initPlugin( FILTER );
@@ -46,37 +46,32 @@ public class ScatterRGBPlugin extends PhantomPlugin
 	public void buildDataModel()
 	{
 		setName( "ScatterRGB" );
-
+		noise = new ScatterRGB();
 		correlated = new BooleanParam( false );
 		independent = new BooleanParam( false );
-		RNoise = new IntegerParam( 20, 0, 100 );
-		//GNoise = new IntegerParam( 20, 0, 100 );
-		//BNoise = new IntegerParam( 20, 0, 100 );
+		animated = new BooleanParam( false );
+		RNoise = new AnimatedValue( 20, 0, 100 );
 
 		registerParameter( correlated );
 		registerParameter( independent );
+		registerParameter( animated );
 		registerParameter( RNoise );
-		//registerParameter( GNoise );
-		//registerParameter( BNoise );
 	}
 
 	public void buildEditPanel()
 	{
 		CheckBoxEditor correlatedEdit = new CheckBoxEditor( correlated, "Correlated noise", true );
 		CheckBoxEditor independentEdit = new CheckBoxEditor( independent, "Intependent RGB", true );
-		IntegerValueSliderEditor rEdit = new IntegerValueSliderEditor( "Amount", RNoise );
-		//IntegerValueSliderEditor gEdit = new IntegerValueSliderEditor( "Blue noise", GNoise );
-		//IntegerValueSliderEditor bEdit = new IntegerValueSliderEditor( "Green noise", BNoise );
+		CheckBoxEditor animEdit = new CheckBoxEditor( animated, "Animate noise", true );
+		AnimValueNumberEditor rEdit = new  AnimValueNumberEditor( "Amount", RNoise );
 
+		addEditor( animEdit );
+		addRowSeparator();
 		addEditor( correlatedEdit );
 		addRowSeparator();
 		addEditor( independentEdit );
 		addRowSeparator();
 		addEditor( rEdit );
-//		addRowSeparator();
-//		addEditor( gEdit );
-//		addRowSeparator();
-//		addEditor( bEdit );
 	}
 
 	public void doImageRendering( int frame )
@@ -84,10 +79,10 @@ public class ScatterRGBPlugin extends PhantomPlugin
 		BufferedImage flowImg = getFlowImage();
 		BufferedImage filteredImage = PluginUtils.createScreenCanvas();
 
-		ScatterRGB noise = new ScatterRGB();
+		noise.setAnimated( animated.get() );
 		noise.setCorrelated( correlated.get() );
 		noise.setIndependent( independent.get() );
-		noise.setNoise( RNoise.get() / 100.0, 0.0, 0.0 );
+		noise.setNoise( RNoise.get(frame) / 100.0, 0.0, 0.0 );
 		noise.filter( flowImg, filteredImage );
 
 		sendFilteredImage( filteredImage, frame );

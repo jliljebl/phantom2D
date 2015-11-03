@@ -5,17 +5,22 @@ import giotto2D.filters.color.Threshold;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-import animator.phantom.paramedit.IntegerNumberEditor;
-import animator.phantom.paramedit.ParamColorSelect;
+import animator.phantom.paramedit.AnimColorRGBEditor;
+import animator.phantom.paramedit.AnimValueSliderEditor;
 import animator.phantom.plugin.PhantomPlugin;
-import animator.phantom.renderer.param.ColorParam;
-import animator.phantom.renderer.param.IntegerParam;
+import animator.phantom.renderer.param.AnimatedValue;
 
 public class ThresholdPlugin extends PhantomPlugin
 {
-	public ColorParam lightColor = new ColorParam( new Color( 255, 255, 255 ) );
-	public ColorParam darkColor = new ColorParam( new Color( 0,0,0 ) );
-	public IntegerParam toneLimit = new IntegerParam( 128 );
+	private AnimatedValue redLight;
+	private AnimatedValue greenLight;
+	private AnimatedValue blueLight;
+
+	private AnimatedValue redDark;
+	private AnimatedValue greenDark;
+	private AnimatedValue blueDark;
+	
+	public AnimatedValue toneLimit;
 
 	public ThresholdPlugin()
 	{
@@ -26,17 +31,39 @@ public class ThresholdPlugin extends PhantomPlugin
 	{
 		setName( "Threshold" );
 
-		registerParameter( lightColor );
-		registerParameter( darkColor );
+		toneLimit = new AnimatedValue( 128, 0, 255 );
+		
+		redLight = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		greenLight = new AnimatedValue( 120.0f, 0.0f, 255.0f );
+		blueLight = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+
+		redDark = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+		greenDark = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+		blueDark = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+
+		redLight.setParamName( "Red Light" );
+		greenLight.setParamName( "Green Light" );
+		blueLight.setParamName( "Blue Light" );
+		
+		redDark.setParamName( "Red Dark" );
+		greenDark.setParamName( "Green Dark" );
+		blueDark.setParamName( "Blue Dark" );
+
+		registerParameter( redLight );
+		registerParameter( greenLight );
+		registerParameter( blueLight );
+		registerParameter( redDark );
+		registerParameter( greenDark );
+		registerParameter( blueDark );
 		registerParameter( toneLimit );
 
 	}
 
 	public void buildEditPanel()
 	{
-		IntegerNumberEditor limitEditor = new IntegerNumberEditor( "Threshold", toneLimit);
-		ParamColorSelect lightEditor = new ParamColorSelect( lightColor, "Light Color" );
-		ParamColorSelect darkEditor = new ParamColorSelect( darkColor, "Dark Color" );
+		AnimValueSliderEditor limitEditor = new AnimValueSliderEditor(  "Threshold", toneLimit);
+		AnimColorRGBEditor lightEditor = new AnimColorRGBEditor( "Light Color", redLight, greenLight, blueLight );
+		AnimColorRGBEditor darkEditor  = new AnimColorRGBEditor( "Dark Color", redDark, greenDark, blueDark );
 
 		addEditor( limitEditor );
 		addRowSeparator();
@@ -48,7 +75,9 @@ public class ThresholdPlugin extends PhantomPlugin
 	public void doImageRendering( int frame )
 	{
 		BufferedImage img  = getFlowImage();
-		Threshold.filter( img, toneLimit.get(), darkColor.get(), lightColor.get() );
+		Color lightColor = new Color((int)redLight.get(frame), (int)greenLight.get(frame), (int)blueLight.get(frame) );
+		Color darkColor = new Color((int)redDark.get(frame), (int)greenDark.get(frame), (int)blueDark.get(frame) );
+		Threshold.filter( img, (int) toneLimit.get(frame), darkColor, lightColor );
 
 		sendFilteredImage( img, frame );
 	}

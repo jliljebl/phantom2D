@@ -23,15 +23,15 @@ import giotto2D.filters.noise.Spread;
 
 import java.awt.image.BufferedImage;
 
-import animator.phantom.paramedit.IntegerNumberEditor;
+import animator.phantom.paramedit.AnimValueNumberEditor;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.plugin.PluginUtils;
-import animator.phantom.renderer.param.IntegerParam;
+import animator.phantom.renderer.param.AnimatedValue;
 
 public class SpreadPlugin extends PhantomPlugin
 {
-	private IntegerParam amountX;
-	private IntegerParam amountY;
+	private AnimatedValue sizeX;
+	private AnimatedValue sizeY;
 
 	public SpreadPlugin()
 	{
@@ -42,18 +42,17 @@ public class SpreadPlugin extends PhantomPlugin
 	{
 		setName( "Spread" );
 
-		 amountX = new IntegerParam( 5 );
-		 amountY = new IntegerParam( 5 );
+		sizeX = new AnimatedValue( 5 );
+		sizeY = new AnimatedValue( 5 );
 
-		registerParameter( amountX );
-		registerParameter( amountY );
+		registerParameter( sizeX );
+		registerParameter( sizeY );
 	}
 
 	public void buildEditPanel()
 	{
-		IntegerNumberEditor amountXEdit = new  IntegerNumberEditor( "Amount X", amountX );
-		IntegerNumberEditor amountYEdit = new  IntegerNumberEditor( "Amount Y", amountY );
-
+		AnimValueNumberEditor amountXEdit = new  AnimValueNumberEditor( "Amount X", sizeX );
+		AnimValueNumberEditor amountYEdit = new  AnimValueNumberEditor( "Amount Y", sizeY );
 		addEditor( amountXEdit );
 		addRowSeparator();
 		addEditor( amountYEdit );
@@ -65,8 +64,8 @@ public class SpreadPlugin extends PhantomPlugin
 		BufferedImage filteredImage = PluginUtils.createScreenCanvas();
 
 		Spread noise = new Spread();
-		noise.setAmountX( amountX.get() > 0 ? amountX.get() : 0  );
-		noise.setAmountY( amountY.get() > 0 ? amountY.get() : 0  );
+		noise.setAmountX((int) sizeX.get(frame) > 0 ? (int) sizeX.get(frame) : 0  );
+		noise.setAmountY( (int) sizeY.get(frame)> 0 ? (int) sizeY.get(frame) : 0  );
 		noise.filter( flowImg, filteredImage );
 
 		sendFilteredImage( filteredImage, frame );

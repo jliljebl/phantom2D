@@ -23,14 +23,14 @@ import giotto2D.filters.blur.Pixelize;
 
 import java.awt.image.BufferedImage;
 
-import animator.phantom.paramedit.IntegerNumberEditor;
+import animator.phantom.paramedit.AnimValueNumberEditor;
 import animator.phantom.plugin.PhantomPlugin;
-import animator.phantom.renderer.param.IntegerParam;
+import animator.phantom.renderer.param.AnimatedValue;
 
 public class PixelizePlugin extends PhantomPlugin
 {
-	private IntegerParam sizeX;
-	private IntegerParam sizeY;
+	private AnimatedValue sizeX;
+	private AnimatedValue sizeY;
 
 	public PixelizePlugin()
 	{
@@ -41,8 +41,8 @@ public class PixelizePlugin extends PhantomPlugin
 	{
 		setName( "Pixelize" );
 
-		sizeX = new IntegerParam( 10 );
-		sizeY = new IntegerParam( 10 );
+		sizeX = new AnimatedValue( 10 );
+		sizeY = new AnimatedValue( 10 );
 
 		registerParameter( sizeX );
 		registerParameter( sizeY );
@@ -50,8 +50,8 @@ public class PixelizePlugin extends PhantomPlugin
 
 	public void buildEditPanel()
 	{
-		IntegerNumberEditor amountXEdit = new  IntegerNumberEditor( "X Size", sizeX );
-		IntegerNumberEditor amountYEdit = new  IntegerNumberEditor( "Y Size", sizeY );
+		AnimValueNumberEditor amountXEdit = new  AnimValueNumberEditor( "X Size", sizeX );
+		AnimValueNumberEditor amountYEdit = new  AnimValueNumberEditor( "Y Size", sizeY );
 
 		addEditor( amountXEdit );
 		addRowSeparator();
@@ -63,8 +63,8 @@ public class PixelizePlugin extends PhantomPlugin
 		BufferedImage flowImg = getFlowImage();
 
 		Pixelize filter = new Pixelize();
-		filter.setXSize( sizeX.get() );
-		filter.setYSize( sizeY.get() );
+		filter.setXSize( (int) sizeX.get(frame) );
+		filter.setYSize( (int) sizeY.get(frame) );
 		filter.filter( flowImg );
 
 		sendFilteredImage( flowImg, frame );

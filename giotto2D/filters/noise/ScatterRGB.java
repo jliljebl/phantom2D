@@ -29,16 +29,18 @@ import java.util.Random;
 //--dis probaply aint working correctly
 public class ScatterRGB extends AbstractFilter
 {
-	private boolean   independent = true;
-	private boolean   correlated  = false;
+	private boolean independent = true;
+	private boolean correlated  = false;
+	private boolean animated  = true;
 	private double[]  noise = { 0.20, 0.20, 0.20, 0.0 };     /*  channel  */
-
+	private long seed = 12345678;// random number generator.
 	private Random random;
 
 	public ScatterRGB(){}
 
 	public void setCorrelated( boolean correlated ){ this.correlated = correlated; }
 	public void setIndependent( boolean independent ){ this.independent = independent; }
+	public void setAnimated( boolean animated ){ this.animated = animated; }
 	public void setNoise( double r, double g, double b )
 	{
 		noise[ 0 ] = r;
@@ -67,7 +69,7 @@ public class ScatterRGB extends AbstractFilter
   		source.getPixels( x1, y1, width, height, src);
   		destination.getPixels( x1, y1, width, height, dst);
 
-		random = new Random( 12345678 );// random number generator.
+		random = new Random( seed );// random number generator.
 
 		int byteNoise = 0;
 		int sample;
@@ -101,7 +103,8 @@ public class ScatterRGB extends AbstractFilter
 			}
 		}
   		destination.setPixels( x1, y1, width, height, dst);
-		
+  		if( animated == true )
+  			seed = random.nextLong();
 		return destinationImg;
 	}
 

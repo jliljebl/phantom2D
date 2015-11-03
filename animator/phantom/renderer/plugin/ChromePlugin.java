@@ -1,14 +1,16 @@
 package animator.phantom.renderer.plugin;
 
+import animator.phantom.paramedit.AnimValueNumberEditor;
 import animator.phantom.paramedit.FloatNumberEditor;
 import animator.phantom.plugin.PhantomPlugin;
+import animator.phantom.renderer.param.AnimatedValue;
 import animator.phantom.renderer.param.FloatParam;
 
 import com.jhlabs.image.ChromeFilter;
 
 public class ChromePlugin extends PhantomPlugin
 {
-	public FloatParam amount;
+	private AnimatedValue amount;
 	public FloatParam exposure;
 
 	public ChromePlugin()
@@ -20,7 +22,7 @@ public class ChromePlugin extends PhantomPlugin
 	{
 		setName( "Chrome" );
 
-		amount = new FloatParam( 0.5f );
+		amount = new AnimatedValue( 0.5f, 0, 5 );
 		exposure = new FloatParam( 1.0f );
 
 		registerParameter( amount );
@@ -29,7 +31,7 @@ public class ChromePlugin extends PhantomPlugin
 
 	public void buildEditPanel()
 	{
-		FloatNumberEditor amountEdit = new FloatNumberEditor( "Amount", amount );
+		AnimValueNumberEditor amountEdit = new  AnimValueNumberEditor( "Amount", amount );
 		FloatNumberEditor exposureEdit  = new FloatNumberEditor( "Exposure", exposure );
 
 		addEditor( amountEdit );
@@ -40,7 +42,7 @@ public class ChromePlugin extends PhantomPlugin
 	public void doImageRendering( int frame )
 	{
 		ChromeFilter cFilt = new ChromeFilter();
-		cFilt.setAmount( amount.get() );
+		cFilt.setAmount( amount.get(frame) );
 		cFilt.setExposure( exposure.get() );
 
 		applyFilter( cFilt );
