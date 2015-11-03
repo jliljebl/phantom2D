@@ -1,14 +1,14 @@
 package animator.phantom.renderer.plugin;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import animator.phantom.paramedit.AnimColorRGBEditor;
 import animator.phantom.paramedit.AnimValueNumberEditor;
 import animator.phantom.paramedit.IntegerNumberEditor;
-import animator.phantom.paramedit.ParamColorSelect;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.plugin.PluginUtils;
 import animator.phantom.renderer.param.AnimatedValue;
-import animator.phantom.renderer.param.ColorParam;
 import animator.phantom.renderer.param.IntegerParam;
 
 import com.jhlabs.image.CausticsFilter;
@@ -22,7 +22,9 @@ public class CausticsPlugin extends PhantomPlugin
 	public AnimatedValue dispersion = new AnimatedValue( 0.0f );
 	public AnimatedValue time = new AnimatedValue( 0.0f );
 	public IntegerParam samples = new IntegerParam( 2, 1, 3 );
-	public ColorParam bgColor = new ColorParam( 0xff799fff, true );
+	private AnimatedValue red1;
+	private AnimatedValue green1;
+	private AnimatedValue blue1;
 
 	public CausticsPlugin()
 	{
@@ -33,7 +35,14 @@ public class CausticsPlugin extends PhantomPlugin
 	public void buildDataModel()
 	{
 		setName( "Caustics" );
-
+		
+		red1 = new AnimatedValue( 50.0f, 0.0f, 255.0f );
+		green1 = new AnimatedValue( 50.0f, 0.0f, 255.0f );
+		blue1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		red1.setParamName( "Red" );
+		green1.setParamName( "Green" );
+		blue1.setParamName( "Blue" );
+		
 		registerParameter( scale );
 		registerParameter( brightness );
 		registerParameter( amount  );
@@ -41,7 +50,9 @@ public class CausticsPlugin extends PhantomPlugin
 		registerParameter( dispersion );
 		registerParameter( time );
 		registerParameter( samples );
-		registerParameter( bgColor );
+		registerParameter( red1 );
+		registerParameter( green1 );
+		registerParameter( blue1 );
 	}
 
 	public void buildEditPanel()
@@ -53,7 +64,7 @@ public class CausticsPlugin extends PhantomPlugin
 		AnimValueNumberEditor dispersionE = new AnimValueNumberEditor( "Dispersion", dispersion );
 		AnimValueNumberEditor timeE = new AnimValueNumberEditor( "Time", time );
 		IntegerNumberEditor samplesE = new IntegerNumberEditor( "Samples", samples );
-		ParamColorSelect bgColorE = new ParamColorSelect( bgColor, "Bacground color" );
+		AnimColorRGBEditor colorEditor1 = new AnimColorRGBEditor( "Light Color", red1, green1, blue1 );
 
 		addEditor( scaleE );
 		addRowSeparator();
@@ -69,7 +80,7 @@ public class CausticsPlugin extends PhantomPlugin
 		addRowSeparator();
 		addEditor( samplesE );
 		addRowSeparator();
-		addEditor( bgColorE );
+		addEditor( colorEditor1 );
 	}
 
 	public void doImageRendering( int frame )
@@ -85,7 +96,8 @@ public class CausticsPlugin extends PhantomPlugin
 		cFilt.setDispersion( dispersion.getValue( frame ) );
 		cFilt.setTime( time.getValue( frame )  );
 		cFilt.setSamples( samples.get() );
-		cFilt.setBgColor( bgColor.get().getRGB() );
+		Color color1 = new Color((int)red1.get(frame), (int)green1.get(frame), (int)blue1.get(frame) );
+		cFilt.setBgColor( color1.getRGB() );
 	
 		PluginUtils.filterImage( img, cFilt );
 

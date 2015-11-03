@@ -19,7 +19,6 @@ package animator.phantom.gui.modals;
 */
 
 import java.awt.Dimension;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
@@ -35,8 +34,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import animator.phantom.controller.FilterStackController;
@@ -61,13 +58,10 @@ public class FilterStackEdit extends JFrame implements ActionListener
 	private JButton editTargetButton;
 
 	private static final int ROW_HEIGHT = 20;
-	private static final int MID_GAP = 30;
 	private static final int BUTTON_TABLE_GAP = 4;
 	private static final int TABLES_WIDTH = 300;
 	private static final int PLUGIN_TABLE_HEIGHT = 200;
-	private static final int STACK_TABLE_HEIGHT = 140;
 	private static final int NAME_PANEL_PAD = 8;
-	private static final int NAME_PANEL_GAP = 12;
 	private static final int SUB_TITLE_GAP = 2;
 
 	private static Vector<ImageOperation> filters;

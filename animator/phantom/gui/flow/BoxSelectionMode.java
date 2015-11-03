@@ -23,8 +23,6 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-import animator.phantom.controller.UpdateController;
-
 public class BoxSelectionMode extends EditMode
 {
 	//--- Selected boxes.

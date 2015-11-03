@@ -19,16 +19,19 @@ package animator.phantom.renderer.plugin;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import animator.phantom.paramedit.ParamColorSelect;
+import animator.phantom.paramedit.AnimColorRGBEditor;
 import animator.phantom.plugin.PluginUtils;
-import animator.phantom.renderer.param.ColorParam;
+import animator.phantom.renderer.param.AnimatedValue;
 
 public class ShapeGridPlugin extends GridPlugin
 {
-	private ColorParam color;
+	private AnimatedValue red1;
+	private AnimatedValue green1;
+	private AnimatedValue blue1;
 
 	public ShapeGridPlugin()
 	{
@@ -39,14 +42,23 @@ public class ShapeGridPlugin extends GridPlugin
 	{
  		setName( "ShapeGrid" );
 		registerGridParams();
-		color = new ColorParam();
+		red1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		green1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		blue1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		red1.setParamName( "Fill Red" );
+		green1.setParamName( "Fill Green" );
+		blue1.setParamName( "Fill Blue" );
+		registerParameter( red1 );
+		registerParameter( green1 );
+		registerParameter( blue1 );
 	}
 
 	public void buildEditPanel()
 	{
 		addGridEditors( true );
 		addRowSeparator();
-		addEditor( new ParamColorSelect( color, "Color" ) );
+		AnimColorRGBEditor colorEditor1 = new AnimColorRGBEditor( "Shape Color", red1, green1, blue1 );
+		addEditor( colorEditor1 );
 	}
 
 	public void renderFullScreenMovingSource( float frameTime, Graphics2D g, int width, int height )
@@ -54,8 +66,8 @@ public class ShapeGridPlugin extends GridPlugin
 		BufferedImage source = getFlowImage();
 		if( shapeType.get() == 0 && source == null )
 			source = PluginUtils.createScreenCanvas();
-
-		drawGrid( g, width, height, source, color.get(), frameTime, true );
+		Color color1 = new Color((int)red1.get(frameTime), (int)green1.get(frameTime), (int)blue1.get(frameTime) );
+		drawGrid( g, width, height, source, color1, frameTime, true );
 	}
 
 }//end class

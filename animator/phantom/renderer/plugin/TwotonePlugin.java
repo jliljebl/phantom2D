@@ -6,10 +6,8 @@ import java.awt.image.DataBufferInt;
 import java.awt.image.WritableRaster;
 
 import animator.phantom.paramedit.AnimColorRGBEditor;
-import animator.phantom.paramedit.ParamColorSelect;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.renderer.param.AnimatedValue;
-import animator.phantom.renderer.param.ColorParam;
 
 import com.jhlabs.image.ArrayColormap;
 

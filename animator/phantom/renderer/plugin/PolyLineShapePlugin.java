@@ -11,10 +11,8 @@ import animator.phantom.paramedit.AnimColorRGBEditor;
 import animator.phantom.paramedit.CheckBoxEditor;
 import animator.phantom.paramedit.IntegerComboBox;
 import animator.phantom.paramedit.IntegerNumberEditor;
-import animator.phantom.paramedit.ParamColorSelect;
 import animator.phantom.renderer.param.AnimatedValue;
 import animator.phantom.renderer.param.BooleanParam;
-import animator.phantom.renderer.param.ColorParam;
 import animator.phantom.renderer.param.IntegerParam;
 
 public class PolyLineShapePlugin extends PolyLinePlugin

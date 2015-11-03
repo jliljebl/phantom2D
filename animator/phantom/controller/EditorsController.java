@@ -19,7 +19,6 @@ package animator.phantom.controller;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import java.util.Arrays;
 import java.util.Vector;
 
 import javax.swing.JLabel;

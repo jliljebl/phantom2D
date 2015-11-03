@@ -28,17 +28,16 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
+import animator.phantom.paramedit.AnimColorRGBEditor;
 import animator.phantom.paramedit.AnimValueNumberEditor;
-import animator.phantom.paramedit.ParamColorSelect;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.renderer.param.AnimatedValue;
-import animator.phantom.renderer.param.ColorParam;
 
 public class StripesPlugin extends PhantomPlugin
 {
-
-	//private ColorParam bgColor = new ColorParam(Color.white);
-	private ColorParam fgColor = new ColorParam(Color.white);
+	private AnimatedValue red1;
+	private AnimatedValue green1;
+	private AnimatedValue blue1;
 	private AnimatedValue y = new AnimatedValue( 0 );
 	private AnimatedValue width = new AnimatedValue( 20 );
 	private AnimatedValue size = new AnimatedValue( 50 );
@@ -52,11 +51,18 @@ public class StripesPlugin extends PhantomPlugin
 	public void buildDataModel()
 	{
  		setName( "Stripes" );
+		red1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		green1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		blue1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		red1.setParamName( "Stripe Color Red" );
+		green1.setParamName( "Stripe Color Green" );
+		blue1.setParamName( "Stripe Color Blue" );
 		registerParameter( y );
 		registerParameter( rotation );
 		registerParameter( width );
-		registerParameter( fgColor  );
-		//registerParameter( bgColor  );
+		registerParameter( red1 );
+		registerParameter( green1 );
+		registerParameter( blue1 );
 		registerParameter( size );
 	}
 
@@ -66,10 +72,9 @@ public class StripesPlugin extends PhantomPlugin
 		AnimValueNumberEditor sizeEdit = new AnimValueNumberEditor( "Line size", size );
 		AnimValueNumberEditor wEdit = new AnimValueNumberEditor( "Line max width", width );
 		AnimValueNumberEditor rotationEdit = new AnimValueNumberEditor( "Rotation", rotation );
+		AnimColorRGBEditor colorEditor1 = new AnimColorRGBEditor( "Line Color", red1, green1, blue1 );
 
-		addEditor( new ParamColorSelect( fgColor, "Line color" ) );
-		//addRowSeparator();
-		//addEditor( new ParamColorSelect( bgColor, "Background color" ) );
+		addEditor( colorEditor1 );
 		addRowSeparator();
 		addEditor( wEdit );
 		addRowSeparator();
@@ -82,10 +87,6 @@ public class StripesPlugin extends PhantomPlugin
 
 	public void renderFullScreenMovingSource( float frameTime, Graphics2D graphics, int canvasWidth, int canvasHeight )
 	{
-		//--- Paint bg
-		//graphics.setColor( bgColor.get() );
-		//graphics.fillRect( 0, 0, canvasWidth, canvasHeight );
-
 		//--- x, y, rotation
 		float yd = y.getValue( frameTime );
 		float rVal = rotation.getValue( frameTime );
@@ -127,9 +128,11 @@ public class StripesPlugin extends PhantomPlugin
 		float shapeWidth = cellWidth;
 		float shapeHeight = cellHeight * (sizeVal / 100.f);
 
+		Color color1 = new Color((int)red1.get(frameTime), (int)green1.get(frameTime), (int)blue1.get(frameTime) );
+		
 		//--- Create line object for drawing
 		GTTObject shape = new GTTRectangle( shapeWidth, shapeHeight );
-		shape.setFillPaint( fgColor.get() );
+		shape.setFillPaint( color1 );
 		shape.setAnchorPoint( 0, cellHeight / 2 );//into center of shape
 
 		int endY = ((int)((maxY - minY) / cellHeight) + 4);
@@ -142,7 +145,6 @@ public class StripesPlugin extends PhantomPlugin
 			//--- draw
 			shape.setPos( x, y );
 			shape.draw( graphics, new Rectangle( 0, 0, canvasWidth, canvasHeight ));
-			
 		}
 	}
 	

@@ -21,13 +21,12 @@ package animator.phantom.renderer.plugin;
 
 import java.awt.Color;
 
+import animator.phantom.paramedit.AnimColorRGBEditor;
 import animator.phantom.paramedit.AnimValueNumberEditor;
 import animator.phantom.paramedit.BooleanComboBox;
-import animator.phantom.paramedit.ParamColorSelect;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.renderer.param.AnimatedValue;
 import animator.phantom.renderer.param.BooleanParam;
-import animator.phantom.renderer.param.ColorParam;
 
 import com.jhlabs.image.CrystallizeFilter;
 
@@ -35,7 +34,9 @@ public class CrystallizePlugin extends PhantomPlugin
 {
 	public AnimatedValue edgThick;
 	public BooleanParam edgFade;
-	public ColorParam edgColor;
+	private AnimatedValue red1;
+	private AnimatedValue green1;
+	private AnimatedValue blue1;
 
 	public CrystallizePlugin()
 	{
@@ -48,22 +49,29 @@ public class CrystallizePlugin extends PhantomPlugin
 
 		edgThick = new AnimatedValue( 0.4f );
 		edgFade = new BooleanParam( false );
-		edgColor = new ColorParam( Color.black );
+		red1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		green1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		blue1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		red1.setParamName( "Fill Red" );
+		green1.setParamName( "Fill Green" );
+		blue1.setParamName( "Fill Blue" );
 
 		registerParameter( edgThick );
 		registerParameter( edgFade );
-		registerParameter( edgColor );
+		registerParameter( red1 );
+		registerParameter( green1 );
+		registerParameter( blue1 );
 	}
 
 	public void buildEditPanel()
 	{
 		AnimValueNumberEditor widthEdit = new AnimValueNumberEditor( "Edge thickness", edgThick );
-		ParamColorSelect eColorEdit = new ParamColorSelect( edgColor, "Edge Color" );
+		AnimColorRGBEditor colorEditor1 = new AnimColorRGBEditor( "Shape Color", red1, green1, blue1 );
  		BooleanComboBox fadeEdit = new BooleanComboBox( edgFade, "Fade edges", "Yes","No", false );
 
 		addEditor( widthEdit );
 		addRowSeparator();
-		addEditor( eColorEdit );
+		addEditor( colorEditor1 );
 		addRowSeparator();
 		addEditor( fadeEdit );
 	}
@@ -71,10 +79,11 @@ public class CrystallizePlugin extends PhantomPlugin
 	public void doImageRendering( int frame )
 	{
 		CrystallizeFilter f = new CrystallizeFilter();
-
+		Color color1 = new Color((int)red1.get(frame), (int)green1.get(frame), (int)blue1.get(frame) );
+		
 		f.setEdgeThickness(edgThick.getValue( frame ) );
 		f.setFadeEdges(edgFade.get() );
-		f.setEdgeColor(edgColor.get().getRGB() );
+		f.setEdgeColor(color1.getRGB() );
 
 		applyFilter( f );
 	}

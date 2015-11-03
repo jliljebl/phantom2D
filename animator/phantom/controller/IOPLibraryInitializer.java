@@ -30,7 +30,6 @@ import animator.phantom.renderer.plugin.AlphaMergePlugin;
 import animator.phantom.renderer.plugin.AlphaReplacePlugin;
 import animator.phantom.renderer.plugin.AlphaToImagePlugin;
 import animator.phantom.renderer.plugin.AnimatedColorRGBPlugin;
-import animator.phantom.renderer.plugin.AnimatedColorSolidPlugin;
 import animator.phantom.renderer.plugin.BoxBlurPlugin;
 import animator.phantom.renderer.plugin.BrushedMetalPlugin;
 import animator.phantom.renderer.plugin.BumpPlugin;

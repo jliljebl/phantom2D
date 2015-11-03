@@ -5,9 +5,10 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.awt.image.WritableRaster;
 
+import animator.phantom.paramedit.AnimColorRGBEditor;
 import animator.phantom.paramedit.IntegerNumberEditor;
-import animator.phantom.paramedit.ParamColorSelect;
 import animator.phantom.plugin.PhantomPlugin;
+import animator.phantom.renderer.param.AnimatedValue;
 import animator.phantom.renderer.param.ColorParam;
 import animator.phantom.renderer.param.IntegerParam;
 
@@ -18,6 +19,19 @@ public class TritonePlugin extends PhantomPlugin
 	public ColorParam lightColor = new ColorParam( new Color( 255, 255, 255 ) );
 	public ColorParam darkColor = new ColorParam( new Color( 0,0,0 ) );
 	public ColorParam middleColor = new ColorParam( new Color( 128,128,128 ) );
+
+	private AnimatedValue red1;
+	private AnimatedValue green1;
+	private AnimatedValue blue1;
+
+	private AnimatedValue red2;
+	private AnimatedValue green2;
+	private AnimatedValue blue2;
+	
+	private AnimatedValue red3;
+	private AnimatedValue green3;
+	private AnimatedValue blue3;
+	
 	public IntegerParam middleValue = new IntegerParam( 128 );
 
 	private int[] rbgLook = new int[256];
@@ -37,35 +51,70 @@ public class TritonePlugin extends PhantomPlugin
 	{
 		setName( "TriTone" );
 
-		registerParameter( lightColor );
-		registerParameter( middleColor );
-		registerParameter( darkColor );
+		red1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		green1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+		blue1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );
+
+		red2 = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+		green2 = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+		blue2 = new AnimatedValue( 0.0f, 0.0f, 255.0f );
+		
+		red3 = new AnimatedValue( 128.0f, 0.0f, 255.0f );
+		green3 = new AnimatedValue( 128.0f, 0.0f, 255.0f );
+		blue3 = new AnimatedValue( 128.0f, 0.0f, 255.0f );
+
+		red1.setParamName( "Light Red" );
+		green1.setParamName( "Light Green" );
+		blue1.setParamName( "Light Blue" );
+		
+		red2.setParamName( "Dark Red" );
+		green2.setParamName( "Dark Green" );
+		blue2.setParamName( "Dark Blue" );
+		
+		red3.setParamName( "Mid Red" );
+		green3.setParamName( "Mid Green" );
+		blue3.setParamName( "Mid Blue" );
+		
+
+		registerParameter( red1 );
+		registerParameter( green1 );
+		registerParameter( blue1 );
+		registerParameter( red2 );
+		registerParameter( green2 );
+		registerParameter( blue2 );
+		registerParameter( red3 );
+		registerParameter( green3 );
+		registerParameter( blue3 );
 		registerParameter( middleValue );
 	}
 
 	public void buildEditPanel()
 	{
 		IntegerNumberEditor mVal = new IntegerNumberEditor( "Middle threshold", middleValue);
-		ParamColorSelect lightEditor = new ParamColorSelect( lightColor, "Light Color" );
-		ParamColorSelect darkEditor = new ParamColorSelect( darkColor, "Dark Color" );
-		ParamColorSelect middleEditor = new ParamColorSelect( middleColor, "Middle Color" );
+		AnimColorRGBEditor colorEditor1 = new AnimColorRGBEditor( "Light Color", red1, green1, blue1 );
+		AnimColorRGBEditor colorEditor2 = new AnimColorRGBEditor( "Dark Color", red2, green2, blue2 );
+		AnimColorRGBEditor colorEditor3 = new AnimColorRGBEditor( "Mid Color", red3, green3, blue3 );
 
-		addEditor( lightEditor );
+		addEditor( colorEditor1 );
 		addRowSeparator();
 		addEditor( mVal );
 		addRowSeparator();
-		addEditor( middleEditor );
+		addEditor( colorEditor3 );
 		addRowSeparator();
-		addEditor( darkEditor );
+		addEditor( colorEditor2 );
 	}
 
 	public void doImageRendering( int frame )
 	{
 		//--- Crate lookup for color replacement	
 		ArrayColormap cmap = new ArrayColormap();
-		cmap.setColor( 0, darkColor.get().getRGB() );
-		cmap.setColor( 255, lightColor.get().getRGB() );
-		cmap.setColorInterpolated(middleValue.get(), 0, 255, middleColor.get().getRGB() );
+		Color color1 = new Color((int)red1.get(frame), (int)green1.get(frame), (int)blue1.get(frame) );
+		Color color2 = new Color((int)red2.get(frame), (int)green2.get(frame), (int)blue2.get(frame) );
+		Color color3 = new Color((int)red3.get(frame), (int)green3.get(frame), (int)blue3.get(frame) );
+
+		cmap.setColor( 0, color2.getRGB() );
+		cmap.setColor( 255, color1.getRGB() );
+		cmap.setColorInterpolated(middleValue.get(), 0, 255, color3.getRGB() );
 
 		for( int j = 0; j < 256; j++ )
 			rbgLook[ j ] = cmap.getColor( (float) j / 255.0f ) & alpha_mask;
