@@ -43,16 +43,6 @@ public class ParamEditResources
 	*/
 	public static Dimension EDIT_ROW_SIZE = new Dimension(PARAM_COLUMN_WIDTH * 2, PARAM_ROW_HEIGHT );
 	/**
-	* Size of two editor rows.
-	*/
-	//public static Dimension EDIT_DOUBLE_ROW_SIZE = new Dimension(PARAM_COLUMN_WIDTH * 2,PARAM_ROW_HEIGHT * 2);
-
-	//public static Dimension EDIT_SLIDER_ROW_SIZE = new Dimension(PARAM_COLUMN_WIDTH * 2,PARAM_ROW_HEIGHT * 2 - 20);
-	/**
-	* Size of three editor rows.
-	*/
-	//public static Dimension EDIT_TRIPLE_ROW_SIZE = new Dimension(PARAM_COLUMN_WIDTH * 2, PARAM_ROW_HEIGHT * 3);
-	/**
 	* Size of an editor row with slider editor component.
 	*/
 	public static Dimension EDIT_SLIDER_ROW_SIZE = new Dimension(PARAM_COLUMN_WIDTH*2,PARAM_ROW_HEIGHT*3 - 25);
@@ -62,7 +52,6 @@ public class ParamEditResources
 	public static int TABS_TOP_GAP = 6;
 	/**
 	* Gap between label and editor.
-
 	*/
 	public static int PARAM_MID_GAP = 4;
 // 

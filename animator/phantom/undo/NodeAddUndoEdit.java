@@ -26,7 +26,6 @@ import animator.phantom.controller.FlowController;
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.gui.flow.FlowBox;
-import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
 
@@ -58,14 +57,14 @@ public class NodeAddUndoEdit extends PhantomUndoableEdit
 		GUIComponents.renderFlowPanel.repaint();
 
 		ImageOperation iop = node.getImageOperation();
-		if( IOPLibrary.getBoxType( iop ) == IOPLibrary.BOX_SOURCE )
-		{
+		//if( IOPLibrary.getBoxType( iop ) == IOPLibrary.BOX_SOURCE )
+		//{
 			Vector<ImageOperation> addClips = new  Vector<ImageOperation>();
 			addClips.add( iop );
 		
 			TimeLineController.removeClips( addClips );
 			TimeLineController.initClipEditorGUI();
-		}
+		//}
 	}
 
 	public void redo()
@@ -78,14 +77,14 @@ public class NodeAddUndoEdit extends PhantomUndoableEdit
 		
 		ImageOperation iop = node.getImageOperation();
 		
-		if( IOPLibrary.getBoxType( iop ) == IOPLibrary.BOX_SOURCE )
-		{
+		//if( IOPLibrary.getBoxType( iop ) == IOPLibrary.BOX_SOURCE )
+		//{
 			Vector<ImageOperation> addClips = new  Vector<ImageOperation>();
 			addClips.add( iop );
 			
 			TimeLineController.addClips( addClips );
 			TimeLineController.initClipEditorGUI();
-		}
+		//}
 	}
 
 }//end class

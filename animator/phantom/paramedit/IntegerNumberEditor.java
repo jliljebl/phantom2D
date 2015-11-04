@@ -47,7 +47,7 @@ public class IntegerNumberEditor extends JPanel implements PropertyChangeListene
 	private JFormattedTextField numberField;
 	//--- Flag to stop infinite loops
 	private boolean UNDO_CHANGE_CAUSED_VALUE_CHANGE = false;
-
+	public static final int HEIGHT = 25;
 	/**
 	* Constructor with parameter to be edited and label text.
 	* @param text Displayed name for editor and parameter.
@@ -76,7 +76,10 @@ public class IntegerNumberEditor extends JPanel implements PropertyChangeListene
 		numberField.setValue( editValue.get() );
 		numberField.addPropertyChangeListener( "value", this );
 		numberField.setMargin( new Insets(0, 2, 0, 0));
-
+		Dimension size = new Dimension( 80, HEIGHT - 1 );
+		numberField.setPreferredSize( size );
+		numberField.setMaximumSize( size );
+		
 		JPanel leftPanel = new JPanel();
 		leftPanel.setLayout( new BoxLayout( leftPanel, BoxLayout.X_AXIS) );
 		leftPanel.setPreferredSize( ParamEditResources.EDIT_ROW_HALF_SIZE );

@@ -105,6 +105,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		addMouseListener( this );
 		addMouseMotionListener( this );
 		addComponentListener( this );
+		addMouseWheelListener(this);
 
 		//--- Key actions
 		setFocusable( true );
@@ -530,6 +531,16 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 
 	public void mouseWheelMoved( MouseWheelEvent e )
 	{
+		if( mouseActionNow ) return;
+		int notches = e.getWheelRotation();
+		if( notches < 0 )
+		{
+			GUIComponents.viewControlButtons.zoomIn();
+		}
+		else
+		{
+			GUIComponents.viewControlButtons.zoomOut();
+		}
 	/*
 		if( mouseActionNow ) return;
 		

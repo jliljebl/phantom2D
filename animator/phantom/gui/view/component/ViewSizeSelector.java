@@ -52,19 +52,40 @@ public class ViewSizeSelector extends JPanel implements ActionListener
 		add( Box.createVerticalGlue() );
 	}
 
- 	public void actionPerformed(ActionEvent e)
+	public void zoomIn()
 	{
-		int size = 0;
-		if( comboBox.getSelectedIndex() == 0 ) size = MovieRenderer.DOUBLE_SIZE;
-		if( comboBox.getSelectedIndex() == 1 ) size = MovieRenderer.ONE_THREE_QUARTER_SIZE;
-		if( comboBox.getSelectedIndex() == 2 ) size = MovieRenderer.ONE_HALF_SIZE;
-		if( comboBox.getSelectedIndex() == 3 ) size = MovieRenderer.ONE_QUARTER_SIZE;
-		if( comboBox.getSelectedIndex() == 4 ) size = MovieRenderer.FULL_SIZE;
-		if( comboBox.getSelectedIndex() == 5 ) size = MovieRenderer.THREE_QUARTER_SIZE;
-		if( comboBox.getSelectedIndex() == 6 ) size = MovieRenderer.HALF_SIZE;
-		if( comboBox.getSelectedIndex() == 7 ) size = MovieRenderer.QUARTER_SIZE;
-
-		EditorsController.setViewSize( size );
+		int selected = comboBox.getSelectedIndex();
+		selected -= 1;
+		if( selected < 0 ) selected = 0;
+		comboBox.setSelectedIndex( selected );
 	}
+
+	public void zoomOut()
+	{
+		int selected = comboBox.getSelectedIndex();
+		selected += 1;
+		if( selected > 7 ) selected = 7;
+		comboBox.setSelectedIndex( selected );
+	}
+
+ 	public void actionPerformed( ActionEvent e )
+	{
+		EditorsController.setViewSize( getMovieRendererSize( comboBox.getSelectedIndex() ) );
+	}
+
+ 	private int getMovieRendererSize( int selectedIndex )
+ 	{
+		int size = 0;
+		if( selectedIndex == 0 ) size = MovieRenderer.DOUBLE_SIZE;
+		if( selectedIndex == 1 ) size = MovieRenderer.ONE_THREE_QUARTER_SIZE;
+		if( selectedIndex == 2 ) size = MovieRenderer.ONE_HALF_SIZE;
+		if( selectedIndex== 3 ) size = MovieRenderer.ONE_QUARTER_SIZE;
+		if( selectedIndex == 4 ) size = MovieRenderer.FULL_SIZE;
+		if( selectedIndex == 5 ) size = MovieRenderer.THREE_QUARTER_SIZE;
+		if( selectedIndex == 6 ) size = MovieRenderer.HALF_SIZE;
+		if( selectedIndex == 7 ) size = MovieRenderer.QUARTER_SIZE;
+
+		return size;
+ 	}
 
 }//end class

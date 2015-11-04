@@ -217,7 +217,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		}
 		shadowBox = null;
 
-		NodeAddUndoEdit undoEdit = new NodeAddUndoEdit( addNode,addBox );
+		NodeAddUndoEdit undoEdit = new NodeAddUndoEdit( addNode, addBox );
 
 		//--- BANG! New iops to flow are added HERE!
 		undoEdit.doEdit();

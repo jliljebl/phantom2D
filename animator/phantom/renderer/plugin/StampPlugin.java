@@ -33,7 +33,7 @@ public class StampPlugin extends PhantomPlugin
 		setName( "Stamp" );
 
 		threshold = new AnimatedValue( 0.5f );
-		softness = new AnimatedValue( 0 );
+		softness = new AnimatedValue( 0.5f );
 		radius = new AnimatedValue( 5 );
 		
 		red1 = new AnimatedValue( 255.0f, 0.0f, 255.0f );

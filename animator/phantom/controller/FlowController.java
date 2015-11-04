@@ -100,7 +100,7 @@ public class FlowController
 	private static void addIOPNow( ImageOperation addIOP, Point p )
 	{
 		addIOP.initIOPTimelineValues();
-		GUIComponents.renderFlowPanel.addIOPRightAway( addIOP, p.x, p.y);
+		GUIComponents.renderFlowPanel.addIOPRightAway( addIOP, p.x, p.y );
 		ParamEditController.displayEditFrame( addIOP );// ALSO TO INIT PARAM NAMES IN RAW IOPS, plugins do this by them selves
 	}
 

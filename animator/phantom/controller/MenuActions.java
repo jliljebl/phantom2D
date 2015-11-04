@@ -522,92 +522,56 @@ public class MenuActions
 
 		//--- Create shortcut editors and hashmaps
 		MInputArea inputArea = new MInputArea( "" );
-		String key;
-		String value; 
 		MTextInfo infoRow;
 
-		//--- display flow
-		key = EditorPersistance.DISP_FLOW_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo( "Display Composition",  value );
+		//--- play/stop
+		infoRow = new MTextInfo(  "Play/Stop",  EditorPersistance.PLAY_STOP_ACTION_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
-		//--- display clip
-		key = EditorPersistance.DISP_CLIP_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo( "Display Timeline",  value );
-		inputArea.add( infoRow );
-
-		//--- display kf
-		key = EditorPersistance.DISP_KF_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo( "Display Spline",  value );
-		inputArea.add( infoRow );
 		//--- flow arrange
-		key = EditorPersistance.FLOW_ARRANGE_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo(  "Arrange Composition boxes",  value );
+		infoRow = new MTextInfo(  "Arrange Composition boxes",  EditorPersistance.FLOW_ARRANGE_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
 		//--- flow connect
-		key = EditorPersistance.FLOW_CONNECT_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo(  "Connect Composition boxes",  value );
+		infoRow = new MTextInfo(  "Connect Composition boxes",  EditorPersistance.FLOW_CONNECT_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
 		//--- flow disconnect
-		key = EditorPersistance.FLOW_DISCONNECT_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo(  "Disonnect Composition boxes",  value );
+		infoRow = new MTextInfo(  "Disonnect Composition boxes",  EditorPersistance.FLOW_DISCONNECT_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
 		//--- tline zoom in
-		key = EditorPersistance.TLINE_ZOOM_IN_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo(  "Timeline zoom in",  value );
+		infoRow = new MTextInfo(  "Timeline zoom in",  EditorPersistance.TLINE_ZOOM_IN_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
 		//--- tline zoom out
-		key = EditorPersistance.TLINE_ZOOM_OUT_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo(  "Timeline zoom out",  value );
+		infoRow = new MTextInfo(  "Timeline zoom out",  EditorPersistance.TLINE_ZOOM_OUT_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
 		//--- tline prev
-		key = EditorPersistance.TLINE_PREV_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo(  "Timeline previous frame",  value );
+		infoRow = new MTextInfo(  "Timeline previous frame",  EditorPersistance.TLINE_PREV_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
 		//--- tline next 
-		key = EditorPersistance.TLINE_NEXT_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo(  "Timeline next frame",  value );
+		infoRow = new MTextInfo(  "Timeline next frame",  EditorPersistance.TLINE_NEXT_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
 		//--- next layer
-		key = EditorPersistance.NEXT_LAYER_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo(  "Next Layer",  value );
+		infoRow = new MTextInfo(  "Next Layer",  EditorPersistance.NEXT_LAYER_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
 		//--- preview
-		key = EditorPersistance.RENDER_PRE_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo(  "Render preview",  value );
+		infoRow = new MTextInfo(  "Render preview",  EditorPersistance.RENDER_PRE_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
 		//--- preview frame
-		key = EditorPersistance.RENDER_PRE_FRAME_KEY_SC;
-		value =  EditorPersistance.getStringPref( key );
-		infoRow = new MTextInfo(  "Render frame preview",  value );
+		infoRow = new MTextInfo(  "Render frame preview",  EditorPersistance.RENDER_PRE_FRAME_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
-		editPanel.add( inputArea );
+		editPanel.add( inputArea );		
 
-		int retVal = DialogUtils.showMultiInput( editPanel, 400, 500, false );
+		int retVal = DialogUtils.showMultiInput( editPanel, 400, 400, false );
 		if( retVal != DialogUtils.OK_OPTION ) return;
-
 	}
 
 	//------------------------------------------------------ Node

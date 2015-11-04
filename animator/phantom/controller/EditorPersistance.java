@@ -55,22 +55,6 @@ public class EditorPersistance extends PhantomDocUtils
 	public static final String KF_DEF_TENS = "deftens";
 	public static final String KF_DEF_INTERP = "definterp";
 
-	//--- keyboard short cuts
-	public static final String RENDER_PRE_KEY_SC = "render_key_sc";
-	public static final String RENDER_PRE_FRAME_KEY_SC = "render_frame_key_sc";
-	public static final String DISP_FLOW_KEY_SC = "disp_flow_key_sc";
-	public static final String DISP_CLIP_KEY_SC = "disp_clip_key_sc";
-	public static final String DISP_KF_KEY_SC = "disp_kf_key_sc";
-	public static final String FLOW_ARRANGE_KEY_SC ="flow_arrange_key_sc";
-	public static final String FLOW_CONNECT_KEY_SC = "flow_connect_key_sc";
-	public static final String FLOW_DISCONNECT_KEY_SC = "flow_disconnect_key_sc";
-	public static final String TLINE_ZOOM_IN_KEY_SC = "tline_zoom_in_key_sc";
-	public static final String TLINE_ZOOM_OUT_KEY_SC = "tline_zoom_out_key_sc";
-	public static final String TLINE_PREV_KEY_SC = "tline_prev_key_sc";
-	public static final String TLINE_NEXT_KEY_SC = "tline_next_key_sc";
-	public static final String NEXT_LAYER_KEY_SC = "next_layer_key_sc";
-	public static final String SWITCH_BIG_EDITOR_KEY_SC = "switch_big_editor_sc";
-
 	//-------------------------------------------- DEFAULT VALUES
 	//--- Prefs default values
 	private static final boolean FIRST_RUN_DEFAULT = true;
@@ -83,21 +67,19 @@ public class EditorPersistance extends PhantomDocUtils
 	private static final int KF_DEF_INTERP_DEFAULT = 1;// 1 == bez, 0 == linear
 
 	//--- keyboard short cuts default values
-	private static final String RENDER_PRE_KEY_SC_DEF = "F9";
-	private static final String RENDER_PRE_FRAME_KEY_SC_DEF = "F10";
-	private static final String DISP_FLOW_KEY_SC_DEFAULT = "F1";
-	private static final String DISP_CLIP_KEY_SC_DEFAULT = "F2";
-	private static final String DISP_KF_KEY_SC_DEFAULT = "F3";
-	private static final String FLOW_ARRANGE_KEY_SC_DEFAULT = "F5";
-	private static final String FLOW_CONNECT_KEY_SC_DEFAULT = "F6";
-	private static final String FLOW_DISCONNECT_KEY_SC_DEFAULT = "F7";
-	private static final String TLINE_ZOOM_IN_KEY_SC_DEFAULT = "control UP";
-	private static final String TLINE_ZOOM_OUT_KEY_SC_DEFAULT = "control DOWN";
-	private static final String TLINE_PREV_KEY_SC_DEFAULT = "control LEFT";
-	private static final String TLINE_NEXT_KEY_SC_DEFAULT = "control RIGHT";
-	private static final String NEXT_LAYER_KEY_SC_DEFAULT = "TAB";
-	private static final String SWITCH_BIG_EDITOR_KEY_SC_DEFAULT = "F4";
-
+	
+	public static final String PLAY_STOP_ACTION_KEY_SC_DEFAULT = "F1";
+	public static final String RENDER_PRE_KEY_SC_DEFAULT = "F9";
+	public static final String RENDER_PRE_FRAME_KEY_SC_DEFAULT = "F10";
+	public static final String FLOW_ARRANGE_KEY_SC_DEFAULT = "F5";
+	public static final String FLOW_CONNECT_KEY_SC_DEFAULT = "F6";
+	public static final String FLOW_DISCONNECT_KEY_SC_DEFAULT = "F7";
+	public static final String TLINE_ZOOM_IN_KEY_SC_DEFAULT = "control UP";
+	public static final String TLINE_ZOOM_OUT_KEY_SC_DEFAULT = "control DOWN";
+	public static final String TLINE_PREV_KEY_SC_DEFAULT = "control LEFT";
+	public static final String TLINE_NEXT_KEY_SC_DEFAULT = "control RIGHT";
+	public static final String NEXT_LAYER_KEY_SC_DEFAULT = "TAB";
+	
 	//--------------------------------------------- RANGE
 	public static final int LAYOUT_MID_MAX = 700;
 	public static final int LAYOUT_MID_MIN = 300;
@@ -215,20 +197,7 @@ public class EditorPersistance extends PhantomDocUtils
 		prefdoc.putDefaultValue( LAYOUT_MID, LAYOUT_MID_DEFAULT );
 		prefdoc.putDefaultValue( KF_DEF_TENS, KF_DEF_TENS_DEFAULT );
 		prefdoc.putDefaultValue( KF_DEF_INTERP, KF_DEF_INTERP_DEFAULT );
-		prefdoc.putDefaultValue( RENDER_PRE_KEY_SC, RENDER_PRE_KEY_SC_DEF );
-		prefdoc.putDefaultValue( RENDER_PRE_FRAME_KEY_SC, RENDER_PRE_FRAME_KEY_SC_DEF );
-		prefdoc.putDefaultValue( DISP_FLOW_KEY_SC, DISP_FLOW_KEY_SC_DEFAULT );
-		prefdoc.putDefaultValue( DISP_CLIP_KEY_SC, DISP_CLIP_KEY_SC_DEFAULT );
-		prefdoc.putDefaultValue( DISP_KF_KEY_SC, DISP_KF_KEY_SC_DEFAULT );
-		prefdoc.putDefaultValue( FLOW_ARRANGE_KEY_SC, FLOW_ARRANGE_KEY_SC_DEFAULT );
-		prefdoc.putDefaultValue( FLOW_CONNECT_KEY_SC, FLOW_CONNECT_KEY_SC_DEFAULT );
-		prefdoc.putDefaultValue( FLOW_DISCONNECT_KEY_SC, FLOW_DISCONNECT_KEY_SC_DEFAULT );
-		prefdoc.putDefaultValue( TLINE_ZOOM_IN_KEY_SC, TLINE_ZOOM_IN_KEY_SC_DEFAULT );
-		prefdoc.putDefaultValue( TLINE_ZOOM_OUT_KEY_SC, TLINE_ZOOM_OUT_KEY_SC_DEFAULT );
-		prefdoc.putDefaultValue( TLINE_PREV_KEY_SC, TLINE_PREV_KEY_SC_DEFAULT );
-		prefdoc.putDefaultValue( TLINE_NEXT_KEY_SC, TLINE_NEXT_KEY_SC_DEFAULT );
-		prefdoc.putDefaultValue( NEXT_LAYER_KEY_SC, NEXT_LAYER_KEY_SC_DEFAULT );
-		prefdoc.putDefaultValue( SWITCH_BIG_EDITOR_KEY_SC, SWITCH_BIG_EDITOR_KEY_SC_DEFAULT );
+
 	}
 
 	private static void setRanges()

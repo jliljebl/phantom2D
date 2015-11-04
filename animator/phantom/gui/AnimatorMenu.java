@@ -226,7 +226,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 
 		previewFromCurrent = new JMenuItem("Preview From Current" );
 		previewFromCurrent.addActionListener(this);
-		previewFromCurrent.setAccelerator( KeyStroke.getKeyStroke( "F19"  ) );
+		previewFromCurrent.setAccelerator( KeyStroke.getKeyStroke( "F9"  ) );
 		renderMenu.add( previewFromCurrent );
 
 		previewFromStart = new JMenuItem("Preview From Start" );

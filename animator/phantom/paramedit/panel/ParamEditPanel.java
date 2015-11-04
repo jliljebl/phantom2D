@@ -49,6 +49,7 @@ public class ParamEditPanel extends JPanel
 	public void initParamEditPanel()
 	{
 		setLayout( new BoxLayout( this, BoxLayout.Y_AXIS) );
+		add( Box.createRigidArea(new Dimension( 0, 4 ) ) );
 		setBorder( null );
 	}
 	//--- Sets panel to use tabbed pane as holder for components
@@ -57,7 +58,7 @@ public class ParamEditPanel extends JPanel
 		JTabbedPane tabbedPane = new JTabbedPane();
 		super.add( tabbedPane );
 		super.add( Box.createVerticalGlue() );
-			
+
 		this.paneNames = paneNames;
 		panes = new Vector<JPanel>();
 		for( int i = 0; i < paneNames.size(); i++ )

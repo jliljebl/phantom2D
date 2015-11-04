@@ -244,8 +244,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		}
 
 		add( renderClock );
-		//add( Box.createHorizontalGlue() );
-		//add( panelSizes );
 
  		setFirstButtonPressed( bGroup );
 		parent.repaint();
@@ -286,18 +284,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		}
 	}
 
-/*
-	public boolean isVisible( AbstractButton testb )
-	{
-		Enumeration<AbstractButton> buttons = bGroup.getElements();
-		while( buttons.hasMoreElements() )
-		{
-			AbstractButton b = buttons.nextElement();
-			if( b == testb ) return true;
-		}
-		return false;
-	}
-*/
 	//-- Use info on selected button after layer change to set edit mode to match.
 	//--- NOTE: Does not perform programmed click.
 	public void clickSelected()
@@ -325,6 +311,16 @@ public class ViewControlButtons extends JPanel implements ActionListener
 			renderClock.setIcon( clockIcon );
 		else
 			renderClock.setIcon( null );
+	}
+
+	public void zoomIn()
+	{
+		viewSizeSelect.zoomIn();
+	}
+	
+	public void zoomOut()
+	{
+		viewSizeSelect.zoomOut();
 	}
 
 	//----------------------------------------- BUTTON EVENTS
