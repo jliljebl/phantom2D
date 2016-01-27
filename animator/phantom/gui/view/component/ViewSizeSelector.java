@@ -73,13 +73,18 @@ public class ViewSizeSelector extends JPanel implements ActionListener
 		EditorsController.setViewSize( getMovieRendererSize( comboBox.getSelectedIndex() ) );
 	}
 
+ 	public int getViewSize()
+ 	{
+ 		return getMovieRendererSize( comboBox.getSelectedIndex() ); 
+ 	}
+ 	
  	private int getMovieRendererSize( int selectedIndex )
  	{
 		int size = 0;
 		if( selectedIndex == 0 ) size = MovieRenderer.DOUBLE_SIZE;
 		if( selectedIndex == 1 ) size = MovieRenderer.ONE_THREE_QUARTER_SIZE;
 		if( selectedIndex == 2 ) size = MovieRenderer.ONE_HALF_SIZE;
-		if( selectedIndex== 3 ) size = MovieRenderer.ONE_QUARTER_SIZE;
+		if( selectedIndex == 3 ) size = MovieRenderer.ONE_QUARTER_SIZE;
 		if( selectedIndex == 4 ) size = MovieRenderer.FULL_SIZE;
 		if( selectedIndex == 5 ) size = MovieRenderer.THREE_QUARTER_SIZE;
 		if( selectedIndex == 6 ) size = MovieRenderer.HALF_SIZE;

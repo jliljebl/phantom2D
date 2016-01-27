@@ -597,7 +597,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	{
 		this.previewDisplay = true;
 		this.firstPreviewFrame = true;
-		setScale( 1.0f );
+		//setScale( 1.0f );
 	}
 
 	public void setViewEditorDisplay()
@@ -736,7 +736,6 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 			g.fillRect( 0, 0, componentSize.width, componentSize.height );
 			firstPreviewFrame = false;
 		}
-		
 		g.drawImage( scaledBgImg, (int) Math.round(origo.x), (int) Math.round(origo.y), null );
 	}
 

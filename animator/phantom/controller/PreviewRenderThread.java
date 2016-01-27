@@ -43,7 +43,9 @@ public class PreviewRenderThread extends Thread
 		Vector <BufferedImage > frames = null;
 
 		frames = movieRenderer.renderFrameRangeToVector( startFrame, endFrame );
-		
+		BufferedImage frame = frames.elementAt(0);
+		System.out.println("frames done");
+		System.out.println(frame.getWidth());
 		PreviewController.playFrameRange( frames, startFrame );
 	}
 	

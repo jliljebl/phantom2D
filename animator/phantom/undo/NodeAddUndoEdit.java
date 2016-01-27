@@ -34,7 +34,7 @@ public class NodeAddUndoEdit extends PhantomUndoableEdit
 {
 	private RenderNode node;
 	private FlowBox box;
-	
+
 	public NodeAddUndoEdit( RenderNode node, FlowBox box )
 	{
 		super();

@@ -313,6 +313,8 @@ public class ViewControlButtons extends JPanel implements ActionListener
 			renderClock.setIcon( null );
 	}
 
+	public int getViewSize(){ return viewSizeSelect.getViewSize(); }
+	
 	public void zoomIn()
 	{
 		viewSizeSelect.zoomIn();

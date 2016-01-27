@@ -172,7 +172,9 @@ public class PreviewController
 		
 		Application.setCurrentRenderType( Application.PREVIEW_RENDER );
 
-		movieRenderer = new MovieRenderer(  ProjectController.getFlow(), renderSize, RenderModeController.getRenderThreadsCount() );
+		int previewSize = GUIComponents.viewControlButtons.getViewSize();
+		
+		movieRenderer = new MovieRenderer(  ProjectController.getFlow(), previewSize, RenderModeController.getRenderThreadsCount() );
 		movieRenderer.setUpdateRange( true );
 
 		frames = null;//so memory can be gc:d
@@ -237,6 +239,7 @@ public class PreviewController
 	public static void playFromCurrent()
 	{
 		playbackOn = true;
+		GUIComponents.viewEditor.setPreviewDisplay();
 		GUIComponents.previewControls.updatePlayButton();
 		timesMissed = 0;
 		frameDelay = 1000 / ProjectController.getFramesPerSecond();
@@ -245,6 +248,7 @@ public class PreviewController
 		locked = true;
 		frameTimer.start();
 	}
+
 	//--- Handle play button press based on state.
 	public static void playPressed()
 	{
@@ -271,7 +275,7 @@ public class PreviewController
 				stopPlayback();
 				return;
 			}
-			//--- Next frame. This causes attemp to display frame at currentFrameChanged() but is discarded there.
+			//--- Next frame. This causes an attempt to display frame at currentFrameChanged() but that is discarded there.
 			TimeLineController.changeCurrentFrame( 1 );
 
 			//--- Chack for misses.

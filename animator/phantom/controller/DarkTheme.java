@@ -40,12 +40,12 @@ public class DarkTheme extends OceanTheme
 {
 	public static Font MENU_FONT = null;
 
-	public static ColorUIResource darkBg = new ColorUIResource( new Color( 46, 52, 54 ) );
-	public static ColorUIResource darkBgLighter = new ColorUIResource( new Color( 67, 75, 79 ) );
-	public static ColorUIResource darker = new ColorUIResource( new Color( 63,64,61 ) );
-	public static ColorUIResource dark = new ColorUIResource( new Color( 62, 62, 70 ) );
+	public static ColorUIResource darkBg = new ColorUIResource( new Color( 56, 60, 74 ) );
+	public static ColorUIResource darkBgLighter = new ColorUIResource( Color.red );//new Color( 67, 75, 79 ) );
+	public static ColorUIResource darker = new ColorUIResource( new Color( 51, 55, 69 ) );//new Color( 63,64,61 ) );
+	public static ColorUIResource dark = new ColorUIResource( new Color( 56, 60, 74 )  );
 	public static ColorUIResource middark = new ColorUIResource( new Color( 110,110,110 ) );
-	public static ColorUIResource lighter = new ColorUIResource( new Color( 80,80,90 ) );
+	public static ColorUIResource lighter = new ColorUIResource( new Color( 71, 75, 90 ) );//new Color( 80,80,90 ) );
 	public static ColorUIResource midlight = new ColorUIResource( new Color( 170,170,170 ) );
 	public static ColorUIResource light = new ColorUIResource( new Color( 200,200,200 ) );
 	public static ColorUIResource phantomOrange = new ColorUIResource( new Color( 52, 80, 132 ) );
@@ -62,9 +62,9 @@ public class DarkTheme extends OceanTheme
 			MENU_FONT = GUIResources.BASIC_FONT_12;
 
 		GUIColors.MEDIA_ITEM_TEXT_COLOR = light;
-		GUIColors.MEDIA_ITEM_SELECTED_BG = darkBg;
+		GUIColors.MEDIA_ITEM_SELECTED_BG = new Color( 48, 52, 65 );
 		GUIColors.MEDIA_ITEM_BG = dark;
-		GUIColors.lineBorderColor = darkBg;
+		GUIColors.lineBorderColor = new Color( 48, 52, 65 );
 		GUIColors.SEPARATOR_BG = dark;
 		GUIColors.SEPARATOR_LINE = darkBg;
 		GUIColors.timeLineColumnColor = dark;

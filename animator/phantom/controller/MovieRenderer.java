@@ -201,14 +201,16 @@ public class MovieRenderer
 	//--- Returns image in user specified size.
 	public static BufferedImage getImageInSize( BufferedImage img, int size )
 	{
+		System.out.println(size);
+		if( size == FULL_SIZE ) return img;
+		
 		if( size == HALF_SIZE ) return getHalfImage( img );
 		if( size == QUARTER_SIZE ) return getQuarterImage( img );
-		if( size == DOUBLE_SIZE ) return getScaledImage( img, 2.0f );
 		if( size == THREE_QUARTER_SIZE ) return getScaledImage( img, 0.75f );
 		if( size == ONE_HALF_SIZE ) return getScaledImage( img, 1.5f );
 		if( size == ONE_THREE_QUARTER_SIZE ) return getScaledImage( img, 1.75f );
 		if( size == ONE_QUARTER_SIZE ) return getScaledImage( img, 1.25f );
-		return img;
+		return getScaledImage( img, 2.0f );
 	}
 
 	//--- Scales image to halfSize by droppin 3 / 4 of pixels.
