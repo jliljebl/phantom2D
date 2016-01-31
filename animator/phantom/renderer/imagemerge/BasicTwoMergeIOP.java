@@ -66,18 +66,21 @@ public class BasicTwoMergeIOP extends RenderModeIOP
 		//--- Check input
 		if( renderedImage == null &&  mergeImage == null )
 		{
+			System.out.println(" renderedImage == null &&  mergeImage == null ");
 			return;
 		}
 		if( renderedImage == null &&  mergeImage != null )
 		{
+			System.out.println("renderedImage == null &&  mergeImage != null");
 			renderedImage = mergeImage;
 			return;
 		}
 		if( renderedImage != null && mergeImage == null )
 		{
+			System.out.println(" renderedImage != null && mergeImage == null");
 			return;
 		}
-		
+		System.out.println("merge OK");
 		//--- ScreenSize is max size for renderedImage ( = destination )
 		cropRenderedImageToScreenSize();
 		

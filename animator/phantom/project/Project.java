@@ -85,8 +85,11 @@ public class Project
 		screenSize = movieFormat.getScreenSize();
 		formatName = movieFormat.getName();
 
-		System.out.println( "fname" + formatName );
+		System.out.println( "Format: " + formatName );
 
+		//---- This added at creation and cannot be deleted
+		//renderFlow.addOutputNode();
+		
 		//--- init data.
 		
 		bins = new Vector<Bin>();

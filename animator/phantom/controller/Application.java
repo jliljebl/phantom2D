@@ -171,7 +171,7 @@ public class Application implements /*WindowStateListener,*/ WindowListener
 
 		//--- There is always a document open.
 		openDefaultProject();
-
+		
 		//--- Display info window on first run.
 		if( EditorPersistance.getBooleanPref( EditorPersistance.FIRST_RUN ) )
 		{

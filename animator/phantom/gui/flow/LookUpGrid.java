@@ -54,7 +54,7 @@ public class LookUpGrid
 				lookUpGrid[ i ][ j ] = new Vector<FlowGraphic>();
 	}
 
-	//--- Adds FlowGraphic to cells of lookUpGrid its's area intercets or contains.
+	//--- Adds FlowGraphic to cells of lookUpGrid its's area intersects or contains.
 	public void addFlowGraphicToGrid( FlowGraphic fGraphic )
 	{
 		Rectangle area = fGraphic.getArea();
@@ -116,7 +116,14 @@ public class LookUpGrid
 		int gridX = x / GRID_CELL_SIDE;
 		int gridY = y / GRID_CELL_SIDE;
 		//System.out.println("Getting box from cell:" + gridX + "," + gridY );
-		return lookUpGrid[ gridX ][ gridY ];
+		try
+		{
+			return lookUpGrid[ gridX ][ gridY ];
+		}
+		catch (Exception e)
+		{
+			return lookUpGrid[ 2 ][ 2 ];
+		}
 	}
 
 	//--- Returns all FlowGraphisc in grid cells in or partly in in the given area.

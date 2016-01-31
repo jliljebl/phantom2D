@@ -291,7 +291,8 @@ public abstract class ImageOperation implements Comparable<Object>
 	}
 	public boolean isPluginIOP(){ return plugin != null; }
 
-
+	public boolean isOutput(){ return false; }
+			
 	//--- PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING
 	//--- PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING
 	//--- PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING

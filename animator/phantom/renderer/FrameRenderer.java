@@ -40,7 +40,7 @@ public class FrameRenderer
 	private Vector<RenderNode> ends;
 
 	//---
-	private boolean DEBUG = false;
+	private boolean DEBUG = true;
 	private boolean hasCloneFlow = false;
 
 	//--- The two different passes that made to render a frame
@@ -102,11 +102,17 @@ public class FrameRenderer
 		//--- Get leafs.
 		leafs = flow.getLeafs();
 
-		//--- If we have stop node, only use leafs that are childs of stop node if graph.
+		//--- if output node defined and no other stop node, use that
+		if( stopNode == null )
+			stopNode = flow.getOutputNode();
+		
+		//--- If we have stop node, only use leafs that are children of stop node if graph.
 		if( stopNode != null )
 		{
 			leafs = getStopNodeLeafs();
 		}
+
+		printLeafs();
 
 		if( DEBUG )
 		{
@@ -128,13 +134,15 @@ public class FrameRenderer
 			return null;
 		}
 		
-		if( DEBUG ) System.out.println( "IMAGE_PASS..." );
-
+		if( DEBUG )
+		{
+			System.out.println("");
+			 System.out.println( "IMAGE_PASS -------------------------------------------------------------------#" );
+		}
 
 		//--- Then the images are modified and composited
 		setAllNodesUnrendered();
 		renderPass( IMAGE_PASS );
-
 
 		//--- Abort handling if renderPass(...) returned because of abort request.
 		if( abort() )
@@ -160,11 +168,22 @@ public class FrameRenderer
 			return PluginUtils.createScreenCanvas();
 		
 		//--- Get finished image and return it.
-		//--- We'll get > 1 end nodes if 1ned node is a merge.
+		//--- We'll get > 1 end nodes if end node is a merge.
 		RenderNode end = (RenderNode) ends.elementAt( 0 );
 		if( ends.size() > 1 && allEndsSameNode() ) 
 		{
-			end = (RenderNode) ends.lastElement();
+			Vector<RenderNode> nonNullEnds = new Vector<RenderNode>();
+			for (RenderNode endCand : ends)
+			{
+				if (endCand != null)
+				{
+					System.out.println(endCand);
+					nonNullEnds.add(endCand);
+				}
+			}
+			
+			System.out.println("nonNullEnds:" + nonNullEnds.size());
+			end = nonNullEnds.lastElement();
 		}
 
 		//--- Display render time time.
@@ -207,7 +226,11 @@ public class FrameRenderer
 			{
 				//--- Get node from list.
 				RenderNode node = (RenderNode) renderList.elementAt( i );
-				//--- if( DEBUG ) outloopprint(  "NEXT NODE: " + node.getIOPName() );
+				if( DEBUG )
+				{
+					outloopprint(  "NEXT NODE: " + node.getIOPName() );
+					System.out.println(node);
+				}
 				//--- Render that node and all its decendant first
 				//--- child nodes that have all their
 				//--- sources rendered.
@@ -217,7 +240,11 @@ public class FrameRenderer
 				boolean renderNextNode = true;
 				while( renderNextNode )
 				{
-					if( DEBUG ) outloopprint(  "NEXT NODE: " + node.getIOPName() );
+					if( DEBUG )
+					{
+						outloopprint(  "NEXT NODE: " + node.getIOPName() );
+						System.out.println(node);
+					}
 
 					//--- Abort handling
 					if( abort() ) return;
@@ -391,6 +418,7 @@ public class FrameRenderer
 		{
 			RenderNode rn = (RenderNode) leafs.elementAt( i );
 			System.out.println( "leaf:" + rn.toString() + " threadID:" + threadID );
+			System.out.println(rn);
 		}
 	}
 

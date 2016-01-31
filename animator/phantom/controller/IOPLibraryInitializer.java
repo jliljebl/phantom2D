@@ -20,6 +20,7 @@ package animator.phantom.controller;
 */
 
 import animator.phantom.renderer.IOPLibrary;
+import animator.phantom.renderer.OutputIOP;
 import animator.phantom.renderer.coordtransformer.NullIOP;
 import animator.phantom.renderer.imagefilter.ColorCorrectorIOP;
 import animator.phantom.renderer.imagefilter.CurvesIOP;
@@ -141,12 +142,13 @@ public class IOPLibraryInitializer
 		IOPLibrary.registerGroup( "Mask" );
 		IOPLibrary.registerGroup( "Distort" );
 		IOPLibrary.registerGroup( "Animation" );
-
+		IOPLibrary.registerGroup( "Output" );
 
 		//--- File sources.
 		IOPLibrary.registerIOP( new FileImageSource(), null );
 		IOPLibrary.registerIOP( new ImageSequenceIOP(), null );
-
+		IOPLibrary.registerIOP( new OutputIOP(), "Output" );
+		
 		//--- Color
 		IOPLibrary.registerPlugin( new InvertPlugin(), "Color" );
 		IOPLibrary.registerPlugin( new DesaturatePlugin(), "Color" );

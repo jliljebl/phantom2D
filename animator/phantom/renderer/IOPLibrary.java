@@ -156,6 +156,8 @@ public class IOPLibrary
 	{
 		if ( iop.getFileSource() != null )
 			return BOX_SOURCE;
+		else if (iop.isOutput() == true  )
+			return BOX_SOURCE;
 		else if ( groupForClass.get(iop.getClass().getName()).equals( "Merge") == true )
 			return BOX_MERGE;
 		else	

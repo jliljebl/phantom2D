@@ -35,12 +35,20 @@ public class RenderFlow
 	private int nextNodeID = 0;
 	private boolean isCyclic = false;
 
-	private boolean DEBUG = false;
-
+	private boolean DEBUG = true;
+	
 	//-------------------------------------------- CONSTRUCTOR
 	public RenderFlow(){}
 
-
+		/*
+	public void addOutputNode()
+	{
+		System.out.println( "DDDDD." );
+		RenderNode outputNode = new RenderNode( new OutputIOP() );
+		addNode( outputNode );
+	}
+	*/
+	
 	//--- Returns the number of nodes in this flow.
 	public int getSize(){ return renderNodes.size(); }
 
@@ -79,6 +87,15 @@ public class RenderFlow
 	public Vector<RenderNode> getLeafs()
 	{
 		return getLeafsFromVec( renderNodes );
+	}
+
+	public RenderNode getOutputNode()
+	{
+		for (RenderNode node : renderNodes)
+			if (node.getImageOperation().isOutput() == true)
+				return node;
+	
+		return null;
 	}
 
 	public static Vector<RenderNode> getLeafsFromVec( Vector<RenderNode> nodes )
