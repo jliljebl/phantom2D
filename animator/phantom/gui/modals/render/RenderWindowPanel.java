@@ -76,7 +76,7 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 	public JButton exit;//--- public: state set from WriteRenderThread
 
 	private JLabel lastTime = new JLabel("");
-	private JLabel rendering = new JLabel("Not started");
+	private JLabel renderingInfo = new JLabel("Not started");
 	private JLabel elapsed = new JLabel("");
 	private JLabel proj = new JLabel();
 
@@ -91,6 +91,8 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 	private int framesCount;
 	private int currentFrame;
 
+	private boolean rendering = false;
+	
 	private RenderWindow window;
 
 	public RenderWindowPanel( RenderWindow window )
@@ -112,7 +114,7 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		stop.setEnabled( false );
 
 		lastTime.setHorizontalAlignment( SwingConstants.LEFT );
-		rendering.setHorizontalAlignment( SwingConstants.LEFT );
+		renderingInfo.setHorizontalAlignment( SwingConstants.LEFT );
 		elapsed.setHorizontalAlignment( SwingConstants.LEFT );
 
 		setIn.setFont( GUIResources.BASIC_FONT_12 );
@@ -121,7 +123,7 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		stop.setFont( GUIResources.BASIC_FONT_12 );
 		exit.setFont( GUIResources.BASIC_FONT_12 );
 		lastTime.setFont( GUIResources.BASIC_FONT_12 );
-		rendering.setFont( GUIResources.BASIC_FONT_12 );
+		renderingInfo.setFont( GUIResources.BASIC_FONT_12 );
 		elapsed.setFont( GUIResources.BASIC_FONT_12 );
 		proj.setFont( GUIResources.BASIC_FONT_12 );
 
@@ -199,7 +201,7 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		JPanel lastTimeP = new JPanel();
 		JPanel elapsedTimeP = new JPanel();
 		renderedP.setLayout( new BoxLayout( renderedP, BoxLayout.X_AXIS) );
-		renderedP.add( rendering );
+		renderedP.add( renderingInfo );
 		renderedP.add( Box.createHorizontalGlue() );
 		lastTimeP.setLayout( new BoxLayout( lastTimeP, BoxLayout.X_AXIS) );
 		lastTimeP.add( lastTime );
@@ -324,15 +326,16 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 
 	private void displayRenderingOf()
 	{
-		rendering.setText( "Rendering " + Integer.toString( currentFrame ) + " of " + Integer.toString( framesCount ) );
+		renderingInfo.setText( "Rendering " + Integer.toString( currentFrame ) + " of " + Integer.toString( framesCount ) );
 	}
 
 	public void renderingDone()
 	{
-		rendering.setText( "Rendering done");
+		renderingInfo.setText( "Rendering done");
 		render.setEnabled( true );
 		stop.setEnabled( false );
 		exit.setEnabled( true );
+		rendering = false;
 	}
 	
 	public static String createTimeString( int millis, boolean fractions )
@@ -444,6 +447,9 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		return tokens;
 	}
 
+	public void setRendering( boolean b ){ rendering = b; }
+	public boolean getRendering(){ return rendering; }
+
 	public void actionPerformed( ActionEvent e )
 	{
 		if( e.getSource() == render )
@@ -467,6 +473,7 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 			render.setEnabled( false );
 			stop.setEnabled( true );
 			exit.setEnabled( false );
+			rendering = true;
 		}
 
 		if( e.getSource() == setIn )
@@ -506,6 +513,7 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 			render.setEnabled( true );
 			stop.setEnabled( false );
 			exit.setEnabled( true );
+			rendering = false;
 		}
 
 		if( e.getSource() == exit )

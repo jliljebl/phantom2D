@@ -19,11 +19,15 @@ package animator.phantom.gui.modals.render;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
+import animator.phantom.controller.RenderModeController;
 import animator.phantom.gui.GUIUtils;
 
-public class RenderWindow extends JFrame
+public class RenderWindow extends JFrame implements WindowListener
 {
 	public RenderWindowPanel panel;
 
@@ -35,8 +39,22 @@ public class RenderWindow extends JFrame
 		pack();
 		GUIUtils.centralizeWindow( this );
 		setVisible( true );
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		addWindowListener( this );
 	}
 	
 	public RenderWindowPanel getPanel(){ return panel; }
 
+	//---------------------------------------------- WINDOW EVENTS
+	public void windowActivated(WindowEvent e){}
+	public void windowClosed(WindowEvent e){}
+	public void windowClosing(WindowEvent e)
+	{
+		if (panel.getRendering() == true) return;
+		RenderModeController.disposeRenderWindow();
+	}
+	public void windowDeactivated(WindowEvent e){}
+	public void windowDeiconified(WindowEvent e){}
+	public void windowIconified(WindowEvent e){}
+	public void windowOpened(WindowEvent e) {}
 }//end class

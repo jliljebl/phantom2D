@@ -145,7 +145,7 @@ public class RenderModeController
 
 	public static void closeWriteRender()
 	{
-
+		GUIComponents.renderWindow.getPanel().renderingDone();
 	}
 
 	public static void stopWriteRender()
