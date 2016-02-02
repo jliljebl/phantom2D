@@ -42,7 +42,7 @@ import javax.swing.border.Border;
 
 import animator.phantom.controller.Application;
 import animator.phantom.controller.FlowController;
-import animator.phantom.controller.GUIComponents;
+//import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.IconLoadThread;
 import animator.phantom.controller.UserActions;
 import animator.phantom.project.Bin;
@@ -276,7 +276,7 @@ public class BinsAreaPanel extends JPanel implements ActionListener
 			{
 				public void run()
 				{
-					UserActions.addSingleFileSources( GUIComponents.binsPanel );
+					//UserActions.addSingleFileSources( GUIComponents.binsPanel );
 				}
 			}.start();
 		}
@@ -287,7 +287,7 @@ public class BinsAreaPanel extends JPanel implements ActionListener
 			{
 				public void run()
 				{
-					UserActions.addFileSequenceSource( GUIComponents.binsPanel );
+					//UserActions.addFileSequenceSource( GUIComponents.binsPanel );
 				}
 			}.start();
 		}

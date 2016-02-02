@@ -19,10 +19,10 @@ package animator.phantom.controller;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import java.awt.Dimension;
 import java.util.Vector;
 
 import javax.swing.JLabel;
-import javax.swing.JScrollBar;
 
 import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.gui.view.editlayer.ViewEditorLayer;
@@ -188,13 +188,20 @@ public class EditorsController
 	public static void setViewSize( int size )	
 	{ 
 		GUIComponents.viewEditor.quickChangeSize( size );
-		JScrollBar bar = GUIComponents.viewScrollPane.getVerticalScrollBar();
-		bar.setValue( (bar.getMaximum() - bar.getVisibleAmount() - bar.getMinimum()) / 2 );
+
+		//bar.setValue( (bar.getMaximum() - bar.getVisibleAmount() - bar.getMinimum()) / 2 );
 		//--- we do the same again with rendering because if size is changed too soon after frame change
 		//--- we might get something wrong
 		GUIComponents.viewEditor.setScreenSize( size );
+		Dimension scalesPos = GUIComponents.viewEditor.getScalesCenterPosition(GUIComponents.viewScrollPane.getSize());
+		System.out.println("SCALES");
+		System.out.println(scalesPos.width);
+		System.out.println(scalesPos.height);
+		GUIComponents.viewScrollPane.getHorizontalScrollBar().setValue(scalesPos.width);
+		GUIComponents.viewScrollPane.getVerticalScrollBar().setValue(scalesPos.height);
 		displayCurrentInViewEditor( false );
 	}
+
 	//--- Sets view mode: FLOW_VIEW, LAYER_VIEW, SELECT_VIEW or TARGET_VIEW
 	public static void setViewMode( int newMode )
 	{

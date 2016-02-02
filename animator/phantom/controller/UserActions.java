@@ -46,7 +46,7 @@ public class UserActions
 	//private static NativeCommandRunner comRunner = null;
 	private static String[] loopOptions = { "no looping","loop","ping-pong" };
 
-	public static void addSingleFileSources( BinsAreaPanel bPanel )
+	public static void addSingleFileSources()
 	{
 		try
 		{
@@ -84,18 +84,19 @@ public class UserActions
 
 			//--- Add them to project data. Gives id's to filesources.
 			ProjectController.addFileSourcesToProject( addFileSources );
-			ProjectController.addFileSourceVectorToBin( addFileSources, bPanel.currentBin() );
+			//ProjectController.addFileSourceVectorToBin( addFileSources, bPanel.currentBin() );
 
 			//--- Get image sizes and add GUI components to panels 
 			for( FileSource addFS : addFileSources )
 			{
 				addFS.firstLoadData();
-				bPanel.currentSelectPanel().addFileSource( addFS );
+				//bPanel.currentSelectPanel().addFileSource( addFS );
 				addFS.clearData();
-				bPanel.currentSelectPanel().reInitSelectPanel();
-				bPanel.updateGUI();
+				//bPanel.currentSelectPanel().reInitSelectPanel();
+				//bPanel.updateGUI();
 			}
-
+			GUIComponents.renderFlowPanel.updateMediaMenu();
+			
 			//--- MemoryManager needs to update cache.
 			MemoryManager.fileSourcesAdded();
 		}
@@ -119,7 +120,7 @@ public class UserActions
 		DialogUtils.showTwoTextStyleDialog( JOptionPane.WARNING_MESSAGE, null, buttons, bLines, tLines );
 	}
 
-	public static void addFileSequenceSource( BinsAreaPanel bPanel )
+	public static void addFileSequenceSource()
 	{
 		try
 		{
@@ -144,13 +145,13 @@ public class UserActions
 
 			//--- Add them to project data. Gives id's to filesources.
 			ProjectController.addFileSourcesToProject( fsVec );
-			ProjectController.addFileSourceVectorToBin( fsVec, bPanel.currentBin() );
+			//ProjectController.addFileSourceVectorToBin( fsVec, bPanel.currentBin() );
 
 			addFS.firstLoadData();
-			bPanel.currentSelectPanel().addFileSource( addFS );
+			//bPanel.currentSelectPanel().addFileSource( addFS );
 			addFS.clearData();
-			bPanel.currentSelectPanel().reInitSelectPanel();
-			bPanel.updateGUI();
+			//bPanel.currentSelectPanel().reInitSelectPanel();
+			//bPanel.updateGUI();
 			
 			//--- MemoryManager needs to update cache.
 			MemoryManager.fileSourcesAdded();

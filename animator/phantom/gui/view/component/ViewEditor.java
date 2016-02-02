@@ -204,6 +204,24 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		}
 	}
 
+	public Dimension getScalesCenterPosition(Dimension portSize)
+	{
+		int horizPos = 0;
+		int vertPos = 0; 
+		
+		//--- If scaled screen smaller then component keep default values
+
+		//--- If scaled screen larger then component size set component size to it.
+		if( componentSize.width >= portSize.width || 
+				componentSize.height >= portSize.height )
+		{
+			horizPos = (componentSize.width - portSize.width) / 2;
+			vertPos =  (componentSize.height - portSize.height) / 2;
+		}
+		
+		return new Dimension( horizPos, vertPos );
+	}
+
 	//--- Returns current scle
 	public float getScale(){ return scale; }
 	//--- Number of layers

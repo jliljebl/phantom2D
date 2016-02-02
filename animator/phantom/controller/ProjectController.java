@@ -64,7 +64,7 @@ public class ProjectController
 	public static void changeName( String newName )
 	{
 		project.setName( newName );
-		GUIComponents.projectPanel.updateGUI();
+		//GUIComponents.projectPanel.updateGUI();
 		GUIComponents.animatorFrame.setTitle( ProjectController.getName() + " - Phantom2D" );
 	}
 	public static int getFramesPerSecond(){ return project.getFramesPerSecond(); }
@@ -115,6 +115,7 @@ public class ProjectController
 	//--- 
 	public static void displayFileSourceInfo( FileSource fs )
 	{
+		/*
 		if( fs != null )
 		{
 			String info = 	// width x height
@@ -125,6 +126,7 @@ public class ProjectController
 			GUIComponents.projectPanel.setThumbIcon( fs );
 		}
 		else GUIComponents.projectPanel.setInfoLabelText( "" );
+		*/
 	}
 
 
@@ -139,4 +141,6 @@ public class ProjectController
 	//--- Returns all file sources.
 	public static Vector<FileSource> getFileSources(){ return project.getFileSources(); }
 
+
+	
 }//end class

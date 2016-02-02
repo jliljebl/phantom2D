@@ -28,7 +28,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import animator.phantom.controller.GUIComponents;
+//import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.KeyStatus;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.keyaction.DeleteAction;
@@ -174,8 +174,8 @@ public class ListFileSourceSelectPanel extends FileSourceSelectPanel implements 
 			fsPanel.repaint();
 		}
 		selected.clear();
-		GUIComponents.binsPanel.setInfoLabelText( "" );
-		GUIComponents.binsPanel.clearThumbIcon();
+		//GUIComponents.binsPanel.setInfoLabelText( "" );
+		//GUIComponents.binsPanel.clearThumbIcon();
 	}
 
 	public void selectAll()
@@ -218,8 +218,10 @@ public class ListFileSourceSelectPanel extends FileSourceSelectPanel implements 
 		}
 
 		//--- Double click sends to FlowEditor
+		/*
 		if( e.getClickCount() == 2 )
 			GUIComponents.binsPanel.sendLastSelectionFileSourceToFlow();
+		*/
 	}
 	
 	public void mouseEntered(MouseEvent e){}

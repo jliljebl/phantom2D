@@ -26,7 +26,7 @@ import javax.swing.JScrollPane;
 
 import animator.phantom.gui.AnimatorFrame;
 import animator.phantom.gui.AnimatorMenu;
-import animator.phantom.gui.BinsAreaPanel;
+//import animator.phantom.gui.BinsAreaPanel;
 import animator.phantom.gui.NodesPanel;
 import animator.phantom.gui.flow.FlowEditPanel;
 import animator.phantom.gui.flow.RenderFlowViewButtons;
@@ -77,14 +77,14 @@ public class GUIComponents
 	public static JPanel kfNamePanel;
 	public static KFToolButtons kfControl;
 	//--- Gui component for managin bins of project.
- 	public static BinsAreaPanel projectPanel;
+ 	//public static BinsAreaPanel projectPanel;
 	//--- Preview
 	public static PreViewUpdater previewUpdater;
 	public static PreViewControlPanel previewControls;
 	//--- Static view control buttons.
 	public static ViewControlButtons viewControlButtons;
 	//--- Panel containing file handling panels.
-	public static BinsAreaPanel binsPanel;
+	//public static BinsAreaPanel binsPanel;
 	//--- toplevel for rendering info and progrewss
 	public static RenderWindow renderWindow;
 	//--- Top level for editing pre-transform filter stack
@@ -105,7 +105,7 @@ public class GUIComponents
 	
 	public static void reset()
 	{
-		projectPanel = null;
+		//projectPanel = null;
 		animatorMenu = null;
 		renderFlowPanel = null;
 		viewEditor = null;

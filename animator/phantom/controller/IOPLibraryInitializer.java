@@ -112,6 +112,7 @@ import animator.phantom.renderer.plugin.StampPlugin;
 import animator.phantom.renderer.plugin.StripesPlugin;
 import animator.phantom.renderer.plugin.SwimPlugin;
 import animator.phantom.renderer.plugin.ThresholdPlugin;
+import animator.phantom.renderer.plugin.TransparentBGPlugin;
 import animator.phantom.renderer.plugin.TritonePlugin;
 import animator.phantom.renderer.plugin.TwirlPlugin;
 import animator.phantom.renderer.plugin.TwotonePlugin;
@@ -213,6 +214,7 @@ public class IOPLibraryInitializer
 		//IOPLibrary.registerPlugin( new AnimatedColorSolidPlugin(), "Source" );
 		IOPLibrary.registerPlugin( new AnimatedColorRGBPlugin(), "Source" );
 		IOPLibrary.registerPlugin( new PatternGradientPlugin(), "Source" );
+		IOPLibrary.registerPlugin( new TransparentBGPlugin(), "Source" );
 
 		//--- Rendered Source
 		IOPLibrary.registerPlugin( new CausticsPlugin(), "Render" );

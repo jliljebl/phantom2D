@@ -31,7 +31,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import animator.phantom.controller.EditorPersistance;
-import animator.phantom.controller.GUIComponents;
+//import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.MenuActions;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.ProjectController;
@@ -40,6 +40,7 @@ import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UserActions;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.project.MovieFormat;
+import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
 
@@ -84,7 +85,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 	JMenuItem about;
 
 	//----
-	private int SHORT_CUT_PLACE = 25;
+	private static int SHORT_CUT_PLACE = 25;
 
 	//---
 	Vector<JMenuItem> newProjectItems = new Vector<JMenuItem>();
@@ -214,7 +215,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		//------------------------------------ Node menu
 		JMenu iopMenu = new JMenu("Node");
 	
-		buildIOPMenu( iopMenu );
+		buildIOPMenu( iopMenu, this );
 
 		//--- ------------------------------- Render menu
 		JMenu renderMenu = new JMenu("Render");
@@ -269,7 +270,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 	}
 
 	//--- Adds key short cut to give place in string
-	private String getItemString( String item, String shortCut, int correction )
+	private static String getItemString( String item, String shortCut, int correction )
 	{
 		int middleStringLength = SHORT_CUT_PLACE - item.length() + correction;
 		StringBuffer rBuf = new StringBuffer(item);
@@ -279,10 +280,21 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 	}
 
 	//--- Builds "ImageOperation" menu using input from IOPLibrary
+	public static void buildIOPMenu( JMenu iopMenu, ActionListener listener )
+	{
+		Vector<JMenu> groupMenus =  getNodesMenus(  listener );
+		for( JMenu subMenu : groupMenus )
+		{
+			iopMenu.add( subMenu );
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
-	private void buildIOPMenu( JMenu iopMenu )
+	public static Vector<JMenu> getNodesMenus(  ActionListener listener )
 	{
 		Vector<String> groups = IOPLibrary.getGroupKeys();
+		Vector<JMenu> groupMenus = new Vector<JMenu>();
+		 
 		for( String group : groups )
 		{
 			@SuppressWarnings("rawtypes")
@@ -303,13 +315,14 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 					PhantomPlugin p = (PhantomPlugin) o;
 					item = new IOPMenuItem( p.getIOP().getName(), p.getClass().getName() );
 				}
-				item.addActionListener(this);
+				item.addActionListener(listener);
 				subMenu.add( item );
 			}
-			iopMenu.add( subMenu );
+			groupMenus.add( subMenu );
 		}
+		return groupMenus;
 	}
-	
+
 	public void updateRecentMenu()
 	{
 		openRecent.removeAll();
@@ -329,6 +342,29 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 				openRecent.add( addr );
 			}
 		}
+	}
+
+	public static void fillFileSourcesMenu( JMenu menu, ActionListener listener  )
+	{
+		menu.removeAll();
+		Vector<FileSource> fileSources = ProjectController.getFileSources();
+		if( fileSources.size() == 0 )
+		{
+			MediaMenuItem none = new MediaMenuItem("none", null);
+			none.setEnabled( false );
+			menu.add( none );
+		}
+		else
+		{
+			for( FileSource f : fileSources )
+			{
+				System.out.print(f.getName());
+				MediaMenuItem addr = new MediaMenuItem( f.getName(), f );
+				addr.addActionListener( listener );
+				menu.add( addr );
+			}
+		}
+		
 	}
 	
 	//--------------------------------------------- MENU ACTIONS
@@ -380,7 +416,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			{
 				public void run()
 				{
-					UserActions.addSingleFileSources( GUIComponents.binsPanel );
+					UserActions.addSingleFileSources();
 				}
 			}.start();
 		}
@@ -390,7 +426,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			{
 				public void run()
 				{
-					UserActions.addFileSequenceSource( GUIComponents.binsPanel );
+					UserActions.addFileSequenceSource();
 				}
 			}.start();
 		}

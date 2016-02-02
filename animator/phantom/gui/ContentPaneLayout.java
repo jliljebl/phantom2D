@@ -47,29 +47,22 @@ public class ContentPaneLayout implements LayoutManager
 				Component c = cont.getComponent(i);
 				switch( i )
 				{
-					//--- Media
-					case 0:
-						c.setBounds(	0,
-										0,
-										LEFT_WIDTH,
-										MEDIA_PANEL_HEIGHT );
-						break;
 					//--- Flow view
-					case 1:
+					case 0:
 						c.setBounds( 	6,
-										MEDIA_PANEL_HEIGHT,
+										0,
 										LEFT_WIDTH - 6,
-										containerSize.height - MEDIA_PANEL_HEIGHT - FLOW_BUTTONS_HEIGHT - 2 );
+										containerSize.height - FLOW_BUTTONS_HEIGHT - 2 );
 						break;
 					//--- Flow buttons
-					case 2: 
+					case 1: 
 						c.setBounds( 	0,
 										(containerSize.height - FLOW_BUTTONS_HEIGHT),
 										LEFT_WIDTH,
 										FLOW_BUTTONS_HEIGHT );
 						break;
 					//--- Big editors
-					case 3:
+					case 2:
 						c.setBounds( 	LEFT_WIDTH + 1,
 										0,
 										containerSize.width - LEFT_WIDTH - 1,

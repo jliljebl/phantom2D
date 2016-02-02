@@ -53,7 +53,7 @@ import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.keyaction.CTRLPressedAction;
 import animator.phantom.controller.keyaction.CTRLReleasedAction;
 import animator.phantom.controller.keyaction.CopyAction;
-import animator.phantom.controller.keyaction.DeSelectAllAction;
+//import animator.phantom.controller.keyaction.DeSelectAllAction;
 import animator.phantom.controller.keyaction.DeleteAction;
 import animator.phantom.controller.keyaction.PlayStopAction;
 import animator.phantom.controller.keyaction.FlowArrangeAction;
@@ -64,7 +64,7 @@ import animator.phantom.controller.keyaction.NextLayerAction;
 import animator.phantom.controller.keyaction.PasteAction;
 import animator.phantom.controller.keyaction.RenderPreviewAction;
 import animator.phantom.controller.keyaction.RenderPreviewFrameAction;
-import animator.phantom.controller.keyaction.SelectAllAction;
+//import animator.phantom.controller.keyaction.SelectAllAction;
 import animator.phantom.controller.keyaction.TimelineNextAction;
 import animator.phantom.controller.keyaction.TimelinePrevAction;
 import animator.phantom.controller.keyaction.TimelineZoomInAction;
@@ -102,8 +102,8 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	private JPanel bottomRow;
 	private PreViewUpdater previewUpdater;
 
-	private BinsAreaPanel binAreaPanel;
-	private JPanel topLeftHolder;
+	//private BinsAreaPanel binAreaPanel;
+	//private JPanel topLeftHolder;
 	private JPanel paramEditHolder;
 			
 	public JToggleButton timelineButton;
@@ -165,16 +165,16 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		setJMenuBar( menuBar );
 
 		//------------------------------ media panel
-		binAreaPanel = new BinsAreaPanel( ProjectController.getBins(), this );
+		//binAreaPanel = new BinsAreaPanel( ProjectController.getBins(), this );
 
-		topLeftHolder = new JPanel();
-		topLeftHolder.setLayout(new BoxLayout( topLeftHolder, BoxLayout.Y_AXIS));
-		topLeftHolder.add( binAreaPanel );
+		//topLeftHolder = new JPanel();
+		//topLeftHolder.setLayout(new BoxLayout( topLeftHolder, BoxLayout.Y_AXIS));
+		//topLeftHolder.add( binAreaPanel );
 
-		JPanel topLeftPanel = new JPanel();
-		topLeftPanel.setLayout(new BoxLayout( topLeftPanel, BoxLayout.Y_AXIS));
-		topLeftPanel.add( Box.createRigidArea( new Dimension( 0, 6 ) ) );
-		topLeftPanel.add( topLeftHolder );
+		//JPanel topLeftPanel = new JPanel();
+		//topLeftPanel.setLayout(new BoxLayout( topLeftPanel, BoxLayout.Y_AXIS));
+		//topLeftPanel.add( Box.createRigidArea( new Dimension( 0, 6 ) ) );
+		//topLeftPanel.add( topLeftHolder );
 		
 		//----------------------------------- flow Editor
 		int flowW = EditorPersistance.getIntPref( EditorPersistance.FLOW_WIDTH );
@@ -228,25 +228,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		buttonRowHolder.setLayout(new BoxLayout( buttonRowHolder, BoxLayout.X_AXIS));
 		buttonRowHolder.add( viewControlButtons );
 		buttonRowHolder.add( Box.createHorizontalGlue() );
-		
-		//--------------------------------------------- view editor + button row panel
-		screenViewsPanel.add( viewPanel );
-		screenViewsPanel.add( buttonRowHolder );
-
-		//-------------------------------------------- param edit
-		editFrame = new ParamEditFrame();
-		nodesPanel = new NodesPanel();
-		
-		paramEditHolder = new JPanel();
-		paramEditHolder.setLayout(new BoxLayout( paramEditHolder, BoxLayout.Y_AXIS));
-		paramEditHolder.add( editFrame );
-		
-		JPanel paramEditPanelPanel = new JPanel();
-		paramEditPanelPanel.setLayout(new BoxLayout( paramEditPanelPanel, BoxLayout.Y_AXIS));
-
-		paramEditPanelPanel.add( Box.createRigidArea( new Dimension( 0, 4 ) ) );
-		paramEditPanelPanel.add( paramEditHolder );
-		
 
 		//----------------------------------------------- preview
 		previewUpdater = new PreViewUpdater();
@@ -262,6 +243,25 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		
 		PreViewControlPanel previewControl = new PreViewControlPanel( cNTLine, timecodeDisplay);
 		
+		//--------------------------------------------- view editor + button row panel
+		screenViewsPanel.add( viewPanel );
+		screenViewsPanel.add( buttonRowHolder );
+		screenViewsPanel.add( previewControl );
+
+		//-------------------------------------------- param edit
+		editFrame = new ParamEditFrame();
+		nodesPanel = new NodesPanel();
+		
+		paramEditHolder = new JPanel();
+		paramEditHolder.setLayout(new BoxLayout( paramEditHolder, BoxLayout.Y_AXIS));
+		paramEditHolder.add( editFrame );
+		
+		JPanel paramEditPanelPanel = new JPanel();
+		paramEditPanelPanel.setLayout(new BoxLayout( paramEditPanelPanel, BoxLayout.Y_AXIS));
+
+		paramEditPanelPanel.add( Box.createRigidArea( new Dimension( 0, 4 ) ) );
+		paramEditPanelPanel.add( paramEditHolder );
+
 		//--------------------------------------- timeline editor
 		TimeLineDisplayPanel timeLineDisplay = new TimeLineDisplayPanel();
 		TimeLineIOPColumnPanel iopColumn = new TimeLineIOPColumnPanel();
@@ -391,23 +391,20 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		editorsPane = new JPanel();
 		editorsPane.setLayout( new EditorsLayout() );
 		editorsPane.add( timelinePanel );
-		 
+
 		AnimatorFrameLayout frameLayout = new AnimatorFrameLayout( 	screenViewsPanel,
 										paramEditPanelPanel,
-										previewControl,
 										editorsPane,
 										bottomRow );
 		contentPane.setLayout( frameLayout );
  		contentPane.add( screenViewsPanel );
  		contentPane.add( paramEditPanelPanel );
- 		contentPane.add( previewControl );
 		contentPane.add( editorsPane );
 		contentPane.add( bottomRow );
 		
 		JPanel realContentPanel = new JPanel();
 		ContentPaneLayout rclayout = new ContentPaneLayout();
 		realContentPanel.setLayout( rclayout );
-		realContentPanel.add( topLeftPanel );
 		realContentPanel.add( flowPane );
 		realContentPanel.add( flowButtonsPane );
 		realContentPanel.add( contentPane );
@@ -432,12 +429,14 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		KeyUtils.setAncestorFocusAction( keyEditorPanel, new CopyAction(), "control C" );
 		KeyUtils.setAncestorFocusAction( keyEditorPanel, new PasteAction(), "control V" );
 		KeyUtils.setAncestorFocusAction( keyEditorPanel, new DeleteAction(), "DELETE" );
+		/*
 		KeyUtils.setAncestorFocusAction( binAreaPanel, new DeleteAction(), "DELETE" );
 		KeyUtils.setAncestorFocusAction( binAreaPanel, new CopyAction(), "control C" );
 		KeyUtils.setAncestorFocusAction( binAreaPanel, new PasteAction(), "control V" );
 		KeyUtils.setAncestorFocusAction( binAreaPanel, new SelectAllAction(), "control A" );
 		KeyUtils.setAncestorFocusAction( binAreaPanel, new DeSelectAllAction(), "control shift A" );
-
+		*/
+		
 		//--- Connect GUI components to be accessed elsewhere.
 		GUIComponents.animatorFrame = this;
 		GUIComponents.animatorMenu = menuBar;
@@ -454,13 +453,13 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		GUIComponents.keyFrameEditPanel = kfEditPanel;
 		GUIComponents.kfNamePanel = namePanel;
 		GUIComponents.keyEditorContainerPanel = keyEditorPanel;
-		GUIComponents.projectPanel = binAreaPanel;//we have 2 names for this and this is not fixed
+		//GUIComponents.projectPanel = binAreaPanel;//we have 2 names for this and this is not fixed
 		GUIComponents.previewUpdater = previewUpdater;
 		GUIComponents.previewControls = previewControl;
 		GUIComponents.viewControlButtons = viewControlButtons;
 		GUIComponents.viewScrollPane = viewScrollPane;
 		GUIComponents.kfControl = kfButtons;
-		GUIComponents.binsPanel = binAreaPanel;//we have 2 names for this and this is not fixed
+		//GUIComponents.binsPanel = binAreaPanel;//we have 2 names for this and this is not fixed
 		//GUIComponents.clipVertSlider = clipVSlider;
 		GUIComponents.normTlineDisp = normTline;
 		GUIComponents.nodesPanel = nodesPanel;
@@ -469,7 +468,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		//--- These needs init
 		TimeLineController.initClipEditorGUI();
 
-		//--- Remove all components (why?)
+		//--- Remove all components (why? reload?)
 		getContentPane().removeAll();
 
 		add( realContentPanel );

@@ -21,8 +21,8 @@ package animator.phantom.controller;
 
 import java.util.Vector;
 
-import animator.phantom.gui.ListFileSourcePanel;
-import animator.phantom.project.Bin;
+//import animator.phantom.gui.ListFileSourcePanel;
+//import animator.phantom.project.Bin;
 import animator.phantom.renderer.RenderNode;
 
 //--- handles copy-paste, delete actions.
@@ -31,7 +31,7 @@ public class KeyActionController
 	private static Object lastSource;
 	private static Vector<Object> lastItems;
 
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	public static void copyItems( Object source )
 	{
 		lastSource = source;
@@ -52,11 +52,13 @@ public class KeyActionController
 				items.add( new Float( EditorsController.getCurrentKeyFrame().getValue() ) );
 		}
 		
+		/*
 		if( source == GUIComponents.binsPanel )
 		{
 			items = (Vector<Object>) GUIComponents.binsPanel.currentSelectPanel().getSelectedPanels().clone();
 		}
-
+		*/
+		
 		lastItems = items;
 	}
 
@@ -86,6 +88,7 @@ public class KeyActionController
 			EditorsController.addKeyFrameForValue( ((Float) lastItems.elementAt( 0 )).floatValue() );
 		}
 		
+		/*
 		if( source == GUIComponents.binsPanel )
 		{
 			//--- remove from all bins
@@ -108,8 +111,9 @@ public class KeyActionController
 			//--- Reinit everything
 			GUIComponents.binsPanel.recreateFromBinContents();
 		}
+		*/
 	}
-
+		
 	public static void deleteItems( Object source )
 	{
 		if( source == GUIComponents.keyEditorContainerPanel )
@@ -122,10 +126,12 @@ public class KeyActionController
 			FlowController.deleteSelected(); 
 		}
 
+		/*
 		if( source == GUIComponents.binsPanel )
 		{
 			UserActions.deleteFileSources( GUIComponents.binsPanel );
 		}
+		*/
 	}
 
 	public static void selectAllItems( Object source )
@@ -136,10 +142,12 @@ public class KeyActionController
 			FlowController.selectAll(); 
 		}
 
+		/*
 		if( source == GUIComponents.binsPanel )
 		{
 			GUIComponents.binsPanel.currentSelectPanel().selectAll();
 		}
+		*/
 	}
 
 	public static void deSelectAllItems( Object source )
@@ -150,10 +158,12 @@ public class KeyActionController
 			FlowController.clearSelection(); 
 		}
 
+		/*
 		if( source == GUIComponents.binsPanel )
 		{
 			GUIComponents.binsPanel.deselectAll();
 		}
+		*/
 	}
 
 }//end class

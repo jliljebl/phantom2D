@@ -29,13 +29,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+//import java.io.File;
 import java.util.Vector;
 
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import animator.phantom.controller.AppUtils;
+//import animator.phantom.controller.EditorPersistance;
 import animator.phantom.controller.FlowController;
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.KeyActionController;
@@ -51,8 +54,13 @@ import animator.phantom.controller.keyaction.DeleteAction;
 import animator.phantom.controller.keyaction.KeyUtils;
 import animator.phantom.controller.keyaction.PasteAction;
 import animator.phantom.controller.keyaction.SelectAllAction;
+import animator.phantom.gui.AnimatorMenu;
 import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
+import animator.phantom.gui.IOPMenuItem;
+import animator.phantom.gui.MediaMenuItem;
+//import animator.phantom.renderer.FileSource;
+//import animator.phantom.gui.RecentMenuItem;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
 import animator.phantom.undo.MultiDeleteUndoEdit;
@@ -102,6 +110,9 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 	private  JMenuItem cloneNode;
 	private  JMenuItem freezeAllValues;
 
+	private JPopupMenu editorPopup;
+	private JMenuItem mediaList;
+
 	//--------------------------------------------------------------------- CONSTRUCTOR
 	public FlowEditPanel( int width, int height )
 	{
@@ -115,7 +126,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		addMouseListener( this );
 		addMouseMotionListener( this );
 
-		//--- Popup menu
+		//--- Node context popup menu
 		popup = new JPopupMenu();
 		openInParamEditor = new JMenuItem("Open in Node Editor");
 		openInParamEditor.addActionListener(this);
@@ -145,6 +156,21 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		deleteNode.addActionListener(this);
 		popup.add( deleteNode );
 
+		//--- Node context popup menu
+		editorPopup = new JPopupMenu();
+		mediaList = new JMenu("Media");
+		openInParamEditor.addActionListener(this);
+		
+		editorPopup.add( mediaList );
+		
+		editorPopup.addSeparator();
+		
+		Vector<JMenu> nodeGroupMenus = AnimatorMenu.getNodesMenus( this );
+		for( JMenu subMenu : nodeGroupMenus )
+		{
+			editorPopup.add( subMenu );
+		}
+		
 		//--- Key actions
 		setFocusable( true );
 		KeyUtils.setFocusAction( this, new DeleteAction(), "DELETE" );
@@ -623,6 +649,15 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 				ParamEditController.displayEditFrame( selectedBox.getImageOperation() );
 			}
 		}
+		//--- Context menu for right mouse
+		if( e.getButton() == MouseEvent.BUTTON3 && selectedBox == null )
+		{
+			deselectAll();
+			showEditorPopUp( e );
+
+			editMode = new NoEditMode();
+		}
+		
 		//--- Check if any connection points was selected
 		FlowBoxConnectionPoint cp = null;
 		if( selectedBox != null )
@@ -741,6 +776,17 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		popup.show( e.getComponent(), e.getX(), e.getY() );
 	}
 
+	private void showEditorPopUp( MouseEvent e )
+	{
+		//updateMediaMenu();
+		editorPopup.show( e.getComponent(), e.getX(), e.getY() );
+	}
+
+	public void updateMediaMenu()
+	{
+		AnimatorMenu.fillFileSourcesMenu((JMenu) mediaList, this);
+	}
+
 	public void actionPerformed(ActionEvent e)
 	{
 		if( e.getSource() == sendToClipEditor )
@@ -775,6 +821,18 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		if( e.getSource() == freezeAllValues )
 		{
 			MenuActions.freezeAllToCurrent();
+		}
+
+		if( e.getSource() instanceof IOPMenuItem )
+		{
+			IOPMenuItem source = ( IOPMenuItem ) e.getSource();
+			MenuActions.addIOP( source.getIopClassName() );
+		}
+
+		if( e.getSource() instanceof MediaMenuItem )
+		{
+			MediaMenuItem source =  ( MediaMenuItem ) e.getSource();
+			FlowController.addToCenterFromFileSource( source.getFileSource() );
 		}
 	}
 

@@ -60,11 +60,11 @@ import animator.phantom.gui.view.editlayer.ViewEditorLayer;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.project.MovieFormat;
 import animator.phantom.project.Project;
-import animator.phantom.renderer.FileSequenceSource;
-import animator.phantom.renderer.FileSource;
+//import animator.phantom.renderer.FileSequenceSource;
+//import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
-import animator.phantom.renderer.RenderFlow;
+//import animator.phantom.renderer.RenderFlow;
 import animator.phantom.renderer.RenderNode;
 import animator.phantom.renderer.imagemerge.BasicTwoMergeIOP;
 import animator.phantom.renderer.param.AnimatedValue;
@@ -722,6 +722,7 @@ public class MenuActions
 	
 	public static void reloadSelected()
 	{
+		/*
 		Vector<FileSource> selected = GUIComponents.binsPanel.currentSelectPanel().getSelected();
 		try
 		{
@@ -749,10 +750,12 @@ public class MenuActions
 			String[] tLines = { line1, "Make sure that file(s) exist." };
 			DialogUtils.showTwoStyleInfo( "File reload failed", tLines, DialogUtils.WARNING_MESSAGE );
 		}
+		*/
 	}
 
 	public static void replaceSelected()
 	{
+		/*
 		Vector<FileSource> selected = GUIComponents.binsPanel.currentSelectPanel().getSelected();
 		if( selected.size() == 0 ||  selected.size() > 1 )
 			return;//info?
@@ -822,6 +825,7 @@ public class MenuActions
 		UpdateController.valueChangeUpdate();
 		//--- MemoryManager needs to update cache.
 		MemoryManager.fileSourcesAdded();
+		*/
 	}
 
 	//------------------------------------------------------ Node

@@ -33,7 +33,7 @@ public class BigEditorsLayout implements LayoutManager
 	private int BIG_EDITOR_INSET = 0;
 	private int BIG_EDITOR_UP_INSET = 4;
 	private int LEFT_GAP = 0;
-	private int RIGHT_GAP = 9;
+	private int RIGHT_GAP = 0;
 	private int TOP_GAP = 0;
 
 	public BigEditorsLayout(){}
@@ -55,7 +55,7 @@ public class BigEditorsLayout implements LayoutManager
 						c.setBounds(	LEFT_GAP,
 								TOP_GAP,
 								containerSize.width - LEFT_GAP - RIGHT_GAP,
-								containerSize.height - STRIP_HEIGHT - TOP_GAP );
+								containerSize.height - STRIP_HEIGHT * 2 - TOP_GAP );
 						Container c1 = (Container) c;
 						Component e1 = c1.getComponent( 0 );//--- There will be one.
 						e1.setPreferredSize( 
@@ -66,10 +66,16 @@ public class BigEditorsLayout implements LayoutManager
 					//--- ActionButtons
 					case 1:
 						c.setBounds( 	LEFT_GAP + STRIP_INSET,
-								containerSize.height - STRIP_HEIGHT + 2,
+								containerSize.height - STRIP_HEIGHT * 2 + 2,
 								containerSize.width - RIGHT_GAP,
 								STRIP_HEIGHT);
 						break;
+					//--- Preview buttons
+					case 2:
+						c.setBounds( 	LEFT_GAP + STRIP_INSET,
+								containerSize.height - STRIP_HEIGHT - 2,
+								containerSize.width - RIGHT_GAP,
+								STRIP_HEIGHT);
 					default:
 						break;
 
