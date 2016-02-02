@@ -45,7 +45,7 @@ public class ParamEditFrame extends JPanel
 	private static final int EMPTY_LABEL_HEIGHT = 200;
 	private static final int NAME_LABEL_HEIGHT = 30;
 	private static final int NODE_WIDTH = 60;
-	private static final int HEIGHT_PAD = 2;
+	private static final int HEIGHT_PAD = 0;
 	private static final int AREA_BORDER_GAP = 5;
 
 	public ParamEditFrame()
@@ -57,7 +57,7 @@ public class ParamEditFrame extends JPanel
 		setPreferredSize( new Dimension( Application.SMALL_WINDOW_WIDTH - 10, Application.getParamEditHeight() - HEIGHT_PAD ));
 		
 		Border b1 = BorderFactory.createLineBorder( GUIColors.frameBorder );
-		Border b2 = BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 4, AREA_BORDER_GAP + 4, AREA_BORDER_GAP + 2, AREA_BORDER_GAP), b1 );
+		Border b2 = BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 0, AREA_BORDER_GAP + 4, AREA_BORDER_GAP + 2, AREA_BORDER_GAP), b1 );
 		
 		setBorder( b2 );
 	}

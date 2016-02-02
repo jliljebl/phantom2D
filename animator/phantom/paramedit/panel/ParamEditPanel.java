@@ -49,7 +49,7 @@ public class ParamEditPanel extends JPanel
 	public void initParamEditPanel()
 	{
 		setLayout( new BoxLayout( this, BoxLayout.Y_AXIS) );
-		add( Box.createRigidArea(new Dimension( 0, 4 ) ) );
+		//add( Box.createRigidArea(new Dimension( 0, 4 ) ) );
 		setBorder( null );
 	}
 	//--- Sets panel to use tabbed pane as holder for components

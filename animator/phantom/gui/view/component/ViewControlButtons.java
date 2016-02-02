@@ -209,13 +209,14 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		lPanel.setMaximumSize( new Dimension( 200, 30 ) );
 
 		staticPanel.setLayout( new BoxLayout( staticPanel, BoxLayout.X_AXIS));
-		staticPanel.add( editorUpdates );
-		staticPanel.add( Box.createRigidArea( new Dimension(6,0) ));
+
 		staticPanel.add( viewFlow );
 		staticPanel.add( viewTarget );
 		staticPanel.add( viewSelected );
 		staticPanel.add( Box.createRigidArea( new Dimension(6,0) ));
 		staticPanel.add( viewColor );
+		staticPanel.add( Box.createRigidArea( new Dimension(6,0) ));
+		staticPanel.add( editorUpdates );
 		staticPanel.add( Box.createRigidArea( new Dimension( 6, 0 ) ) );
 		staticPanel.add( layerUp );
 		staticPanel.add( allBoxes );

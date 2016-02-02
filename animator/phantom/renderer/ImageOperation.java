@@ -738,7 +738,7 @@ public abstract class ImageOperation implements Comparable<Object>
 
 			editFrame = new JPanel();
 			editFrame.setLayout(new BoxLayout( editFrame, BoxLayout.Y_AXIS));
-			editFrame.add( Box.createRigidArea( new Dimension( 0, 5 ) ) );
+			//editFrame.add( Box.createRigidArea( new Dimension( 0, 5 ) ) );
 			editFrame.add( getNamePanel() );
 			editFrame.add( Box.createRigidArea( new Dimension( 0, 5 ) ) );
 

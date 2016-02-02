@@ -22,6 +22,7 @@ package animator.phantom.gui;
 import java.awt.Color;
 
 import javax.swing.JPanel;
+import javax.swing.plaf.ColorUIResource;
 
 //--- Collection of GUI clor definitions
 public class GUIColors
@@ -29,6 +30,7 @@ public class GUIColors
 	//--- Panel colors.
 	public static Color bgColor = ( new JPanel() ).getBackground();
 	public static Color darkBgColor = new Color( 56, 60, 74 );
+	public static Color darker = new ColorUIResource( new Color( 51, 55, 69 ) );
 	public static Color selectedColor = new Color( 169, 192, 205 );
 	public static Color notSelectedColor = ( new JPanel() ).getBackground();
 	public static Color lineBorderColor = new Color( 169, 192, 205 );
