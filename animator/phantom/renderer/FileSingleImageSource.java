@@ -25,7 +25,6 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 
-import animator.phantom.gui.BinsAreaPanel;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.GUIUtils;
 
@@ -85,7 +84,7 @@ public class FileSingleImageSource extends FileSource
 	{
 		if( !fileAvailable() ) return noFileIcon;
 		loadData();
-		return GUIUtils.getThumbnailFromImage( img, BinsAreaPanel.ICON_WIDTH, BinsAreaPanel.ICON_HEIGHT );
+		return GUIUtils.getThumbnailFromImage( img, 40, 30 );
 
 	}
 	public ImageIcon getFileTypeIcon()

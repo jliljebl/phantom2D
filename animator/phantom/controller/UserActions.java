@@ -25,7 +25,6 @@ import java.util.Vector;
 //import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import animator.phantom.gui.BinsAreaPanel;
 import animator.phantom.gui.GUIUtils;
 import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.gui.modals.MComboBox;
@@ -168,8 +167,9 @@ public class UserActions
 		 
 	}
 
-	public static void deleteFileSources( BinsAreaPanel bPanel )
+	public static void deleteFileSources()
 	{
+		/*
 		Vector<FileSource> selected = bPanel.currentSelectPanel().getSelected();
 		String fsString = null;
 		if( selected.size() == 0 ) return;
@@ -205,6 +205,7 @@ public class UserActions
 	
 		bPanel.currentSelectPanel().deleteSelected();
 		bPanel.updateGUI();
+		*/
 	}
 
 	//--- GUI for setting animation properties for iops.

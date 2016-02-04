@@ -19,27 +19,22 @@ package animator.phantom.controller;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 
-import animator.phantom.gui.BinsAreaPanel;
 import animator.phantom.renderer.FileSource;
 
 public class IconLoadThread extends Thread
 {
-	private FileSource fileSource;
-	private BinsAreaPanel bPanel;
+	//private FileSource fileSource;
 
-	public IconLoadThread( FileSource fileSource, BinsAreaPanel bPanel )
+	public IconLoadThread( FileSource fileSource )
 	{
-		this.fileSource = fileSource;
-		this.bPanel = bPanel;
+		//this.fileSource = fileSource;
 	}
 
 	public void run()
 	{
-		ImageIcon ii = fileSource.getThumbnailIcon();
-		bPanel.iconLabel.setIcon( ii );
-		bPanel.thumbIcons.put( fileSource, ii );
+		//ImageIcon ii = fileSource.getThumbnailIcon();
 	}
 
 }//end class

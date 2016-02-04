@@ -31,7 +31,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import animator.phantom.controller.AppUtils;
-import animator.phantom.gui.BinsAreaPanel;
 import animator.phantom.gui.GUIUtils;
 
 //--- Objects extending this class are used to access media files.
@@ -63,19 +62,19 @@ public abstract class FileSource implements Comparable<Object>
 	{
 		//--- Make no files icon
  		//--- make bigger then needed to get some softening from scaling
-		BufferedImage tmp = new BufferedImage(  BinsAreaPanel.ICON_WIDTH * 2,
-							BinsAreaPanel.ICON_HEIGHT * 2,
+		BufferedImage tmp = new BufferedImage(  40 * 2,
+							30 * 2,
 							BufferedImage.TYPE_INT_ARGB );
 		Graphics2D g = tmp.createGraphics();
 		g.setColor( Color.black );
-		g.fillRect( 0,0,BinsAreaPanel.ICON_WIDTH * 2, BinsAreaPanel.ICON_HEIGHT * 2 );
+		g.fillRect( 0,0,40 * 2,30 * 2 );
 		Line2D.Float l1 = new Line2D.Float( 35, 25, 85, 65 );
 		Line2D.Float l2 = new Line2D.Float( 35, 65, 85, 25 );
 		g.setColor( Color.red );
 		g.setStroke( new BasicStroke(10));
 		g.draw( l1 );
 		g.draw( l2 );
-		noFileIcon = GUIUtils.getThumbnailFromImage( tmp, BinsAreaPanel.ICON_WIDTH, BinsAreaPanel.ICON_HEIGHT );
+		noFileIcon = GUIUtils.getThumbnailFromImage( tmp, 40, 30);
 	}
 
 	//-------------------------------------------- INTERFACE

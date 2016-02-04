@@ -26,7 +26,6 @@ import java.io.File;
 import javax.swing.ImageIcon;
 
 import animator.phantom.controller.AppUtils;
-import animator.phantom.gui.BinsAreaPanel;
 import animator.phantom.gui.GUIUtils;
 
 //--- Abstract base class for file sources that display numbered file sequences.
@@ -228,7 +227,7 @@ public abstract class SequencePlaybackSource extends FileSource
 			return noFileIcon;
 
 		BufferedImage firstframe = getBufferedImageFromFile( file );
-		return GUIUtils.getThumbnailFromImage( firstframe, BinsAreaPanel.ICON_WIDTH, BinsAreaPanel.ICON_HEIGHT );
+		return GUIUtils.getThumbnailFromImage( firstframe, 40, 30);
 	}
 
 }//end class
