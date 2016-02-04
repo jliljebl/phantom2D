@@ -156,7 +156,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		if( size == MovieRenderer.QUARTER_SIZE ) newScale = 0.25f;
 		if( size == MovieRenderer.ONE_THREE_QUARTER_SIZE ) newScale = 1.75f;
 		if( size == MovieRenderer.ONE_QUARTER_SIZE ) newScale = 1.25f;
-		
+		if( size == MovieRenderer.THIRD_SIZE ) newScale = 0.33f;
 		return newScale;
 	}
 	//--- Quick change size it is then rendered to eliminate timing bugs
@@ -559,46 +559,8 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		{
 			GUIComponents.viewControlButtons.zoomOut();
 		}
-	/*
-		if( mouseActionNow ) return;
-		
-
-		int notches = e.getWheelRotation();
-		
-		// no ctrl, zoom
-		if((e.getModifiers() & InputEvent.CTRL_MASK) != InputEvent.CTRL_MASK) 
-		{
-			if( notches < 0 )
-			{
-				TimeLineController.zoomIn();
-				TimeLineController.scaleOrPosChanged();
-			}
-			else
-			{
-				TimeLineController.zoomOut();
-				TimeLineController.scaleOrPosChanged();
-			}
-		}
-		else //ctrl down, vert scroll 
-		{
-			if( notches < 0 )
-			{
-				verticalPos = verticalPos - 10;
-				if(verticalPos < 0) verticalPos = 0;
-
-			}
-			else
-			{
-				verticalPos = verticalPos + 10;
-				if( verticalPos >100 ) verticalPos = 100;
-			}
-			calculateVOff();
-			repaint();
-		}
-		*/
 	}
 
-	
 	//--- Noop mouse events.
 	public void mouseClicked(MouseEvent e){}
 	public void mouseEntered(MouseEvent e){}

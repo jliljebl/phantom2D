@@ -41,7 +41,8 @@ public class MovieRenderer
 	public static final int THREE_QUARTER_SIZE = 5;
 	public static final int ONE_THREE_QUARTER_SIZE = 6;
 	public static final int ONE_QUARTER_SIZE = 7;
-	
+	public static final int THIRD_SIZE = 8;
+
 	private Vector<NumberedFrame> frames;
 	private Vector<FrameRendererThread> threads;
 
@@ -210,6 +211,7 @@ public class MovieRenderer
 		if( size == ONE_HALF_SIZE ) return getScaledImage( img, 1.5f );
 		if( size == ONE_THREE_QUARTER_SIZE ) return getScaledImage( img, 1.75f );
 		if( size == ONE_QUARTER_SIZE ) return getScaledImage( img, 1.25f );
+		if( size == THIRD_SIZE ) return getScaledImage( img, 0.33f );
 		return getScaledImage( img, 2.0f );
 	}
 

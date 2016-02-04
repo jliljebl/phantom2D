@@ -731,14 +731,10 @@ public abstract class ImageOperation implements Comparable<Object>
 		
 		if( editFrame == null )
 		{
-
-			//boolean scrollPaneNeeded = Application.getParamEditHeight() - SCROLL_HEIGHT_PAD - SCROLL_TEST_PAD < 
-			//					getEditPanel().getPreferredSize().getHeight();
 			boolean scrollPaneNeeded = true;
 
 			editFrame = new JPanel();
 			editFrame.setLayout(new BoxLayout( editFrame, BoxLayout.Y_AXIS));
-			//editFrame.add( Box.createRigidArea( new Dimension( 0, 5 ) ) );
 			editFrame.add( getNamePanel() );
 			editFrame.add( Box.createRigidArea( new Dimension( 0, 5 ) ) );
 

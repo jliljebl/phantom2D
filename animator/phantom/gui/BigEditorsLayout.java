@@ -35,7 +35,8 @@ public class BigEditorsLayout implements LayoutManager
 	private int LEFT_GAP = 0;
 	private int RIGHT_GAP = 0;
 	private int TOP_GAP = 0;
-
+	private int VIEW_EDITOR_HEIGHT_REDUCTION = 0; 
+	 
 	public BigEditorsLayout(){}
 
 	//--- This all depends on order that components are added into container
@@ -55,12 +56,12 @@ public class BigEditorsLayout implements LayoutManager
 						c.setBounds(	LEFT_GAP,
 								TOP_GAP,
 								containerSize.width - LEFT_GAP - RIGHT_GAP,
-								containerSize.height - STRIP_HEIGHT * 2 - TOP_GAP );
+								containerSize.height - STRIP_HEIGHT * 2 - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION );
 						Container c1 = (Container) c;
 						Component e1 = c1.getComponent( 0 );//--- There will be one.
 						e1.setPreferredSize( 
 							new Dimension(  containerSize.width - BIG_EDITOR_INSET - LEFT_GAP - RIGHT_GAP ,
-									containerSize.height - STRIP_HEIGHT - BIG_EDITOR_UP_INSET - TOP_GAP) );
+									containerSize.height - STRIP_HEIGHT * 2 - BIG_EDITOR_UP_INSET - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION) );
 
 						break;
 					//--- ActionButtons

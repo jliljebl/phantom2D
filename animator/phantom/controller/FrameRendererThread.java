@@ -30,8 +30,8 @@ public class FrameRendererThread extends Thread
 	private MovieRenderer parentMovieRenderer;
 	private FrameRenderer renderer;
 
-	private int start; //inclusice
-	private int end; //exclusize
+	private int start; //inclusive
+	private int end; //exclusive
 	private int step;
 	private int renderSize;
 	private boolean isClone = false;

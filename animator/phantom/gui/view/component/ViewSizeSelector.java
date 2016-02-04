@@ -35,7 +35,7 @@ import animator.phantom.gui.GUIResources;
 public class ViewSizeSelector extends JPanel implements ActionListener
 {
 	private JComboBox<String> comboBox;
-	private String[] options = {"200%","175%","150%","125%","100%","75%","50%","25%"};
+	private String[] options = {"200%","175%","150%","125%","100%","75%","50%","33%","25%"};
 	
 	public ViewSizeSelector()
 	{
@@ -64,7 +64,7 @@ public class ViewSizeSelector extends JPanel implements ActionListener
 	{
 		int selected = comboBox.getSelectedIndex();
 		selected += 1;
-		if( selected > 7 ) selected = 7;
+		if( selected > 8 ) selected = 8;
 		comboBox.setSelectedIndex( selected );
 	}
 
@@ -88,8 +88,8 @@ public class ViewSizeSelector extends JPanel implements ActionListener
 		if( selectedIndex == 4 ) size = MovieRenderer.FULL_SIZE;
 		if( selectedIndex == 5 ) size = MovieRenderer.THREE_QUARTER_SIZE;
 		if( selectedIndex == 6 ) size = MovieRenderer.HALF_SIZE;
-		if( selectedIndex == 7 ) size = MovieRenderer.QUARTER_SIZE;
-
+		if( selectedIndex == 7 ) size = MovieRenderer.THIRD_SIZE;
+		if( selectedIndex == 8 ) size = MovieRenderer.QUARTER_SIZE;
 		return size;
  	}
 
