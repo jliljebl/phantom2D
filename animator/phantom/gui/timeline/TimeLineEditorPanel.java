@@ -156,7 +156,6 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 	public void mouseWheelMoved( MouseWheelEvent e )
 	{
 		int notches = e.getWheelRotation();
-
 		
 		// no ctrl, zoom
 		if((e.getModifiers() & InputEvent.CTRL_MASK) != InputEvent.CTRL_MASK) 

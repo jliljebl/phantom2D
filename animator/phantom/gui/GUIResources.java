@@ -193,6 +193,7 @@ public class GUIResources
 	public static String flowBoxBGSelected = resourcePath + "flowboxbgselected.png";
 	public static String flowBoxBGFilter = resourcePath + "flowboxbgfilter.png";
 	public static String flowBoxBGMerge = resourcePath + "flowboxbgmerge.png";
+	public static String flowBGAlpha = resourcePath + "flowboxbgalpha.png";
 	
 	//--- logo
 	public static String phantomLogoSmall = resourcePath + "phantom_logo_color_tiny.png";

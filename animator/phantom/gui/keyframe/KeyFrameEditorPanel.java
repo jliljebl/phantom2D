@@ -395,14 +395,12 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 		{
 			if( notches < 0 )
 			{
-				verticalPos = verticalPos - 10;
-				if(verticalPos < 0) verticalPos = 0;
+				zoomOut();
 
 			}
 			else
 			{
-				verticalPos = verticalPos + 10;
-				if( verticalPos >100 ) verticalPos = 100;
+				zoomIn();
 			}
 			calculateVOff();
 			repaint();

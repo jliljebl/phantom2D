@@ -77,6 +77,7 @@ public class FlowBox implements FlowGraphic, Comparable<Object>
 	private static BufferedImage flowBGSelected = GUIResources.getResourceBufferedImage( GUIResources.flowBoxBGSelected );
 	private static BufferedImage flowBGFilter  = GUIResources.getResourceBufferedImage( GUIResources.flowBoxBGFilter );
 	private static BufferedImage flowBGMerge  = GUIResources.getResourceBufferedImage( GUIResources.flowBoxBGMerge );
+	private static BufferedImage flowBGAlpha  = GUIResources.getResourceBufferedImage( GUIResources.flowBGAlpha );
 	
 	//--- Vector for x pos for different numbers of connection points. 
 	private static Vector<int[]> POINTS_X_POSITIONS = new Vector<int[]>();
@@ -315,6 +316,8 @@ public class FlowBox implements FlowGraphic, Comparable<Object>
 			paintBoxImg( gc, flowBG, GUIColors.BOX_textColor);
 		else if ( boxType == IOPLibrary.BOX_MERGE )
 			paintBoxImg( gc, flowBGMerge, GUIColors.BOX_textColor);
+		else if ( boxType == IOPLibrary.BOX_ALPHA )
+			paintBoxImg( gc, flowBGAlpha, GUIColors.BOX_textColor);
 		else
 			paintBoxImg( gc, flowBGFilter, GUIColors.BOX_textColor);
 
