@@ -41,8 +41,6 @@ import animator.phantom.renderer.parent.AbstractParentMover;
 //--- Complex user initiated actions that are not in menu.
 public class UserActions
 {
-	//private static JLabel frameCountDisplay = null;
-	//private static NativeCommandRunner comRunner = null;
 	private static String[] loopOptions = { "no looping","loop","ping-pong" };
 
 	public static void addSingleFileSources()
@@ -83,16 +81,12 @@ public class UserActions
 
 			//--- Add them to project data. Gives id's to filesources.
 			ProjectController.addFileSourcesToProject( addFileSources );
-			//ProjectController.addFileSourceVectorToBin( addFileSources, bPanel.currentBin() );
 
 			//--- Get image sizes and add GUI components to panels 
 			for( FileSource addFS : addFileSources )
 			{
 				addFS.firstLoadData();
-				//bPanel.currentSelectPanel().addFileSource( addFS );
 				addFS.clearData();
-				//bPanel.currentSelectPanel().reInitSelectPanel();
-				//bPanel.updateGUI();
 			}
 			GUIComponents.renderFlowPanel.updateMediaMenu();
 			
@@ -144,13 +138,8 @@ public class UserActions
 
 			//--- Add them to project data. Gives id's to filesources.
 			ProjectController.addFileSourcesToProject( fsVec );
-			//ProjectController.addFileSourceVectorToBin( fsVec, bPanel.currentBin() );
-
 			addFS.firstLoadData();
-			//bPanel.currentSelectPanel().addFileSource( addFS );
 			addFS.clearData();
-			//bPanel.currentSelectPanel().reInitSelectPanel();
-			//bPanel.updateGUI();
 			
 			//--- MemoryManager needs to update cache.
 			MemoryManager.fileSourcesAdded();

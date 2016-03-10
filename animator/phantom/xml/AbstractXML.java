@@ -39,14 +39,5 @@ public class AbstractXML
 
 	public static float getFloat( Element e, String attr ){ return (new Float( e.getAttribute( attr ))).floatValue(); }
 	public static String floatStr( float f ){ return Float.toString( f ); }
- 
-	/*
-	public static Element getFirstChild( Element from, String elemName )
-	{ 
-		NodeList list = from.getElementsByTagName( elemName );
-		if( list.getLength() == 0 ) return null;
-		return (Element) list.item( 0 );
-	}
-	*/
 
 }//end class

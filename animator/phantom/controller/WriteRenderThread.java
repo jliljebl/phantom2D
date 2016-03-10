@@ -35,6 +35,7 @@ public class WriteRenderThread extends Thread
 	private File targetFolder;
 	private String frameName;
 	private int zeroPadDigits;
+	private boolean updateRenderWindow;
 
 	public WriteRenderThread( int start, int end, String frameName )
 	{
@@ -43,14 +44,18 @@ public class WriteRenderThread extends Thread
 		this.frameName = frameName;
 		this.targetFolder = RenderModeController.getWriteFolder();
 		this.zeroPadDigits = RenderModeController.getZeroPadding();
+		this.updateRenderWindow = true;
+		System.out.println( targetFolder );
 	}
 
+	public void setUpdateRenderWindow( boolean update ){ updateRenderWindow = update; }
+	
 	//--- Render, set and display bg image.
 	public void run()
 	{
 		movieRenderer = new MovieRenderer( ProjectController.getFlow(), MovieRenderer.FULL_SIZE, RenderModeController.getRenderThreadsCount() );
 		movieRenderer.setWriter( this );
-		movieRenderer.setUpdateRenderWindow( true );
+		movieRenderer.setUpdateRenderWindow( updateRenderWindow );
 
 		// Blocks until all frames written out or aborted, Returned frames is empty 
 		// because we set writer which writes out frames using writeFrame( ) immediately instead of saving them.

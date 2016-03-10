@@ -34,7 +34,6 @@ import animator.phantom.renderer.param.AnimatedValue;
 
 public class SynchronizedImageBlender
 {
-	
 	private ImageBlender blender = null;
 	private boolean occupied = false;
 

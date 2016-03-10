@@ -32,8 +32,6 @@ import animator.phantom.xml.AbstractXML;
 
 public class PhantomUndoManager
 {
-	//public static int MAX_UNDOS = 25;
-
 	private static Vector<PhantomUndoableEdit> undoStack;
 	//--- index == index of next redo
 	//--- index = index of next undo + 1
@@ -44,7 +42,7 @@ public class PhantomUndoManager
 	private static Document doc;//--- empty xml document required for Element creation
 
 	//--- changed by last undo / redo
-	//--- Needed so that key frame dismons Vector can be updated when undo / redo done
+	//--- Needed so that key frame Vector can be updated when undo / redo done
 	private static ImageOperation lastActionIOP = null;
 
 	public static void init()
@@ -64,32 +62,12 @@ public class PhantomUndoManager
 		{
 			System.out.println("PhantomUndoManager init failed.");
 			System.exit(1);
-        	}
+        }
 
 		//--- Set UndoEngine.doc available for element creators.
 		AbstractXML.setDoc( doc );
 	}
 
-	//--- Sets a required empty dummy xml doc for element creating. NOTE: this must be called after all saves too
-	//--- because save document is different (and a real information containing) document and uses the same AbstractXML.doc static member
-	//--- Of course this must called in init() after open project/load project too.
-	//--- We're hacking around a probably bad design decision here.
-	/*
-	public static void setXMLDoc()
-	{
-		//--- Set UndoEngine.doc available for element creators.
-		AbstractXML.setDoc( doc );
-	}
-	*/
-	/*
-	public static void clearAll()
-	{
-		undoStack.clear();
-		index = 0;
-		Exception e = new Exception();
-		e.printStackTrace();
-	}
-	*/
 	public static void addUndoEdit( PhantomUndoableEdit undoEdit )
 	{
 		if( index != undoStack.size() )

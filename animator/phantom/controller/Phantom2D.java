@@ -23,8 +23,26 @@ public class Phantom2D
 {
 	public static void main( String args[] )
 	{
-		Application app = new Application();
-		app.startUp();
+		boolean runServer = false;
+		for (String arg:args)
+		{
+			System.out.println(arg);
+			
+			if (arg.equals("-server"))
+				runServer = true;
+		}
+		
+		if (runServer == false)
+		{
+			Application app = new Application();
+			app.startUp();
+		}
+		else
+		{
+			PhantomServer server = new PhantomServer();
+			server.startUp();
+		
+		}
 	}
 
 }//end class

@@ -41,11 +41,11 @@ import animator.phantom.undo.PhantomUndoManager;
 public class Application implements /*WindowStateListener,*/ WindowListener
 {
 	//--- There can only be one.
-	private static Application app;
+	public static Application app;
 	public static Application getApplication(){ return app; }
 
 	//--- Flag to load plugins when opening default project
-	private static boolean pluginsLoaded = false;
+	public static boolean pluginsLoaded = false;
 
 	//--- Windows
 	private AnimatorFrame animatorFrame;
@@ -53,28 +53,28 @@ public class Application implements /*WindowStateListener,*/ WindowListener
 	//--- Render abort management
 	public static final int PREVIEW_RENDER = 0;
 	public static final int WRITE_RENDER = 1;
-	private static int currentRenderType = -1;
+	public static int currentRenderType = -1;
 
 	//--- Window params.
 	public static int SMALL_WINDOW_WIDTH = 320;
 
 	//--- Project open flag, used to block some updates during project loading.
-	private static boolean projectLoading = false;
+	public static boolean projectLoading = false;
 
 	//--- Paths
-	private static String RESOURCE_PATH = "/res/";
-	private static String PERSISTANCE_PATH = RESOURCE_PATH + "persistance/";
+	public static String RESOURCE_PATH = "/res/";
+	public static String PERSISTANCE_PATH = RESOURCE_PATH + "persistance/";
 	public static String PERSISTANCE_PATH_IN_JAR = "res/persistance/";
 	public static String PERSISTANCE_PATH_IN_FILESYSTEM_FOR_JAR = "/phantomeditor.xml";
-	private static String LANG_PATH = RESOURCE_PATH + "lang/";
-	private static String FORMAT_PATH = RESOURCE_PATH + "format/";
-	private static final String FILE_URL_PROTOCOL = "file";
-	private static final String JAR_URL_PROTOCOL = "jar";
-	private static final String CLASS_PATH_TO_THIS = "animator/phantom/controller/Application.class";
-	private static final String JAR_PATH_PART = "/Phantom2D.jar!";
+	public static String LANG_PATH = RESOURCE_PATH + "lang/";
+	public static String FORMAT_PATH = RESOURCE_PATH + "format/";
+	public static final String FILE_URL_PROTOCOL = "file";
+	public static final String JAR_URL_PROTOCOL = "jar";
+	public static final String CLASS_PATH_TO_THIS = "animator/phantom/controller/Application.class";
+	public static final String JAR_PATH_PART = "/Phantom2D.jar!";
 
-	private static boolean inJar = false;
-	private static String filePrefPathForJar;
+	public static boolean inJar = false;
+	public static String filePrefPathForJar;
 
 
 	public Application(){ app = this; }

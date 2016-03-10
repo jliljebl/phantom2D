@@ -29,19 +29,18 @@ import animator.phantom.project.Project;
 import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.RenderFlow;
 
-//--- Project logic and state + acces for other logic and GUI.
+//--- Project logic and state + access for other logic and GUI.
 public class ProjectController
 {
 	//--- MAIN DATA, MAIN DATA, MAIN DATA, MAIN DATA, MAIN DATA, MAIN DATA, MAIN DATA
 	//--- Project currently being edited.
 	private static Project project = null;
-	//--- Flag to turn motion blur off globally, transient, affectes preview render only.
+	//--- Flag to turn motion blur off globally, transient, affects preview render only.
 	private static boolean motionBlur = true;
 	//--- Clears all class data members.
 	public static void reset()
 	{
 		project = null;
-		//loadingProject = null;
 		motionBlur = true;
 	}
 	//--- sets project to be edited
@@ -64,7 +63,6 @@ public class ProjectController
 	public static void changeName( String newName )
 	{
 		project.setName( newName );
-		//GUIComponents.projectPanel.updateGUI();
 		GUIComponents.animatorFrame.setTitle( ProjectController.getName() + " - Phantom2D" );
 	}
 	public static int getFramesPerSecond(){ return project.getFramesPerSecond(); }
