@@ -45,7 +45,6 @@ public class WriteRenderThread extends Thread
 		this.targetFolder = RenderModeController.getWriteFolder();
 		this.zeroPadDigits = RenderModeController.getZeroPadding();
 		this.updateRenderWindow = true;
-		System.out.println( targetFolder );
 	}
 
 	public void setUpdateRenderWindow( boolean update ){ updateRenderWindow = update; }
@@ -62,7 +61,8 @@ public class WriteRenderThread extends Thread
 		@SuppressWarnings("unused")
 		Vector <BufferedImage > frames = movieRenderer.renderFrameRangeToVector( start, end );
 
-		RenderModeController.closeWriteRender();
+		// Only needed when render window displayed
+		if ( updateRenderWindow == true ) RenderModeController.closeWriteRender();
 	}
 
 	public void writeFrame( NumberedFrame frame )
@@ -101,7 +101,7 @@ public class WriteRenderThread extends Thread
 			int xtraZeros = zeroPadDigits - frameString.length();
 			for( int i = 0; i < xtraZeros; i++ ) frameString = "0" + frameString;
 
-			System.out.println(targetFolder + frameName + frameString + fileExtension ); 
+			System.out.println(targetFolder + "/" + frameName + frameString + fileExtension );
 			filePath = targetFolder.getPath() +  "/" + frameName + frameString + fileExtension;
 		}
 		else 

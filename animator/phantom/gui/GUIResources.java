@@ -219,16 +219,20 @@ public class GUIResources
  
 	public static ImageIcon getIcon( String path )
 	{ 
+		/*
 		if( Application.inJar() )
 		{
 			URL u = o.getClass().getResource( path );
 			return new ImageIcon( u );
 		}
+		*/
 		return new ImageIcon( path );
 	}
 
 	public static BufferedImage getResourceBufferedImage( String path )
 	{
+		return GUIUtils.getBufferedImageFromFile( new File( path ) );
+		/*
 		if( !Application.inJar() ) 
 			return GUIUtils.getBufferedImageFromFile( new File( path ) );
 		else
@@ -254,8 +258,9 @@ public class GUIResources
 				System.out.println("Resource IMAGE LOAD FAILED FOR "+ path );
 				return null;
 			}
-		}
 
+		}
+			*/
 	}
 
 	public static Font getFont( String path ) 
@@ -264,6 +269,7 @@ public class GUIResources
 
 		try {
 			InputStream is = null;
+			/*
 			if( Application.inJar() )
 			{
 				is = o.getClass().getResourceAsStream( path );
@@ -272,6 +278,8 @@ public class GUIResources
 			{
 				is = new FileInputStream( path );
 			}
+			*/
+			is = new FileInputStream( path );
 			font = Font.createFont(Font.TRUETYPE_FONT, is);
 		} 
 		catch (Exception ex) 

@@ -150,6 +150,7 @@ public class ValueXML extends AbstractXML
 		}
 		avvp.set( avs );
 	}
+	
 	//------------------------------------------------------------- WRITE
 	public static void writeBooleanParam(Element e, Param p )
 	{

@@ -2,12 +2,17 @@ package animator.phantom.controller;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Vector;
 
 import org.w3c.dom.Document;
 
 import animator.phantom.blender.Blender;
 import animator.phantom.project.MovieFormat;
 import animator.phantom.project.Project;
+import animator.phantom.renderer.ImageOperation;
+import animator.phantom.renderer.RenderFlow;
+import animator.phantom.renderer.RenderNode;
+import animator.phantom.renderer.param.Param;
 import animator.phantom.undo.PhantomUndoManager;
 import animator.phantom.xml.PhantomXML;
 
@@ -54,9 +59,11 @@ public class PhantomServer extends Application
 			RESOURCE_PATH = homePath + RESOURCE_PATH;
 			PERSISTANCE_PATH = homePath + PERSISTANCE_PATH;
 			LANG_PATH = homePath + LANG_PATH;
-			FORMAT_PATH = homePath + FORMAT_PATH;
 		}
+
+		FORMAT_PATH = homePath + FORMAT_PATH;
 		System.out.println("app home path:" + homePath );
+		System.out.println("FORMAT_PATH:" + FORMAT_PATH );
 
 		//--- Read editor persistance for lang, recent documents, plugin dir, import dir etc...
 		if( !inJar )
@@ -101,6 +108,8 @@ public class PhantomServer extends Application
 		socketlistener.start();
 
 		AppUtils.printTitle( "PHANTOM SERVER LOADED!" );
+		
+		test();
 	}
 
 	public void loadProject( String path )
@@ -120,12 +129,6 @@ public class PhantomServer extends Application
 
 		//--- Notify MemoryManager to start guessing
 		MemoryManager.calculateCacheSizes();
-
-		File f = new File("/home/janne/test/phantom_server_frames/");
-		System.out.println(f);
-		RenderModeController.setWriteFolder( f );
-		System.out.println("write folder");
-		System.out.println(RenderModeController.getWriteFolder());
 	}
 
 	public void setRenderFolder( String path )
@@ -133,6 +136,14 @@ public class PhantomServer extends Application
 		RenderModeController.setWriteFolder( new File(path) );
 	}
 	
+	public void updateParamValue( int nodeId, String paramId, Vector<String> valueTokens )
+	{
+		RenderFlow flow = ProjectController.getFlow();
+		ImageOperation iop = flow.getNode( nodeId ).getImageOperation();
+		Param p = iop.getParam( paramId );
+		PhantomServerParameter.writeParamValue( p, valueTokens );
+	}
+
 	public void renderFrame( int frame )
 	{
 		WriteRenderThread wrt = new WriteRenderThread( frame, frame + 1, RenderModeController.getFrameName() );
@@ -146,4 +157,20 @@ public class PhantomServer extends Application
 		System.exit(0);
 	}
 
+	private void test()
+	{
+		loadProject( "/home/janne/test/servertest/simpleproject.phr" );
+		setRenderFolder( "/home/janne/test/phantom_server_frames/" );
+		int nodeId = 0;
+		String paramId = "4";
+		Vector<String> valueTokens = new Vector<String>();
+		valueTokens.add("255");
+		valueTokens.add("136");
+		valueTokens.add("136");
+
+		//<p blue="136" green="136" id="4" name="Color" red="136" t="ColorParam"/>
+		updateParamValue( nodeId, paramId, valueTokens );
+		renderFrame( 3 );
+	}
+	
 }//end class

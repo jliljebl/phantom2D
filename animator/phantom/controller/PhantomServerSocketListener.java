@@ -44,14 +44,12 @@ public class PhantomServerSocketListener extends Thread
 
 	            String[] tokens = clientCommand.split("\\s");
 	            String command = tokens[0];
-	            for (String tok:tokens)
-	            {
-	            	 System.out.println( tok );
-	            }
+
 
 	            if(command.equals(LOAD))
 	            {
-		            server.loadProject("/home/janne/test/servertest/simpleproject.phr");
+	            	String path = tokens[1];
+		            server.loadProject( path );
 		            outToClient.writeBytes(OK);
 	            }
 	            else if(command.equals(RENDER_FRAME))

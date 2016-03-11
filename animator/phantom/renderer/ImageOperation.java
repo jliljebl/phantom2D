@@ -322,7 +322,7 @@ public abstract class ImageOperation implements Comparable<Object>
 			registerParameter( p );
 		}
 	}
-	//--- Gives newly registered Param a id String for presistance
+	//--- Gives newly registered Param a id String for persistence
 	private void setParamId( Param p )
 	{
 		p.setID( Integer.toString( nextParamId ));

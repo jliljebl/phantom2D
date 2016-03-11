@@ -38,7 +38,7 @@ import animator.phantom.project.Project;
 import animator.phantom.undo.PhantomUndoManager;
 
 //--- Logic and application wide state, including app initializing, window management, opening projects and render aborts.
-public class Application implements /*WindowStateListener,*/ WindowListener
+public class Application implements WindowListener
 {
 	//--- There can only be one.
 	public static Application app;
@@ -102,7 +102,7 @@ public class Application implements /*WindowStateListener,*/ WindowListener
 		}
 		else
 		{
-			System.out.println( "This is not running in file system or jar? i iz confused...");
+			System.out.println( "This is not running in file system or jar?");
 		}
 
 		//--- Get home path and set RESOURCE_PATH, PERSISTANCE_PATH and LANG_PATH, FORMAT_PATH
@@ -114,15 +114,25 @@ public class Application implements /*WindowStateListener,*/ WindowListener
 
 		String homePath = urlPath;
 
+		/*
 		if( !inJar )
 		{
 			RESOURCE_PATH = homePath + RESOURCE_PATH;
 			PERSISTANCE_PATH = homePath + PERSISTANCE_PATH;
 			LANG_PATH = homePath + LANG_PATH;
-			FORMAT_PATH = homePath + FORMAT_PATH;
-		}
-		System.out.println("app home path:" + homePath );
 
+		}
+		*/
+		
+		RESOURCE_PATH = homePath + RESOURCE_PATH;
+		PERSISTANCE_PATH = homePath + PERSISTANCE_PATH;
+		LANG_PATH = homePath + LANG_PATH;
+		FORMAT_PATH = homePath + FORMAT_PATH;
+		
+		System.out.println("app home path:" + homePath );
+		System.out.println("FORMAT_PATH:" + FORMAT_PATH );
+		System.out.println( "resource path:" + getResourcePath());
+		
 		//--- Start bringing app up
 		AppUtils.printTitle("PHANTOM 2D" );
 

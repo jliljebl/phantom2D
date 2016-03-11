@@ -47,14 +47,15 @@ public class MovieFormat
 		formats.add( DEFAULT );
 		formats.add( PAL_SQUARE );
 		formats.add( NTSC_SQUARE );
-		
-		File[] files = new File(Application.getFormatPath()).listFiles();
+
+		String formatPath = Application.getFormatPath();
+		System.out.println( formatPath );
+		File[] files = new File(formatPath).listFiles();
 		for (File file : files) 
 		{
 			
 			try 
 			{
-			
 				Vector<String> lines = new Vector<String>();
 				BufferedReader br = new BufferedReader(new FileReader(file));
 				String line = br.readLine();
@@ -67,7 +68,6 @@ public class MovieFormat
 					line = br.readLine();
 				}
 				br.close();
-				
 				formats.add( new MovieFormat( lines ) );
 			}
 			catch (Exception e)
@@ -92,7 +92,6 @@ public class MovieFormat
 	}
 
 	public MovieFormat(){}
-
 
 	public MovieFormat( Vector<String> lines )
 	{
@@ -156,15 +155,7 @@ public class MovieFormat
 		this.framesPerSecondAccurate = (float) framesPerSecond;
 		this.screenSize = new Dimension( width, height );
 	}
-/*
-	public MovieFormat( String name, int framesPerSecond, int width, int height, float aspRatio )
-	{
-		this.name = name;
-		this.framesPerSecond = framesPerSecond;
-		this.screenSize = new Dimension( width, height );
-		this.aspectRatio = aspRatio;
-	}
-*/
+
 	public String getName(){ return name; }
 	public int getFPS(){ return framesPerSecond; }
 	public float getFPSAccurate(){ return framesPerSecondAccurate; }
