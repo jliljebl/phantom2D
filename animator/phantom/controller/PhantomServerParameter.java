@@ -8,6 +8,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import animator.phantom.bezier.CurvePoint;
+import animator.phantom.renderer.ImageOperation;
+import animator.phantom.renderer.RenderFlow;
+import animator.phantom.renderer.RenderNode;
 import animator.phantom.renderer.param.AnimatedValue;
 import animator.phantom.renderer.param.AnimatedValueVectorParam;
 import animator.phantom.renderer.param.AnimationKeyFrame;
@@ -54,7 +57,35 @@ public class PhantomServerParameter
 		FLOAT_VALUE = paramType( new FloatParam().getClass().getName() );
 	}
 
-	public static void writeParamValue( Param p, Vector<String> tokens )
+	public static void setParamValue( String[] tokens )
+	{
+		// PARAM_VALUE nodeid paramid paramtype value1...valueN
+		System.out.println(tokens[1] );
+		int nodeId = Integer.parseInt( tokens[1] );
+		System.out.println(nodeId);
+		String paramId = tokens[2];
+
+		RenderFlow flow = ProjectController.getFlow();
+		RenderNode node = flow.getNode( nodeId );
+		ImageOperation iop = node.getImageOperation();
+		Param p = iop.getParam( paramId );
+
+        for (int i = 0; i < tokens.length; i++)
+        {
+        	System.out.println(i);
+        	System.out.println(" " + tokens[i]);
+        }
+        
+		Vector<String> valueTokens = new Vector<String>();
+        for (int i = 4; i < tokens.length; i++)
+        {
+        	valueTokens.add(tokens[i]);
+        }
+        
+        updateParam( p, valueTokens );
+	}
+	
+	private static void updateParam( Param p, Vector<String> tokens )
 	{
 		String type = paramType( p.getClass().getName() );
 		
@@ -80,22 +111,22 @@ public class PhantomServerParameter
 	}
 	
 	//------------------------------------------------------------ UPDATE
-	public static void updateBooleanParam( Param p, Vector<String> valueTokens )
+	private static void updateBooleanParam( Param p, Vector<String> valueTokens )
 	{
 		boolean value = Boolean.parseBoolean( valueTokens.elementAt( 0 ) );
 		((BooleanParam) p).set( value );
 	}
-	public static void updateIntegerValue( Param p, Vector<String> valueTokens )
+	private static void updateIntegerValue( Param p, Vector<String> valueTokens )
 	{
 		int value  = Integer.parseInt( valueTokens.elementAt( 0 ) );
 		((IntegerParam) p).set( value );
 	}
-	public static void updateFloatParam( Param p,  Vector<String> valueTokens )
+	private static void updateFloatParam( Param p,  Vector<String> valueTokens )
 	{
 		float value = Float.parseFloat( valueTokens.elementAt( 0 ) );
 		((FloatParam) p).set( value );
 	}
-	public static void updateColorParam(  Param p, Vector<String> valueTokens )
+	private static void updateColorParam(  Param p, Vector<String> valueTokens )
 	{
 		ColorParam cv = (ColorParam)p;
 		int r  = Integer.parseInt( valueTokens.elementAt( 0 ) );

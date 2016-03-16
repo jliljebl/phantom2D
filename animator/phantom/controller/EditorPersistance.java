@@ -179,7 +179,7 @@ public class EditorPersistance extends PhantomDocUtils
 		catch (Exception e) 
 		{
 			System.out.println(e);
-        	}
+        }
 
 		if( newPath == null )
 			prefs.writeXMLFile();

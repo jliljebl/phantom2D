@@ -1,6 +1,8 @@
 package animator.phantom.controller;
 
 import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.net.URL;
 import java.util.Vector;
 
@@ -18,13 +20,20 @@ import animator.phantom.xml.PhantomXML;
 
 public class PhantomServer extends Application 
 {
-	PhantomServerSocketListener socketlistener;
+	private PhantomServerSocketListener socketlistener;
+	private String socketNumberFile;
 	
+	public PhantomServer( String[] args )
+	{
+		socketNumberFile = args[1];
+		System.out.println( socketNumberFile );
+	}
+			
 	public void startUp()
 	{
 		System.out.println( "//----------------------- THREADED BRACH -------------------------------//" );
 
-		System.out.println("LD Library Path:" + System.getProperty("java.library.path"));
+		//System.out.println("LD Library Path:" + System.getProperty("java.library.path"));
 
 		//--- Lets find out where we are and set paths.
 		ClassLoader loader = getClass().getClassLoader();
@@ -105,11 +114,15 @@ public class PhantomServer extends Application
 		IOPLibraryInitializer.init();
 		
 		socketlistener = new PhantomServerSocketListener(this);
+		socketlistener.createSocket();
+		int port = socketlistener.getLocalPort();
 		socketlistener.start();
 
-		AppUtils.printTitle( "PHANTOM SERVER LOADED!" );
+		writeSocketFile( port, socketNumberFile );
 		
-		test();
+		AppUtils.printTitle( "PHANTOM SERVER RUNNING!" );
+		
+		//test();
 	}
 
 	public void loadProject( String path )
@@ -117,7 +130,7 @@ public class PhantomServer extends Application
 		File loadFile = new File( path );
 		Document doc = PhantomXML.loadXMLDoc( loadFile.getAbsolutePath() );
 		Project project = PhantomXML.loadProject( doc );
-		
+
 		AppUtils.printTitle("OPEN PROJECT " + project.getName() );
 
 		//--- Set project.
@@ -136,6 +149,7 @@ public class PhantomServer extends Application
 		RenderModeController.setWriteFolder( new File(path) );
 	}
 	
+	/*
 	public void updateParamValue( int nodeId, String paramId, Vector<String> valueTokens )
 	{
 		RenderFlow flow = ProjectController.getFlow();
@@ -143,7 +157,7 @@ public class PhantomServer extends Application
 		Param p = iop.getParam( paramId );
 		PhantomServerParameter.writeParamValue( p, valueTokens );
 	}
-
+	*/
 	public void renderFrame( int frame )
 	{
 		WriteRenderThread wrt = new WriteRenderThread( frame, frame + 1, RenderModeController.getFrameName() );
@@ -169,8 +183,34 @@ public class PhantomServer extends Application
 		valueTokens.add("136");
 
 		//<p blue="136" green="136" id="4" name="Color" red="136" t="ColorParam"/>
-		updateParamValue( nodeId, paramId, valueTokens );
+		//updateParamValue( nodeId, paramId, valueTokens );
 		renderFrame( 3 );
 	}
-	
+
+	private void writeSocketFile( int port, String path )
+	{
+	    BufferedWriter writer = null;
+	    try 
+	    {
+	        File portFile = new File( path );
+
+	        String portNumber = Integer.toString( port );
+	        writer = new BufferedWriter(new FileWriter( portFile ));
+	        writer.write( portNumber );
+	    } 
+	    catch (Exception e) 
+	    {
+	        e.printStackTrace();
+	    } 
+	    finally 
+	    {
+	        try 
+	        {
+	            // Close the writer regardless of what happens...
+	            writer.close();
+	        } 
+	        catch (Exception e){}
+	    }
+	}
+
 }//end class

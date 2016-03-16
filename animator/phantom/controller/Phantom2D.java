@@ -39,7 +39,7 @@ public class Phantom2D
 		}
 		else
 		{
-			PhantomServer server = new PhantomServer();
+			PhantomServer server = new PhantomServer(args);
 			server.startUp();
 		
 		}
