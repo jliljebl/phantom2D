@@ -19,18 +19,14 @@ package animator.phantom.gui;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import java.awt.AlphaComposite;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 
@@ -39,9 +35,8 @@ import animator.phantom.controller.Application;
 
 public class GUIResources
 {
-	//--- PATHS,
+	//--- PATHS
 	public static String resourcePath = Application.getResourcePath();
-	private static Object o = new Object();
 
 	//--- FONTS
 	public static String FREE_SANS_PATH = resourcePath + "font/FreeSans.ttf";
@@ -74,7 +69,6 @@ public class GUIResources
 	public static String disConnectBoxes = resourcePath + "disConnectBoxes.png";
 	public static String viewTargetInFlow = resourcePath + "viewTargetInFlow.png";
 	public static String editTargetInFlow = resourcePath + "editTargetInFlow.png";
-	//public static String renameInFlow = resourcePath + "renameInFlow.png";
 	public static String showGrid = resourcePath + "showGrid.png";
 
 	//--- Buttons for IOP groups 

@@ -37,6 +37,7 @@ import animator.phantom.project.MovieFormat;
 import animator.phantom.project.Project;
 import animator.phantom.undo.PhantomUndoManager;
 
+
 //--- Logic and application wide state, including app initializing, window management, opening projects and render aborts.
 public class Application implements WindowListener
 {
@@ -50,6 +51,8 @@ public class Application implements WindowListener
 	//--- Windows
 	private AnimatorFrame animatorFrame;
 
+	private MLTFrameServerController frameServer;
+	
 	//--- Render abort management
 	public static final int PREVIEW_RENDER = 0;
 	public static final int WRITE_RENDER = 1;
@@ -114,6 +117,8 @@ public class Application implements WindowListener
 
 		String homePath = urlPath;
 
+		MLTFrameServerController.init( homePath, "/home/janne/.flowblade/node_compositors/phantom_disk_cache" );
+		
 		/*
 		if( !inJar )
 		{
@@ -136,7 +141,7 @@ public class Application implements WindowListener
 		//--- Start bringing app up
 		AppUtils.printTitle("PHANTOM 2D" );
 
-		//--- Read editor persistance for lang, recent documents, plugin dir, import dir etc...
+		//--- Read editor persistence for lang, recent documents, plugin dir, import dir etc...
 		if( !inJar )
 		{
 			EditorPersistance.read( PERSISTANCE_PATH + EditorPersistance.DOC_NAME, false );

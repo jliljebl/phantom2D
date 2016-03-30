@@ -150,10 +150,6 @@ public abstract class PhantomPlugin implements Comparable<Object>
         * and blur parameters. Examples: GradientMask, PolyCurveMask, ShapeMask, PolyLineMask.
 	*/
 	public static final int MASK = 7;
-	/**
-	* Plugin that creates new image source that can be manipulayted in 3D space single input image.
-	*/
-	//public static final int THREE_DEE = 8;
 
 	private int type = FILTER;//default plugin type
 

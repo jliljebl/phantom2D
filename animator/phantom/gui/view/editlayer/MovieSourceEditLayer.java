@@ -23,6 +23,7 @@ import java.util.Vector;
 
 import animator.phantom.gui.view.component.ViewControlButtons;
 import animator.phantom.renderer.imagesource.ImageSequenceIOP;
+import animator.phantom.renderer.imagesource.VideoClipIOP;
 
 public class MovieSourceEditLayer extends AnchorRectEditLayer
 {
@@ -34,6 +35,13 @@ public class MovieSourceEditLayer extends AnchorRectEditLayer
 		registerFileSource( miop.getFileSource() );
 	}
 
+	public MovieSourceEditLayer( VideoClipIOP miop )
+	{
+		super( miop, miop.getImageSize() );
+		name = miop.getName();
+		registerFileSource( miop.getFileSource() );
+	}
+	
 	public void setLayerButtons( ViewControlButtons buttons )
 	{
 		Vector<Integer> btns = new Vector<Integer>();

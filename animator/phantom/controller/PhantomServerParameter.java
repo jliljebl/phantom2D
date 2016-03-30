@@ -1,19 +1,13 @@
 package animator.phantom.controller;
 
 import java.awt.Color;
-import java.util.StringTokenizer;
 import java.util.Vector;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import animator.phantom.bezier.CurvePoint;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderFlow;
 import animator.phantom.renderer.RenderNode;
 import animator.phantom.renderer.param.AnimatedValue;
 import animator.phantom.renderer.param.AnimatedValueVectorParam;
-import animator.phantom.renderer.param.AnimationKeyFrame;
 import animator.phantom.renderer.param.BooleanParam;
 import animator.phantom.renderer.param.CRCurveParam;
 import animator.phantom.renderer.param.ColorParam;
@@ -24,9 +18,7 @@ import animator.phantom.renderer.param.IntegerAnimatedValue;
 import animator.phantom.renderer.param.IntegerParam;
 import animator.phantom.renderer.param.IntegerVectorParam;
 import animator.phantom.renderer.param.Param;
-import animator.phantom.xml.ImageOperationXML;
-import animator.phantom.xml.ParamXML;
-import animator.phantom.xml.ValueXML;
+
 
 public class PhantomServerParameter
 {

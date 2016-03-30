@@ -70,6 +70,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 	//-- Project
 	JMenuItem addImage;
 	JMenuItem addImageSequence;
+	JMenuItem addVideo;
 	JMenuItem projectSettings;
 	JMenuItem kfPreferences;
 
@@ -183,10 +184,14 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		
 		//--------------------------- Project menu
 		JMenu projectMenu = new JMenu("Project");
+		addVideo = new JMenuItem("Add Video Clip...");
+		addVideo.addActionListener(this);
+		projectMenu.add( addVideo );
+		
 		addImage  = new JMenuItem("Add Image...");
 		addImage.addActionListener(this);
 		projectMenu.add( addImage );
-		
+
 		addImageSequence  = new JMenuItem("Add Image Sequence...");
 		addImageSequence.addActionListener(this);
 		projectMenu.add( addImageSequence );
@@ -430,7 +435,16 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 				}
 			}.start();
 		}
-
+		if( e.getSource() == addVideo )
+		{
+			new Thread()
+			{
+				public void run()
+				{
+					UserActions.addSingleFileSources();
+				}
+			}.start();
+		}
 		//-------------------------------------------------- Render menu.
 		if( e.getSource() == threadsSettings ) MenuActions.setThreadsAndBlenders();
 		if( e.getSource() == previewCurrent ) PreviewController.renderAndDisplayCurrent();

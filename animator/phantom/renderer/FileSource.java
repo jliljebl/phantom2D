@@ -49,10 +49,9 @@ public abstract class FileSource implements Comparable<Object>
 
 	public static final int IMAGE_FILE = 0;
 	public static final int IMAGE_SEQUENCE = 1;
-	//public static final int SVG_FILE = 2;
-	//public static final int MOVIE_FILE = 3;
-	//public static final int AUDIO_FILE = 4;
-	private static String [] descs = { "BITMAP IMAGE","BITMAP IMAGE SEQUENCE","SVG IMAGE","IMPORTED MOVIE FILE","AUDIO_FILE" };
+	public static final int VIDEO_FILE = 2;
+
+	private static String [] descs = { "BITMAP IMAGE","BITMAP IMAGE SEQUENCE","VIDEO FILE" };
 	protected static ImageIcon noFileIcon;
 	
 	//--- This is se t false when resource access fails
@@ -95,7 +94,7 @@ public abstract class FileSource implements Comparable<Object>
 
 		return file.exists(); 
 	}
-	//--- This is an optimisation for bin display 
+	//--- This is an optimization for bin display 
 	public boolean hasResourceAvailable(){ return hasResourceAvailable; }
 	public void setResourceAvailable( boolean value ){ hasResourceAvailable = value; }
 	public String getSizeString()
@@ -141,7 +140,7 @@ public abstract class FileSource implements Comparable<Object>
 	}
 
 	//----------------------------------- DATA AND CACHE MANAGEMENT
-	//--- loads data into memory and does some initialisation if needed, e.g picks up dimensions
+	//--- loads data into memory and does some initialization if needed, e.g picks up dimensions
 	public abstract void firstLoadData();
 	//--- Loads data into memory
 	public abstract void loadData();

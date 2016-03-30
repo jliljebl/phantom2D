@@ -73,7 +73,6 @@ public class ImageSequenceEditPanel extends ParamEditPanel  implements ItemListe
 		itemStateChanged(new ItemEvent( new Checkbox(), 0, new Object(), -1000 ) );
 	}
 
-
 	public void itemStateChanged(ItemEvent e)
 	{
 		boolean newVal = iss.asCanvas.get();

@@ -78,7 +78,7 @@ public abstract class SequencePlaybackSource extends FileSource
 
 	public BufferedImage getClipImage( int clipFrame )
 	{
-		//--- This fails if file no longewr there
+		//--- This fails if file is longer there
 		try
 		{
 			int frameNumber = Integer.parseInt( numpart ) + clipFrame;
