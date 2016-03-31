@@ -35,6 +35,7 @@ import animator.phantom.renderer.FileSingleImageSource;
 import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
+import animator.phantom.renderer.VideoClipSource;
 import animator.phantom.renderer.parent.AbstractParentMover;
 //import animator.phantom.exec.*;
 
@@ -306,7 +307,16 @@ public class UserActions
 	//--- 
 	public static void importMovies( Vector<File> movies, Vector<FileSource> addFileSources, boolean isReplaceImport )
 	{
-			//for ()
+		for ( File movieClip : movies )
+		{
+			System.out.println("importMovies" + movieClip.getAbsolutePath());
+			VideoClipSource movieSource = new VideoClipSource( movieClip );
+			movieSource.loadClipIntoServer();
+			if ( movieSource.getMD5id() != null )
+			{
+				addFileSources.add( movieSource );
+			}
+		}
 	}
 
 	public static void setImportSettings()

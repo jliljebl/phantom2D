@@ -35,8 +35,10 @@ import animator.phantom.renderer.FileSingleImageSource;
 import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
+import animator.phantom.renderer.VideoClipSource;
 import animator.phantom.renderer.imagesource.FileImageSource;
 import animator.phantom.renderer.imagesource.ImageSequenceIOP;
+import animator.phantom.renderer.imagesource.VideoClipIOP;
 import animator.phantom.renderer.plugin.FileImagePatternMergePlugin;
 import animator.phantom.undo.FlowMoveUndoEdit;
 import animator.phantom.undo.MultiArrowAddUndoEdit;
@@ -110,7 +112,8 @@ public class FlowController
 			return new FileImageSource( (FileSingleImageSource) fs );
 		if( fs.getType() == FileSource.IMAGE_SEQUENCE ) 
 			return new ImageSequenceIOP( (FileSequenceSource) fs );
-		
+		if( fs.getType() == FileSource.VIDEO_FILE ) 
+			return new VideoClipIOP( (VideoClipSource) fs );
 		return null; //this will crash very soon, and it should
 	}
 

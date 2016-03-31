@@ -104,12 +104,6 @@ public abstract class SequencePlaybackSource extends FileSource
 		}
 	}
 
-	/*
-	public static boolean isSequenceFile( File f )
-	{
-		return ( getNumpart( f ) != null );
-	}
-	*/
 	public int getProgramLength()
 	{
 		return lastNumber - firstNumber + 1;//end frame inclusive
@@ -170,13 +164,7 @@ public abstract class SequencePlaybackSource extends FileSource
 
 	private String getPaddedNumber( int frameNumber )
 	{
-		StringBuffer buf = new StringBuffer();
-		String num = Integer.toString( frameNumber );
-		//--- Add starting zeroes
-		for( int i = 0; i < numpart.length() - num.length(); i++ )
-			buf.insert( 0, "0" );
-		buf.append( num );
-		return buf.toString();
+		return getPaddedNumberString(frameNumber, numpart.length() );
 	}
 
 	private String getFilePath( String numStr )

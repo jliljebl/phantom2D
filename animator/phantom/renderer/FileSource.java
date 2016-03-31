@@ -167,6 +167,17 @@ public abstract class FileSource implements Comparable<Object>
 		return 1;
 	}
 
+	public static String getPaddedNumberString( int frameNumber, int numpartLength )
+	{
+		StringBuffer buf = new StringBuffer();
+		String num = Integer.toString( frameNumber );
+		//--- Add starting zeroes
+		for( int i = 0; i < numpartLength - num.length(); i++ )
+			buf.insert( 0, "0" );
+		buf.append( num );
+		return buf.toString();
+	}
+	
 	//------------------------------------ DEBUG
 	public void printInfo()
 	{

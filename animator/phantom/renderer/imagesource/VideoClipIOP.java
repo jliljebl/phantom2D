@@ -47,8 +47,8 @@ public class VideoClipIOP extends MovingBlendedIOP
 	{
 		int clipFrame = getClipFrame( frame );
 	
-		VideoClipSource fileSequence = (VideoClipSource) getFileSource();
-		BufferedImage img  = fileSequence.getClipImage( clipFrame );
+		VideoClipSource videoClip = (VideoClipSource) getFileSource();
+		BufferedImage img  = videoClip.getClipImage( clipFrame );
 	
 		renderMovingBlendedImage( frame, img );
 	}

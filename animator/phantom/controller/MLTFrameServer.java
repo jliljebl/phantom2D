@@ -4,9 +4,16 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 public class MLTFrameServer 
 {
+	private Socket server  = null;
+	private BufferedReader in = null;
+	private PrintWriter out  = null;
+	//private String line  = null;
 	private String rootPath;
 	private String diskCacheDirPath;
 	private String sessionID;
@@ -38,7 +45,7 @@ public class MLTFrameServer
 		}
 	}
 
-	public void waitForServer()
+	public boolean waitForServer()
 	{
 		boolean waiting = true;
 		long start = System.currentTimeMillis();
@@ -57,7 +64,7 @@ public class MLTFrameServer
 				if( (now - start) > (1000 * timeOutSec) )
 				{
 					System.out.println( "NO VIDEO CLIP SUPPORT! MLTServer launch timed out.");
-					return;
+					return false;
 				}
 				else
 				{
@@ -92,11 +99,58 @@ public class MLTFrameServer
 		{
 			System.out.println("Exception opening socket file.");
 			e.printStackTrace();
+			return false;
 		}
+		return true;
+	}
+
+	public boolean connect()
+	{
+		try 
+		{
+			server =  new Socket("localhost", port);
+			System.out.println("Connected to server");
+		} 
+		catch (IOException e) 
+		{
+		    System.out.println("Accept failed");
+		    return false;
+		}
+
+	    try
+	    {
+			   in = new BufferedReader(new InputStreamReader( server.getInputStream()) );
+			   out = new PrintWriter( server.getOutputStream(), true );
+		} 
+	    catch (IOException e) 
+		{
+			    System.out.println("Read failed");
+			    return false;
+		}
+	    
+	    return true;
 	}
 	
+	public String sendCommand( String command ) 
+	{
+    	try
+    	{
+    		System.out.println("Command:" + command);
+    		out.println(command);
+    		String answer = in.readLine();
+    		System.out.println("Answer:" + answer);
+    		return answer;
+    	} 
+    	catch (IOException e) 
+    	{
+	        System.out.println("Command failed");
+	        return null;
+		}
+	}
+
 	// mltframeserver.py creates this file when up and running.
 	public String sessionFilePath(){ return diskCacheDirPath + "/session_" + sessionID; }
+	public String getDiskCacheDirPath(){ return diskCacheDirPath; }
 	
 	public boolean serverRunning(){ return serverRunning; }
 	public int getPort(){ return port; }
