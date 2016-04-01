@@ -29,6 +29,7 @@ public class ContentPaneLayout implements LayoutManager
 {
 	public static int LEFT_WIDTH = 500;
 	private static int FLOW_BUTTONS_HEIGHT = 44;
+	private static int INFO_LABEL_HEIGHT = 30;
 	public static int MEDIA_PANEL_HEIGHT = 200;
 	
 	//--- Constructor
@@ -50,9 +51,9 @@ public class ContentPaneLayout implements LayoutManager
 					//--- Flow view
 					case 0:
 						c.setBounds( 	6,
-										0,
+										INFO_LABEL_HEIGHT,
 										LEFT_WIDTH - 6,
-										containerSize.height - FLOW_BUTTONS_HEIGHT - 2 );
+										(containerSize.height - FLOW_BUTTONS_HEIGHT - INFO_LABEL_HEIGHT - 2) );
 						break;
 					//--- Flow buttons
 					case 1: 
@@ -67,7 +68,14 @@ public class ContentPaneLayout implements LayoutManager
 										0,
 										containerSize.width - LEFT_WIDTH - 1,
 										containerSize.height );
-		
+						break;
+					//--- Project info label
+					case 3:
+							c.setBounds( 	6,
+											0,
+											LEFT_WIDTH - 6,
+											INFO_LABEL_HEIGHT);
+						break;
 					default:
 						break;
 

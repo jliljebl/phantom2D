@@ -42,7 +42,7 @@ public class RenderFlowViewButtons extends JPanel implements ActionListener
 	private JButton disConnectBoxes = new JButton( GUIResources.getIcon(GUIResources.disConnectBoxes) );
 	private JToggleButton showGrid = new JToggleButton( GUIResources.getIcon( GUIResources.showGrid ) );
 	
-	public JLabel infoText = new JLabel();
+	//public JLabel infoText = new JLabel();
 
 	public RenderFlowViewButtons( AnimatorFrame frame )
 	{
@@ -52,7 +52,7 @@ public class RenderFlowViewButtons extends JPanel implements ActionListener
 		GUIResources.prepareMediumButton( disConnectBoxes, this, "Disconnect selected boxes  F7" );
 		GUIResources.prepareMediumButton( showGrid, this, "Show Grid" );
 
-		infoText.setFont( GUIResources.BASIC_FONT_10 );
+		//infoText.setFont( GUIResources.BASIC_FONT_10 );
 		
 		JPanel p = new JPanel();
 		p.setLayout(new BoxLayout( p, BoxLayout.X_AXIS));
@@ -61,7 +61,7 @@ public class RenderFlowViewButtons extends JPanel implements ActionListener
 		p.add( connectBoxes );
 		p.add( disConnectBoxes );
 		p.add( Box.createRigidArea( new Dimension(12, 10)));
-		p.add( infoText );
+		p.add( new JLabel() );
 		
 		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
 		add( Box.createVerticalGlue() );
@@ -69,12 +69,13 @@ public class RenderFlowViewButtons extends JPanel implements ActionListener
 		add( Box.createVerticalGlue() );
 	}
 
+	/*
 	public void setInfoText( String text )
 	{
 		infoText.setText( text );
 		repaint();
 	}
-	
+	*/
 	public void actionPerformed(ActionEvent e)
 	{
 		if( e.getSource() == delete )

@@ -21,6 +21,7 @@ package animator.phantom.controller;
 
 import java.util.Vector;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -102,7 +103,8 @@ public class GUIComponents
 	public static NormalizedTimelineDisplay normTlineDisp;
 	public static TimeLineControls tlineControls;
 	public static NodesPanel nodesPanel;
-	
+	public static JLabel projectInfoLabel;
+
 	public static void reset()
 	{
 		//projectPanel = null;

@@ -102,8 +102,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	private JPanel bottomRow;
 	private PreViewUpdater previewUpdater;
 
-	//private BinsAreaPanel binAreaPanel;
-	//private JPanel topLeftHolder;
 	private JPanel paramEditHolder;
 			
 	public JToggleButton timelineButton;
@@ -163,18 +161,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		//--- app menu
 		AnimatorMenu menuBar = new AnimatorMenu();
 		setJMenuBar( menuBar );
-
-		//------------------------------ media panel
-		//binAreaPanel = new BinsAreaPanel( ProjectController.getBins(), this );
-
-		//topLeftHolder = new JPanel();
-		//topLeftHolder.setLayout(new BoxLayout( topLeftHolder, BoxLayout.Y_AXIS));
-		//topLeftHolder.add( binAreaPanel );
-
-		//JPanel topLeftPanel = new JPanel();
-		//topLeftPanel.setLayout(new BoxLayout( topLeftPanel, BoxLayout.Y_AXIS));
-		//topLeftPanel.add( Box.createRigidArea( new Dimension( 0, 6 ) ) );
-		//topLeftPanel.add( topLeftHolder );
 		
 		//----------------------------------- flow Editor
 		int flowW = EditorPersistance.getIntPref( EditorPersistance.FLOW_WIDTH );
@@ -402,12 +388,16 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		contentPane.add( editorsPane );
 		contentPane.add( bottomRow );
 		
+		JLabel projectInfoLabel = new JLabel();
+		projectInfoLabel.setFont( GUIResources.BASIC_FONT_11 );
+
 		JPanel realContentPanel = new JPanel();
 		ContentPaneLayout rclayout = new ContentPaneLayout();
 		realContentPanel.setLayout( rclayout );
 		realContentPanel.add( flowPane );
 		realContentPanel.add( flowButtonsPane );
 		realContentPanel.add( contentPane );
+		realContentPanel.add( projectInfoLabel );
 
 		//--- global keyactions.
 		KeyUtils.clearGlobalActions();
@@ -429,13 +419,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		KeyUtils.setAncestorFocusAction( keyEditorPanel, new CopyAction(), "control C" );
 		KeyUtils.setAncestorFocusAction( keyEditorPanel, new PasteAction(), "control V" );
 		KeyUtils.setAncestorFocusAction( keyEditorPanel, new DeleteAction(), "DELETE" );
-		/*
-		KeyUtils.setAncestorFocusAction( binAreaPanel, new DeleteAction(), "DELETE" );
-		KeyUtils.setAncestorFocusAction( binAreaPanel, new CopyAction(), "control C" );
-		KeyUtils.setAncestorFocusAction( binAreaPanel, new PasteAction(), "control V" );
-		KeyUtils.setAncestorFocusAction( binAreaPanel, new SelectAllAction(), "control A" );
-		KeyUtils.setAncestorFocusAction( binAreaPanel, new DeSelectAllAction(), "control shift A" );
-		*/
 		
 		//--- Connect GUI components to be accessed elsewhere.
 		GUIComponents.animatorFrame = this;
@@ -453,19 +436,16 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		GUIComponents.keyFrameEditPanel = kfEditPanel;
 		GUIComponents.kfNamePanel = namePanel;
 		GUIComponents.keyEditorContainerPanel = keyEditorPanel;
-		//GUIComponents.projectPanel = binAreaPanel;//we have 2 names for this and this is not fixed
 		GUIComponents.previewUpdater = previewUpdater;
 		GUIComponents.previewControls = previewControl;
 		GUIComponents.viewControlButtons = viewControlButtons;
 		GUIComponents.viewScrollPane = viewScrollPane;
 		GUIComponents.kfControl = kfButtons;
-		//GUIComponents.binsPanel = binAreaPanel;//we have 2 names for this and this is not fixed
-		//GUIComponents.clipVertSlider = clipVSlider;
 		GUIComponents.normTlineDisp = normTline;
 		GUIComponents.nodesPanel = nodesPanel;
-		//GUIComponents.renderArea = renderArea;
 		GUIComponents.tlineControls = tlineControls;
-		//--- These needs init
+		GUIComponents.projectInfoLabel = projectInfoLabel;
+		//--- This needs init.
 		TimeLineController.initClipEditorGUI();
 
 		//--- Remove all components (why? reload?)
@@ -537,30 +517,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		return displayedEditor;
 	}
 
-	/*
-	//--- Helper method
-	private JSlider getVertPosSlider()
-	{
-		JSlider positionSlider = new JSlider( JSlider.HORIZONTAL, 0, 100, 50 );
-		positionSlider.addChangeListener( this );
-		positionSlider.setPaintTicks( false );
-		positionSlider.setPaintLabels(false);
-		positionSlider.setPreferredSize( 
-			new Dimension( AnimFrameGUIParams.VERTICAL_POS_SLIDER_WIDTH, AnimFrameGUIParams.TE_BOTTOM_STRIP_HEIGHT ) );
-		positionSlider.setMaximumSize( 
-			new Dimension( AnimFrameGUIParams.VERTICAL_POS_SLIDER_WIDTH, AnimFrameGUIParams.TE_BOTTOM_STRIP_HEIGHT ) );
-		return positionSlider;
-	}
-	//--- Listen to the sliders and forward values.
-	public void stateChanged(ChangeEvent e) 
-	{
-		JSlider source = (JSlider)e.getSource();
-		if( e.getSource() == GUIComponents.kfVertSlider )
-			GUIComponents.keyFrameEditPanel.setVerticalPos( GUIComponents.kfVertSlider.getValue() );
-		if( e.getSource() == GUIComponents.clipVertSlider )
-			GUIComponents.timeLineEditorPanel.setVerticalPos( GUIComponents.clipVertSlider.getValue() );
-	}
-	*/
 	//------------------------------------------------ render flow view scroll stuff for box placement
 	//--- Return x,y of left up corner postion of viewport in RenderFlowViewPanel
 	public Point getScrollPos(){ return flowViewPort.getViewPosition(); }

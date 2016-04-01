@@ -260,7 +260,7 @@ public class Application implements WindowListener
 		String info = project.getName() + ",  " + Integer.toString(project.getScreenDimensions().width)
 				+ " x " +  Integer.toString(project.getScreenDimensions().height) + ",  "
 				+ Integer.toString( project.getLength() ) + " frames";
-		GUIComponents.renderFlowButtons.setInfoText( info );
+		GUIComponents.projectInfoLabel.setText( info );
 
 		//--- First render for view editor
 		EditorsController.fillViewEditor();
