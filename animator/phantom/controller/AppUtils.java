@@ -91,13 +91,16 @@ public class AppUtils
 	//---
 	public static boolean isMovieExtension( String ext )
 	{
-		String ext2 = ext.toLowerCase();
-		if( ext2.equals( "mov" ) ) return true;
-		if( ext2.equals( "avi" ) ) return true;
-		if( ext2.equals( "flv" ) ) return true;
-		if( ext2.equals( "ogg" ) ) return true;
-		if( ext2.equals( "mpg" ) ) return true;
-		if( ext2.equals( "dv" ) ) return true;
+		String extLower = ext.toLowerCase();
+		String[] movieExtensions = { "avi","dv","flv","mkv","mpg","mpeg","m2t","mov","mp4","qt","vob","webm",
+									 "3gp","3g2","asf","divx","dirac","f4v","h264","hdmov","hdv","m2p","m2ts",
+									 "m2v","m4e","mjpg","mp4v","mts","m21","m2p","m4v","mj2","m1v","mpv","m4v",
+									 "mxf","mpegts","mpegtsraw","mpegvideo","nsv","ogv","ogx","ps","ts","tsv","tsa",
+									 "vfw","video","wtv","wm","wmv","xvid","y4m","yuv"};
+        
+		for (String movieExt :  movieExtensions)
+			if (movieExt.equals( extLower )) return true;
+ 		
 		return false;
 	}
 

@@ -26,6 +26,7 @@ import org.w3c.dom.Element;
 import animator.phantom.renderer.FileSequenceSource;
 import animator.phantom.renderer.FileSingleImageSource;
 import animator.phantom.renderer.FileSource;
+import animator.phantom.renderer.VideoClipSource;
 //import animator.phantom.renderer.MovieSource;
 import animator.phantom.renderer.SequencePlaybackSource;
 
@@ -40,7 +41,7 @@ public class FileSourceXML extends AbstractXML
 		int type = getInt( e, "type" );
 		if( type == FileSource.IMAGE_FILE ) fs = new FileSingleImageSource();
 		if( type == FileSource.IMAGE_SEQUENCE ) fs = new FileSequenceSource();
-		//if( type == FileSource.MOVIE_FILE ) fs = new MovieSource();
+		if( type == FileSource.VIDEO_FILE ) fs = new VideoClipSource();
 
 		//--- Get basic data
 		fs.setID( getInt( e, "id" ) );
@@ -48,7 +49,7 @@ public class FileSourceXML extends AbstractXML
 		String path = e.getAttribute( "file" );
 		fs.setFile( new File( path ) );
 		if( !fs.getFile().exists() )
-			System.out.println("FileSource File Does Not exist!!!!!" );
+			System.out.println("FileSource file does not exist, path" + fs.getFile().getAbsolutePath() );
 		String path2 = e.getAttribute( "file2" );
 		if( !path2.equals("null") ) 
 			fs.setFile2( new File( path2 ) );
@@ -61,6 +62,14 @@ public class FileSourceXML extends AbstractXML
 		//--- Initilize sequnece sources
 		if( type == FileSource.IMAGE_SEQUENCE ) 
 			((SequencePlaybackSource )fs).loadInit();
+
+		if( type == FileSource.VIDEO_FILE ) 
+		{
+			VideoClipSource vcs = (VideoClipSource ) fs;
+			vcs.setLength( getInt( e, "length" ) );	
+			vcs.setMD5id( e.getAttribute( "MD5id" ) );
+			vcs.loadInit();
+		}
 
 		return fs;
 	}
@@ -78,6 +87,14 @@ public class FileSourceXML extends AbstractXML
 		e.setAttribute( "memsize",  longStr( fileSource.getSizeEstimate() ) );
 		e.setAttribute( "imgwidth", intStr( fileSource.getImageWidth() ) );
 		e.setAttribute( "imgheight", intStr( fileSource.getImageHeight() ) );
+		
+		if (fileSource.getType() == FileSource.VIDEO_FILE)
+		{
+			VideoClipSource vcs = (VideoClipSource )fileSource;
+			e.setAttribute( "length", intStr( vcs.getLength() ) );
+			e.setAttribute( "MD5id",  vcs.getMD5id() );
+		}
+		 
 		return e;
 	}
 

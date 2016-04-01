@@ -27,6 +27,7 @@ import animator.phantom.renderer.imagefilter.CurvesIOP;
 import animator.phantom.renderer.imagemerge.BasicTwoMergeIOP;
 import animator.phantom.renderer.imagesource.FileImageSource;
 import animator.phantom.renderer.imagesource.ImageSequenceIOP;
+import animator.phantom.renderer.imagesource.VideoClipIOP;
 import animator.phantom.renderer.plugin.AlphaMergePlugin;
 import animator.phantom.renderer.plugin.AlphaReplacePlugin;
 import animator.phantom.renderer.plugin.AlphaToImagePlugin;
@@ -148,6 +149,7 @@ public class IOPLibraryInitializer
 		//--- File sources.
 		IOPLibrary.registerIOP( new FileImageSource(), null );
 		IOPLibrary.registerIOP( new ImageSequenceIOP(), null );
+		IOPLibrary.registerIOP( new VideoClipIOP(), null );
 		IOPLibrary.registerIOP( new OutputIOP(), "Output" );
 		
 		//--- Color

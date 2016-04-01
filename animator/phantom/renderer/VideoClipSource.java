@@ -86,8 +86,11 @@ public class VideoClipSource extends FileSource
 		return null;
 	}
 
+	public int getLength(){ return length; }
+	public void setLength( int newlength) { length = newlength; }			
 	public String getMD5id(){ return MD5id;}
-	
+	public void setMD5id( String newID) { MD5id = newID; }
+
 	public void loadData(){}//--- not cached
 	public boolean dataInMemory(){ return false; }//--- not cached
 	public void clearData(){}//--- not cached
