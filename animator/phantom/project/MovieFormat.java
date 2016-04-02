@@ -35,7 +35,7 @@ public class MovieFormat
 	private int framesPerSecond;
 	private float framesPerSecondAccurate;
 	private Dimension screenSize;
-
+	
 	public static Vector<MovieFormat> formats = new Vector<MovieFormat>();
 
 	public final static MovieFormat DEFAULT = new MovieFormat( "default", 25,  384, 288 );

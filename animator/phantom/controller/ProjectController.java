@@ -139,6 +139,15 @@ public class ProjectController
 	//--- Returns all file sources.
 	public static Vector<FileSource> getFileSources(){ return project.getFileSources(); }
 
-
+	public static void updateProjectInfo()
+	{
+		//--- Display project info
+		String info = project.getName() + ",  " + Integer.toString(project.getScreenDimensions().width)
+				+ " x " + Integer.toString(project.getScreenDimensions().height) + ",  "
+				+ Float.toString(project.getMovieFormat().getFPSAccurate()) + " fps,  "
+				+ Integer.toString( project.getLength() ) + " frames, "
+				+ Integer.toString(ProjectController.getFileSources().size()) + " media ref(s)";
+		GUIComponents.projectInfoLabel.setText( info );
+	}
 	
 }//end class

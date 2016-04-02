@@ -13,6 +13,7 @@ public class MediaMenuItem extends JMenuItem
 	{
 		super( title );
 		this.fileSource = f;
+		setFont(GUIResources.BOLD_FONT_ITALIC_11);
 	}
 
 	public FileSource getFileSource(){ return fileSource; }

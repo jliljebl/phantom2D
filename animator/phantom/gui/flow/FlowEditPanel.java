@@ -46,8 +46,10 @@ import animator.phantom.controller.KeyStatus;
 import animator.phantom.controller.MenuActions;
 import animator.phantom.controller.ParamEditController;
 import animator.phantom.controller.PreviewController;
+import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UpdateController;
+import animator.phantom.controller.UserActions;
 import animator.phantom.controller.keyaction.CopyAction;
 import animator.phantom.controller.keyaction.DeSelectAllAction;
 import animator.phantom.controller.keyaction.DeleteAction;
@@ -59,6 +61,7 @@ import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.IOPMenuItem;
 import animator.phantom.gui.MediaMenuItem;
+import animator.phantom.renderer.FileSource;
 //import animator.phantom.renderer.FileSource;
 //import animator.phantom.gui.RecentMenuItem;
 import animator.phantom.renderer.ImageOperation;
@@ -112,7 +115,11 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 
 	private JPopupMenu editorPopup;
 	private JMenuItem mediaList;
-
+	private JMenuItem addImage;
+	private JMenuItem addImageSequence;
+	private JMenuItem addVideo;
+	private JMenuItem noRefs;
+	
 	//--------------------------------------------------------------------- CONSTRUCTOR
 	public FlowEditPanel( int width, int height )
 	{
@@ -159,8 +166,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		//--- Node context popup menu
 		editorPopup = new JPopupMenu();
 		mediaList = new JMenu("Media");
-		openInParamEditor.addActionListener(this);
-		
+		updateMediaMenu();
 		editorPopup.add( mediaList );
 		
 		editorPopup.addSeparator();
@@ -784,7 +790,40 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 
 	public void updateMediaMenu()
 	{
-		AnimatorMenu.fillFileSourcesMenu((JMenu) mediaList, this);
+		JMenu mediaMenu = ((JMenu) mediaList);
+		mediaMenu.removeAll();
+
+		Vector<FileSource> fileSources = ProjectController.getFileSources();
+		
+		if (fileSources.size() > 0)
+		{
+			AnimatorMenu.fillFileSourcesMenu(mediaMenu, this);
+		}
+		else
+		{
+			noRefs = new JMenuItem("no media refs");
+			noRefs.setEnabled(false);
+			noRefs.setFont(GUIResources.BASIC_FONT_10);
+			mediaMenu.add(noRefs);
+		}
+		
+		mediaMenu.addSeparator();
+		
+		addVideo = new JMenuItem("Add Video Clip...");
+		addVideo.addActionListener(this);
+		mediaMenu.add( addVideo );
+		
+		addImage  = new JMenuItem("Add Image...");
+		addImage.addActionListener(this);
+		mediaMenu.add( addImage );
+
+		addImageSequence  = new JMenuItem("Add Image Sequence...");
+		addImageSequence.addActionListener(this);
+		mediaMenu.add( addImageSequence );
+
+
+
+	
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -833,6 +872,36 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		{
 			MediaMenuItem source =  ( MediaMenuItem ) e.getSource();
 			FlowController.addToCenterFromFileSource( source.getFileSource() );
+		}
+		if( e.getSource() == addImage )
+		{
+			new Thread()
+			{
+				public void run()
+				{
+					UserActions.addSingleFileSources();
+				}
+			}.start();
+		}
+		if( e.getSource() == addImageSequence )
+		{
+			new Thread()
+			{
+				public void run()
+				{
+					UserActions.addFileSequenceSource();
+				}
+			}.start();
+		}
+		if( e.getSource() == addVideo )
+		{
+			new Thread()
+			{
+				public void run()
+				{
+					UserActions.addSingleFileSources();
+				}
+			}.start();
 		}
 	}
 

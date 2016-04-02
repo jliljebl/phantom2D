@@ -89,7 +89,7 @@ public class UserActions
 				addFS.firstLoadData();
 				addFS.clearData();
 			}
-			GUIComponents.renderFlowPanel.updateMediaMenu();
+			mediaLoadUpdate();
 			
 			//--- MemoryManager needs to update cache.
 			MemoryManager.fileSourcesAdded();
@@ -141,6 +141,8 @@ public class UserActions
 			ProjectController.addFileSourcesToProject( fsVec );
 			addFS.firstLoadData();
 			addFS.clearData();
+
+			mediaLoadUpdate();
 			
 			//--- MemoryManager needs to update cache.
 			MemoryManager.fileSourcesAdded();
@@ -157,6 +159,13 @@ public class UserActions
 		 
 	}
 
+	private static void mediaLoadUpdate()
+	{
+		GUIComponents.renderFlowPanel.updateMediaMenu();
+		GUIComponents.animatorMenu.updateAppMediaMenu();
+		ProjectController.updateProjectInfo();
+	}
+	
 	public static void deleteFileSources()
 	{
 		/*

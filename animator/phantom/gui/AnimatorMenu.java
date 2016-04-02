@@ -31,6 +31,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import animator.phantom.controller.EditorPersistance;
+import animator.phantom.controller.FlowController;
 //import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.MenuActions;
 import animator.phantom.controller.PreviewController;
@@ -62,17 +63,20 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 	JMenuItem disableSelected;
 	JMenuItem cloneSelected;
 	JMenuItem memorySettings;
+	JMenuItem editorLayout;
+	JMenuItem projectSettings;
+	JMenuItem kfPreferences;
 	
 	//--- View
-	JMenuItem viewEditorHeight;
-	JMenuItem flowEditorWidth;
+	//JMenuItem viewEditorHeight;
+	//JMenuItem flowEditorWidth;
 	
-	//-- Project
+	//--- Media Menu
+	JMenu mediaMenu;
 	JMenuItem addImage;
 	JMenuItem addImageSequence;
 	JMenuItem addVideo;
-	JMenuItem projectSettings;
-	JMenuItem kfPreferences;
+	JMenuItem noRefs;
 
 	//--- Render
 	JMenuItem threadsSettings;
@@ -181,32 +185,25 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		memorySettings = new JMenuItem("Memory Manager...");
 		memorySettings.addActionListener(this);
 		editMenu.add( memorySettings );
+
+		editorLayout = new JMenuItem("Panel sizes...");
+		editorLayout.addActionListener(this);
+		editMenu.add( editorLayout );
 		
-		//--------------------------- Project menu
-		JMenu projectMenu = new JMenu("Project");
-		addVideo = new JMenuItem("Add Video Clip...");
-		addVideo.addActionListener(this);
-		projectMenu.add( addVideo );
-		
-		addImage  = new JMenuItem("Add Image...");
-		addImage.addActionListener(this);
-		projectMenu.add( addImage );
-
-		addImageSequence  = new JMenuItem("Add Image Sequence...");
-		addImageSequence.addActionListener(this);
-		projectMenu.add( addImageSequence );
-
-		projectMenu.addSeparator();
-
 		kfPreferences = new JMenuItem("Keyframe Preferences...");
 		kfPreferences.addActionListener(this);
-		projectMenu.add( kfPreferences );
+		editMenu.add( kfPreferences );
 		
-		projectSettings = new JMenuItem("Composition Properties...");
+		projectSettings = new JMenuItem("Project Properties...");
 		projectSettings.addActionListener(this);
-		projectMenu.add( projectSettings);
+		editMenu.add( projectSettings);
+		
+		//--------------------------- Media menu
+		mediaMenu = new JMenu("Media");
+		updateAppMediaMenu();
 
 		//------------------------------------ View menu
+		/*
 		JMenu viewMenu = new JMenu("View");
 	
 		viewEditorHeight = new JMenuItem("View Editor Height...");
@@ -216,6 +213,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		flowEditorWidth = new JMenuItem("Composition Editor Width...");
 		flowEditorWidth.addActionListener(this);
 		viewMenu.add( flowEditorWidth );
+		*/
 		
 		//------------------------------------ Node menu
 		JMenu iopMenu = new JMenu("Node");
@@ -268,8 +266,8 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		add( fileMenu );
 		add( editMenu );
 		add( iopMenu );
-		add( viewMenu );
-		add( projectMenu );
+		//add( viewMenu );
+		add( mediaMenu );
 		add( renderMenu );
 		add( helpMenu );
 	}
@@ -348,18 +346,44 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			}
 		}
 	}
+	
+	public void updateAppMediaMenu()
+	{
+		mediaMenu.removeAll();
+
+		Vector<FileSource> fileSources = ProjectController.getFileSources();
+		
+		if (fileSources.size() > 0)
+		{
+			AnimatorMenu.fillFileSourcesMenu(mediaMenu, this);
+		}
+		else
+		{
+			noRefs = new JMenuItem("no media refs");
+			noRefs.setEnabled(false);
+			noRefs.setFont(GUIResources.BASIC_FONT_10);
+			mediaMenu.add(noRefs);
+		}
+		
+		mediaMenu.addSeparator();
+		
+		addVideo = new JMenuItem("Add Video Clip...");
+		addVideo.addActionListener(this);
+		mediaMenu.add( addVideo );
+		
+		addImage  = new JMenuItem("Add Image...");
+		addImage.addActionListener(this);
+		mediaMenu.add( addImage );
+
+		addImageSequence  = new JMenuItem("Add Image Sequence...");
+		addImageSequence.addActionListener(this);
+		mediaMenu.add( addImageSequence );
+	}
 
 	public static void fillFileSourcesMenu( JMenu menu, ActionListener listener  )
 	{
-		menu.removeAll();
 		Vector<FileSource> fileSources = ProjectController.getFileSources();
-		if( fileSources.size() == 0 )
-		{
-			MediaMenuItem none = new MediaMenuItem("none", null);
-			none.setEnabled( false );
-			menu.add( none );
-		}
-		else
+		if( fileSources.size() > 0 )
 		{
 			for( FileSource f : fileSources )
 			{
@@ -369,7 +393,6 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 				menu.add( addr );
 			}
 		}
-		
 	}
 	
 	//--------------------------------------------- MENU ACTIONS
@@ -405,16 +428,15 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		if( e.getSource() == cloneSelected ) MenuActions.cloneSelected();
 		if( e.getSource() == disableSelected ) MenuActions.disableSelected();
 		if( e.getSource() == enableSelected ) MenuActions.enableSelected();
-
+		if( e.getSource() == projectSettings ) MenuActions.setProjectProperties();
+		if( e.getSource() == kfPreferences ) MenuActions.keyframePreferences();
 		if( e.getSource() == memorySettings ) MenuActions.setMemorySettings();
 		
 		//--------------------------------------------- View menu
-		if( e.getSource() == viewEditorHeight ) MenuActions.setViewHeight();
-		if( e.getSource() == flowEditorWidth ) MenuActions.setFlowWidth();
+		//if( e.getSource() == viewEditorHeight ) MenuActions.setViewHeight();
+		//if( e.getSource() == flowEditorWidth ) MenuActions.setFlowWidth();
 
-		//--------------------------------------------- Project menu
-		if( e.getSource() == projectSettings ) MenuActions.setProjectProperties();
-		if( e.getSource() == kfPreferences ) MenuActions.keyframePreferences();
+		//--------------------------------------------- Media menu
 		if( e.getSource() == addImage )
 		{
 			new Thread()
@@ -445,6 +467,12 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 				}
 			}.start();
 		}
+		if( e.getSource() instanceof MediaMenuItem )
+		{
+			MediaMenuItem source =  ( MediaMenuItem ) e.getSource();
+			FlowController.addToCenterFromFileSource( source.getFileSource() );
+		}
+
 		//-------------------------------------------------- Render menu.
 		if( e.getSource() == threadsSettings ) MenuActions.setThreadsAndBlenders();
 		if( e.getSource() == previewCurrent ) PreviewController.renderAndDisplayCurrent();
