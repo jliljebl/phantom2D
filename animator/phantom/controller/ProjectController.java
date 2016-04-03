@@ -57,8 +57,6 @@ public class ProjectController
 
 
 	//--- PROJECT DATA INTERFACE, PROJECT DATA INTERFACE, PROJECT DATA INTERFACE
-	//--- PROJECT DATA INTERFACE, PROJECT DATA INTERFACE, PROJECT DATA INTERFACE
-	//--- PROJECT DATA INTERFACE, PROJECT DATA INTERFACE, PROJECT DATA INTERFACE
 	public static String getName(){ return project.getName(); }
 	public static void changeName( String newName )
 	{
@@ -79,14 +77,10 @@ public class ProjectController
 	}
 
 	//--- RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW
-	//--- RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW
-	//--- RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW
 	public static RenderFlow getFlow(){ return project.getRenderFlow(); }
 	public static Vector<FlowBox> getBoxes(){ return project.getBoxes(); }
 
 
-	//--- BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT
-	//--- BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT
 	//--- BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT
 	//--- Adds FileSource to bin.
 
@@ -129,8 +123,6 @@ public class ProjectController
 
 
 	//--- FILE SOURCES, FILE SOURCES, FILE SOURCES, FILE SOURCES, FILE SOURCES
-	//--- FILE SOURCES, FILE SOURCES, FILE SOURCES, FILE SOURCES, FILE SOURCES
-	//--- FILE SOURCES, FILE SOURCES, FILE SOURCES, FILE SOURCES, FILE SOURCES
 	//--- Adds file sources to project
 	public static void addFileSourcesToProject( Vector<FileSource> addFileSources )
 	{
@@ -146,7 +138,7 @@ public class ProjectController
 				+ " x " + Integer.toString(project.getScreenDimensions().height) + ",  "
 				+ Float.toString(project.getMovieFormat().getFPSAccurate()) + " fps,  "
 				+ Integer.toString( project.getLength() ) + " frames, "
-				+ Integer.toString(ProjectController.getFileSources().size()) + " media ref(s)";
+				+ Integer.toString(ProjectController.getFileSources().size()) + " media source(s)";
 		GUIComponents.projectInfoLabel.setText( info );
 	}
 	

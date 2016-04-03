@@ -119,16 +119,6 @@ public class Application implements WindowListener
 
 		MLTFrameServerController.init( homePath, "/home/janne/.flowblade/node_compositors/phantom_disk_cache" );
 		
-		/*
-		if( !inJar )
-		{
-			RESOURCE_PATH = homePath + RESOURCE_PATH;
-			PERSISTANCE_PATH = homePath + PERSISTANCE_PATH;
-			LANG_PATH = homePath + LANG_PATH;
-
-		}
-		*/
-		
 		RESOURCE_PATH = homePath + RESOURCE_PATH;
 		PERSISTANCE_PATH = homePath + PERSISTANCE_PATH;
 		LANG_PATH = homePath + LANG_PATH;
@@ -193,7 +183,7 @@ public class Application implements WindowListener
 			EditorPersistance.setPref( EditorPersistance.FIRST_RUN, false );
 			EditorPersistance.write();
 		}
-
+		
 		AppUtils.printTitle( "APPLICATION LOADED!" );
 	}
 
@@ -256,16 +246,6 @@ public class Application implements WindowListener
 		animatorFrame.setVisible( true );
 		GUIComponents.renderFlowPanel.setIgnoreRepaint( false );// bugs when not visible?
 
-		/*
-		//--- Display project info
-		String info = project.getName() + ",  " + Integer.toString(project.getScreenDimensions().width)
-				+ " x " + Integer.toString(project.getScreenDimensions().height) + ",  "
-				+ Float.toString(project.getMovieFormat().getFPSAccurate()) + " fps,  "
-				+ Integer.toString( project.getLength() ) + " frames, "
-				+ Integer.toString(ProjectController.getFileSources().size()) + "media refs";
-		GUIComponents.projectInfoLabel.setText( info );
-		*/
-		
 		 ProjectController.updateProjectInfo();
 		 
 		//--- First render for view editor

@@ -359,9 +359,9 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		}
 		else
 		{
-			noRefs = new JMenuItem("no media refs");
+			noRefs = new JMenuItem("no media loaded");
 			noRefs.setEnabled(false);
-			noRefs.setFont(GUIResources.BASIC_FONT_10);
+			noRefs.setFont(GUIResources.BASIC_FONT_ITALIC_11);
 			mediaMenu.add(noRefs);
 		}
 		

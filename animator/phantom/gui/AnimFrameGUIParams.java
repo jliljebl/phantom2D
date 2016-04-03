@@ -44,6 +44,7 @@ public class AnimFrameGUIParams
 	{
 		if( GUIComponents.timeLineEditorPanel == null || ( GUIComponents.timeLineEditorPanel.getWidth() == 0 ))
 		{
+			// HACK!
 			// We need some sane value before GUIComponents.timeLineEditorPanel is available
 			// and layed out properly. It is also not visible on startup, so there won't be proper values 
 			// available until it is displayed at least once.
@@ -53,7 +54,7 @@ public class AnimFrameGUIParams
 				- TE_SMALL_WINDOW_INSET
 				- TE_LEFT_COLUMN_WIDTH
 				- TE_RIGHT_COLUMN_INSET
-				- 54 - 2;
+				- 168;
 		}
 		else
 			return GUIComponents.timeLineEditorPanel.getWidth() - 2;

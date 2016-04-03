@@ -206,7 +206,8 @@ public class TimeLineController
 	private static float getPixPerFrameMin()
 	{
 		float scalewidth = AnimFrameGUIParams.getTimeEditRightColWidth();
-		return scalewidth / (float) ProjectController.getLength();
+		float val = scalewidth / (float) ProjectController.getLength();
+		return val;
 	}
 		
 	//----------------------------------------------- POSITION

@@ -43,6 +43,7 @@ public class GUIResources
 	public static final Font BASIC_FONT_12 = new Font( "SansSerif", Font.PLAIN, 12 );
 	public static final Font BASIC_FONT_11 = new Font( "SansSerif", Font.PLAIN, 11 );
 	public static final Font BASIC_FONT_10 = new Font( "SansSerif", Font.PLAIN, 10 );
+	public static final Font BASIC_FONT_ITALIC_11 = new Font( "SansSerif", Font.PLAIN|Font.ITALIC, 11 );
 	public static final Font BOLD_FONT_11 = new Font( "SansSerif", Font.BOLD, 11 );
 	public static final Font BOLD_FONT_12 = new Font( "SansSerif", Font.BOLD, 12 );
 	public static final Font BOLD_FONT_14 = new Font( "SansSerif", Font.BOLD, 14 );
