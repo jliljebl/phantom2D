@@ -45,7 +45,7 @@ public class VideoClipSource extends FileSource
 
 	public void firstLoadData()
 	{
-		String answer = MLTFrameServerController.renderFrame( this, 0 );
+		MLTFrameServerController.renderFrame( this, 0 );
 		BufferedImage firstframe = getClipImage( 0 );
 		imgWidth = firstframe.getWidth();
 		imgHeight = firstframe.getHeight();
@@ -65,7 +65,7 @@ public class VideoClipSource extends FileSource
 		}
 		else
 		{
-			String answer = MLTFrameServerController.renderFrame( this, clipFrame );
+			MLTFrameServerController.renderFrame( this, clipFrame );
 		    return getBufferedImageFromFile( frameFile );
 		}
 	}

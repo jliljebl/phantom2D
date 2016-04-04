@@ -49,8 +49,6 @@ public class FilterStackPanel extends JPanel implements ActionListener
 	private static final int STACK_TABLE_HEIGHT = 140;
 	private static final int NAME_PANEL_PAD = 8;
 	private static final int SUB_TITLE_GAP = 2;
-
-	private static final int STACK_MAX_SIZE = 7;
 	
 	private static Vector<ImageOperation> filters;
 

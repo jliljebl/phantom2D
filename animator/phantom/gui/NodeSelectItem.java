@@ -37,7 +37,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import animator.phantom.controller.Application;
-import animator.phantom.controller.FlowController;
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.ParamEditController;
 

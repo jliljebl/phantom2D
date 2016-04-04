@@ -38,6 +38,7 @@ import javax.swing.JFrame;
 import animator.phantom.controller.AppUtils;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.TimeLineController;
+import animator.phantom.renderer.FileSource;
 
 
 public class GUIUtils
@@ -111,37 +112,24 @@ public class GUIUtils
 		if( retVal == JFileChooser.APPROVE_OPTION ) return fileChoose.getSelectedFile();
 		else return null;
 	}	
-	/*
-	public static File addImageFile( Component parent, String title  )
-	{
-		String[] filters = AppUtils.getAcceptedImageExtensions();
-		File file = GUIUtils.selectFilteredFile( parent, filters, title );
-		return file;
 
-	}
-*/
 	public static File addISingleImageFile( Component parent, String title )
 	{
-		String[] filters = AppUtils.getAcceptedImageExtensions();
-		File file = selectFilteredFile(  	parent,
-							filters,
-							title );
+		String[] filters = AppUtils.getImageExtensions();
+	    File file = selectFilteredFile(  parent,
+										 filters,
+										 title );
 		return file;
 	}
 
-	/*
-	public static File[] addImageFiles( Component parent, String title  )
+	public static File[] addFiles( Component parent, String title, int fileType  )
 	{
-		String[] filters = AppUtils.getAcceptedImageExtensions();
-		File[] files = GUIUtils.selectFilteredFiles( parent, filters, title );
-		return files;
+		String[] filters = null;
+		if (fileType == FileSource.IMAGE_FILE)
+			filters = AppUtils.getImageExtensions();
+		else
+			filters = AppUtils.getMovieExtensions();
 
-	}
-	*/
-	
-	public static File[] addFiles( Component parent, String title  )
-	{
-		String[] filters = AppUtils.getAcceptedFileExtensions();
 		File[] files = GUIUtils.selectFilteredFiles( parent, filters, title );
 		return files;
 	}
@@ -252,39 +240,5 @@ public class GUIUtils
 			g.draw( line );
 		}
 	}
-
-	/*
-	public static JPanel getTwoComponentRow( Component c1, Component c2, boolean addGlue)
-	{
-		JPanel p = new JPanel();
-		if( addGlue == true )
-			p.add( Box.createHorizontalGlue() );
-		p.setLayout( new BoxLayout( p, BoxLayout.X_AXIS) );
-		p.add( c1 );
-		p.add( c2 );
-		if( addGlue == true )
-			p.add( Box.createHorizontalGlue() );
-		
-		return p;
-	}
-*/
-/*
-	public static JPanel getTwoComponentRow( Component c1, Component c2 )
-	{
-		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout( new BoxLayout(leftPanel, BoxLayout.X_AXIS) );
-		leftPanel.add(  Box.createHorizontalGlue() );
-		leftPanel.add( c1 );
-		leftPanel.setMaximumSize( new Dimension( 200, 20));
-		
-		JPanel p = new JPanel();
-		p.setLayout( new BoxLayout( p, BoxLayout.X_AXIS) );
-		p.add( leftPanel );
-		p.add( c2 );
-		p.add( Box.createHorizontalGlue() );
-		
-		return p;
-	}
-*/
 
 }//end class

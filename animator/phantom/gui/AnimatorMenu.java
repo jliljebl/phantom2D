@@ -359,7 +359,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		}
 		else
 		{
-			noRefs = new JMenuItem("no media loaded");
+			noRefs = new JMenuItem("No media sources");
 			noRefs.setEnabled(false);
 			noRefs.setFont(GUIResources.BASIC_FONT_ITALIC_11);
 			mediaMenu.add(noRefs);
@@ -367,11 +367,11 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		
 		mediaMenu.addSeparator();
 		
-		addVideo = new JMenuItem("Add Video Clip...");
+		addVideo = new JMenuItem("Add Video Clips...");
 		addVideo.addActionListener(this);
 		mediaMenu.add( addVideo );
 		
-		addImage  = new JMenuItem("Add Image...");
+		addImage  = new JMenuItem("Add Images...");
 		addImage.addActionListener(this);
 		mediaMenu.add( addImage );
 
@@ -443,7 +443,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			{
 				public void run()
 				{
-					UserActions.addSingleFileSources();
+					UserActions.addSingleFileSources(FileSource.IMAGE_FILE);
 				}
 			}.start();
 		}
@@ -463,7 +463,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			{
 				public void run()
 				{
-					UserActions.addSingleFileSources();
+					UserActions.addSingleFileSources(FileSource.VIDEO_FILE);
 				}
 			}.start();
 		}

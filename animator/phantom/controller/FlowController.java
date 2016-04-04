@@ -74,7 +74,7 @@ public class FlowController
 	}
 	*/
 	//--- Adds iop right away near center i flow editor.
-	public static void addToCenterFromFileSource(  FileSource fs )
+	public static void addToCenterFromFileSource( FileSource fs )
 	{
 		if( fs == null )
 			return;

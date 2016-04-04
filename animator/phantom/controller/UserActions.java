@@ -44,12 +44,12 @@ public class UserActions
 {
 	private static String[] loopOptions = { "no looping","loop","ping-pong" };
 
-	public static void addSingleFileSources()
+	public static void addSingleFileSources(int fileType)
 	{
 		try
 		{
 			//--- Get user selected file(s).
-			File[] addFiles = GUIUtils.addFiles( GUIComponents.getAnimatorFrame(), "Select files" );
+			File[] addFiles = GUIUtils.addFiles( GUIComponents.getAnimatorFrame(), "Select files", fileType );
 			if( addFiles == null ) return;
 
 			//--- Create new FileSources.
@@ -88,6 +88,7 @@ public class UserActions
 			{
 				addFS.firstLoadData();
 				addFS.clearData();
+				FlowController.addToCenterFromFileSource( addFS );
 			}
 			mediaLoadUpdate();
 			
@@ -141,6 +142,7 @@ public class UserActions
 			ProjectController.addFileSourcesToProject( fsVec );
 			addFS.firstLoadData();
 			addFS.clearData();
+			FlowController.addToCenterFromFileSource( addFS );
 
 			mediaLoadUpdate();
 			

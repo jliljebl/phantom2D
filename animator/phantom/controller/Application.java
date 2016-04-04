@@ -50,8 +50,6 @@ public class Application implements WindowListener
 
 	//--- Windows
 	private AnimatorFrame animatorFrame;
-
-	private MLTFrameServerController frameServer;
 	
 	//--- Render abort management
 	public static final int PREVIEW_RENDER = 0;

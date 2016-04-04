@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.net.URL;
-import java.util.Vector;
 
 import org.w3c.dom.Document;
 
@@ -167,6 +166,7 @@ public class PhantomServer extends Application
 		System.exit(0);
 	}
 
+		/*
 	private void test()
 	{
 		loadProject( "/home/janne/test/servertest/simpleproject.phr" );
@@ -182,7 +182,7 @@ public class PhantomServer extends Application
 		//updateParamValue( nodeId, paramId, valueTokens );
 		renderFrame( 3 );
 	}
-
+*/
 	private void writeSocketFile( int port, String path )
 	{
 	    BufferedWriter writer = null;

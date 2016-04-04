@@ -82,21 +82,12 @@ public class AppUtils
 		return str2 + " MB";
 	
 	}
-	//--- Extensions of image/movie files that can be opened by this app.
-	public static String[] getAcceptedImageExtensions()
-	{
-		String[] extensions = { "jpg", "jpeg", "gif", "png", "bmp", "svg", "mov", "avi", "ogg" };
-		return extensions;
-	}
+
 	//---
 	public static boolean isMovieExtension( String ext )
 	{
 		String extLower = ext.toLowerCase();
-		String[] movieExtensions = { "avi","dv","flv","mkv","mpg","mpeg","m2t","mov","mp4","qt","vob","webm",
-									 "3gp","3g2","asf","divx","dirac","f4v","h264","hdmov","hdv","m2p","m2ts",
-									 "m2v","m4e","mjpg","mp4v","mts","m21","m2p","m4v","mj2","m1v","mpv","m4v",
-									 "mxf","mpegts","mpegtsraw","mpegvideo","nsv","ogv","ogx","ps","ts","tsv","tsa",
-									 "vfw","video","wtv","wm","wmv","xvid","y4m","yuv"};
+		String[] movieExtensions = getMovieExtensions();
         
 		for (String movieExt :  movieExtensions)
 			if (movieExt.equals( extLower )) return true;
@@ -104,9 +95,25 @@ public class AppUtils
 		return false;
 	}
 
-	public static String[] getAcceptedFileExtensions()
+	public static String[] getImageExtensions()
 	{
-		String[] imgExts = getAcceptedImageExtensions();
+		String[] extensions = { "jpg", "jpeg", "gif", "png", "bmp", "svg", "mov", "avi", "ogg" };
+		return extensions;
+	}
+	
+	public  static String[] getMovieExtensions()
+	{
+		String[] movieExtensions = { "avi","dv","flv","mkv","mpg","mpeg","m2t","mov","mp4","qt","vob","webm",
+				 "3gp","3g2","asf","divx","dirac","f4v","h264","hdmov","hdv","m2p","m2ts",
+				 "m2v","m4e","mjpg","mp4v","mts","m21","m2p","m4v","mj2","m1v","mpv","m4v",
+				 "mxf","mpegts","mpegtsraw","mpegvideo","nsv","ogv","ogx","ps","ts","tsv","tsa",
+				 "vfw","video","wtv","wm","wmv","xvid","y4m","yuv"};
+		return movieExtensions;
+	}
+	
+	public static String[] getAcceptedFileExtensions() //copy????
+	{
+		String[] imgExts = getImageExtensions();
 		
 		String[] retArray = new String[ imgExts.length ];
 

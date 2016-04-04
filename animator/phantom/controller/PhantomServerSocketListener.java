@@ -13,7 +13,7 @@ public class PhantomServerSocketListener extends Thread
     private ServerSocket serverSocket;
     
     private final static String OK = "OK\n";
-	private static final String UNREGONIZED = "UNREGONIZED COMMAND\n";
+	private static final String ERROR = "ERROR";
 	
     private final static String SHUTDOWN = "SHUTDOWN";
     private final static String LOAD = "LOAD";
@@ -137,7 +137,7 @@ public class PhantomServerSocketListener extends Thread
 	            }
 	            else
 	            {
-	            	return "ERROR";
+	            	return ERROR + " unrecognized command";
 	            }
 		}
 		catch (Exception e) 
@@ -147,7 +147,7 @@ public class PhantomServerSocketListener extends Thread
 			return "ERROR";
 		}
 		
-		return "OK";
+		return OK;
 	}
 
 }//end class
