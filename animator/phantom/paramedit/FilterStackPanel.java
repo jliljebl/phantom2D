@@ -50,7 +50,7 @@ public class FilterStackPanel extends JPanel implements ActionListener
 	private static final int NAME_PANEL_PAD = 8;
 	private static final int SUB_TITLE_GAP = 2;
 
-	int STACK_MAX_SIZE = 7;
+	private static final int STACK_MAX_SIZE = 7;
 	
 	private static Vector<ImageOperation> filters;
 
@@ -96,10 +96,12 @@ public class FilterStackPanel extends JPanel implements ActionListener
 		initFilterStack( 0 );
 
 		JScrollPane stackScrollPane = new JScrollPane( stackTable );
-
+		GUIComponents.filterStackTablePane = stackScrollPane;
+		
 		nodesPanel = new NodesPanel();
 		nodesPanel.setPreferredSize(new Dimension( 300, 186 ));
-
+		GUIComponents.nodesPanel = nodesPanel;
+		
 		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
 		add( Box.createRigidArea( new Dimension( 0, SUB_TITLE_GAP ) ) );
 		add( stackButtons );
@@ -161,6 +163,8 @@ public class FilterStackPanel extends JPanel implements ActionListener
 	{
 		if( e.getSource() == addFilter )
 		{	
+			ParamEditController.addSelectedIOPToFilterStack();
+			/*
 			ImageOperation selIOP = nodesPanel.getSelectedIOP();
 
 			if( iop.getFilterStack().size() < STACK_MAX_SIZE )
@@ -182,7 +186,9 @@ public class FilterStackPanel extends JPanel implements ActionListener
 				
 				UpdateController.updateCurrentFrameDisplayers( false );
 				initFilterStack( iop.getFilterStack().size() - 1 );
+
 			}
+							*/
 		}
 
 		if( e.getSource() == deleteFilter )

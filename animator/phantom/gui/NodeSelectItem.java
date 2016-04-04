@@ -39,6 +39,7 @@ import javax.swing.SwingUtilities;
 import animator.phantom.controller.Application;
 import animator.phantom.controller.FlowController;
 import animator.phantom.controller.GUIComponents;
+import animator.phantom.controller.ParamEditController;
 
 public class NodeSelectItem extends JPanel implements MouseListener
 {
@@ -139,13 +140,14 @@ public class NodeSelectItem extends JPanel implements MouseListener
 			dragOn = true;
 		}
 	}
-	//public void mouseMoved(MouseEvent e){}
+
 	public void mousePressed(MouseEvent e)
 	{
 		requestFocusInWindow();
 		setSelected( true );
 		isPressed = true;
 	}
+
 	public void mouseReleased(MouseEvent e)
 	{
 
@@ -154,16 +156,16 @@ public class NodeSelectItem extends JPanel implements MouseListener
 		Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 		GUIComponents.animatorFrame.setCursor(normalCursor);
 
-		Point pt = new Point(GUIComponents.renderFlowPanel.getLocation());
-		SwingUtilities.convertPointToScreen(pt, GUIComponents.renderFlowPanel);
+		Point pt = new Point(GUIComponents.filterStackTablePane.getLocation());
+		SwingUtilities.convertPointToScreen(pt, GUIComponents.filterStackTablePane);
 
-		// Do drag drop if on top of FlowEditor at release
+		// Add to filter stack if drop on top of it.
 		if( dragOn && draggable )
 		{
-			if( e.getXOnScreen() > pt.x && e.getXOnScreen() < pt.x + GUIComponents.renderFlowPanel.getWidth()
-				&& e.getYOnScreen() > pt.y && e.getYOnScreen() < pt.y + GUIComponents.renderFlowPanel.getHeight() )
+			if( e.getXOnScreen() > pt.x && e.getXOnScreen() < pt.x + GUIComponents.filterStackTablePane.getWidth()
+				&& e.getYOnScreen() > pt.y && e.getYOnScreen() < pt.y + GUIComponents.filterStackTablePane.getHeight() )
 			{
-				FlowController.addIOPFromNodesPanelRightAway( new Point(e.getXOnScreen(), e.getYOnScreen()));
+				ParamEditController.addSelectedIOPToFilterStack();
 			}
 		}
 		dragOn = false;

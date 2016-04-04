@@ -117,7 +117,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	private JPanel kfButtonsPane;
 	
 	private ParamEditFrame editFrame;
-	private NodesPanel nodesPanel;
+	//private NodesPanel nodesPanel;
 		
 	private FlowEditPanel renderFlowPanel;
 
@@ -236,7 +236,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 
 		//-------------------------------------------- param edit
 		editFrame = new ParamEditFrame();
-		nodesPanel = new NodesPanel();
+		//nodesPanel = new NodesPanel();
 		
 		paramEditHolder = new JPanel();
 		paramEditHolder.setLayout(new BoxLayout( paramEditHolder, BoxLayout.Y_AXIS));
@@ -442,7 +442,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		GUIComponents.viewScrollPane = viewScrollPane;
 		GUIComponents.kfControl = kfButtons;
 		GUIComponents.normTlineDisp = normTline;
-		GUIComponents.nodesPanel = nodesPanel;
+		//GUIComponents.nodesPanel = nodesPanel;
 		GUIComponents.tlineControls = tlineControls;
 		GUIComponents.projectInfoLabel = projectInfoLabel;
 		//--- This needs init.

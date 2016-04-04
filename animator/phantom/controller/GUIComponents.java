@@ -104,7 +104,8 @@ public class GUIComponents
 	public static TimeLineControls tlineControls;
 	public static NodesPanel nodesPanel;
 	public static JLabel projectInfoLabel;
-
+	public static JScrollPane filterStackTablePane;
+	
 	public static void reset()
 	{
 		//projectPanel = null;

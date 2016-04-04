@@ -41,13 +41,14 @@ public class DarkTheme extends OceanTheme
 	public static Font MENU_FONT = null;
 
 	public static ColorUIResource darkBg = new ColorUIResource( new Color( 56, 60, 74 ) );
-	public static ColorUIResource darkBgLighter = new ColorUIResource( Color.red );//new Color( 67, 75, 79 ) );
+	public static ColorUIResource darkBgLighter = new ColorUIResource( new Color( 67, 75, 79 ) );
 	public static ColorUIResource darker = new ColorUIResource( new Color( 51, 55, 69 ) );//new Color( 63,64,61 ) );
 	public static ColorUIResource dark = new ColorUIResource( new Color( 56, 60, 74 )  );
 	public static ColorUIResource middark = new ColorUIResource( new Color( 110,110,110 ) );
 	public static ColorUIResource lighter = new ColorUIResource( new Color( 71, 75, 90 ) );//new Color( 80,80,90 ) );
 	public static ColorUIResource midlight = new ColorUIResource( new Color( 170,170,170 ) );
 	public static ColorUIResource light = new ColorUIResource( new Color( 200,200,200 ) );
+	public static ColorUIResource lightest = new ColorUIResource( new Color( 245,245,245 ) );
 	public static ColorUIResource phantomOrange = new ColorUIResource( new Color( 52, 80, 132 ) );
 	public static ColorUIResource phantomOrangeLight = new ColorUIResource( new Color( 62, 90, 142 ) );
 	public static ColorUIResource black = new ColorUIResource( Color.black );
@@ -114,7 +115,7 @@ public class DarkTheme extends OceanTheme
 	public ColorUIResource getMenuBackground(){ return dark; }
 	public ColorUIResource getMenuForeground(){ return light; }
 	public ColorUIResource getMenuDisabledForeground(){ return light; }
-	public ColorUIResource getMenuSelectedForeground() { return light; }
+	public ColorUIResource getMenuSelectedForeground() { return lightest; }
 	public ColorUIResource getAcceleratorForeground() { return light; }
 	public ColorUIResource getSeparatorBackground(){ return darker; }
 	public ColorUIResource getSeparatorForeground() { return middark; }

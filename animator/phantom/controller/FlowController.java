@@ -64,14 +64,15 @@ public class FlowController
 		addIOPNow( addIOP, screenPoint );
 
 	}
-	public static void addIOPFromNodesPanelRightAway( Point screenPoint )
+	/*
+	public static void addIOPToFilterStack( Point screenPoint )
 	{
 		// NOTE CODE DUPLICATION nearby methods
 		ImageOperation addIOP = GUIComponents.nodesPanel.getSelectedIOP();
 		SwingUtilities.convertPointFromScreen( screenPoint, GUIComponents.renderFlowPanel );
 		addIOPNow( addIOP, screenPoint );
 	}
-	
+	*/
 	//--- Adds iop right away near center i flow editor.
 	public static void addToCenterFromFileSource(  FileSource fs )
 	{

@@ -91,7 +91,9 @@ public abstract class ImageOperation implements Comparable<Object>
 	//--- Backgroundtypes for source images.
 	public static final int BLACK_BACKGROUND = 0;
 	public static final int TRANSPARENT_BACKGROUND = 1;
-
+	//--- Filter tack size
+	public static final int STACK_MAX_SIZE = 7;
+	
 	//--- If this is a plugin iop, plugin sets reference of self here 
 	protected PhantomPlugin plugin = null;
 

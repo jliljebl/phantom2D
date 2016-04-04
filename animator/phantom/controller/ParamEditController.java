@@ -20,6 +20,7 @@ package animator.phantom.controller;
 */
 
 import animator.phantom.gui.ParamEditFrame;
+import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
 
 //--- Logic for param editing in window.
@@ -71,4 +72,30 @@ public class ParamEditController
 		paramEditFrame.displayGUI();
 	}
 
+	public static void addSelectedIOPToFilterStack()
+	{
+		// NOTE CODE DUPLICATION nearby methods
+		ImageOperation selIOP = GUIComponents.nodesPanel.getSelectedIOP();
+		if( editTarget.getFilterStack().size() < ImageOperation.STACK_MAX_SIZE )
+		{
+			ImageOperation addFilter;
+			if( selIOP.getPlugin() == null )
+			{
+				addFilter = IOPLibrary.getNewInstance( selIOP.getClass().getName() );
+			}
+			else//is plugin, not raw iop
+			{
+				String pluginName = selIOP.getPlugin().getClass().getName();
+				addFilter = IOPLibrary.getNewInstance( pluginName );
+
+			}
+			editTarget.getFilterStack().add( addFilter );
+			addFilter.setFilterStackIOP( true );
+			addFilter.copyTimeParams( editTarget );
+			
+			UpdateController.updateCurrentFrameDisplayers( false );
+			GUIComponents.filterStackPanel.initFilterStack( editTarget.getFilterStack().size() - 1 );
+		}
+	}
+	
 }//end class
