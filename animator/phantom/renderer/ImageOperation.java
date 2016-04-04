@@ -39,6 +39,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -48,6 +49,7 @@ import animator.phantom.controller.FlowController;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
+import animator.phantom.gui.PHScrollUI;
 import animator.phantom.gui.view.editlayer.ViewEditorLayer;
 import animator.phantom.paramedit.AnimationParentPanel;
 import animator.phantom.paramedit.FilterStackPanel;
@@ -805,6 +807,8 @@ public abstract class ImageOperation implements Comparable<Object>
 				scrollPane.setPreferredSize( 
 					new Dimension( ParamEditResources.PARAM_COLUMN_WIDTH * 2,
 							Application.getParamEditHeight() - SCROLL_HEIGHT_PAD ) );
+				JScrollBar vsb = scrollPane.getVerticalScrollBar();
+				vsb.setUI( new PHScrollUI() );
 				editFrame.add( scrollPane );
 			}
 		}

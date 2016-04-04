@@ -10,7 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JScrollBar;
 import javax.swing.plaf.metal.MetalScrollBarUI;
 
-class PHScrollUI extends MetalScrollBarUI 
+public class PHScrollUI extends MetalScrollBarUI 
 {
 	private Color thumbColor = new Color( 164, 169, 173 );
 	private Color trackColor = new Color( 46, 52, 54 );
@@ -30,7 +30,7 @@ class PHScrollUI extends MetalScrollBarUI
 
     };
 
-    PHScrollUI() {}
+    public PHScrollUI() {}
 
 	@Override
 	protected void paintThumb( Graphics g, JComponent c, Rectangle thumbBounds ) 
