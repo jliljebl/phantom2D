@@ -81,7 +81,7 @@ public class NodesPanel extends JPanel
 			@SuppressWarnings("rawtypes")
 			Vector iopsObjs = IOPLibrary.getGroupContents( group );
 			Collections.sort( iops );
-	
+
 			for( int j = 0; j < iopsObjs.size(); j++ )
 			{
 				Object o = iopsObjs.elementAt( j );
@@ -164,22 +164,17 @@ public class NodesPanel extends JPanel
 	
 	public void selectionChanged( NodeSelectPanel source )
 	{
-		System.out.println("selectionChanged");
 		if ( source == groupsTable )
 		{
 			groupIndex = groupsTable.getSelectedIndex();
-			System.out.println(groupIndex);
 			displayGroupNodes();
 		}
 	}
 
 	public ImageOperation getSelectedIOP()
 	{
-		System.out.println("getSelectedIOP");
-		System.out.println(groupIndex);
 		Vector<ImageOperation> iopGroup = groupIops.elementAt( groupIndex );
 		int nodeIndex = nodesTable.getSelectedIndex();
-		System.out.println(nodeIndex);
 		ImageOperation iop = iopGroup.elementAt( nodeIndex );
 		return iop;
 	}

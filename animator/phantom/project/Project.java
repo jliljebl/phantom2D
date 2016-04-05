@@ -62,7 +62,6 @@ public class Project
 	//--- format name
 	private String formatName;
 
-	private MovieFormat movieFormat;
 	
 	//--- Project xml files are aved with extension .phr
 	public static final String PROJECT_FILE_EXTENSION = "phr";
@@ -82,7 +81,6 @@ public class Project
 		
 		//--- Capture data.
 		this.name = name;
-		this.movieFormat = movieFormat;
 		
 		framesPerSecond = movieFormat.getFPS();
 		screenSize = movieFormat.getScreenSize();
@@ -125,8 +123,7 @@ public class Project
 	//---
 	public String getFormatName(){ return formatName; }
 	public void setFormatName( String fname ){ formatName = fname; }
-	//---
-	public MovieFormat getMovieFormat(){ return movieFormat; }
+
 	//----------------------------------------------- BINS
 	public Vector<Bin> getBins(){ return bins; }
 	public void setBins( Vector<Bin> newBins ){ bins = newBins; }

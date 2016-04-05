@@ -136,8 +136,8 @@ public class ProjectController
 		//--- Display project info
 		String info = project.getName() + ",  " + Integer.toString(project.getScreenDimensions().width)
 				+ " x " + Integer.toString(project.getScreenDimensions().height) + ",  "
-				+ Float.toString(project.getMovieFormat().getFPSAccurate()) + " fps,  "
-				+ Integer.toString( project.getLength() ) + " frames, "
+				+ Integer.toString(project.getFramesPerSecond()) + " fps,  "
+				+ Integer.toString(project.getLength()) + " frames, "
 				+ Integer.toString(ProjectController.getFileSources().size()) + " media source(s)";
 		GUIComponents.projectInfoLabel.setText( info );
 	}

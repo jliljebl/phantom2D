@@ -223,6 +223,7 @@ public class Application implements WindowListener
 		IOPLibraryInitializer.init();
 		TimeLineController.init();
 
+		/*
 		//--- Load plugins once IF NOT LOADED
 		//--- Here because iops need a loaded project and a initialized Blender to function
 		if( !pluginsLoaded )
@@ -230,7 +231,7 @@ public class Application implements WindowListener
 			PluginController.loadPlugins();
 			pluginsLoaded = true;
 		}
-
+		*/
 		//--- Undo
 		PhantomUndoManager.init();
 

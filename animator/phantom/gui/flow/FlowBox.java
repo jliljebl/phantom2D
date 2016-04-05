@@ -25,6 +25,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
 
@@ -35,7 +36,7 @@ import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
 
 
-//--- Objects of this class render the selectable boxes of rendernodes in FlowEditPanel.
+//--- Objects of this class render the selectable boxes of render nodes in FlowEditPanel.
 //--- They display state information that tells if the object is beign edited and/or is selected
 public class FlowBox implements FlowGraphic, Comparable<Object>
 {	
@@ -380,9 +381,13 @@ public class FlowBox implements FlowGraphic, Comparable<Object>
 	}
 
 	//--- Used when prerendering box images.
-	private void drawName( Graphics g )
+	private void drawName( Graphics2D g )
 	{
 		g.setFont( boxFont );
+		Rectangle2D rect = new Rectangle2D.Float();
+
+		rect.setRect(0, 0, 122, 30);
+		g.clip(rect);
 		g.drawString( name, NAME_DRAW_X, NAME_DRAW_Y );
 	}
 

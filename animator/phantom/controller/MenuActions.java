@@ -23,8 +23,6 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.Vector;
 
 import javax.swing.Box;
@@ -45,7 +43,6 @@ import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.GUIUtils;
 import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.gui.modals.MActionListener;
-import animator.phantom.gui.modals.MButton;
 import animator.phantom.gui.modals.MCheckBox;
 import animator.phantom.gui.modals.MComboBox;
 import animator.phantom.gui.modals.MFileSelect;
@@ -57,14 +54,10 @@ import animator.phantom.gui.modals.MTextInfo;
 import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 import animator.phantom.gui.view.editlayer.MergeEditLayer;
 import animator.phantom.gui.view.editlayer.ViewEditorLayer;
-import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.project.MovieFormat;
 import animator.phantom.project.Project;
-//import animator.phantom.renderer.FileSequenceSource;
-//import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
-//import animator.phantom.renderer.RenderFlow;
 import animator.phantom.renderer.RenderNode;
 import animator.phantom.renderer.imagemerge.BasicTwoMergeIOP;
 import animator.phantom.renderer.param.AnimatedValue;
@@ -177,6 +170,7 @@ public class MenuActions
 		EditorPersistance.addRecent( saveFile );
 		EditorPersistance.write();
 		GUIComponents.animatorMenu.updateRecentMenu();
+		ProjectController.updateProjectInfo();
 	}
 	
 	//--- Closes current project if confirmed.
@@ -287,7 +281,7 @@ public class MenuActions
 		MInputArea mArea2 = new MInputArea( "Length" );
 		mArea2.add( length );
 
-		final MInputPanel pPanel = new MInputPanel( "Composition Properties" );
+		final MInputPanel pPanel = new MInputPanel( "Project Properties" );
 		pPanel.add( mArea );
 		pPanel.add( mArea2 );
 
@@ -319,7 +313,7 @@ public class MenuActions
 			}
 		);
 
-		int retVal = DialogUtils.showMultiInput( pPanel, 400, 300 );
+		int retVal = DialogUtils.showMultiInput( pPanel, 480, 300 );
 
 		//--- After user inter action.
 		if( retVal != DialogUtils.OK_OPTION ) return;
@@ -361,6 +355,7 @@ public class MenuActions
 		DialogUtils.showProjectInfoDialog( ProjectController.getProject() );
 	}
 
+	/*
 	public static void setPluginSettings()
 	{
 		String ppath =  EditorPersistance.getStringPref( EditorPersistance.PLUGIN_DIR );
@@ -411,7 +406,8 @@ public class MenuActions
 			DialogUtils.showTwoStyleInfo( "Plugin folder info", tLines, DialogUtils.WARNING_MESSAGE );
 		}
 	}
-
+	*/
+	/*
 	private static void displayPlugins()
 	{
 		JPanel pane = new JPanel();
@@ -464,24 +460,7 @@ public class MenuActions
 
 		DialogUtils.showPanelOKDialog( pane, "Loaded plugins", 500, pluginTable.size() * 30 + pad );
 	}
-
-	private static JPanel getCell( String text )
-	{
-		return getCell( text, false );
-	}
-	private static JPanel getCell( String text, boolean bold )
-	{
-
-		JPanel cell = new JPanel();
-		cell.setLayout( new BoxLayout( cell, BoxLayout.X_AXIS ));
-		JLabel label = new JLabel( text );
-		if( !bold )
-			label.setFont( GUIResources.BASIC_FONT_12 );
-		cell.add( label );
-		cell.add(  Box.createHorizontalGlue() );
-		cell.add(  Box.createRigidArea( new Dimension( 5, 0 )) );
-		return cell;
-	}
+*/
 
 	public static void setEditorPreferences()
 	{
@@ -1204,7 +1183,7 @@ public class MenuActions
 	{
 		//--- Create editors and set values
 		final String[] defOptions = { "linear","bezier" };
-		final MComboBox defCb = new MComboBox( "Default interpolation", 200, 200, defOptions );
+		final MComboBox defCb = new MComboBox( "Default interpolation", defOptions );
 		//--- LINEAR = 1;
 		//--- BEZIER = 2;
 		defCb.setSelectedIndex( EditorPersistance.getIntPref( EditorPersistance.KF_DEF_INTERP ) - 1 );
@@ -1235,9 +1214,9 @@ public class MenuActions
 	public static void setMotionBlur()
 	{
 		final String[] mboptions = { "on","off" };
-		final MComboBox globalMB = new MComboBox( "Global motion blur", 75, mboptions );
+		final MComboBox globalMB = new MComboBox( "Global motion blur", mboptions );
 
-		final MComboBox passes = new MComboBox( "Render passes", 75,  Blender.selectablePassesOpts );
+		final MComboBox passes = new MComboBox( "Render passes", Blender.selectablePassesOpts );
 		int selIndex = 0;
 		int origVal = Blender.getPasses();
 		for( int i = 0; i < Blender.selectablePasses.length; i++ )
@@ -1325,7 +1304,7 @@ public class MenuActions
 		fileTypes[ 0 ] = "png";
 		fileTypes[ 1 ] = "jpg";
 
-		MComboBox outputFileType = new MComboBox( "Output frame file type", 75, fileTypes );
+		MComboBox outputFileType = new MComboBox( "Output frame file type", fileTypes );
 		File targetFolder = RenderModeController.getWriteFolder();
 		MFileSelect tfs = new MFileSelect( "Folder for frames", "Select folder for frames", 25, targetFolder, null );
 		tfs.setType( JFileChooser.DIRECTORIES_ONLY );
@@ -1333,7 +1312,7 @@ public class MenuActions
 		if( fname == null ) fname = "frame";
 		MTextField framename = new MTextField( "Frame name", 75, fname );
 		String[] padOtps = { "3 digits","4 digits","5 digits", "no padding" };
-		MComboBox pad = new MComboBox( "Zero padding", 75, padOtps );
+		MComboBox pad = new MComboBox( "Zero padding", padOtps );
 		MCheckBox overWrite = new MCheckBox( "Overwrite without warnig", true );
 
 		MInputArea save = new MInputArea( "Frame output settings" );
@@ -1362,15 +1341,15 @@ public class MenuActions
 	public static void setThreadsAndBlenders()
 	{		
  		String[] qualityOpts = { "normal","draft" };
-		MComboBox quality = new MComboBox( "Render quality", 75, qualityOpts );
+		MComboBox quality = new MComboBox( "Render quality", qualityOpts );
 
 		MInputArea qArea = new MInputArea( "Quality" );
 		qArea.add( quality );
 		
 		String[] mboptions = { "on","off" };
-		MComboBox globalMB = new MComboBox( "Global motion blur", 75, mboptions );
+		MComboBox globalMB = new MComboBox( "Global motion blur", mboptions );
 
-		MComboBox passes = new MComboBox( "Render passes", 75,  Blender.selectablePassesOpts );
+		MComboBox passes = new MComboBox( "Render passes", Blender.selectablePassesOpts );
 		int selIndex = 0;
 		int origVal = Blender.getPasses();
 		for( int i = 0; i < Blender.selectablePasses.length; i++ )
@@ -1385,15 +1364,15 @@ public class MenuActions
 		mbArea.add( angle );
 		
 		//--- Quality and size
-		int LEFT = 190;
-		int RIGHT = 160;
+		//int LEFT = 190;
+		//int RIGHT = 160;
  		String[] threadOpts = { "1","2", "3", "4" };
-		MComboBox threads = new MComboBox( "Threads", LEFT, RIGHT, threadOpts );
+		MComboBox threads = new MComboBox( "Threads", threadOpts );
 		int currentThreads = RenderModeController.getRenderThreadsCount();
 		threads.setSelectedIndex( currentThreads - 1 );
 
  		String[] blenderOpts = { "1","2", "3", "4" };
-		MComboBox blenders = new MComboBox( "Blenders", LEFT, RIGHT, blenderOpts );
+		MComboBox blenders = new MComboBox( "Blenders", blenderOpts );
 		int currentBlenders = RenderModeController.getBlendersCount();
 		blenders.setSelectedIndex( currentBlenders - 1 );
 

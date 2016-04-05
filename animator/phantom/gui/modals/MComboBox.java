@@ -35,25 +35,13 @@ public class MComboBox extends MInputField
 		initPanels();
 	}
 	
+	 
 	public MComboBox(String msg,  int leftSize, int rightSize, String[] options )
 	{
 		setLeftAsLabel( msg );
 		comboBox = new JComboBox<String>( options );
 		this.rightComponent = comboBox;
-		initPanels();
-	}
-	
-	public MComboBox( String msg, int cutRightPix, String[] options )
-	{
-		//--- Text field
-		setLeftAsLabel( msg );
-
-		//--- Set up edit field.
-		comboBox = new JComboBox<String>( options );
-		
-		this.rightComponent = comboBox;
-		
-		initPanels();
+		initGUIWithSizes( leftSize, rightSize );
 	}
 
 	public void addActionListener( MActionListener l ){ comboBox.addActionListener( l ); }

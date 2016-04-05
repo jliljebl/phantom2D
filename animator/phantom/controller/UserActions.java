@@ -19,6 +19,7 @@ package animator.phantom.controller;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import java.awt.Cursor;
 import java.io.File;
 import java.util.Vector;
 
@@ -52,6 +53,8 @@ public class UserActions
 			File[] addFiles = GUIUtils.addFiles( GUIComponents.getAnimatorFrame(), "Select files", fileType );
 			if( addFiles == null ) return;
 
+			GUIComponents.animatorFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			
 			//--- Create new FileSources.
 			Vector<FileSource> addFileSources = new Vector<FileSource>();
 			Vector<File> movies = new Vector<File>();
@@ -97,6 +100,7 @@ public class UserActions
 		}
 		catch( Exception e )
 		{
+			GUIComponents.animatorFrame.setCursor(Cursor.getDefaultCursor());
 					String[] buttons = {"Ok"};
 					String[] bLines = { "File import failed" };
 					String[] tLines = {  "Phantom2D is unable to complete file import.",
@@ -104,6 +108,7 @@ public class UserActions
 								"files of a type that is not supported by Phantom2D." };
 					DialogUtils.showTwoTextStyleDialog( JOptionPane.WARNING_MESSAGE, null, buttons, bLines, tLines );
 		}
+		GUIComponents.animatorFrame.setCursor(Cursor.getDefaultCursor());
 	}
 
 	public static void displayWrongFileChars( String fileName, String wrongChar )
@@ -229,8 +234,8 @@ public class UserActions
 		for( int i = 1; i < parentIops.size() + 1; i++ )
 			options[ i ] = parentIops.elementAt( i - 1 ).getName();
 
-		MComboBox parents = new MComboBox( "Select movement parent", 75, options );
-		MComboBox actions = new MComboBox( "Child follows", 75, AbstractParentMover.types );
+		MComboBox parents = new MComboBox( "Select movement parent", options );
+		MComboBox actions = new MComboBox( "Child follows", AbstractParentMover.types );
 		parents.setSelectedIndex( pselindex );
 		actions.setSelectedIndex( typeselindex );
 	
@@ -239,7 +244,7 @@ public class UserActions
 		area.add( actions );
 
 		//String[] loopOptions = { "no looping","loop","ping-pong" };
-		MComboBox looping = new MComboBox( "Select looping mode", 75, loopOptions );
+		MComboBox looping = new MComboBox( "Select looping mode", loopOptions );
 		looping.setSelectedIndex( iop.getLooping() );
 
 		MInputArea larea = new MInputArea( "Looping" );
@@ -296,7 +301,7 @@ public class UserActions
 	public static void manageLoopSettings( ImageOperation iop )
 	{
 		//String[] loopOptions = { "no looping","loop","ping-pong" };
-		MComboBox looping = new MComboBox( "Select looping mode", 75, loopOptions );
+		MComboBox looping = new MComboBox( "Select looping mode", loopOptions );
 		looping.setSelectedIndex( iop.getLooping() );
 
 		MInputArea larea = new MInputArea( "Looping" );

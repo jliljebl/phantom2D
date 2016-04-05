@@ -143,7 +143,7 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		framename.setTextFieldSize( 160 );
 
 		String[] padOtps = { "3 digits","4 digits","5 digits", "no padding" };
-		MComboBox pad = new MComboBox( "Zero padding", 75, padOtps );		
+		MComboBox pad = new MComboBox( "Zero padding", padOtps );		
 		MCheckBox overWrite = new MCheckBox( "Overwrite without warning", true );
 
 		//--- build panels and layout

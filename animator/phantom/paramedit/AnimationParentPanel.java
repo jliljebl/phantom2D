@@ -26,6 +26,7 @@ public class AnimationParentPanel extends JPanel implements ActionListener
 	private MComboBox looping;
 
 	private boolean initializing = true;
+	private static final int MAX_NAME_LENGTH = 20;
 	
 	public AnimationParentPanel( ImageOperation iop )
 	{
@@ -46,11 +47,17 @@ public class AnimationParentPanel extends JPanel implements ActionListener
 		String[] options = new String[parentIops.size() + 1];
 		options[ 0 ] = "none";
 		for( int i = 1; i < parentIops.size() + 1; i++ )
-			options[ i ] = parentIops.elementAt( i - 1 ).getName();
-
-		parents = new MComboBox( "Animation parent", 75, options );
+		{
+			String name = parentIops.elementAt( i - 1 ).getName();
+			if (name.length() > MAX_NAME_LENGTH)
+			{
+				name = name.substring(0, MAX_NAME_LENGTH - 3) + "...";
+			}
+			options[ i ] = name;
+		}
+		parents = new MComboBox( "Animation parent", 114, 200, options );
 		parents.addActionListener( this );
-		actions = new MComboBox( "Follow", 75, AbstractParentMover.types );
+		actions = new MComboBox( "Follow", AbstractParentMover.types );
 		actions.addActionListener( this );
 		parents.setSelectedIndex( pselindex );
 		actions.setSelectedIndex( typeselindex );
@@ -60,7 +67,7 @@ public class AnimationParentPanel extends JPanel implements ActionListener
 		}
 				
 		String[] loopOptions = { "no looping","loop","ping-pong" };
-		looping = new MComboBox( "Looping mode", 75, loopOptions );
+		looping = new MComboBox( "Looping mode", loopOptions );
 		looping.setSelectedIndex( iop.getLooping() );
 		looping.addActionListener( this );
 
