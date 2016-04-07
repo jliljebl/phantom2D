@@ -48,7 +48,7 @@ public class IOPLibrary
 	private static Vector<ImageOperation> filterIops = new Vector<ImageOperation>();
 	//--- ImageOperation groups
 	private static HashMap<String, String> 
-		groupForIOPName = new HashMap<String, String>();
+		groupForClassName = new HashMap<String, String>();
 
 	public static void registerGroup( String groupName )
 	{
@@ -63,14 +63,14 @@ public class IOPLibrary
 		putToGroup( iop, group );
 		if( iop.makeAvailableInFilterStack == true )
 			filterIops.add( iop );
-		groupForIOPName.put(iop.getName(), group );
+		groupForClassName.put(iop.getClass().getName(), group );
 	}
 
 	public static void registerPlugin( PhantomPlugin plugin, String group )
 	{
 		savePlugin( plugin );
 		putToGroup( plugin, group );
-		groupForIOPName.put(plugin.getIOP().getName(), group );
+		groupForClassName.put(plugin.getIOP().getClass().getName(), group );
 	}
 
 	public static void registerNonUserPlugin( PhantomPlugin plugin )
@@ -155,17 +155,17 @@ public class IOPLibrary
 
 	public static int getBoxType( ImageOperation iop )
 	{
-		String group = groupForIOPName.get(iop.getName());
-		System.out.println("Group:" + group);
+		//String group = groupForClassName.get(iop.getClass().getName());
+		//System.out.println("Group:" + group);
 		if ( iop.getFileSource() != null )
 			return BOX_SOURCE;
 		else if (iop.isOutput() == true  )
 			return BOX_SOURCE;
-		else if ( groupForIOPName.get(iop.getName()).equals( "Source") == true || groupForIOPName.get(iop.getName()).equals( "Render") == true )
+		else if ( groupForClassName.get(iop.getClass().getName()).equals( "Source") == true || groupForClassName.get(iop.getClass().getName()).equals( "Render") == true )
 			return BOX_SOURCE;
-		else if ( groupForIOPName.get(iop.getName()).equals( "Merge") == true )
+		else if ( groupForClassName.get(iop.getClass().getName()).equals( "Merge") == true )
 			return BOX_MERGE;
-		else if ( groupForIOPName.get(iop.getName()).equals( "Alpha") == true || groupForIOPName.get(iop.getName()).equals( "Mask") == true )
+		else if ( groupForClassName.get(iop.getClass().getName()).equals( "Alpha") == true || groupForClassName.get(iop.getClass().getName()).equals( "Mask") == true )
 			return BOX_ALPHA;
 		else	
 			return BOX_FILTER;
