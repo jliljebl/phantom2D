@@ -20,6 +20,7 @@ package animator.phantom.controller;
 */
 
 import java.awt.Cursor;
+import java.awt.Point;
 import java.io.File;
 import java.util.Vector;
 
@@ -45,7 +46,7 @@ public class UserActions
 {
 	private static String[] loopOptions = { "no looping","loop","ping-pong" };
 
-	public static void addSingleFileSources(int fileType)
+	public static void addSingleFileSources(int fileType, int mouseX, int mouseY)
 	{
 		try
 		{
@@ -91,7 +92,13 @@ public class UserActions
 			{
 				addFS.firstLoadData();
 				addFS.clearData();
-				FlowController.addToCenterFromFileSource( addFS );
+				System.out.println("mouseX");
+				System.out.println(mouseX);
+				System.out.println(mouseY);
+				if (mouseX == -1 )
+					FlowController.addToCenterFromFileSource( addFS );
+				else
+					FlowController.addIOPFromFileSourceRightAway( addFS, new Point( mouseX, mouseY ));
 			}
 			mediaLoadUpdate();
 			

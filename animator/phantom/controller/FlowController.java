@@ -24,8 +24,6 @@ import java.awt.Rectangle;
 import java.util.Collections;
 import java.util.Vector;
 
-import javax.swing.SwingUtilities;
-
 import animator.phantom.gui.flow.FlowBox;
 import animator.phantom.gui.flow.FlowConnectionArrow;
 import animator.phantom.gui.flow.LookUpGrid;
@@ -60,19 +58,15 @@ public class FlowController
 	{
 		// NOTE CODE DUPLICATION nearby methods
 		ImageOperation addIOP = getNewIOPFromSource( fs );
-		SwingUtilities.convertPointFromScreen( screenPoint, GUIComponents.renderFlowPanel );
+		//SwingUtilities.convertPointFromScreen( screenPoint, GUIComponents.renderFlowPanel );
+		System.out.println(screenPoint.x);
+		System.out.println(screenPoint.y);
+		screenPoint.x = screenPoint.x;// 24 is const for finding a new place for box below and to the right.
+		screenPoint.y = screenPoint.y;// 24 is const for finding a new place for box below and to the right.
 		addIOPNow( addIOP, screenPoint );
 
 	}
-	/*
-	public static void addIOPToFilterStack( Point screenPoint )
-	{
-		// NOTE CODE DUPLICATION nearby methods
-		ImageOperation addIOP = GUIComponents.nodesPanel.getSelectedIOP();
-		SwingUtilities.convertPointFromScreen( screenPoint, GUIComponents.renderFlowPanel );
-		addIOPNow( addIOP, screenPoint );
-	}
-	*/
+
 	//--- Adds iop right away near center i flow editor.
 	public static void addToCenterFromFileSource( FileSource fs )
 	{
@@ -83,7 +77,7 @@ public class FlowController
 		addIOPNow( addIOP, p );
 	}
 
-	public static void addFileMergeFromFileSource(  FileSource fs )
+	public static void addFileMergeFromFileSource( FileSource fs )
 	{
 		if( fs == null )
 			return;
@@ -100,10 +94,11 @@ public class FlowController
 		addIOPNow( addIOP, p );
 	}
 
-	private static void addIOPNow( ImageOperation addIOP, Point p )
+	public static void addIOPNow( ImageOperation addIOP, Point p )
 	{
 		addIOP.initIOPTimelineValues();
-		GUIComponents.renderFlowPanel.addIOPRightAway( addIOP, p.x, p.y );
+		Point addP = GUIComponents.renderFlowPanel.getAddPos(p);
+		GUIComponents.renderFlowPanel.addIOPRightAway( addIOP, addP.x, addP.y );
 		ParamEditController.displayEditFrame( addIOP );// ALSO TO INIT PARAM NAMES IN RAW IOPS, plugins do this by them selves
 	}
 

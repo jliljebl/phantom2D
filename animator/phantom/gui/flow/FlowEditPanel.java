@@ -104,6 +104,8 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 	private FlowBox editTargetBox;
 	//--- Box right mouse pop-up
 	private FlowBox popupSource = null;
+	private int mediaPopUpX = 0;
+	private int mediaPopUpY = 0;
 	private  JPopupMenu popup;
 	private  JMenuItem sendToClipEditor;
 	private  JMenuItem deleteNode;
@@ -214,6 +216,13 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		Point viewMiddle = GUIComponents.animatorFrame.getViewPortMiddlePoint();
 		int x = scrollPos.x + viewMiddle.x;
 		int y = scrollPos.y + viewMiddle.y;
+		return getAddPos(new Point(x, y));
+	}
+
+	public Point getAddPos( Point p )
+	{
+		int x = p.x;
+		int y = p.y;
 		FlowBox b = lookUpGrid.getBox( x, y );
 		while( b != null )
 		{
@@ -224,7 +233,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 
 		return new Point( x, y );
 	}
-
+	
 	public void addIOPRightAway( ImageOperation iop, int x, int y )
 	{ 
 		addIOP = iop;
@@ -642,7 +651,8 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		//--- Get mouse coordinates
 		int mouseX = e.getX();
 		int mouseY = e.getY();
-
+		mediaPopUpX = mouseX;
+		mediaPopUpY = mouseY;
 		//--- Check if any box was selected.
 		FlowBox selectedBox = lookUpGrid.getBox( mouseX, mouseY );
 		if( !KeyStatus.ctrlIsPressed() && e.getButton() == MouseEvent.BUTTON1 && selectedBox == null ) 
@@ -820,10 +830,6 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		addImageSequence  = new JMenuItem("Add Image Sequence...");
 		addImageSequence.addActionListener(this);
 		mediaMenu.add( addImageSequence );
-
-
-
-	
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -850,7 +856,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		}
 		if( e.getSource() == cloneNode )
 		{
-			// use copy paste functionality to clone node
+			// use copy paste code to clone node
 			Vector<RenderNode> nodes = getSelectedNodes();
 			Object item = nodes.elementAt( 0 );
 			KeyActionController.setSinglePasteItem( this, item );
@@ -865,13 +871,14 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		if( e.getSource() instanceof IOPMenuItem )
 		{
 			IOPMenuItem source = ( IOPMenuItem ) e.getSource();
-			MenuActions.addIOP( source.getIopClassName() );
+			MenuActions.addIOP( source.getIopClassName(),  new Point(mediaPopUpX, mediaPopUpY) );
 		}
 
 		if( e.getSource() instanceof MediaMenuItem )
 		{
 			MediaMenuItem source =  ( MediaMenuItem ) e.getSource();
-			FlowController.addToCenterFromFileSource( source.getFileSource() );
+			FlowController.addIOPFromFileSourceRightAway( source.getFileSource(), new Point(mediaPopUpX, mediaPopUpY));
+			//FlowController.addToCenterFromFileSource( source.getFileSource() );
 		}
 		if( e.getSource() == addImage )
 		{
@@ -879,7 +886,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 			{
 				public void run()
 				{
-					UserActions.addSingleFileSources(FileSource.IMAGE_FILE);
+					UserActions.addSingleFileSources(FileSource.IMAGE_FILE, mediaPopUpX, mediaPopUpY);
 				}
 			}.start();
 		}
@@ -899,7 +906,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 			{
 				public void run()
 				{
-					UserActions.addSingleFileSources(FileSource.VIDEO_FILE);
+					UserActions.addSingleFileSources(FileSource.VIDEO_FILE, mediaPopUpX, mediaPopUpY);
 				}
 			}.start();
 		}

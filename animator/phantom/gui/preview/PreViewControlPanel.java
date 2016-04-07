@@ -39,8 +39,6 @@ import animator.phantom.gui.timeline.TCDisplay;
 
 public class PreViewControlPanel extends JPanel implements ActionListener
 {
-	//private PreViewRangeSelector rangeSelector;
-
 	private JButton render = new JButton( GUIResources.getIcon( GUIResources.renderPreview));
 	private JToggleButton loop = new JToggleButton( GUIResources.getIcon( GUIResources.loop ));
 	private JButton stopPreviewRender = new JButton( GUIResources.getIcon( GUIResources.stopPreviewRender ));
@@ -85,7 +83,6 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 		p2.add( panelsLayout );
 		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
 		add( p2 );
-		//add( normalizedTimeline );
 	}
 
 	public void updatePlayButton()
@@ -96,17 +93,16 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 
 	public void actionPerformed( ActionEvent e )
 	{
-		//--- Test stop and abort before the lock
 		if( e.getSource() == playStop ) PreviewController.playPressed();
 
 		if( e.getSource() == render )
 		{
 			PreviewController.renderAndPlay();
 		}
-		//--- loop
+
 		if( e.getSource() == loop )
 			PreviewController.setLoop( loop.isSelected() );
-		//--- abort
+
 		if( e.getSource() == stopPreviewRender )
 		{
 			PreviewController.abortPreviewRender();
@@ -116,8 +112,8 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 			PreviewController.clear();
 			UpdateController.updateCurrentFrameDisplayers( false );
 		}
-		if( PreviewController.getIsLocked() )return;
-		//--- navigate 
+		if( PreviewController.getIsLocked() ) return;
+
 		if( e.getSource() == toNextFrame )
 		{
 			TimeLineController.changeCurrentFrame( 1 );

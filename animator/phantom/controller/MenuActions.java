@@ -20,6 +20,7 @@ package animator.phantom.controller;
 */
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -815,6 +816,11 @@ public class MenuActions
 		FlowController.addIOPRightAway( addIOP );
 	}
 
+	public static void addIOP( String className, Point p  )
+	{
+		ImageOperation addIOP = IOPLibrary.getNewInstance( className );
+		FlowController.addIOPNow(addIOP, p);
+	}
 	//------------------------------------------------------  Keyframe
 	//--- Clears all keyframes from iop
 	public static void clearAll()

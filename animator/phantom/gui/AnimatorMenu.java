@@ -432,9 +432,6 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		if( e.getSource() == kfPreferences ) MenuActions.keyframePreferences();
 		if( e.getSource() == memorySettings ) MenuActions.setMemorySettings();
 		
-		//--------------------------------------------- View menu
-		//if( e.getSource() == viewEditorHeight ) MenuActions.setViewHeight();
-		//if( e.getSource() == flowEditorWidth ) MenuActions.setFlowWidth();
 
 		//--------------------------------------------- Media menu
 		if( e.getSource() == addImage )
@@ -443,7 +440,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			{
 				public void run()
 				{
-					UserActions.addSingleFileSources(FileSource.IMAGE_FILE);
+					UserActions.addSingleFileSources(FileSource.IMAGE_FILE, -1, -1);
 				}
 			}.start();
 		}
@@ -463,7 +460,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			{
 				public void run()
 				{
-					UserActions.addSingleFileSources(FileSource.VIDEO_FILE);
+					UserActions.addSingleFileSources(FileSource.VIDEO_FILE, -1, -1);
 				}
 			}.start();
 		}
@@ -472,7 +469,13 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			MediaMenuItem source =  ( MediaMenuItem ) e.getSource();
 			FlowController.addToCenterFromFileSource( source.getFileSource() );
 		}
-
+		
+		if( e.getSource() instanceof IOPMenuItem )
+		{
+			IOPMenuItem source = ( IOPMenuItem )e.getSource();
+			MenuActions.addIOP( source.getIopClassName() );
+		}
+		
 		//-------------------------------------------------- Render menu.
 		if( e.getSource() == threadsSettings ) MenuActions.setThreadsAndBlenders();
 		if( e.getSource() == previewCurrent ) PreviewController.renderAndDisplayCurrent();
@@ -480,18 +483,9 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		if( e.getSource() == previewFromCurrent ) PreviewController.renderAndPlayRange( TimeLineController.getCurrentFrame(), ProjectController.getLength() - 1 );
 		if( e.getSource() == renderMovie ) RenderModeController.writeMovie();
 
-				
-		//--------------------------------------------------- ImageOperation
-		if( e.getSource() instanceof IOPMenuItem )
-		{
-			IOPMenuItem source = ( IOPMenuItem )e.getSource();
-			MenuActions.addIOP( source.getIopClassName() );
-		}
-
 		//----------------------------------------------------- Help menu
 		if( e.getSource() == keyboardShortcuts  ) MenuActions.displayKeyboardShortcuts();
 		if( e.getSource() == about ) MenuActions.displayAbout();
-
 	}
 
 }//end class
