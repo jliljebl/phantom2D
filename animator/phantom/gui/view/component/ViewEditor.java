@@ -53,7 +53,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	private Dimension screenSize;
 	//--- Minimum size of component.
 	private Dimension scaledScreensize;
-	//---
+	//--- Value is MovieRenderer constant like MovieRenderer.DOUBLE_SIZE
 	private int size;
 	//--- Current size of panel.
 	private Dimension componentSize;
@@ -143,7 +143,10 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		float newScale = getFloatSize( size_ );
 		setScale( newScale );
 	}
-	//--- used by two methods
+	public int getScreenSize()
+	{
+		return size;
+	}
 	private float getFloatSize( int size )
 	{
 		float newScale = 1.0f;
@@ -159,7 +162,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		if( size == MovieRenderer.THIRD_SIZE ) newScale = 0.33f;
 		return newScale;
 	}
-	//--- Quick change size it is then rendered to eliminate timing bugs
+	//--- Quick change size it is then rendered to eliminate timing bugs (very wtf comment, but this is still probably needed)
 	public void quickChangeSize( int size_ )
 	{
 		if( bgImg == null )
@@ -577,7 +580,6 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	{
 		this.previewDisplay = true;
 		this.firstPreviewFrame = true;
-		//setScale( 1.0f );
 	}
 
 	public void setViewEditorDisplay()
@@ -597,7 +599,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	{
 		if( previewDisplay )
 		{
-			drawPreviewFrame( g );
+			drawPreviewFrame( (Graphics2D) g );
 			return;
 		}
 
@@ -708,7 +710,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		fullRender = true;
 	}
 
-	private void drawPreviewFrame( Graphics g )
+	private void drawPreviewFrame( Graphics2D g )
 	{
 		if( firstPreviewFrame )
 		{

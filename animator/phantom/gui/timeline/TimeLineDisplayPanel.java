@@ -31,6 +31,7 @@ import java.awt.geom.Line2D;
 
 import javax.swing.JPanel;
 
+import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.TimeLineController;
@@ -129,7 +130,7 @@ public class TimeLineDisplayPanel extends JPanel implements MouseListener, Mouse
 		drawTimelineScale( g2 );
 		
 		//--- Draw preview area
-		if( PreviewController.getStartFrame() != -1 )
+		if( PreviewController.getStartFrame() != -1  && PreviewController.getCurrentPreviewSize() == GUIComponents.viewEditor.getScreenSize())
 		{
 			int inX = Math.round( pixPerFrame * 
 				( PreviewController.getStartFrame() - timeLinePos ) );

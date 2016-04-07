@@ -97,8 +97,6 @@ public class GUIComponents
 	//--- 
 	public static FilterStackPanel filterStackPanel;
 
-	//public static JSlider kfVertSlider;
-	//public static JSlider clipVertSlider;
 	//---
 	public static NormalizedTimelineDisplay normTlineDisp;
 	public static TimeLineControls tlineControls;

@@ -194,9 +194,6 @@ public class EditorsController
 		//--- we might get something wrong
 		GUIComponents.viewEditor.setScreenSize( size );
 		Dimension scalesPos = GUIComponents.viewEditor.getScalesCenterPosition(GUIComponents.viewScrollPane.getSize());
-		System.out.println("SCALES");
-		System.out.println(scalesPos.width);
-		System.out.println(scalesPos.height);
 		GUIComponents.viewScrollPane.getHorizontalScrollBar().setValue(scalesPos.width);
 		GUIComponents.viewScrollPane.getVerticalScrollBar().setValue(scalesPos.height);
 		displayCurrentInViewEditor( false );

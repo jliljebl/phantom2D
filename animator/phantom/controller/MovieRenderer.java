@@ -198,7 +198,6 @@ public class MovieRenderer
 		return new Vector<BufferedImage>(); 
 	}
 
-
 	//--- Returns image in user specified size.
 	public static BufferedImage getImageInSize( BufferedImage img, int size )
 	{

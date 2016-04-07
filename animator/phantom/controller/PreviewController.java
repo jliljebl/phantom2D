@@ -29,7 +29,8 @@ public class PreviewController
 {
 	//--- Preview params.
 	private static boolean displayWhenRendering = true;
-	private static int renderSize = MovieRenderer.FULL_SIZE;
+	private static int renderSize = MovieRenderer.FULL_SIZE; // used for View Editor current frame
+	private static int previewSize  = MovieRenderer.FULL_SIZE; // used for previews frame
 	private static int quality = RenderModeController.NORMAL;
 	
 	//--- Rendering
@@ -56,7 +57,7 @@ public class PreviewController
 	private static long lastFrameTime;
 	private static int timesMissed;
 	private static long FRAME_MISS_THRESHOLD = 5;
-
+	
 	public static void reset()
 	{
 		locked = false;
@@ -172,7 +173,7 @@ public class PreviewController
 		
 		Application.setCurrentRenderType( Application.PREVIEW_RENDER );
 
-		int previewSize = GUIComponents.viewControlButtons.getViewSize();
+		previewSize = GUIComponents.viewControlButtons.getViewSize();
 		
 		movieRenderer = new MovieRenderer(  ProjectController.getFlow(), previewSize, RenderModeController.getRenderThreadsCount() );
 		movieRenderer.setUpdateRange( true );
@@ -191,6 +192,11 @@ public class PreviewController
 		// Controls will be unlocked when movie stopped.
 	}
 
+	public static int getCurrentPreviewSize()
+	{
+		return previewSize;
+	}
+	
 	//--- Abort handling start.
 	//--- This is called when user pushes stop button
 	public static void abortPreviewRender()
@@ -238,6 +244,11 @@ public class PreviewController
 	//--- Starts displaying frames from current frame.
 	public static void playFromCurrent()
 	{
+		if (startFrame == -1 || previewSize !=  GUIComponents.viewEditor.getScreenSize())
+		{
+			renderAndPlay();
+			return;
+		}
 		playbackOn = true;
 		GUIComponents.viewEditor.setPreviewDisplay();
 		GUIComponents.previewControls.updatePlayButton();
@@ -286,7 +297,7 @@ public class PreviewController
 		}
 		else
 		{
-			//--- Begin playback, set some values. Don't anvance but display current frame.
+			//--- Begin playback, set some values. Don't advance but display current frame.
 			playbackStart = System.currentTimeMillis();
 			lastFrameTime = playbackStart;
 			firstFrame = false;
