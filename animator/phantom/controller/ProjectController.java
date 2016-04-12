@@ -38,10 +38,13 @@ public class ProjectController
 	//--- Flag to turn motion blur off globally, transient, affects preview render only.
 	private static boolean motionBlur = true;
 	//--- Clears all class data members.
+	private static String loadPath = null;
+	
 	public static void reset()
 	{
 		project = null;
 		motionBlur = true;
+		loadPath = null;
 	}
 	//--- sets project to be edited
 	public static void setProject( Project newProject )
@@ -49,6 +52,15 @@ public class ProjectController
 		//--- Set project.
 		project = newProject;
 	}
+	public static void setLoadPath( String path )
+	{
+		loadPath = path;
+	}
+	public static String getLoadPath()
+	{
+		return loadPath;
+	}
+	
 	//--- returns current project
 	public static Project getProject(){ return project; }
 	//--- Get and set for global motion blur

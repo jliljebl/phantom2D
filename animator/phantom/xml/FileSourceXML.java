@@ -20,9 +20,12 @@ package animator.phantom.xml;
 */
 
 import java.io.File;
+import java.util.Vector;
 
 import org.w3c.dom.Element;
 
+import animator.phantom.controller.AppUtils;
+import animator.phantom.controller.ProjectController;
 import animator.phantom.renderer.FileSequenceSource;
 import animator.phantom.renderer.FileSingleImageSource;
 import animator.phantom.renderer.FileSource;
@@ -47,6 +50,7 @@ public class FileSourceXML extends AbstractXML
 		fs.setID( getInt( e, "id" ) );
 		fs.setType( type );
 		String path = e.getAttribute( "file" );
+		path = getFromSubFolderIfMissing( path );
 		fs.setFile( new File( path ) );
 		if( !fs.getFile().exists() )
 			System.out.println("FileSource file does not exist, path" + fs.getFile().getAbsolutePath() );
@@ -90,12 +94,34 @@ public class FileSourceXML extends AbstractXML
 		
 		if (fileSource.getType() == FileSource.VIDEO_FILE)
 		{
-			VideoClipSource vcs = (VideoClipSource )fileSource;
+			VideoClipSource vcs = (VideoClipSource ) fileSource;
 			e.setAttribute( "length", intStr( vcs.getLength() ) );
 			e.setAttribute( "MD5id",  vcs.getMD5id() );
 		}
 		 
 		return e;
+	}
+
+	private static String getFromSubFolderIfMissing( String path )
+	{
+		File f = new File(path);
+		if(f.exists() && !f.isDirectory())
+			return path;
+
+		File projectFile = new File( ProjectController.getLoadPath() );
+		String parentDir = projectFile.getParentFile().getAbsolutePath();
+		String fileName = f.getName();
+		
+		Vector<File> dirFiles = AppUtils.getAllFilesRecursively( parentDir );
+		for (File lookUpFile : dirFiles)
+		{
+			System.out.println(lookUpFile.getName() );
+			if ( !lookUpFile.isDirectory() && lookUpFile.getName().equals(fileName))
+			{
+				return lookUpFile.getAbsolutePath();
+			}
+		}
+		return path;
 	}
 
 }//end class

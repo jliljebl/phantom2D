@@ -85,8 +85,7 @@ public class Application implements WindowListener
 		System.out.println( "//----------------------- THREADED BRACH -------------------------------//" );
 
 		System.out.println("LD Library Path:" + System.getProperty("java.library.path"));
-
-
+				
 		//--- Lets find out where we are and set paths.
 		ClassLoader loader = getClass().getClassLoader();
 		URL urlToThisClass = loader.getResource( CLASS_PATH_TO_THIS );

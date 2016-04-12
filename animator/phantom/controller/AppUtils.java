@@ -22,6 +22,7 @@ package animator.phantom.controller;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.io.File;
+import java.util.Vector;
 
 
 //--- Misc. Util methods used somewhere in application
@@ -132,4 +133,31 @@ public class AppUtils
 		return null;
 	}
 
+	public static Vector<File> getAllFilesRecursively( String path ) 
+	{
+
+	        File root = new File( path );
+	        File[] files = root.listFiles();
+	        if (files == null) return null;
+	        Vector<File> list = new Vector<File>();
+
+	        for ( File f1 : files ) 
+	        	list.add( f1 );
+	        
+	        Vector<File> addlist = new Vector<File>();
+	        for ( File f : list ) 
+	        {
+	            if ( f != null && f.isDirectory() ) {
+	            	Vector<File> dirList = getAllFilesRecursively( f.getAbsolutePath() );
+	    	        for ( File f2 : dirList ) 
+	    	        	addlist.add( f2 );
+	            }
+	        }
+	        
+	        for ( File f : addlist ) 
+	        	list.add( f );
+	        
+	        return list;
+	}
+	 
 }//end class

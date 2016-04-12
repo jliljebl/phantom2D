@@ -111,6 +111,7 @@ public class MenuActions
 		final File loadFile = f;
 		EditorPersistance.addRecent( loadFile );
 		EditorPersistance.write();
+		ProjectController.setLoadPath( loadFile.getAbsolutePath() );
 		final Document doc = PhantomXML.loadXMLDoc( loadFile.getAbsolutePath() );
 
 		new Thread()
@@ -119,7 +120,7 @@ public class MenuActions
 			{
 				loadWindow = new FileLoadWindow( GUIComponents.animatorFrame, loadFile.getName() );
 				Project project = PhantomXML.loadProject( doc );
-				project.setSaveFile( loadFile );
+				project.setSaveFile( new File (loadFile.getAbsolutePath()) );
 				Application.getApplication().openProject( project );
 				loadWindow.setVisible( false );
 				loadWindow = null;
