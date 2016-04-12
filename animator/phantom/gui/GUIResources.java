@@ -118,6 +118,7 @@ public class GUIResources
 	public static String trashPreviewRender = resourcePath + "trashPreview.png";
 	public static String noPreview = resourcePath +	"noPreview.png";
 	public static String lockIcon = resourcePath + "lockIcon.png";
+	public static String noFileSource = resourcePath + "noFileSource.png";
 
 	//--- Switches + source buttons
 	public static String motionBlurLabel = resourcePath + "motionBlur.png";

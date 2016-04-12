@@ -79,6 +79,7 @@ public class FlowBox implements FlowGraphic, Comparable<Object>
 	private static BufferedImage flowBGFilter  = GUIResources.getResourceBufferedImage( GUIResources.flowBoxBGFilter );
 	private static BufferedImage flowBGMerge  = GUIResources.getResourceBufferedImage( GUIResources.flowBoxBGMerge );
 	private static BufferedImage flowBGAlpha  = GUIResources.getResourceBufferedImage( GUIResources.flowBGAlpha );
+	private static BufferedImage noFileSource  = GUIResources.getResourceBufferedImage( GUIResources.noFileSource );
 	
 	//--- Vector for x pos for different numbers of connection points. 
 	private static Vector<int[]> POINTS_X_POSITIONS = new Vector<int[]>();
@@ -349,12 +350,21 @@ public class FlowBox implements FlowGraphic, Comparable<Object>
 	}
 
 	//------------------------------------------------------------- GRAPHICS
-	//--- Draws the box in coorect state on given Graphics object.
+	//--- Draws the box in correct state on given Graphics object.
 	public void draw( Graphics g )
 	{
 		if( isMoving ) g.drawImage( moving, x, y, null );
 		else if( isSelected ) g.drawImage( normalSelected, x, y, null );
 		else g.drawImage( normal, x, y, null );
+		
+		if (renderNode.getImageOperation().getFileSource() != null )
+		{
+			if (renderNode.getImageOperation().getFileSource().hasResourceAvailable() == false)
+			{
+				 g.drawImage( noFileSource, x - 2, y - 5, null );
+			}
+			
+		}
 	}
 
 	public Rectangle getArea()

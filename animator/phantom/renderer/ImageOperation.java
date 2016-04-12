@@ -205,7 +205,7 @@ public abstract class ImageOperation implements Comparable<Object>
 
 	//--- animatedCoordinates access lock. Used to prevent bugs caused by the way that parenting is implemented.
 	private Object acLock = new Object();
-	//--- Used by FraneRenderer.
+	//--- Used by FrameRenderer.
 	private boolean isLeaf = false;
 	
 	//--- GUI stuff

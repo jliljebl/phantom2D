@@ -53,7 +53,10 @@ public class FileSourceXML extends AbstractXML
 		path = getFromSubFolderIfMissing( path );
 		fs.setFile( new File( path ) );
 		if( !fs.getFile().exists() )
+		{
 			System.out.println("FileSource file does not exist, path" + fs.getFile().getAbsolutePath() );
+			fs.setResourceAvailable( false );
+		}
 		String path2 = e.getAttribute( "file2" );
 		if( !path2.equals("null") ) 
 			fs.setFile2( new File( path2 ) );
@@ -63,7 +66,6 @@ public class FileSourceXML extends AbstractXML
 		fs.setImageWidth( getInt( e, "imgwidth" ) );
 		fs.setImageHeight( getInt( e, "imgheight" ) );
 
-		//--- Initilize sequnece sources
 		if( type == FileSource.IMAGE_SEQUENCE ) 
 			((SequencePlaybackSource )fs).loadInit();
 

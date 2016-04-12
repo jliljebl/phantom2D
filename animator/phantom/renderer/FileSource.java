@@ -54,7 +54,6 @@ public abstract class FileSource implements Comparable<Object>
 	private static String [] descs = { "BITMAP IMAGE","BITMAP IMAGE SEQUENCE","VIDEO FILE" };
 	protected static ImageIcon noFileIcon;
 	
-	//--- This is se t false when resource access fails
 	protected boolean hasResourceAvailable = true;
 
 	static
