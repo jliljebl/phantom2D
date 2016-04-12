@@ -46,6 +46,8 @@ import animator.phantom.gui.timeline.TimeLineEditorPanel;
 import animator.phantom.gui.timeline.TimeLineIOPColumnPanel;
 import animator.phantom.gui.view.component.ViewControlButtons;
 import animator.phantom.gui.view.component.ViewEditor;
+import animator.phantom.gui.view.component.ViewSizeSelector;
+//import animator.phantom.gui.view.component.ViewSizeSelector;
 import animator.phantom.paramedit.FilterStackPanel;
 
 //--- Class to hold references to all GUI components.
@@ -84,6 +86,7 @@ public class GUIComponents
 	public static PreViewControlPanel previewControls;
 	//--- Static view control buttons.
 	public static ViewControlButtons viewControlButtons;
+	public static ViewSizeSelector viewSizeSelector;
 	//--- Panel containing file handling panels.
 	//public static BinsAreaPanel binsPanel;
 	//--- toplevel for rendering info and progrewss
@@ -106,7 +109,6 @@ public class GUIComponents
 	
 	public static void reset()
 	{
-		//projectPanel = null;
 		animatorMenu = null;
 		renderFlowPanel = null;
 		viewEditor = null;

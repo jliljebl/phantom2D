@@ -52,7 +52,8 @@ public class EditorsController
 	private static AnimationKeyFrame currentKF = null;
  	private static KeyFrameParam currentKFParam = null;
 
-
+ 	private static Dimension viewEditorSize = null;
+ 	
 	//--- VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR
 	//--- VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR
 	//--- VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR
@@ -187,6 +188,8 @@ public class EditorsController
 	//--- Sets view editor size
 	public static void setViewSize( int size )	
 	{ 
+		System.out.println(size);
+		System.out.println("BBsize");
 		GUIComponents.viewEditor.quickChangeSize( size );
 
 		//bar.setValue( (bar.getMaximum() - bar.getVisibleAmount() - bar.getMinimum()) / 2 );
@@ -197,6 +200,36 @@ public class EditorsController
 		GUIComponents.viewScrollPane.getHorizontalScrollBar().setValue(scalesPos.width);
 		GUIComponents.viewScrollPane.getVerticalScrollBar().setValue(scalesPos.height);
 		displayCurrentInViewEditor( false );
+	}
+
+	/*
+	public static int getMaxFullViewSelectionIndex()
+	{
+		float[] scales =  GUIComponents.viewSizeSelector.getSizeSelectionsScales();
+		int maxSelIndex = 0;
+		Dimension viewPortSize = GUIComponents.animatorFrame.getViewEditorSize();
+		Dimension screenSize = ProjectController.getScreenSize();
+		for (int i = 8; i >= 0; i--)
+		{
+			float scale = scales[i];
+			if ((viewPortSize.width > screenSize.width * scale ) && (viewPortSize.height > screenSize.height  * scale))
+			{
+				maxSelIndex = i;
+			}
+
+		}
+
+		return  maxSelIndex;
+	}
+	*/
+	public static Dimension getViewEditorSize()
+	{
+		return viewEditorSize;
+	}
+
+	public static void setViewEditorSize(Dimension newSize)
+	{
+		viewEditorSize = newSize;
 	}
 
 	//--- Sets view mode: FLOW_VIEW, LAYER_VIEW, SELECT_VIEW or TARGET_VIEW

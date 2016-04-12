@@ -30,28 +30,68 @@ import javax.swing.JPanel;
 
 import animator.phantom.controller.EditorsController;
 import animator.phantom.controller.MovieRenderer;
+import animator.phantom.controller.ProjectController;
 import animator.phantom.gui.GUIResources;
 
 public class ViewSizeSelector extends JPanel implements ActionListener
 {
 	private JComboBox<String> comboBox;
 	private String[] options = {"200%","175%","150%","125%","100%","75%","50%","33%","25%"};
-	
+	private float[] scales = {2.0f,1.75f,1.5f,1.25f,1.0f,0.75f,0.5f,0.33f,0.25f};
 	public ViewSizeSelector()
 	{
 		comboBox = new JComboBox<String>( options );
-		comboBox.setSelectedIndex( 2 );
+		comboBox.setSelectedIndex( getProjectFullViewSelectionIndeX() );
 		comboBox.addActionListener( this );
 		comboBox.setFont( GUIResources.TOP_LEVEL_COMBO_FONT );
 		comboBox.setPreferredSize( new Dimension( 68, 24 ));
 		
-
 		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
 		add( Box.createVerticalGlue() );
 		add( comboBox );
 		add( Box.createVerticalGlue() );
 	}
 
+	private int getProjectFullViewSelectionIndeX()
+	{
+		int maxSelIndex = 0;
+		Dimension viewPortSize = EditorsController.getViewEditorSize();
+		
+		// This may not be available at launch, we need some default value
+		if (viewPortSize ==  null)
+		{
+			return 6;// 75%
+		}
+		
+		Dimension screenSize = ProjectController.getScreenSize();
+		for (int i = 8; i >= 0; i--)
+		{
+			float scale = scales[i];
+			if ((viewPortSize.width > screenSize.width * scale ) && (viewPortSize.height > screenSize.height  * scale))
+			{
+				maxSelIndex = i;
+			}
+		}
+		System.out.println("maxSelIndex");
+		System.out.println(maxSelIndex);
+		return  maxSelIndex;
+	}
+	/*
+	public float[] getSizeSelectionsScales()
+	{
+		return scales;
+	}
+	*/
+	public void setSelected( int index)
+	{
+		comboBox.setSelectedIndex( index );
+	}
+	
+	public int getSelectionIndex()
+	{
+		return comboBox.getSelectedIndex();
+	}
+	
 	public void zoomIn()
 	{
 		int selected = comboBox.getSelectedIndex();
@@ -78,7 +118,7 @@ public class ViewSizeSelector extends JPanel implements ActionListener
  		return getMovieRendererSize( comboBox.getSelectedIndex() ); 
  	}
  	
- 	private int getMovieRendererSize( int selectedIndex )
+ 	public int getMovieRendererSize( int selectedIndex )
  	{
 		int size = 0;
 		if( selectedIndex == 0 ) size = MovieRenderer.DOUBLE_SIZE;

@@ -123,7 +123,8 @@ public class AnimatorFrame extends JFrame implements ActionListener
 
 	private JPanel screenViewsPanel;
 	private JPanel viewPanel;
-
+	private JScrollPane viewScrollPane;
+	
 	private JPanel editSwitchButtons;
 
 	private boolean initializing = false;
@@ -197,7 +198,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 
 		ViewControlButtons viewControlButtons = new ViewControlButtons(screenViewsPanel);
 
-		JScrollPane viewScrollPane = new JScrollPane( viewEdit,
+		viewScrollPane = new JScrollPane( viewEdit,
 			 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 			 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 
@@ -529,6 +530,11 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	//--- Returns view port size.
 	public Dimension getViewPortSize(){ return flowViewPort.getExtentSize(); }
 
+	public Dimension getViewEditorSize()
+	{	
+		return viewScrollPane.getViewport().getExtentSize();
+	}
+	
 	//--- Used to avoid opening flicker.
 	public class MinimizeSetTimer extends Timer
 	{

@@ -75,6 +75,7 @@ public class GUIColors
 	public static Color sourceClipColor = new Color( 149, 152, 79 );
 	public static Color mergeClipColor = new Color( 59, 89, 91 );
 	public static Color filterClipColor = new Color( 119, 123, 190 );
+	public static Color alphaClipColor = new Color( 50, 50, 50 );
 
 	//--- Keyframe editor
 	public static Color KF_LINES_COLOR = Color.gray;

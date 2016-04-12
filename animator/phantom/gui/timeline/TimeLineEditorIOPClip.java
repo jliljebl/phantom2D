@@ -73,6 +73,8 @@ public class TimeLineEditorIOPClip
 			clipColor = GUIColors.sourceClipColor;
 		else if ( boxType == IOPLibrary.BOX_MERGE )
 			clipColor = GUIColors.mergeClipColor;
+		else if ( boxType == IOPLibrary.BOX_ALPHA )
+			clipColor = GUIColors.alphaClipColor;
 		else
 			clipColor = GUIColors.filterClipColor;
 	}

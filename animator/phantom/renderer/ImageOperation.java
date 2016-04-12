@@ -240,7 +240,6 @@ public abstract class ImageOperation implements Comparable<Object>
 		BufferedImage imgCopy = PluginUtils.getImageClone( img );
 		Vector<ImageOperation> filterStack = iop.getFilterStack();
 
-
 		BigImageStaticBlender blender = null;
 
 		for( int i = 0; i < filterStack.size(); i++ )

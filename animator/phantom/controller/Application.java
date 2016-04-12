@@ -201,6 +201,13 @@ public class Application implements WindowListener
 		//--- Block cache updates
 		projectLoading = true;
 
+		//--- Save view editor size for auto size setting for project dimensions.
+		if (GUIComponents.animatorFrame != null)
+		{
+			Dimension viewPortSize = GUIComponents.animatorFrame.getViewEditorSize();
+			EditorsController.setViewEditorSize(viewPortSize);
+		}
+		
 		//--- (re-)read editor persistance for recent documents
 		if( !inJar )
 			EditorPersistance.read( PERSISTANCE_PATH + EditorPersistance.DOC_NAME, false );
@@ -223,15 +230,6 @@ public class Application implements WindowListener
 		IOPLibraryInitializer.init();
 		TimeLineController.init();
 
-		/*
-		//--- Load plugins once IF NOT LOADED
-		//--- Here because iops need a loaded project and a initialized Blender to function
-		if( !pluginsLoaded )
-		{
-			PluginController.loadPlugins();
-			pluginsLoaded = true;
-		}
-		*/
 		//--- Undo
 		PhantomUndoManager.init();
 
@@ -245,12 +243,33 @@ public class Application implements WindowListener
 		animatorFrame.setVisible( true );
 		GUIComponents.renderFlowPanel.setIgnoreRepaint( false );// bugs when not visible?
 
-		 ProjectController.updateProjectInfo();
+		ProjectController.updateProjectInfo();
 		 
 		//--- First render for view editor
 		EditorsController.fillViewEditor();
-		EditorsController.displayCurrentInViewEditor( false );
+		
+		/*
+		int fullViewSelIndex = EditorsController.getMaxFullViewSelectionIndex();
+		int currentViewIndex = GUIComponents.viewSizeSelector.getSelectionIndex();
+		//GUIComponents.viewSizeSelector.setSelected(fullViewSelIndex);
+		System.out.println("fullViewSelIndex");
+		System.out.println(fullViewSelIndex);
+		
 
+		if (fullViewSelIndex == currentViewIndex)
+		{
+			EditorsController.displayCurrentInViewEditor( false );
+		}
+		else
+		{
+			GUIComponents.viewSizeSelector.setSelected(fullViewSelIndex);
+			GUIComponents.viewEditor.setScreenSize(GUIComponents.viewSizeSelector.getMovieRendererSize(fullViewSelIndex));
+		}
+		*/
+		
+		EditorsController.displayCurrentInViewEditor( false );
+		int viewSize = GUIComponents.viewSizeSelector. getViewSize();
+		EditorsController.setViewSize( viewSize );	
 		//--- Display loaded clips
 		TimeLineController.addClips( project.getLoadClips() );
 		TimeLineController.initClipEditorGUI();

@@ -227,6 +227,8 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		setLayout( new BoxLayout( this, BoxLayout.X_AXIS));
 
 		setModeButtons(new Vector<Integer>());
+		
+		GUIComponents.viewSizeSelector = viewSizeSelect;
 	}
 
 	//--- Called after layer change to determide visible edit mode buttons.
