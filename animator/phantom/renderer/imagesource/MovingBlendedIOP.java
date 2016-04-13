@@ -125,7 +125,7 @@ public abstract class MovingBlendedIOP extends RenderModeIOP
 		mIop.loadClipValues( getMaxLength(), getBeginFrame(), getClipStartFrame(), getClipEndFrame() );
 		mIop.setFilterStack( getFilterStack() );
 
-		mIop.setName( getName() );
+		//mIop.setName( getName() );
 		mIop.blendMode.set( blendMode.get() );
 		mIop.setOnOffState( isOn() );
 		mIop.backgroundType.set( backgroundType.get() );

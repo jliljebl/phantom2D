@@ -335,7 +335,6 @@ public class DialogUtils
 		else return -1;	
 	}
 
-	
 	private static JLabel getRightLabel( String s )
 	{
 		JLabel l = new JLabel( s );
@@ -346,7 +345,6 @@ public class DialogUtils
 	private static Component getSmallRigid()
 	{
 		return Box.createRigidArea( new Dimension( 10, 0 ) );
-
 	}
-
+	
 }//end class

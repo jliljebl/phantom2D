@@ -31,6 +31,8 @@ import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.gui.modals.MComboBox;
 import animator.phantom.gui.modals.MInputArea;
 import animator.phantom.gui.modals.MInputPanel;
+import animator.phantom.gui.modals.PHDialog;
+import animator.phantom.gui.view.editlayer.ViewEditorLayer;
 import animator.phantom.renderer.FileSequenceSource;
 import animator.phantom.renderer.FileSingleImageSource;
 import animator.phantom.renderer.FileSource;
@@ -128,7 +130,7 @@ public class FlowController
 			ParamEditController.clearEditframe();
 		}
 
-		//--- Remoce from editors.
+		//--- Remove from editors.
 		TimeLineController.removeClipsCorrespondingtoNodes( nodes );
 		EditorsController.removeLayers( nodes );
 		EditorsController.clearKFEditIfNecessery( nodes );
@@ -518,16 +520,20 @@ public class FlowController
 	{
 		MovingBlendedIOP originalIOP = (MovingBlendedIOP) targetNode.getImageOperation();
 		FileSource originalSource = originalIOP.getFileSource();
-		Vector<FileSource> fileSources = ProjectController. getProject().getFileSources();
-		fileSources.remove(originalSource);
-		if (fileSources.size() == 0)
+		Vector<FileSource> projectFileSources = ProjectController.getProject().getFileSources();
+		Vector<FileSource> replacementSources = new Vector<FileSource>(projectFileSources);
+		replacementSources.remove(originalSource);
+		
+		if (replacementSources.size() == 0)
 		{
-			// info 
+			String[] tLines = { "Only one media source found in project.","A media source cannot be replaced with itself.","Add more media sources to project."  };
+			DialogUtils.showTwoStyleInfo( "Media replace not possible", tLines, PHDialog.WARNING_MESSAGE );
 			return;
 		}
- 		String[] media = new String[fileSources.size()];
- 		for (int i = 0; i < fileSources.size(); i++ )
- 			media[i] = fileSources.elementAt(i).getName();
+		
+ 		String[] media = new String[replacementSources.size()];
+ 		for (int i = 0; i < replacementSources.size(); i++ )
+ 			media[i] = replacementSources.elementAt(i).getName();
  			
 		MComboBox replacementMedia = new MComboBox( "Select Replacement Media", media );
 
@@ -540,14 +546,23 @@ public class FlowController
 		int retVal = DialogUtils.showMultiInput( panel, 450, 120 );
 		if( retVal != DialogUtils.OK_OPTION ) return;
 		
-		FileSource replacementFileSource = fileSources.elementAt(replacementMedia.getSelectedIndex());
+		FileSource replacementFileSource = replacementSources.elementAt(replacementMedia.getSelectedIndex());
 		MovingBlendedIOP replacementIOP = (MovingBlendedIOP) getNewIOPFromSource( replacementFileSource );
 	
 		originalIOP.cloneValuesToReplacement(replacementIOP);
 		replacementIOP.loadParentIOP( ProjectController.getFlow() );
 		
 		targetNode.setImageOperation(replacementIOP);
+
+		GUIComponents.viewEditor.removeLayer( originalIOP );
+		ViewEditorLayer layer = replacementIOP.getEditorlayer();
+		if( layer != null )
+		{
+			GUIComponents.viewEditor.addEditlayer( layer );
+		}
 		
+		ParamEditController.displayEditFrame( null );
+		iopNameChanged( targetNode );
 		PreviewController.renderAndDisplayCurrent();
 	}
 

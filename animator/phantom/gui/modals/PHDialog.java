@@ -85,7 +85,7 @@ public class PHDialog extends JDialog implements ActionListener,  WindowListener
 		
 		JPanel topPane = new JPanel();
 		topPane.setLayout( new BoxLayout( topPane, BoxLayout.X_AXIS ));
-		//--- PLAIN_MESSAGE does not get icon
+		//--- PLAIN_MESSAGE does not get warning icon.
 		if( msgType != PLAIN_MESSAGE )
 		{
 			topPane.add( lpane );
