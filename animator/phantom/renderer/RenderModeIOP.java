@@ -35,13 +35,6 @@ public abstract class RenderModeIOP extends ImageOperation
 		return motionBlur;
 	}
 
-	//--- this does nothing and should be removed
-	protected int getCurrentBlendMode()
-	{
-		int blendMode = getBlendMode();
-		return  blendMode;
-	}
-
 	//--- Overrides iop interpolation with global if needed
 	protected int getCurrentInterpolation()
 	{

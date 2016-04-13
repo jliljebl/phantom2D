@@ -188,7 +188,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	public int parentMoverType = -1;
 	//--- Node id of parent.
 	public int parentNodeID = -1;
-	//--- Iop in parent node.
+	//--- Iop in movement parent node
 	public ImageOperation parentIOP = null;
 	//---
 	private AbstractParentMover parentMover = null;

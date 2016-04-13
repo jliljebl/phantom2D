@@ -28,6 +28,9 @@ import animator.phantom.gui.flow.FlowBox;
 import animator.phantom.gui.flow.FlowConnectionArrow;
 import animator.phantom.gui.flow.LookUpGrid;
 import animator.phantom.gui.modals.DialogUtils;
+import animator.phantom.gui.modals.MComboBox;
+import animator.phantom.gui.modals.MInputArea;
+import animator.phantom.gui.modals.MInputPanel;
 import animator.phantom.renderer.FileSequenceSource;
 import animator.phantom.renderer.FileSingleImageSource;
 import animator.phantom.renderer.FileSource;
@@ -36,6 +39,7 @@ import animator.phantom.renderer.RenderNode;
 import animator.phantom.renderer.VideoClipSource;
 import animator.phantom.renderer.imagesource.FileImageSource;
 import animator.phantom.renderer.imagesource.ImageSequenceIOP;
+import animator.phantom.renderer.imagesource.MovingBlendedIOP;
 import animator.phantom.renderer.imagesource.VideoClipIOP;
 import animator.phantom.renderer.plugin.FileImagePatternMergePlugin;
 import animator.phantom.undo.FlowMoveUndoEdit;
@@ -58,9 +62,7 @@ public class FlowController
 	{
 		// NOTE CODE DUPLICATION nearby methods
 		ImageOperation addIOP = getNewIOPFromSource( fs );
-		//SwingUtilities.convertPointFromScreen( screenPoint, GUIComponents.renderFlowPanel );
-		System.out.println(screenPoint.x);
-		System.out.println(screenPoint.y);
+
 		screenPoint.x = screenPoint.x;// 24 is const for finding a new place for box below and to the right.
 		screenPoint.y = screenPoint.y;// 24 is const for finding a new place for box below and to the right.
 		addIOPNow( addIOP, screenPoint );
@@ -510,6 +512,43 @@ public class FlowController
 					   "Edit cancelled." };
 			DialogUtils.showTwoStyleInfo( boldText, tLines, DialogUtils.WARNING_MESSAGE );
 		}
+	}
+
+	public static void replaceMedia( RenderNode targetNode )
+	{
+		MovingBlendedIOP originalIOP = (MovingBlendedIOP) targetNode.getImageOperation();
+		FileSource originalSource = originalIOP.getFileSource();
+		Vector<FileSource> fileSources = ProjectController. getProject().getFileSources();
+		fileSources.remove(originalSource);
+		if (fileSources.size() == 0)
+		{
+			// info 
+			return;
+		}
+ 		String[] media = new String[fileSources.size()];
+ 		for (int i = 0; i < fileSources.size(); i++ )
+ 			media[i] = fileSources.elementAt(i).getName();
+ 			
+		MComboBox replacementMedia = new MComboBox( "Select Replacement Media", media );
+
+		MInputArea qArea = new MInputArea( "" );
+		qArea.add( replacementMedia );
+
+		MInputPanel panel = new MInputPanel( "Replaceme Node Media " );
+		panel.add( qArea );
+
+		int retVal = DialogUtils.showMultiInput( panel, 450, 120 );
+		if( retVal != DialogUtils.OK_OPTION ) return;
+		
+		FileSource replacementFileSource = fileSources.elementAt(replacementMedia.getSelectedIndex());
+		MovingBlendedIOP replacementIOP = (MovingBlendedIOP) getNewIOPFromSource( replacementFileSource );
+	
+		originalIOP.cloneValuesToReplacement(replacementIOP);
+		replacementIOP.loadParentIOP( ProjectController.getFlow() );
+		
+		targetNode.setImageOperation(replacementIOP);
+		
+		PreviewController.renderAndDisplayCurrent();
 	}
 
 }//end class

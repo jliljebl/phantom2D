@@ -89,7 +89,7 @@ public abstract class MovingBlendedIOP extends RenderModeIOP
 
 		//--- Get basic render params.
 		boolean motionBlur = getCurrentMotionBlur();
-		int blendMode = getCurrentBlendMode(); 
+		int blendMode = getBlendMode(); 
 		int interpolation = getCurrentInterpolation();
 
 		//--- ScreenSize is max size for renderedImage ( = destination )
@@ -111,6 +111,29 @@ public abstract class MovingBlendedIOP extends RenderModeIOP
 		int w = getFileSource().getImageWidth();
 		int h = getFileSource().getImageHeight();
 		return new Rectangle( w, h );
+	}
+
+	// calling this method on object makes this object useless as coords lose to this, and
+	// filter stack is just moved
+	public void cloneValuesToReplacement( MovingBlendedIOP mIop )
+	{
+		mIop.flipTrans.set( flipTrans.get() );
+		mIop.asCanvas.set( asCanvas.get() );
+		mIop.useOverRule.set( useOverRule.get() );
+
+		mIop.registerCoords( getCoords() );
+		mIop.loadClipValues( getMaxLength(), getBeginFrame(), getClipStartFrame(), getClipEndFrame() );
+		mIop.setFilterStack( getFilterStack() );
+
+		mIop.setName( getName() );
+		mIop.blendMode.set( blendMode.get() );
+		mIop.setOnOffState( isOn() );
+		mIop.backgroundType.set( backgroundType.get() );
+
+		mIop.setLooping( getLooping() );
+		mIop.setParentMover( parentMoverType, parentNodeID, null );//parent iop set later
+
+		mIop.setLocked( getLocked()); 
 	}
 
 }//end class

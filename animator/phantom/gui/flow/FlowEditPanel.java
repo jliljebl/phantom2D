@@ -38,7 +38,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import animator.phantom.controller.AppUtils;
-//import animator.phantom.controller.EditorPersistance;
+import animator.phantom.controller.DarkTheme;
 import animator.phantom.controller.FlowController;
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.KeyActionController;
@@ -66,6 +66,7 @@ import animator.phantom.renderer.FileSource;
 //import animator.phantom.gui.RecentMenuItem;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
+import animator.phantom.renderer.imagesource.MovingBlendedIOP;
 import animator.phantom.undo.MultiDeleteUndoEdit;
 import animator.phantom.undo.NodeAddUndoEdit;
 import animator.phantom.undo.PhantomUndoManager;
@@ -121,6 +122,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 	private JMenuItem addImageSequence;
 	private JMenuItem addVideo;
 	private JMenuItem noRefs;
+	private JMenuItem replaceMedia;
 	
 	//--------------------------------------------------------------------- CONSTRUCTOR
 	public FlowEditPanel( int width, int height )
@@ -149,6 +151,12 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 
 		popup.addSeparator();
 
+		replaceMedia = new JMenuItem("Replace Media...");
+		replaceMedia.addActionListener(this);
+		popup.add( replaceMedia );
+
+		popup.addSeparator();
+		
 		freezeAllValues = new JMenuItem("Freeze All Values To Current");
 		freezeAllValues.addActionListener(this);
 		popup.add( freezeAllValues );
@@ -789,12 +797,22 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 	//--------------------------------------------------------- POP UP
 	private void showPopUp( MouseEvent e )
 	{
+		if ( popupSource.getImageOperation() instanceof MovingBlendedIOP )
+		{
+			replaceMedia.setEnabled( true );
+			replaceMedia.setFont(DarkTheme.MENU_FONT);
+		}
+		else
+		{
+			replaceMedia.setEnabled( false );
+			replaceMedia.setFont((GUIResources.BASIC_FONT_ITALIC_11));
+		}
+			
 		popup.show( e.getComponent(), e.getX(), e.getY() );
 	}
 
 	private void showEditorPopUp( MouseEvent e )
 	{
-		//updateMediaMenu();
 		editorPopup.show( e.getComponent(), e.getX(), e.getY() );
 	}
 
@@ -863,6 +881,11 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 			KeyActionController.pasteItems( this );
 		}
 
+		if( e.getSource() == replaceMedia )
+		{
+			FlowController.replaceMedia(selectedBoxes.elementAt(0).getRenderNode());
+		}
+		
 		if( e.getSource() == freezeAllValues )
 		{
 			MenuActions.freezeAllToCurrent();

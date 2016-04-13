@@ -91,7 +91,7 @@ public class BasicTwoMergeIOP extends RenderModeIOP
 
 		//--- Get render params
 		boolean motionBlur = getCurrentMotionBlur();
-		int blendMode = getCurrentBlendMode();
+		int blendMode = getBlendMode();
 		int interpolation = getCurrentInterpolation();
 
 		//--- Do blend

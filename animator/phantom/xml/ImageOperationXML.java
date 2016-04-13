@@ -114,7 +114,6 @@ public class ImageOperationXML extends AbstractXML
 			//--- filter stack
 			NodeList felist = e.getElementsByTagName( FILTER_STACK_ELEMENT );
 			//--- NOTE: Filter stack filters have their own, empty filter stacks
-			//--- but we are only interested in filterstack filrst filter stack
 			if( felist.getLength() > 0 )
 			{
 				Element fsE = (Element) felist.item( 0 );

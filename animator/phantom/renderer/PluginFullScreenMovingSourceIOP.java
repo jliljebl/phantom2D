@@ -78,7 +78,7 @@ public class PluginFullScreenMovingSourceIOP extends RenderModeIOP
 							plugin,//blender does callback to do image rendering
 							this,
 							opacity.getValue( frame ),
-							getCurrentBlendMode(),
+							getBlendMode(),
 							null,
 							useOver );
 		}
@@ -88,7 +88,7 @@ public class PluginFullScreenMovingSourceIOP extends RenderModeIOP
 			Graphics2D g = source.createGraphics();
 			plugin.renderFullScreenMovingSource( (float) frame, g, source.getWidth(), source.getHeight() );
 			source = applyFilterStack( frame, this, source );
-			Blender.doAlignedBlend( renderedImage, source, opacity.getValue( frame ) / 100.0f , getCurrentBlendMode(), null, useOver );
+			Blender.doAlignedBlend( renderedImage, source, opacity.getValue( frame ) / 100.0f , getBlendMode(), null, useOver );
 		}
 	}
 

@@ -87,31 +87,6 @@ public class KeyActionController
 		{
 			EditorsController.addKeyFrameForValue( ((Float) lastItems.elementAt( 0 )).floatValue() );
 		}
-		
-		/*
-		if( source == GUIComponents.binsPanel )
-		{
-			//--- remove from all bins
-			Vector <Bin> bins = GUIComponents.binsPanel.bins();
-			for( Bin bin : bins )
-			{
-				for( Object item : lastItems )
-				{
-					bin.removeFileSource( ((ListFileSourcePanel) item).getFileSource() );
-				}
-			}
-
-			//... add to current
-			Bin currentBin =  GUIComponents.binsPanel.currentBin();
-			for( Object item : lastItems )
-			{
-				currentBin.addFileSource( ((ListFileSourcePanel) item).getFileSource() );
-			}
-
-			//--- Reinit everything
-			GUIComponents.binsPanel.recreateFromBinContents();
-		}
-		*/
 	}
 		
 	public static void deleteItems( Object source )
@@ -126,12 +101,6 @@ public class KeyActionController
 			FlowController.deleteSelected(); 
 		}
 
-		/*
-		if( source == GUIComponents.binsPanel )
-		{
-			UserActions.deleteFileSources( GUIComponents.binsPanel );
-		}
-		*/
 	}
 
 	public static void selectAllItems( Object source )
