@@ -57,8 +57,8 @@ public class KFToolButtons extends JPanel implements ActionListener
 	
 	public KFToolButtons()
 	{
-		GUIResources.prepareMediumButton( zoomIn, this, "Zoom in" );
-		GUIResources.prepareMediumButton( zoomOut, this, "Zoom out" );
+		GUIResources.prepareMediumButton( zoomIn, this, "Zoom in vertical" );
+		GUIResources.prepareMediumButton( zoomOut, this, "Zoom out vertical" );
 		GUIResources.prepareMediumButton( addKF, this, "Add keyframe" );
 		GUIResources.prepareMediumButton( deleteKF, this, "Delete keyframe" );
 		GUIResources.prepareMediumButton( kfProperties, this, "Selected keyframe properties" );
@@ -67,10 +67,10 @@ public class KFToolButtons extends JPanel implements ActionListener
 		steppedLabel.setIcon(stepped);
 
 		steppedBox = new JCheckBox();
-		//KeyFrameParam kfParam = EditorsController.getCurrentKFParam();
 		steppedBox.setSelected( false );
 		steppedBox.addActionListener( this );
 		steppedBox.setPreferredSize( new Dimension( 20, 20 ));
+		steppedBox.setToolTipText("Hold last keyframe value");
 
 		JPanel p = new JPanel();
 		p.setLayout(new BoxLayout( p, BoxLayout.X_AXIS));

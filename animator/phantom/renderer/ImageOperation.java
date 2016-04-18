@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -42,6 +43,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.Border;
 
 import animator.phantom.blender.Blender;
 import animator.phantom.controller.Application;
@@ -818,7 +820,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	public JPanel getNamePanel()
 	{
 		JLabel name = new JLabel();
-		Color bgColor = new Color( 20, 20, 20);//GUIColors.selectedColor;
+		Color bgColor = GUIColors.MEDIA_ITEM_SELECTED_BG;
 	
 		if( !isFilterStackIop )
 			name.setText( getName() );
@@ -853,8 +855,17 @@ public abstract class ImageOperation implements Comparable<Object>
 		if( filterStack.size() > 0 )
 			namePanel.add( new JLabel( filterStackIcon ) );
 
-		namePanel.add( Box.createRigidArea( new Dimension( 5, 0 ) ) );
-		return namePanel;
+		namePanel.add( Box.createRigidArea( new Dimension( 3, 0 ) ) );
+		
+		Border empty = BorderFactory.createEmptyBorder(3,1,3,0);
+		namePanel.setBorder(empty);
+		
+		JPanel paddedPanel = new JPanel();
+		paddedPanel.setLayout(new BoxLayout( paddedPanel, BoxLayout.Y_AXIS));
+		paddedPanel.add( namePanel );
+		paddedPanel.setBackground( bgColor );
+		
+		return paddedPanel;
 	}
 
 	//--- Called when parent or filter stack possibly updated.

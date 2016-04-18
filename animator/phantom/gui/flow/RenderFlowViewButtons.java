@@ -28,7 +28,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
 
 import animator.phantom.controller.FlowController;
 import animator.phantom.gui.AnimatorFrame;
@@ -40,19 +39,13 @@ public class RenderFlowViewButtons extends JPanel implements ActionListener
 	private JButton lineUpBoxes = new JButton( GUIResources.getIcon( GUIResources.lineUpBoxes) );
 	private JButton connectBoxes = new JButton( GUIResources.getIcon(GUIResources.connectBoxes) );
 	private JButton disConnectBoxes = new JButton( GUIResources.getIcon(GUIResources.disConnectBoxes) );
-	private JToggleButton showGrid = new JToggleButton( GUIResources.getIcon( GUIResources.showGrid ) );
-	
-	//public JLabel infoText = new JLabel();
 
 	public RenderFlowViewButtons( AnimatorFrame frame )
 	{
-		GUIResources.prepareMediumButton( delete, this, "Delete IOPs from flow" );
-		GUIResources.prepareMediumButton( lineUpBoxes, this, "Line up selected boxes  F5" );
-		GUIResources.prepareMediumButton( connectBoxes, this, "Connect selected boxes  F6" );
-		GUIResources.prepareMediumButton( disConnectBoxes, this, "Disconnect selected boxes  F7" );
-		GUIResources.prepareMediumButton( showGrid, this, "Show Grid" );
-
-		//infoText.setFont( GUIResources.BASIC_FONT_10 );
+		GUIResources.prepareMediumButton( delete, this, "Delete nodes - Del" );
+		GUIResources.prepareMediumButton( lineUpBoxes, this, "Line up nodes - F5" );
+		GUIResources.prepareMediumButton( connectBoxes, this, "Connect nodes - F6" );
+		GUIResources.prepareMediumButton( disConnectBoxes, this, "Disconnect nodes - F7" );
 		
 		JPanel p = new JPanel();
 		p.setLayout(new BoxLayout( p, BoxLayout.X_AXIS));
@@ -69,13 +62,6 @@ public class RenderFlowViewButtons extends JPanel implements ActionListener
 		add( Box.createVerticalGlue() );
 	}
 
-	/*
-	public void setInfoText( String text )
-	{
-		infoText.setText( text );
-		repaint();
-	}
-	*/
 	public void actionPerformed(ActionEvent e)
 	{
 		if( e.getSource() == delete )

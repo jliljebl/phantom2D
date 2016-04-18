@@ -234,7 +234,6 @@ public class IOPLibraryInitializer
 		IOPLibrary.registerPlugin( new ShapeMergePlugin(), "Merge" );
 		IOPLibrary.registerPlugin( new ShapeGridMergePlugin(), "Merge" );
 		IOPLibrary.registerPlugin( new SplitScreenPlugin(), "Merge" );
-
 		IOPLibrary.registerNonUserPlugin( new FileImagePatternMergePlugin() );
 
 		//--- Key 

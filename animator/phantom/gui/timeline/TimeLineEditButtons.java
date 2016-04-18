@@ -41,10 +41,10 @@ public class TimeLineEditButtons extends JPanel implements ActionListener
 
 	public TimeLineEditButtons()
 	{
-		GUIResources.prepareMediumButton( clipOutToCurrent, this, "Clip out to current frame" );
-		GUIResources.prepareMediumButton( clipInToCurrent, this, "Clip in to current frame" );
-		GUIResources.prepareMediumButton( moveClipTailToCurrent, this, "Move Clip and set tail to current frame" );
-		GUIResources.prepareMediumButton( moveClipHeadToCurrent, this, "Move Clip and set head to current frame" );
+		GUIResources.prepareMediumButton( clipOutToCurrent, this, "Strecth clip out to current frame" );
+		GUIResources.prepareMediumButton( clipInToCurrent, this, "Strecth clip in to current frame" );
+		GUIResources.prepareMediumButton( moveClipTailToCurrent, this, "Move clip to end in current frame" );
+		GUIResources.prepareMediumButton( moveClipHeadToCurrent, this, "Move clip to start in current frame" );
 
 		//--- Create layout.
 		JPanel p = new JPanel();

@@ -145,8 +145,8 @@ public class GUIResources
 	public static String viewFlowPressed = resourcePath + "viewFlowPressed.png";
 	public static String viewSelected = resourcePath + "viewSelected.png";
 	public static String viewSelectedPressed = resourcePath + "viewSelectedPressed.png";
-	public static String viewLayer = resourcePath + "viewLayer.png";
-	public static String viewLayerPressed = resourcePath + "viewLayerPressed.png";
+	//public static String viewLayer = resourcePath + "viewLayer.png";
+	//public static String viewLayerPressed = resourcePath + "viewLayerPressed.png";
 	public static String kfEdit = resourcePath + "kfEdit.png";
 	public static String kfEditPressed = resourcePath + "kfEditPressed.png";
 	public static String kfAdd = resourcePath + "kfAdd.png";
@@ -216,48 +216,12 @@ public class GUIResources
  
 	public static ImageIcon getIcon( String path )
 	{ 
-		/*
-		if( Application.inJar() )
-		{
-			URL u = o.getClass().getResource( path );
-			return new ImageIcon( u );
-		}
-		*/
 		return new ImageIcon( path );
 	}
 
 	public static BufferedImage getResourceBufferedImage( String path )
 	{
 		return GUIUtils.getBufferedImageFromFile( new File( path ) );
-		/*
-		if( !Application.inJar() ) 
-			return GUIUtils.getBufferedImageFromFile( new File( path ) );
-		else
-		{
-			try
-			{
-				InputStream is = o.getClass().getResourceAsStream( path );
-				BufferedImage loadImg = ImageIO.read( is );
-	
-				//--- Force alpha if missing. Keep if exists.
-				BufferedImage img = new BufferedImage( 	loadImg.getWidth(),
-										loadImg.getHeight(),
-										BufferedImage.TYPE_INT_ARGB );
-				Graphics2D g2 = img.createGraphics();
-				g2.setComposite( AlphaComposite.getInstance( AlphaComposite.SRC, 1.0f ) );
-				g2.drawRenderedImage( loadImg, null );
-				g2.dispose();
-				
-				return img;
-			}
-			catch( Exception e )
-			{
-				System.out.println("Resource IMAGE LOAD FAILED FOR "+ path );
-				return null;
-			}
-
-		}
-			*/
 	}
 
 	public static Font getFont( String path ) 
@@ -266,16 +230,6 @@ public class GUIResources
 
 		try {
 			InputStream is = null;
-			/*
-			if( Application.inJar() )
-			{
-				is = o.getClass().getResourceAsStream( path );
-			}
-			else
-			{
-				is = new FileInputStream( path );
-			}
-			*/
 			is = new FileInputStream( path );
 			font = Font.createFont(Font.TRUETYPE_FONT, is);
 		} 

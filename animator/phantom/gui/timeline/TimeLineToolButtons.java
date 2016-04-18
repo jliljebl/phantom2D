@@ -38,8 +38,8 @@ public class TimeLineToolButtons extends JPanel implements ActionListener
 
 	public TimeLineToolButtons()
 	{
-		GUIResources.prepareMediumButton( clipDown, this, "Move Selected Clip Down" );
-		GUIResources.prepareMediumButton( clipUp, this, "Move Selected Clip Up" );
+		GUIResources.prepareMediumButton( clipDown, this, "Move clip down" );
+		GUIResources.prepareMediumButton( clipUp, this, "Move clip up" );
 
 		JPanel p = new JPanel();
 		p.setLayout(new BoxLayout( p, BoxLayout.X_AXIS));

@@ -53,10 +53,10 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 	public PreViewControlPanel( JPanel normalizedTimeline, TCDisplay timecodeDisplay )
 	{
 		GUIResources.prepareMediumButton( loop, this, "Loop preview");
-		GUIResources.prepareMediumButton( stopPreviewRender, this, "Stop Preview Render");
-		GUIResources.prepareMediumButton( trashPreviewRender, this, "Clear Preview");
+		GUIResources.prepareMediumButton( stopPreviewRender, this, "Stop preview render");
+		GUIResources.prepareMediumButton( trashPreviewRender, this, "Clear preview");
 		GUIResources.prepareMediumButton( toPreviousFrame, this, "Previous frame" );
-		GUIResources.prepareMediumButton( playStop, this, "Previous frame" );
+		GUIResources.prepareMediumButton( playStop, this, "Play / Stop preview" );
 		GUIResources.prepareMediumButton( toNextFrame, this, "Next frame" );
 		GUIResources.prepareMediumButton( panelsLayout, this, "Set panel sizes" );
 		GUIResources.prepareMediumMediumButton( render,this, "Render preview" );

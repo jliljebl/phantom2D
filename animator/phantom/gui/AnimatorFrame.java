@@ -117,7 +117,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	private JPanel kfButtonsPane;
 	
 	private ParamEditFrame editFrame;
-	//private NodesPanel nodesPanel;
 		
 	private FlowEditPanel renderFlowPanel;
 

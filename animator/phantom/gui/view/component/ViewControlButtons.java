@@ -47,7 +47,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 
 	public JToggleButton editorUpdates = new JToggleButton( GUIResources.getIcon(GUIResources.showViewEditUpdates ) );
 	public JToggleButton viewFlow = new JToggleButton(  GUIResources.getIcon(GUIResources.viewFlow ) );
-	public JToggleButton viewLayer = new JToggleButton(  GUIResources.getIcon( GUIResources.viewLayer ) );
 	public JToggleButton viewTarget = new JToggleButton(  GUIResources.getIcon( GUIResources.viewTarget ) );
 	public JToggleButton viewSelected = new JToggleButton(  GUIResources.getIcon( GUIResources.viewSelected ) );
 	public JToggleButton viewColor = new JToggleButton(  GUIResources.getIcon( GUIResources.viewImagePressed ) );
@@ -68,10 +67,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		= new ModeButton(  GUIResources.getIcon( GUIResources.kfRemove ), ViewEditorLayer.KF_REMOVE_MODE );
 	public ModeButton pickColor 
 		= new ModeButton(  GUIResources.getIcon( GUIResources.pickColor ), ViewEditorLayer.PICK_COLOR_MODE );
-	public ModeButton pickFGColor 
-		= new ModeButton(  GUIResources.getIcon( GUIResources.pickFGColor ), ViewEditorLayer.PICK_FG_COLOR_MODE );
-	public ModeButton pickBGColor 
-		= new ModeButton(  GUIResources.getIcon( GUIResources.pickBGColor ), ViewEditorLayer.PICK_BG_COLOR_MODE );
 	public ModeButton custom1 
 		= new ModeButton(  GUIResources.getIcon( GUIResources.customButton ), ViewEditorLayer.CUSTOM_EDIT_MODE_1 );
 	public ModeButton custom2 
@@ -96,13 +91,10 @@ public class ViewControlButtons extends JPanel implements ActionListener
 	public static final int KF_ADD_B = 3;
 	public static final int KF_REMOVE_B = 4;
 	public static final int PICK_COLOR_B = 5;
-	public static final int PICK_FG_COLOR_B = 6;
-	public static final int PICK_BG_COLOR_B = 7;
 	
 	private static Vector<ModeButton> modeButtons = new Vector<ModeButton>();
 	
-	public JButton layerUp = new JButton(  GUIResources.getIcon( GUIResources.layerUp ) );
-	private JButton panelSizes = new JButton(  GUIResources.getIcon( GUIResources.panelSizes ) );
+	public JButton layerUp = new JButton( GUIResources.getIcon( GUIResources.layerUp ) );
 	public JLabel layerText = new JLabel("");
 
 	public ButtonGroup modes;
@@ -118,22 +110,20 @@ public class ViewControlButtons extends JPanel implements ActionListener
 	{
 		parent = parentContainer;
 
-		GUIResources.prepareMediumButton( editorUpdates, this, "ViewEditor updates On/Off" );
+		GUIResources.prepareMediumButton( editorUpdates, this, "View Editor updates on/off" );
 		GUIResources.prepareMediumButton( layerUp, this, "Next Layer" );
 		GUIResources.prepareMediumButton( move, this, "Move" );
 		GUIResources.prepareMediumButton( rotate, this, "Rotate" );
 		GUIResources.prepareMediumButton( kfEdit, this, "Edit Points" );
 		GUIResources.prepareMediumButton( kfAdd, this, "Add Points" );
 		GUIResources.prepareMediumButton( kfRemove, this, "Remove Points" );
-		GUIResources.prepareMediumButton( viewColor, this, "View image" );
-		GUIResources.prepareMediumButton( viewLayer, this, "View current Layer" );
-		GUIResources.prepareMediumButton( viewFlow, this, "View flow" );
+		GUIResources.prepareMediumButton( viewColor, this, "View image / alpha" );
+		GUIResources.prepareMediumButton( viewFlow, this, "View Composition" );
 		GUIResources.prepareMediumButton( viewTarget, this, "View from node set as target" );
-		GUIResources.prepareMediumButton( viewSelected, this, "View from node being edited in Node Editor" );
-		GUIResources.prepareMediumButton( allBoxes, this, "Display all bounding boxes" );
-		GUIResources.prepareMediumButton( pickColor, this, "Select Color" );
-		GUIResources.prepareMediumButton( pickBGColor, this, "Select Background Color" );
-		GUIResources.prepareMediumButton( panelSizes, this, "Set Editor Panel Sizes" );
+		GUIResources.prepareMediumButton( viewSelected, this, "View from node open in Property Editor" );
+		GUIResources.prepareMediumButton( allBoxes, this, "Display bounding boxes" );
+		GUIResources.prepareMediumButton( pickColor, this, "Select color" );
+
 		GUIResources.prepareMediumButton( custom1, this, "Custom 1" );
 		GUIResources.prepareMediumButton( custom2, this, "Custom 2" );
 		GUIResources.prepareMediumButton( custom3, this, "Custom 3" );
@@ -150,14 +140,11 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		kfAdd.setSelectedIcon( GUIResources.getIcon(  GUIResources.kfAddPressed ) );
 		kfRemove.setSelectedIcon( GUIResources.getIcon(  GUIResources.kfRemovePressed ) );
 		viewColor.setSelectedIcon( GUIResources.getIcon(  GUIResources.viewAlphaPressed ) );
-		viewLayer.setSelectedIcon( GUIResources.getIcon(  GUIResources.viewLayerPressed ) );
 		viewFlow.setSelectedIcon( GUIResources.getIcon(  GUIResources.viewFlowPressed ) );
 		viewTarget.setSelectedIcon( GUIResources.getIcon(  GUIResources.viewTargetPressed ) );
 		viewSelected.setSelectedIcon( GUIResources.getIcon(  GUIResources.viewSelectedPressed ) );
 		allBoxes.setSelectedIcon( GUIResources.getIcon(  GUIResources.allBoxesPressed ) );
 		pickColor.setSelectedIcon( GUIResources.getIcon(  GUIResources.pickColorPressed ) );
-		pickFGColor.setSelectedIcon( GUIResources.getIcon(  GUIResources.pickFGColorPressed ) );
-		pickBGColor.setSelectedIcon( GUIResources.getIcon(  GUIResources.pickBGColorPressed ) );
 		custom1.setSelectedIcon( GUIResources.getIcon(  GUIResources.customPressed ) );
 		custom2.setSelectedIcon( GUIResources.getIcon(  GUIResources.customPressed ) );
 		custom3.setSelectedIcon( GUIResources.getIcon(  GUIResources.customPressed ) );
@@ -175,8 +162,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		modeButtons.add( kfAdd );
 		modeButtons.add( kfRemove );
 		modeButtons.add( pickColor );
-		modeButtons.add( pickFGColor );
-		modeButtons.add( pickBGColor );
 		modeButtons.add( custom1 );
 		modeButtons.add( custom2 );
 		modeButtons.add( custom3 );
@@ -188,7 +173,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 
 		modes = new ButtonGroup();
 		modes.add( viewFlow );
-		modes.add( viewLayer );
 		modes.add( viewSelected );
 		modes.add( viewTarget );
 		modes.setSelected( viewFlow.getModel(), true );
@@ -356,10 +340,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 			GUIComponents.getViewEditor().setMode( ViewEditorLayer.KF_ADD_MODE );
 		if( e.getSource() == kfRemove )
 			GUIComponents.getViewEditor().setMode( ViewEditorLayer.KF_REMOVE_MODE );
-		if( e.getSource() == pickFGColor )
-			GUIComponents.getViewEditor().setMode( ViewEditorLayer.PICK_FG_COLOR_MODE );
-		if( e.getSource() == pickBGColor )
-			GUIComponents.getViewEditor().setMode( ViewEditorLayer.PICK_BG_COLOR_MODE );
 		if( e.getSource() == pickColor )
 			GUIComponents.getViewEditor().setMode( ViewEditorLayer.PICK_COLOR_MODE );
 		if( e.getSource() == custom1 )

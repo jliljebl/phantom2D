@@ -34,8 +34,7 @@ public class MComboBox extends MInputField
 		this.rightComponent = comboBox;
 		initPanels();
 	}
-	
-	 
+
 	public MComboBox(String msg,  int leftSize, int rightSize, String[] options )
 	{
 		setLeftAsLabel( msg );
