@@ -90,6 +90,14 @@ public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 		bilLabel.setToolTipText( "Bilinear Draw Mode" );
 		bicLabel.setToolTipText( "Bicubic Draw Mode" );
 
+		mbBox.setToolTipText( "Motion Blur" );
+		smoothBox.setToolTipText( "Smooth Edges. Makes edges smoother, looses 1 pix from edges." );;
+		visBox.setToolTipText( "Toggle On / Off" );
+
+		nearest.setToolTipText( "Nearest Neighbour Draw Mode" );
+		bilinear.setToolTipText( "Bilinear Draw Mode" );
+		bicubic.setToolTipText( "Bicubic Draw Mode" );
+		
 		//-- Prepare boxes.
 		mbBox.addItemListener(this);
 		smoothBox.addItemListener(this);

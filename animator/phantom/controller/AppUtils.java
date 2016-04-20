@@ -159,5 +159,42 @@ public class AppUtils
 	        
 	        return list;
 	}
-	 
+
+	
+	public static String createTimeString( int millis, boolean fractions )
+	{
+		int seconds = millis / 1000;
+		int minutes = seconds / 60;
+		int hours = minutes / 60;
+
+		seconds = seconds - (minutes * 60);
+		minutes = minutes - (hours * 60);
+	
+		//--- Create time code String
+		StringBuilder sb = new StringBuilder();
+		if( hours > 0 )
+		{
+			sb.append( hours );
+			sb.append( "h " );
+		}
+
+		if( minutes > 0 )
+		{
+			sb.append( minutes );
+			sb.append( "m " );
+		}
+
+		sb.append( seconds );
+		if( !fractions )
+		{
+			sb.append( "s" );
+			return sb.toString();
+		}
+
+		sb.append( "." );
+		sb.append( millis % 1000 );
+		sb.append( "s" );
+		return sb.toString();
+	}
+	
 }//end class

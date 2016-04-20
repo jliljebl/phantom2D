@@ -27,7 +27,6 @@ import javax.swing.JScrollPane;
 
 import animator.phantom.gui.AnimatorFrame;
 import animator.phantom.gui.AnimatorMenu;
-//import animator.phantom.gui.BinsAreaPanel;
 import animator.phantom.gui.NodesPanel;
 import animator.phantom.gui.flow.FlowEditPanel;
 import animator.phantom.gui.flow.RenderFlowViewButtons;
@@ -38,7 +37,6 @@ import animator.phantom.gui.modals.FilterStackEdit;
 import animator.phantom.gui.modals.render.RenderWindow;
 import animator.phantom.gui.preview.PreViewControlPanel;
 import animator.phantom.gui.preview.PreViewUpdater;
-import animator.phantom.gui.timeline.NormalizedTimelineDisplay;
 import animator.phantom.gui.timeline.TCDisplay;
 import animator.phantom.gui.timeline.TimeLineControls;
 import animator.phantom.gui.timeline.TimeLineDisplayPanel;
@@ -47,7 +45,6 @@ import animator.phantom.gui.timeline.TimeLineIOPColumnPanel;
 import animator.phantom.gui.view.component.ViewControlButtons;
 import animator.phantom.gui.view.component.ViewEditor;
 import animator.phantom.gui.view.component.ViewSizeSelector;
-//import animator.phantom.gui.view.component.ViewSizeSelector;
 import animator.phantom.paramedit.FilterStackPanel;
 
 //--- Class to hold references to all GUI components.
@@ -87,8 +84,6 @@ public class GUIComponents
 	//--- Static view control buttons.
 	public static ViewControlButtons viewControlButtons;
 	public static ViewSizeSelector viewSizeSelector;
-	//--- Panel containing file handling panels.
-	//public static BinsAreaPanel binsPanel;
 	//--- toplevel for rendering info and progrewss
 	public static RenderWindow renderWindow;
 	//--- Top level for editing pre-transform filter stack
@@ -101,7 +96,6 @@ public class GUIComponents
 	public static FilterStackPanel filterStackPanel;
 
 	//---
-	public static NormalizedTimelineDisplay normTlineDisp;
 	public static TimeLineControls tlineControls;
 	public static NodesPanel nodesPanel;
 	public static JLabel projectInfoLabel;

@@ -47,6 +47,7 @@ public class ViewEditorRenderThread extends Thread
 		System.out.println("//------------------------------- VIEW EDITOR RENDER ----------------------------//" );
 		synchronized( viewRenderLock ) //??!!??
 		{
+			long start = System.currentTimeMillis();
 			RenderModeController.setGlobalRenderMode( RenderModeController.DRAFT );
 			EditorsController.displayRenderClock( true );
 			BufferedImage frameImg = movieRenderer.renderSingleFrame( frame );
@@ -62,6 +63,8 @@ public class ViewEditorRenderThread extends Thread
 			viewEditor.setBGImage( frameImg );
 			viewEditor.repaint();
 			EditorsController.displayRenderClock( false );
+			long end = System.currentTimeMillis();
+			GUIComponents.previewControls.updatePreviewRenderInfo( (int) (end - start), frame );
 		}
 	}
 

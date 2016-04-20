@@ -208,7 +208,6 @@ public class PreviewController
 	//------------------------------------------------------------ PLAYBACK
 	public static void playFrameRange( Vector <BufferedImage> frames_, int startFrame_ )
 	{
-		GUIComponents.normTlineDisp.repaint();
 		GUIComponents.tlineControls.update();
 		playRange( frames_, startFrame_ );
 	}

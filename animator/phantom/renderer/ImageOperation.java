@@ -622,6 +622,14 @@ public abstract class ImageOperation implements Comparable<Object>
 	//--- BASIC INTERFACE, BASIC INTERFACE, BASIC INTERFACE, BASIC INTERFACE, BASIC INTERFACE
 	public String getName(){ return name; }
 	public void setName( String name_ ){ this.name = name_; }
+	public String getClassIDName() // plugins and raw IOPs have different identyfying class names.
+	{
+		if (plugin == null)
+			return getClass().getName();
+		else
+			return plugin.getClass().getName();	
+	}
+	
 	//--- 
 	public int getDefaultNumberOfSources(){ return DEFAULT_SOURCES_COUNT; }
 	//--- 

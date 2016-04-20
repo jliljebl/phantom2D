@@ -239,7 +239,6 @@ public class TimeLineController
 	//----------------------------------------------- SCALE AND POS UPDATE
 	public static void scaleOrPosChanged()
 	{
-		GUIComponents.normTlineDisp.repaint();
 		GUIComponents.tlineControls.update();
 		GUIComponents.timeLineEditorPanel.scaleOrPositionChanged();
 		GUIComponents.keyFrameEditPanel.scaleOrPositionChanged();

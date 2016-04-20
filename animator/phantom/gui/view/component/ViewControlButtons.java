@@ -220,7 +220,7 @@ public class ViewControlButtons extends JPanel implements ActionListener
 	{
 		removeAll();
 		add( staticPanel );
-		add( Box.createRigidArea( new Dimension( 6, 0 ) ) );
+		add( Box.createRigidArea( new Dimension( 4, 0 ) ) );
 
 		bGroup = new ButtonGroup();
 		for( int i = 0; i < indexes.size(); i++)
@@ -230,6 +230,8 @@ public class ViewControlButtons extends JPanel implements ActionListener
  			bGroup.add( modeButtons.elementAt( ig.intValue() ));
 		}
 
+		if (indexes.size() > 0)
+			add( Box.createRigidArea( new Dimension(4,0) ));
 		add( renderClock );
 
  		setFirstButtonPressed( bGroup );

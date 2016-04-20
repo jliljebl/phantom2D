@@ -116,9 +116,9 @@ public class EditorsController
 
 			//--- Create and start render thread.
 			ViewEditorRenderThread renderThread = 
-				new ViewEditorRenderThread ( 	movieRenderer,
-								GUIComponents.viewEditor,
-								TimeLineController.getCurrentFrame() );
+				new ViewEditorRenderThread ( movieRenderer,
+											 GUIComponents.viewEditor,
+											 TimeLineController.getCurrentFrame() );
 			renderThread.start();
 		}
 	}

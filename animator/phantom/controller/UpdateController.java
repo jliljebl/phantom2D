@@ -92,7 +92,7 @@ public class UpdateController
 	{
 		ParamEditController.updateEditFrame();
 		PreviewController.currentFrameChanged();
-		EditorsController.displayCurrentInViewEditor( dragInProgress );
+		EditorsController.displayCurrentInViewEditor( dragInProgress );//this causes preview frame render
 		TimeLineController.scaleOrPosChanged();
 	}
 	//--- Update so that timeline dragging showes movement, always when dragging.
@@ -107,7 +107,6 @@ public class UpdateController
 	{
 		for( TimeLineDisplayPanel scaleDisp : GUIComponents.timeLineScaleDisplays )
 			scaleDisp.repaint();
-		GUIComponents.normTlineDisp.repaint();
 		GUIComponents.tlineControls.update();
 		GUIComponents.tcDisplay.repaint();
 	}

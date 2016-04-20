@@ -42,6 +42,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import animator.phantom.controller.AppUtils;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.RenderModeController;
 import animator.phantom.gui.GUIColors;
@@ -340,38 +341,7 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 	
 	public static String createTimeString( int millis, boolean fractions )
 	{
-		int seconds = millis / 1000;
-		int minutes = seconds / 60;
-		int hours = minutes / 60;
-
-		seconds = seconds - (minutes * 60);
-		minutes = minutes - (hours * 60);
-	
-		//--- Create time code String
-		StringBuilder sb = new StringBuilder();
-		if( hours > 0 )
-		{
-			sb.append( hours );
-			sb.append( "h " );
-		}
-
-		if( minutes > 0 )
-		{
-			sb.append( minutes );
-			sb.append( "m " );
-		}
-
-		sb.append( seconds );
-		if( !fractions )
-		{
-			sb.append( "s" );
-			return sb.toString();
-		}
-
-		sb.append( "." );
-		sb.append( millis % 1000 );
-		sb.append( "s" );
-		return sb.toString();
+		return AppUtils.createTimeString( millis, fractions );
 	}
 
 	public int parseTCString( String tc )

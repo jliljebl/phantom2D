@@ -79,6 +79,7 @@ public class FlowBox implements FlowGraphic, Comparable<Object>
 	private static BufferedImage flowBGFilter  = GUIResources.getResourceBufferedImage( GUIResources.flowBoxBGFilter );
 	private static BufferedImage flowBGMerge  = GUIResources.getResourceBufferedImage( GUIResources.flowBoxBGMerge );
 	private static BufferedImage flowBGAlpha  = GUIResources.getResourceBufferedImage( GUIResources.flowBGAlpha );
+	private static BufferedImage flowBGMedia = GUIResources.getResourceBufferedImage( GUIResources.flowBGMedia );
 	private static BufferedImage noFileSource  = GUIResources.getResourceBufferedImage( GUIResources.noFileSource );
 	
 	//--- Vector for x pos for different numbers of connection points. 
@@ -311,6 +312,8 @@ public class FlowBox implements FlowGraphic, Comparable<Object>
 	{
 		int boxType = IOPLibrary.getBoxType( renderNode.getImageOperation() );
 	
+		System.out.println("boxType");
+		System.out.println(boxType);
 		//--- normal
 		normal = new BufferedImage( width, height, BufferedImage.TYPE_4BYTE_ABGR );
 		Graphics2D gc = normal.createGraphics();
@@ -320,6 +323,8 @@ public class FlowBox implements FlowGraphic, Comparable<Object>
 			paintBoxImg( gc, flowBGMerge, GUIColors.BOX_textColor);
 		else if ( boxType == IOPLibrary.BOX_ALPHA )
 			paintBoxImg( gc, flowBGAlpha, GUIColors.BOX_textColor);
+		else if ( boxType == IOPLibrary.BOX_MEDIA )
+			paintBoxImg( gc, flowBGMedia, GUIColors.BOX_textColor);
 		else
 			paintBoxImg( gc, flowBGFilter, GUIColors.BOX_textColor);
 

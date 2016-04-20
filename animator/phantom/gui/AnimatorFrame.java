@@ -78,7 +78,6 @@ import animator.phantom.gui.keyframe.KeyFrameEditorPanel;
 import animator.phantom.gui.preview.PreViewControlPanel;
 import animator.phantom.gui.preview.PreViewUpdater;
 //import animator.phantom.gui.preview.PreViewPanel;
-import animator.phantom.gui.timeline.NormalizedTimelineDisplay;
 import animator.phantom.gui.timeline.TCDisplay;
 import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 import animator.phantom.gui.timeline.TimeLineEditButtons;
@@ -219,15 +218,10 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		previewUpdater = new PreViewUpdater();
 
 		TimeLineToolButtons timeLineToolButtons = new TimeLineToolButtons();
-		NormalizedTimelineDisplay normTline = new NormalizedTimelineDisplay();
 		TCDisplay timecodeDisplay = new TCDisplay("00:00:00");
+
 		
-		JPanel cNTLine_H = new JPanel();
-		cNTLine_H.setLayout(new BoxLayout(cNTLine_H, BoxLayout.X_AXIS));
-		cNTLine_H.add( normTline );
-		JPanel cNTLine = packVerticalLinedUp( cNTLine_H );
-		
-		PreViewControlPanel previewControl = new PreViewControlPanel( cNTLine, timecodeDisplay);
+		PreViewControlPanel previewControl = new PreViewControlPanel( timecodeDisplay);
 		
 		//--------------------------------------------- view editor + button row panel
 		screenViewsPanel.add( viewPanel );
@@ -441,8 +435,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		GUIComponents.viewControlButtons = viewControlButtons;
 		GUIComponents.viewScrollPane = viewScrollPane;
 		GUIComponents.kfControl = kfButtons;
-		GUIComponents.normTlineDisp = normTline;
-		//GUIComponents.nodesPanel = nodesPanel;
 		GUIComponents.tlineControls = tlineControls;
 		GUIComponents.projectInfoLabel = projectInfoLabel;
 		//--- This needs init.

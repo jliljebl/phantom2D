@@ -27,9 +27,11 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import animator.phantom.controller.AppUtils;
 //import animator.phantom.controller.EditorsController;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.TimeLineController;
@@ -49,8 +51,9 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 	private JButton playStop = new JButton( playIcon );
 	private JButton toPreviousFrame = new JButton( GUIResources.getIcon(GUIResources.toPreviousFrameNavi ));
 	private JButton toNextFrame = new JButton( GUIResources.getIcon( GUIResources.toNextFrameNavi ));
+	private JLabel previewTimeInfo = new JLabel();
 	
-	public PreViewControlPanel( JPanel normalizedTimeline, TCDisplay timecodeDisplay )
+	public PreViewControlPanel( TCDisplay timecodeDisplay )
 	{
 		GUIResources.prepareMediumButton( loop, this, "Loop preview");
 		GUIResources.prepareMediumButton( stopPreviewRender, this, "Stop preview render");
@@ -63,6 +66,8 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 
 		loop.setSelectedIcon( GUIResources.getIcon( GUIResources.loopPressed ) );
 		loop.setSelected( true );
+		
+		previewTimeInfo.setFont( GUIResources.BASIC_FONT_11 );
 		
 		JPanel p2 = new JPanel();
 		p2.setLayout(new BoxLayout( p2, BoxLayout.X_AXIS));
@@ -79,10 +84,19 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 		p2.add( stopPreviewRender );
 		p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
 		p2.add( trashPreviewRender );
+		//p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
+		p2.add( Box.createHorizontalGlue() );
+		p2.add( previewTimeInfo );
 		p2.add( Box.createHorizontalGlue() );
 		p2.add( panelsLayout );
 		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
 		add( p2 );
+	}
+
+	public void updatePreviewRenderInfo( int millis, int frame )
+	{
+		String frameTime = 	AppUtils.createTimeString( millis, true );
+		previewTimeInfo.setText( "frame " + Integer.toString(frame) + ", render time: " + frameTime);
 	}
 
 	public void updatePlayButton()

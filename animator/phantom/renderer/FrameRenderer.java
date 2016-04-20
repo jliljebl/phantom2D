@@ -40,7 +40,7 @@ public class FrameRenderer
 	private Vector<RenderNode> ends;
 
 	//---
-	private boolean DEBUG = true;
+	private boolean DEBUG = false;
 	private boolean hasCloneFlow = false;
 
 	//--- The two different passes that made to render a frame
@@ -53,7 +53,6 @@ public class FrameRenderer
 
 	//--- Render time
 	private long lastRenderTime = 0;
-
 
 	//--- Render thread running this
 	private long threadID;

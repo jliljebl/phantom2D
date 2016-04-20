@@ -4,7 +4,6 @@ import animator.phantom.renderer.VideoClipSource;
 
 public class MLTFrameServerController 
 {
-
 	private static MLTFrameServer frameServer;
 	private static final String LOAD = "LOAD";
 	private static final String ERROR = "ERROR";
@@ -18,7 +17,6 @@ public class MLTFrameServerController
 		if (success == true )
 		{
 			frameServer.connect();
-			//String answer = frameServer.sendCommand("LOAD /home/janne/tr_final.mpg");
 		}
 	}
 	
@@ -29,7 +27,7 @@ public class MLTFrameServerController
 		return sendAnswerOrNullForError( answer );
 	}
 
-	public static String renderFrame( VideoClipSource movieSource, int frame )
+	public synchronized static String renderFrame( VideoClipSource movieSource, int frame )
 	{
 		String command = RENDER_FRAME + " " + movieSource.getFile().getAbsolutePath() + " " + Integer.toString( frame );
 		String answer = frameServer.sendCommand(command);
@@ -41,8 +39,6 @@ public class MLTFrameServerController
 		return frameServer.getDiskCacheDirPath() + "/" + movieSource.getMD5id();
 	}
 
-
-	
 	private static String sendAnswerOrNullForError( String answer )
 	{
 		if ( answer.startsWith(ERROR) )
