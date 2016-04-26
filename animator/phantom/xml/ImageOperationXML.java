@@ -39,7 +39,7 @@ public class ImageOperationXML extends AbstractXML
 	public static final String FILTER_STACK_IOP_ELEMENT = "filteriop";
 	public static ImageOperation currentIop = null;//used by AnimatedValueVectorParam, they need reference to iop.
 
-	public static ImageOperation getObject( Element e, Project projectObj )
+	public static ImageOperation getObject( Element e, Project projectObj, boolean isFilterStackIop  )
 	{
 		String iopClass = e.getAttribute( "class" );
 
@@ -97,19 +97,23 @@ public class ImageOperationXML extends AbstractXML
 			for( int i = 0; i < plist.getLength(); i++ )
 			{
 				Element p = (Element) plist.item( i );
+
 				//--- Params that are children of params are not handled here
 				//--- as they are part of state of params.
-				//--- So parent node has to iop element
+				//--- So parent node has to be iop element
+				//--- see ValueXML.readAnimValVecValue
 				Node parent =  p.getParentNode();
-				//--- not sure why this
-				if( !parent.getNodeName().equals( ELEMENT_NAME ) )
+				if( !parent.getNodeName().equals( ELEMENT_NAME ) && !parent.getNodeName().equals( FILTER_STACK_IOP_ELEMENT ))
 					continue;
-				//--- This stops filter stack params from being loaded
-				if( parent != e ) 
+
+				//--- Don't load filter stack params for top level IOPs
+				if( isFilterStackIop == false  && !parent.getNodeName().equals( ELEMENT_NAME ))
 					continue;
+
 				//--- Create param
 				Param pObj = iop.getParam( p.getAttribute( ParamXML.ID_ATTR ) );
 				ParamXML.readParamValue( p, pObj );
+				System.out.println("down");
 			}
 			//--- filter stack
 			NodeList felist = e.getElementsByTagName( FILTER_STACK_ELEMENT );
@@ -122,7 +126,8 @@ public class ImageOperationXML extends AbstractXML
 				for( int i = 0; i < filters.getLength(); i++ )
 				{
 					Element iopE = (Element) filters.item( i );
-					ImageOperation filter = ImageOperationXML.getObject( iopE, projectObj );
+					ImageOperation filter = ImageOperationXML.getObject( iopE, projectObj, true );
+					filter.setFilterStackIOP( true );
 					filterStack.add( filter );
 				}
 				iop.setFilterStack( filterStack );

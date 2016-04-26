@@ -103,7 +103,7 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		//--- build components
 		render = PHButtonFactory.getButton( "Render" );//--- public: state set from WriteRenderThread
 		stop = PHButtonFactory.getButton( "Stop" );//--- public: state set from WriteRenderThread
-		exit = PHButtonFactory.getButton( "Exit" );//--- public: state set from WriteRenderThread
+		exit = PHButtonFactory.getButton( "Close" );//--- public: state set from WriteRenderThread
 		setIn =  PHButtonFactory.getButton( "Set" );
 		setOut = PHButtonFactory.getButton( "Set" );
 

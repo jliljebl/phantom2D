@@ -94,7 +94,7 @@ public class PhantomXML extends PhantomDocUtils
 			Element iopE = getFirstChild( rnodeE, ImageOperationXML.ELEMENT_NAME );
 
 			RenderNode rnode = RenderNodeXML.getObject( rnodeE );
-			ImageOperation iop = ImageOperationXML.getObject( iopE, project );
+			ImageOperation iop = ImageOperationXML.getObject( iopE, project, false );
 			if (iop == null) System.out.println("ipo null");
 			PhantomUndoManager.newIOPCreated( iop );
 			rnode.setImageOperation( iop );

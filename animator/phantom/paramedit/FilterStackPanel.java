@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.Vector;
 
@@ -19,6 +21,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+//import com.jhlabs.image.CellularFilter.Point;
 
 import animator.phantom.controller.FilterStackController;
 import animator.phantom.controller.GUIComponents;
@@ -82,6 +86,8 @@ public class FilterStackPanel extends JPanel implements ActionListener
 		stackButtons.add( Box.createHorizontalGlue() );
 		stackButtons.add( editTargetButton );
 
+
+		
 		stackTable = new JTable( new CustomTableModel( new Vector<Vector<String>>(), "" ) );
 		stackTable.setPreferredScrollableViewportSize(new Dimension( TABLES_WIDTH, STACK_TABLE_HEIGHT));
 		stackTable.setFillsViewportHeight( true );
@@ -90,7 +96,14 @@ public class FilterStackPanel extends JPanel implements ActionListener
 		stackTable.setShowGrid( false );
 		stackTable.setRowHeight(ROW_HEIGHT );
 		stackTable.setFont( GUIResources.BOLD_FONT_12 );
-
+		stackTable.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent me) {
+		        if (me.getClickCount() == 2) {
+					setIOPEdited();
+		        }
+		    }
+		});
+		
 		initFilterStack( 0 );
 
 		JScrollPane stackScrollPane = new JScrollPane( stackTable );
@@ -162,31 +175,6 @@ public class FilterStackPanel extends JPanel implements ActionListener
 		if( e.getSource() == addFilter )
 		{	
 			ParamEditController.addSelectedIOPToFilterStack();
-			/*
-			ImageOperation selIOP = nodesPanel.getSelectedIOP();
-
-			if( iop.getFilterStack().size() < STACK_MAX_SIZE )
-			{
-				ImageOperation addFilter;
-				if( selIOP.getPlugin() == null )
-				{
-					addFilter = IOPLibrary.getNewInstance( selIOP.getClass().getName() );
-				}
-				else//is plugin, not raw iop
-				{
-					String pluginName = selIOP.getPlugin().getClass().getName();
-					addFilter = IOPLibrary.getNewInstance( pluginName );
-
-				}
-				iop.getFilterStack().add( addFilter );
-				addFilter.setFilterStackIOP( true );
-				addFilter.copyTimeParams( iop );
-				
-				UpdateController.updateCurrentFrameDisplayers( false );
-				initFilterStack( iop.getFilterStack().size() - 1 );
-
-			}
-							*/
 		}
 
 		if( e.getSource() == deleteFilter )
@@ -229,16 +217,19 @@ public class FilterStackPanel extends JPanel implements ActionListener
 
 		if( e.getSource() == editTargetButton )
 		{
-			int index = stackTable.getSelectedRow();
-			if(  index == -1 )
-				return;
-
-			ImageOperation stackFilter = iop.getFilterStack().elementAt( index );
-			UpdateController.editTargetIOPChangedFromStackEditor( stackFilter );
-			ParamEditController.displayEditFrame( stackFilter );
+			setIOPEdited();
 		}
-		//if( e.getSource() == exitButton )
-		//	FilterStackController.closeEditor();
+	}
+
+	private void setIOPEdited()
+	{
+		int index = stackTable.getSelectedRow();
+		if(  index == -1 )
+			return;
+	
+		ImageOperation stackFilter = iop.getFilterStack().elementAt( index );
+		UpdateController.editTargetIOPChangedFromStackEditor( stackFilter );
+		ParamEditController.displayEditFrame( stackFilter );
 	}
 
 	class CustomTableModel extends DefaultTableModel

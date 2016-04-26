@@ -37,6 +37,7 @@ import java.awt.image.BufferedImage;
 import java.util.Vector;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.MemoryManager;
@@ -492,6 +493,13 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		else
 			lastMousePressWasLeftButton = true;
 
+		if( SwingUtilities.isMiddleMouseButton( e ) )
+		{
+			System.out.println("ewerwerwer");
+			GUIComponents.animatorFrame.centerViewEditor();
+			return;
+		}
+			
 		if( editLayer != null 
 			&& !editLayer.getIOP().
 				frameInClipArea( TimeLineController.getCurrentFrame() ) )

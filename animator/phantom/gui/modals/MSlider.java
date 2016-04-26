@@ -37,6 +37,14 @@ public class MSlider extends MInputField implements ChangeListener
 		initPanels();
 	}
 
+	
+	public void addSliderChangeListener( ChangeListener listener )
+	{
+		slider.addChangeListener(listener);
+	}
+	
+	public JSlider getSlider(){ return slider; }
+	
 	public int getIntValue(){ return slider.getValue(); }
 	
 	public void stateChanged(ChangeEvent e) 

@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import animator.phantom.controller.ParamEditController;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
@@ -48,7 +49,7 @@ public class NodesPanel extends JPanel
 
 	public NodesPanel()
 	{
-		 initContents();
+		initContents();
 		
 		setLayout( new BoxLayout( this, BoxLayout.X_AXIS ));
 
@@ -177,6 +178,14 @@ public class NodesPanel extends JPanel
 		int nodeIndex = nodesTable.getSelectedIndex();
 		ImageOperation iop = iopGroup.elementAt( nodeIndex );
 		return iop;
+	}
+	
+	public void tableDoubleClicked(  NodeSelectPanel source  )
+	{
+		if ( source == nodesTable )
+		{
+			ParamEditController.addSelectedIOPToFilterStack();
+		}
 	}
 	
 }//end class 

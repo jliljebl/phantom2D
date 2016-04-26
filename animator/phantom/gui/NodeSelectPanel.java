@@ -106,6 +106,12 @@ public class NodeSelectPanel extends JPanel implements MouseListener
 	{
 
 		
+		if (e.getClickCount() == 2 && !e.isConsumed()) {
+		     e.consume();
+		     System.out.println("double in panel");
+		     selectionListner.tableDoubleClicked(this);
+		}
+		
 		NodeSelectItem clickSource = ( NodeSelectItem ) e.getSource();
 		if( clickSource == null ) return;
 		else 

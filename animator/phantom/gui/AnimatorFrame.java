@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
@@ -524,6 +525,17 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	public Dimension getViewEditorSize()
 	{	
 		return viewScrollPane.getViewport().getExtentSize();
+	}
+	
+	public void centerViewEditor()
+	{
+		Rectangle bounds = viewScrollPane.getViewport().getViewRect();
+		Dimension size = viewScrollPane.getViewport().getViewSize();
+	
+		int x = (size.width - bounds.width) / 2;
+		int y = (size.height - bounds.height) / 2;
+
+		viewScrollPane.getViewport().setViewPosition(new Point(x, y));
 	}
 	
 	//--- Used to avoid opening flicker.

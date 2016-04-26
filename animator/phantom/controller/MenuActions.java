@@ -32,6 +32,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -74,7 +76,9 @@ import animator.phantom.xml.PhantomXML;
 public class MenuActions
 {
 	private static FileLoadWindow loadWindow;
-
+	private static MSlider compSlider;
+	private static MSlider tlineSlider;
+	
 	//------------------------------------------------------------ file
 	public static void newProject( int selectionIndex )
 	{
@@ -631,7 +635,7 @@ public class MenuActions
 		ImageOperation iop = rn.getImageOperation();
 
 		Element iopElem = ImageOperationXML.getElement( iop );
-		ImageOperation cloneIOP = ImageOperationXML.getObject( iopElem, ProjectController.getProject() );
+		ImageOperation cloneIOP = ImageOperationXML.getObject( iopElem, ProjectController.getProject(), false );
 		cloneIOP.loadParentIOP( ProjectController.getFlow() );
 
 		FlowController.addIOPRightAway( cloneIOP );
@@ -684,20 +688,46 @@ public class MenuActions
 
 	public static void setFlowWidth()
 	{
-		MSlider slider = new MSlider("Composition editor width",  150, 250, ContentPaneLayout.LEFT_WIDTH, 350, 700 );
+		compSlider = new MSlider("Composition Editor width",  150, 250, ContentPaneLayout.LEFT_WIDTH, 320, 700 );
 
-		MInputArea area = new MInputArea( "" );
-		area.add( slider );
+		MInputArea compArea = new MInputArea( "" );
+		compArea.add( compSlider );
+		compSlider.addSliderChangeListener( 
+				new ChangeListener() {
+						@Override
+						public void stateChanged(ChangeEvent e) {
+						    if (!compSlider.getSlider().getValueIsAdjusting()) {
+								ContentPaneLayout.LEFT_WIDTH = compSlider.getIntValue();
+								GUIComponents.animatorFrame.validate();
+								GUIComponents.animatorFrame.repaint();
+						    }
+						}
 
+		    });
+		
+		tlineSlider = new MSlider("View Editor height",  150, 250, AnimatorFrameLayout.VIEW_H, 380, 700 );
+
+		MInputArea tlineArea = new MInputArea( "" );
+		tlineArea.add( tlineSlider );
+		tlineSlider.addSliderChangeListener( 
+				new ChangeListener() {
+						@Override
+						public void stateChanged(ChangeEvent e) {
+						    if (!tlineSlider.getSlider().getValueIsAdjusting()) {
+								AnimatorFrameLayout.VIEW_H = tlineSlider.getIntValue();
+								GUIComponents.animatorFrame.validate();
+								GUIComponents.animatorFrame.repaint();
+						    }
+						}
+
+		    });
 		MInputPanel panel = new MInputPanel( "Set Composition Editor Height" );
-		panel.add( area );
+		panel.add( compArea );
+		panel.add( tlineArea );
 
-		DialogUtils.showMultiInput( panel, 450, 110 );
+		DialogUtils.showMultiInput( panel, 450, 140 );
 		
-		ContentPaneLayout.LEFT_WIDTH = slider.getIntValue();
-		
-		GUIComponents.animatorFrame.validate();
-		GUIComponents.animatorFrame.repaint();
+
 	}
 
 	

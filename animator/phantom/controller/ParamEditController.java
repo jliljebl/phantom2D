@@ -74,7 +74,6 @@ public class ParamEditController
 
 	public static void addSelectedIOPToFilterStack()
 	{
-		// NOTE CODE DUPLICATION nearby methods
 		ImageOperation selIOP = GUIComponents.nodesPanel.getSelectedIOP();
 		if( editTarget.getFilterStack().size() < ImageOperation.STACK_MAX_SIZE )
 		{
@@ -87,8 +86,8 @@ public class ParamEditController
 			{
 				String pluginName = selIOP.getPlugin().getClass().getName();
 				addFilter = IOPLibrary.getNewInstance( pluginName );
-
 			}
+			
 			editTarget.getFilterStack().add( addFilter );
 			addFilter.setFilterStackIOP( true );
 			addFilter.copyTimeParams( editTarget );

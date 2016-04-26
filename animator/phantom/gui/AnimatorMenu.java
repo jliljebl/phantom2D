@@ -431,8 +431,8 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		if( e.getSource() == projectSettings ) MenuActions.setProjectProperties();
 		if( e.getSource() == kfPreferences ) MenuActions.keyframePreferences();
 		if( e.getSource() == memorySettings ) MenuActions.setMemorySettings();
+		if( e.getSource() == editorLayout ) MenuActions.setFlowWidth();
 		
-
 		//--------------------------------------------- Media menu
 		if( e.getSource() == addImage )
 		{

@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import animator.phantom.controller.AppUtils;
+import animator.phantom.controller.MenuActions;
 //import animator.phantom.controller.EditorsController;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.TimeLineController;
@@ -84,8 +85,8 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 		p2.add( stopPreviewRender );
 		p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
 		p2.add( trashPreviewRender );
-		//p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
-		p2.add( Box.createHorizontalGlue() );
+		p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
+		//p2.add( Box.createHorizontalGlue() );
 		p2.add( previewTimeInfo );
 		p2.add( Box.createHorizontalGlue() );
 		p2.add( panelsLayout );
@@ -96,7 +97,7 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 	public void updatePreviewRenderInfo( int millis, int frame )
 	{
 		String frameTime = 	AppUtils.createTimeString( millis, true );
-		previewTimeInfo.setText( "frame " + Integer.toString(frame) + ", render time: " + frameTime);
+		previewTimeInfo.setText( "frame: " + Integer.toString(frame) + ", render time:" + frameTime);
 	}
 
 	public void updatePlayButton()
@@ -137,6 +138,10 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 		{
 			TimeLineController.changeCurrentFrame( -1 );
 			UpdateController.updateCurrentFrameDisplayers( false );
+		}
+		if( e.getSource() == panelsLayout )
+		{
+			MenuActions.setFlowWidth();
 		}
 	}
 
