@@ -49,7 +49,7 @@ public class EditorsController
 	//--- State of flag switches between color and alpha displays.
 	private static boolean alphaDisplay = false;
 	//--- Currently edited stuff in key frame editor.
-	private static AnimationKeyFrame currentKF = null;
+	private static Vector<AnimationKeyFrame> selectedKeyframes = new Vector<AnimationKeyFrame>();
  	private static KeyFrameParam currentKFParam = null;
 
  	private static Dimension viewEditorSize = null;
@@ -315,6 +315,8 @@ public class EditorsController
 		//--- NOTE:  Sets currentKFParam as a SIDE EFFECT!!!
 		//---------- because it may be special dunmmy value
 		GUIComponents.keyFrameEditPanel.initEditor( editValue, iop );
+		selectedKeyframes = new Vector<AnimationKeyFrame>();
+		/*
 		if( currentKF != null )
 		{
 			int kfMovieFrame = currentKF.getFrame() + iop.getBeginFrame();
@@ -323,16 +325,48 @@ public class EditorsController
 			if( newKF == null )
 				GUIComponents.keyFrameEditPanel.setFocusFrame( -1 );
 		}
+		*/
 		GUIComponents.kfControl.setStepped( editValue.getStepped() );
 		GUIComponents.kfColumnPanel.repaint();
 	}
 	//--- Set currently selected keyframe
 	public static void setCurrentKeyFrame( AnimationKeyFrame kf )
 	{
-		currentKF = kf;
-		GUIComponents.kfControl.setKeyFrame( currentKF );
+		selectedKeyframes = new Vector<AnimationKeyFrame>();
+		selectedKeyframes.add(kf);
+		GUIComponents.kfControl.setKeyFrame( kf );
 	}
-	public static AnimationKeyFrame getCurrentKeyFrame(){ return currentKF; }// can be null
+	public static void addSelectedKeyFrame(  AnimationKeyFrame kf )
+	{
+		selectedKeyframes.add(kf);
+	}
+	public static AnimationKeyFrame getCurrentKeyFrame()
+	{ 
+		if (selectedKeyframes.size() == 0) return null;
+		return selectedKeyframes.elementAt(0); 
+	}
+	public static Vector<AnimationKeyFrame> getSelectedKeyFrames()
+	{ 
+		return selectedKeyframes; 
+	}
+	public static int[] getFocusKeyFrames( ImageOperation iop )
+	{
+		if (selectedKeyframes.size() == 0)
+		{
+			int[] empty = {-1};
+			return empty;
+		}
+		int[] focusFrames = new int[selectedKeyframes.size()];
+		for (int i = 0; i < selectedKeyframes.size(); i++)
+		{
+			AnimationKeyFrame kf = selectedKeyframes.elementAt(i);
+			if  (kf != null )
+				focusFrames[i] =  iop.getBeginFrame() + selectedKeyframes.elementAt(i).getFrame();
+			else
+				focusFrames[i] = -1;
+		}
+		return focusFrames;
+	}
 	public static void setCurrentKFParam( KeyFrameParam currentKFParam_ ){ currentKFParam = currentKFParam_; }
 	public static KeyFrameParam getCurrentKFParam(){ return currentKFParam; }
 	public static Param getCurrentKFEditorParam(){ return GUIComponents.kfColumnPanel.getCurrentParam(); }//--- hackish

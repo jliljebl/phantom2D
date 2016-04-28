@@ -21,11 +21,18 @@ package animator.phantom.gui.keyframe;
 
 import java.awt.event.MouseEvent;
 
+import animator.phantom.controller.ProjectController;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.param.AnimationKeyFrame;
 
 public abstract class KFEditMode
 {
+	protected KeyFrameEditorPanel kfPanel;
+	protected int startX;
+	protected int lastFrameDelta;
+	protected int startFrame;
+	protected ImageOperation iop;
+	
 	//--- Called when edit in this mode is started by mouse button press.
 	public abstract void mousePressed( MouseEvent e, KeyFrameEditorPanel kfPanel, AnimationKeyFrame kf, int beginFrame, ImageOperation iop );
 
@@ -35,4 +42,22 @@ public abstract class KFEditMode
 	//--- Called when edit in this mode is ongoing and mouse is button is released.
 	public abstract void mouseReleased( MouseEvent e );
 
+	public int getFrameDelta( MouseEvent e )
+	{
+		int editDelta = e.getX() - startX;
+		int frameDelta = Math.round( editDelta / kfPanel.getPixPerFrame() );
+		/*
+		if( startFrame + frameDelta < 0 
+			|| startFrame + frameDelta >  ProjectController.getLength() - 1 ) frameDelta = lastFrameDelta;
+		if(  startFrame + frameDelta < iop.getClipStartFrame() ) frameDelta = iop.getClipStartFrame() - startFrame;
+		if(  startFrame + frameDelta > iop.getClipEndFrame() ) frameDelta = iop.getClipEndFrame() - startFrame;
+		*/
+		
+		if( startFrame + frameDelta < 0 
+				|| startFrame + frameDelta >  ProjectController.getLength() - 1 ) frameDelta = lastFrameDelta;
+		if(  startFrame + frameDelta < iop.getClipStartFrame() ) frameDelta = startFrame - iop.getClipStartFrame();
+		if(  startFrame + frameDelta > iop.getClipEndFrame() ) frameDelta = iop.getClipEndFrame() - startFrame;
+			
+		return  frameDelta;
+	}
 }//end class

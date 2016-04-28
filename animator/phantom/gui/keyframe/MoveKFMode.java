@@ -22,72 +22,52 @@ package animator.phantom.gui.keyframe;
 import java.awt.event.MouseEvent;
 
 import animator.phantom.controller.EditorsController;
-import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.param.AnimationKeyFrame;
 
-//--- Edit mode for moving keyframes in keyframe editor.
+//--- Edit mode for moving single keyframe in Spline Editor.
 public class MoveKFMode extends KFEditMode
 {
-	private KeyFrameEditorPanel kfPanel;
-	private int startX;
-	private int lastFrameDelta;
-	private int startFrame;
-	private ImageOperation iop;
+	public MoveKFMode(){}
 
-	public MoveKFMode(){ System.out.println("MoveKFMode constructor"); }
-
-	//--- Called when edit in this mode is started by mouse button press.
 	public void mousePressed( MouseEvent e, KeyFrameEditorPanel kfPanel, AnimationKeyFrame kf, int iopBeginFrame, ImageOperation iop )
 	{
 		this.kfPanel = kfPanel;
 		this.iop = iop;
-		startFrame = kf.getFrame() + iopBeginFrame;
+		startFrame = kf.getFrame() + iopBeginFrame;//so startframe is in timeline space, not clip space
 		startX = e.getX();
 		lastFrameDelta = 0;//--- Last frame delta changes always when frame for kf changes.
-		kfPanel.setFocusFrame( startFrame );
 	}
 
-	//--- Called when edit in this mode is ongoing and mouse is dragged.
 	public void mouseDragged( MouseEvent e )
 	{
 		float val = kfPanel.getValueForY( e.getY() );
-		int editDelta = e.getX() - startX;
-		int frameDelta = Math.round( editDelta / kfPanel.getPixPerFrame() );
-		if( startFrame + frameDelta < 0 
-			|| startFrame + frameDelta >  ProjectController.getLength() - 1 ) frameDelta = lastFrameDelta;
-		if(  startFrame + frameDelta < iop.getClipStartFrame() ) frameDelta = iop.getClipStartFrame() - startFrame;
-		if(  startFrame + frameDelta > iop.getClipEndFrame() ) frameDelta = iop.getClipEndFrame() - startFrame;
 
+		int frameDelta = getFrameDelta( e );
+		
 		if( frameDelta == lastFrameDelta )
 		{
 			kfPanel.getEditValue().setValue( startFrame + lastFrameDelta, val );
 		}
 		else//move kf to new frame
 		{
-			//--- This block can be made >30? times faster, but for now, never mind
+			//--- This block can be made >30? times faster
 			AnimationKeyFrame lastKF = kfPanel.getEditValue().getKeyFrame( startFrame + lastFrameDelta );
 			kfPanel.getEditValue().removeKeyFrame( startFrame + lastFrameDelta );
 			lastFrameDelta = frameDelta;
 			kfPanel.getEditValue().setValue( startFrame + lastFrameDelta, val );
 			kfPanel.getEditValue().copyParams( startFrame + lastFrameDelta, lastKF );
 		}
-		kfPanel.setFocusFrame( startFrame + lastFrameDelta );
+
 		EditorsController.setCurrentKeyFrame(  kfPanel.getEditValue().getKeyFrame( startFrame + frameDelta ) );
 	}
 
-	//--- Called when edit in this mode is ongoing and mouse is button is released.
 	public void mouseReleased( MouseEvent e )
 	{
 		float val = kfPanel.getValueForY( e.getY() );
 
-		int editDelta = e.getX() - startX;
-		int frameDelta = Math.round( editDelta / kfPanel.getPixPerFrame() );
-		if( startFrame + frameDelta < 0 
-			|| startFrame + frameDelta >  ProjectController.getLength() - 1 ) frameDelta = lastFrameDelta;
-		if(  startFrame + frameDelta < iop.getClipStartFrame() ) frameDelta = startFrame - iop.getClipStartFrame();
-		if(  startFrame + frameDelta > iop.getClipEndFrame() ) frameDelta = iop.getClipEndFrame() - startFrame;
+		int frameDelta = getFrameDelta( e );
 
 		if( frameDelta == lastFrameDelta )
 		{
@@ -95,7 +75,7 @@ public class MoveKFMode extends KFEditMode
 		}
 		else//move kf to new frame
 		{
-			//--- This block can be made >30? times faster, but for now, never mind
+			//--- This block can be made >30? times faster
 			AnimationKeyFrame lastKF = kfPanel.getEditValue().getKeyFrame( startFrame + lastFrameDelta );
 			kfPanel.getEditValue().removeKeyFrame( startFrame + lastFrameDelta );
 			kfPanel.getEditValue().setValue( startFrame + frameDelta, val );

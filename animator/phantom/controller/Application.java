@@ -276,6 +276,7 @@ public class Application implements WindowListener
 		//--- Set cache sizes with current information.
 		MemoryManager.initCache();
 
+		GUIComponents.animatorFrame.centerViewEditor();
 		//--- Unblock cache and view editor updates.
 		projectLoading = false;
 	}

@@ -259,10 +259,19 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		timeLineEditorStrip.setLayout( new TimeLineRowLayout( iopColumn, timelineEditor ) );
 		timeLineEditorStrip.add( iopColumn );
 		timeLineEditorStrip.add( timelineEditor );
-
+		
+		//temp solution
+		Dimension newSize = new Dimension(1000, 1000);
+		timeLineEditorStrip.setSize( newSize );
+		timeLineEditorStrip.setPreferredSize( newSize );
+		timeLineEditorStrip.setMinimumSize( newSize );
+		timeLineEditorStrip.setMaximumSize( newSize );
+		
 		JScrollPane timeEditorScrollPane = new JScrollPane( timeLineEditorStrip,
-			 ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+			 ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 			 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+		JScrollBar tvb = timeEditorScrollPane.getVerticalScrollBar();
+		tvb.setUI(new PHScrollUI());
 		
 		timelinePanel = new JPanel();
 		timelinePanel.setLayout( new TimeLineEditorLayout( Application.SMALL_WINDOW_WIDTH ) );
@@ -309,8 +318,10 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		keyFrameEditorStrip.add( kfEditPanel );
 
 		JScrollPane keyEditorScrollPane = new JScrollPane( keyFrameEditorStrip,
-			 ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+			 ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 			 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollBar kvb = keyEditorScrollPane.getVerticalScrollBar();
+		kvb.setUI(new PHScrollUI());
 		
 		keyEditorPanel = new JPanel();
 		keyEditorPanel.setLayout( new TimeLineEditorLayout( Application.SMALL_WINDOW_WIDTH ) );

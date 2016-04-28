@@ -41,6 +41,7 @@ import javax.swing.JPopupMenu;
 
 import animator.phantom.bezier.BezierSegment;
 import animator.phantom.controller.EditorsController;
+import animator.phantom.controller.KeyStatus;
 import animator.phantom.controller.MenuActions;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.TimeLineController;
@@ -71,8 +72,6 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 	//--- Animated Value being edited.
 	private KeyFrameParam editValue;
 	private KeyFrameParam dummyValue = (KeyFrameParam) new AnimatedValue( new DummyImageOperation() );//dummy value to kill null pointers.
-	//--- Focus frame, kf here will be high lighted
-	private int focusFrame = -1;
 	//--- range -50 -> 50
 	private int verticalPos = 0;
 	private float vOFF = 0.0f;
@@ -108,6 +107,7 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 
 	//--- keyframe popupmenu
 	private  JPopupMenu keyframeMenu;
+	private JMenuItem setInterpolation;
 	private JMenuItem clearAll;
 	private JMenuItem freezeAll;
 	private JMenuItem addToAll;
@@ -116,13 +116,10 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 	private JMenuItem scaleAllAfter;
 	private JMenuItem moveAllAfter;
 	private JMenuItem removeAllBefore;
-	private JMenuItem kfPreferences;
 
 
 	public KeyFrameEditorPanel()
-	{
-		System.out.print("INITIALIZING KEYFRAME EDITOR..." );
-		
+	{		
 		//--- To kill null pointers
 		editValue = dummyValue;
 		editValue.setValue( 0, 9.0f );
@@ -135,8 +132,6 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 		autoZoom();
 		setValueDrawScaleStep();
 		scaleOrPositionChanged();
-
-		System.out.println("...DONE!" );
 	}
 
 	public void initEditor( KeyFrameParam editValue, ImageOperation iop )
@@ -154,8 +149,6 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 	public ImageOperation getIOP(){ return iop; }
 	public KeyFrameParam getEditValue(){ return editValue; }
 	public float getPixPerFrame(){ return pixPerFrame; }
-	public void setFocusFrame( int frame ){ focusFrame = frame; }
-	public int getFocusFrame(){ return focusFrame; }
 
 	//---------------------------------------- 
 	//--- Updates view when timeline scale or pos changed.
@@ -287,8 +280,6 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 		{
 			vOFF = 0;
 			verticalPos = 0;
-			//SLIDER_EVENT_SELF_REQUEST = true;
-			//GUIComponents.kfVertSlider.setValue( 50 );// calls setVerticalPos() via listener
 			return;
 		}
 		float fullRange = absMax * pixForValueOne;
@@ -316,6 +307,8 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 	//------------------------------------------------- MOUSE EVENTS
 	public void mousePressed(MouseEvent e)
 	{
+		editMode = null;
+		
 		requestFocusInWindow();
 		PreviewController.stopPlaybackRequest();
 
@@ -332,24 +325,29 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 		}
 
 		//--- Move mode
-		if( kfHIT != null && e.getButton() == MouseEvent.BUTTON1 )
+		if( kfHIT != null && e.getButton() == MouseEvent.BUTTON1 && !KeyStatus.ctrlIsPressed()  )
 		{
 			editMode = new MoveKFMode();
 			EditorsController.setCurrentKeyFrame( kfHIT );
+			editMode.mousePressed( e, this, kfHIT, iop.getBeginFrame(), iop );
+		}
+		else if( kfHIT != null && e.getButton() == MouseEvent.BUTTON1 && KeyStatus.ctrlIsPressed()  )
+		{
+			
+			EditorsController.addSelectedKeyFrame( kfHIT );
+			editMode = new MultiMoveKFMode();
 			editMode.mousePressed( e, this, kfHIT, iop.getBeginFrame(), iop );
 		}
 		//--- select frame
 		else if( kfHIT != null && e.getButton() == MouseEvent.BUTTON3 )
 		{
 			EditorsController.setCurrentKeyFrame( kfHIT );
-			setFocusFrame( iop.getBeginFrame() + kfHIT.getFrame() );
 			showPopup( e );
 		}
 		//--- deselect frame
 		else
 		{
 			EditorsController.setCurrentKeyFrame( null );
-			setFocusFrame( -1 );
 		}
 		editEvent = e;
 		repaint();
@@ -585,6 +583,7 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 	{
 		if( iop == null ) return;
 		Vector <AnimationKeyFrame> keyFrames = editValue.getKeyFrames();
+		int[] focusFrames = EditorsController.getFocusKeyFrames( iop );
 		for( AnimationKeyFrame kf: keyFrames )
 		{
 			int kfMovieFrame = iop.getBeginFrame() + kf.getFrame();
@@ -597,9 +596,11 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 					yval = (float) Math.round( (double) yval );
 				}
 				int kfY = Math.round( getPixYForValue( yval ) );
-				//g.drawImage( keyFrameImg, kfX - 5, iy, null );
-				if( focusFrame == kfMovieFrame )g.setColor( GUIColors.KF_FOCUS_COLOR );
-				else g.setColor( GUIColors.KF_COLOR );
+				
+				g.setColor( GUIColors.KF_COLOR );				
+				for ( int focusFrame : focusFrames)
+					if( focusFrame == kfMovieFrame ) g.setColor( GUIColors.KF_FOCUS_COLOR );
+
 				g.fillRect( kfX - KF_OFF , kfY - KF_OFF, KF_SIDE, KF_SIDE );
 			}
 		}
@@ -739,6 +740,9 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 	{
 		//Create the popup menu.
 		keyframeMenu = new JPopupMenu();
+		setInterpolation = new JMenuItem("Set Interpolation");
+		setInterpolation.addActionListener(this);
+		keyframeMenu.add( setInterpolation );
 		//---
 		clearAll = new JMenuItem("Clear All");
 		clearAll.addActionListener(this);
@@ -777,16 +781,13 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 		keyframeMenu.add( scaleAllAfter );
 		//---
 		keyframeMenu.addSeparator();
-		//---
-		kfPreferences = new JMenuItem("Keyframe preferences...");
-		kfPreferences.addActionListener(this);
-		keyframeMenu.add( kfPreferences );
 
 		keyframeMenu.show( e.getComponent(), e.getX(), e.getY() );
 	}
 
 	public void actionPerformed(ActionEvent e)
 	{
+		if( e.getSource() == setInterpolation ) MenuActions.setInterpolation();
 		if( e.getSource() == clearCurrent ) MenuActions.clearCurrent();
 		if( e.getSource() == clearAll ) MenuActions.clearAll();
 		if( e.getSource() == freezeAll ) MenuActions.freezeAllToCurrent();
@@ -795,7 +796,6 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 		if( e.getSource() == removeAllBefore ) MenuActions.clearBeforeCurrent();
 		if( e.getSource() == scaleAllAfter ) MenuActions.scaleAfterCurrent();
 		if( e.getSource() == moveAllAfter ) MenuActions.moveAfterCurrent();
-		if( e.getSource() == kfPreferences ) MenuActions.keyframePreferences();
 	}
 
 }//end class

@@ -495,7 +495,6 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 
 		if( SwingUtilities.isMiddleMouseButton( e ) )
 		{
-			System.out.println("ewerwerwer");
 			GUIComponents.animatorFrame.centerViewEditor();
 			return;
 		}

@@ -853,6 +853,51 @@ public class MenuActions
 		FlowController.addIOPNow(addIOP, p);
 	}
 	//------------------------------------------------------  Keyframe
+	public static void setInterpolation()
+	{
+		//if( kfProperties.getIcon() == propsDisabled ) return;//icon used as flag for button being enabled
+		String[] interpolations = { "linear","bezier" };
+		AnimationKeyFrame kf = EditorsController.getCurrentKeyFrame();
+	
+		// Build dialog
+		final MComboBox leadingInterp = new MComboBox( "Interpolation", interpolations );
+		final MTextField leadingTens = new MTextField( "Tension", new Float(0.3f ));
+		leadingTens.setTextFieldSize( 50 );
+		
+		leadingInterp.setSelectedIndex( kf.getLeadingInterpolation() - 1 );// -1 to make values correspond with selection indexes
+		leadingTens.setValue( kf.getLeadingTension() );
+		
+		MInputArea lArea = new MInputArea( "Leading" );
+		lArea.add( leadingInterp );
+		lArea.add( leadingTens );
+		
+		final MComboBox trailingInterp = new MComboBox( "Interpolation", interpolations );
+		final MTextField trailingTens = new MTextField( "Tension", new Float( 0.3f ));
+		trailingTens.setTextFieldSize( 50 );
+		
+		trailingInterp.setSelectedIndex( kf.getTrailingInterpolation() - 1 );// -1 to make values correspond with selection indexes
+		trailingTens.setValue( kf.getTrailingTension() );
+		
+		MInputArea tArea = new MInputArea( "Trailing" );
+		tArea.add( trailingInterp );
+		tArea.add( trailingTens );
+		
+		final MInputPanel pPanel = new MInputPanel( "Keyframe Properties" );
+		pPanel.add( lArea );
+		pPanel.add( tArea );
+		
+		// Display
+		int retVal = DialogUtils.showMultiInput( pPanel, 400, 250 );//blocks
+		if( retVal != DialogUtils.OK_OPTION ) return;
+	
+		// Set values and repaint
+		kf.setLeadingInterpolation( leadingInterp.getSelectedIndex() + 1 );
+		kf.setTrailingInterpolation( trailingInterp.getSelectedIndex() + 1 );
+		kf.setLeadingTension( leadingTens.getFloatValue() );
+		kf.setTrailingTension( trailingTens.getFloatValue() );
+		EditorsController.updateKFForValueChange();
+	}
+	
 	//--- Clears all keyframes from iop
 	public static void clearAll()
 	{
@@ -926,8 +971,9 @@ public class MenuActions
 
 		Vector<KeyFrameParam> params = iop.getKeyFrameParams();
 		addAnimateValueVectorParams( iop, params );
-		int current = GUIComponents.keyFrameEditPanel.getFocusFrame();
-
+		//int current = GUIComponents.keyFrameEditPanel.getFocusFrame();
+		int current = 0; //temp, not fixed
+		
 		boolean first = true;
 		for( KeyFrameParam kfp : params )
 		{
@@ -971,8 +1017,9 @@ public class MenuActions
 			return;
 		Vector<KeyFrameParam> params = iop.getKeyFrameParams();
 		addAnimateValueVectorParams( iop, params );
-		int current = GUIComponents.keyFrameEditPanel.getFocusFrame();
-
+		//int current = GUIComponents.keyFrameEditPanel.getFocusFrame();
+		int current = 0;
+		
 		boolean first = true;
 		for( KeyFrameParam kfp : params )
 		{
@@ -1001,8 +1048,8 @@ public class MenuActions
 
 		Vector<KeyFrameParam> params = iop.getKeyFrameParams();
 		addAnimateValueVectorParams( iop, params );
-		int current = GUIComponents.keyFrameEditPanel.getFocusFrame() + 1;
-
+		//int current = GUIComponents.keyFrameEditPanel.getFocusFrame() + 1;
+		int current = 0;
 		boolean first = true;
 		for( KeyFrameParam kfp : params )
 		{
@@ -1042,8 +1089,8 @@ public class MenuActions
 
 		Vector<KeyFrameParam> params = iop.getKeyFrameParams();
 		addAnimateValueVectorParams( iop, params );
-		int current = GUIComponents.keyFrameEditPanel.getFocusFrame() - 1;
-
+		//int current = GUIComponents.keyFrameEditPanel.getFocusFrame() - 1;
+		int current = 0;
 		boolean first = true;
 		for( KeyFrameParam kfp : params )
 		{
@@ -1107,8 +1154,8 @@ public class MenuActions
 		//--- Scale params
 		Vector<KeyFrameParam> params = iop.getKeyFrameParams();
 		addAnimateValueVectorParams( iop, params );
-		int current = GUIComponents.keyFrameEditPanel.getFocusFrame();
-
+		//int current = GUIComponents.keyFrameEditPanel.getFocusFrame();
+		int current = 0;
 		boolean first = true;
 		for( KeyFrameParam kfp : params )
 		{
@@ -1146,6 +1193,7 @@ public class MenuActions
 
 	public static void moveAfterCurrent()
 	{
+		/*
 		//--- Get user input
 		String tc = TimeLineDisplayPanel.parseTimeCodeString( TimeLineController.getCurrentFrame(), 6, ProjectController.getFramesPerSecond() );
 		MTextField move = new MTextField( "Move by frames", 125, new Integer( 5 ) );
@@ -1177,8 +1225,8 @@ public class MenuActions
 		
 		Vector<KeyFrameParam> params = iop.getKeyFrameParams();
 		addAnimateValueVectorParams( iop, params );
-		int currentFrame = GUIComponents.keyFrameEditPanel.getFocusFrame() + 1;
-
+		//int currentFrame = GUIComponents.keyFrameEditPanel.getFocusFrame() + 1;
+		int current = 0;
 		boolean first = true;
 		for( KeyFrameParam kfp : params )
 		{
@@ -1214,6 +1262,7 @@ public class MenuActions
 		//--- kf diamonds update
 		iop.createKeyFramesDrawVector();
 		TimeLineController.initClipsGUI();
+		*/
 	}
 	//---
 	public static void keyframePreferences()

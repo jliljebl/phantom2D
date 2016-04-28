@@ -62,8 +62,6 @@ import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.IOPMenuItem;
 import animator.phantom.gui.MediaMenuItem;
 import animator.phantom.renderer.FileSource;
-//import animator.phantom.renderer.FileSource;
-//import animator.phantom.gui.RecentMenuItem;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
 import animator.phantom.renderer.imagesource.MovingBlendedIOP;
