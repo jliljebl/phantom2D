@@ -106,7 +106,7 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 
 
 	//--- keyframe popupmenu
-	private  JPopupMenu keyframeMenu;
+	private JPopupMenu keyframeMenu;
 	private JMenuItem setInterpolation;
 	private JMenuItem clearAll;
 	private JMenuItem freezeAll;
@@ -738,48 +738,47 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 	//-------------------------------------------------------------- Popup menu
 	private void showPopup(MouseEvent e) 
 	{
-		//Create the popup menu.
 		keyframeMenu = new JPopupMenu();
 		setInterpolation = new JMenuItem("Set Interpolation");
 		setInterpolation.addActionListener(this);
 		keyframeMenu.add( setInterpolation );
-		//---
+
 		clearAll = new JMenuItem("Clear All");
 		clearAll.addActionListener(this);
 		keyframeMenu.add( clearAll );
-		//---
+
 		freezeAll = new JMenuItem("Freeze All To Current");
 		freezeAll.addActionListener(this);
 		keyframeMenu.add( freezeAll );
-		//---
+
 		addToAll = new JMenuItem("Add To All In Current");
 		addToAll.addActionListener(this);
 		keyframeMenu.add( addToAll );
-		//---
+
 		keyframeMenu.addSeparator();
-		//---
+
 		clearCurrent = new JMenuItem("Clear In Current");
 		clearCurrent.addActionListener(this);
 		keyframeMenu.add( clearCurrent );
-		//---
+
 		removeAllAfter = new JMenuItem("Clear After Current");
 		removeAllAfter.addActionListener(this);
 		keyframeMenu.add( removeAllAfter );
-		//---
+
 		removeAllBefore = new JMenuItem("Clear Before Current");
 		removeAllBefore.addActionListener(this);
 		keyframeMenu.add( removeAllBefore );
-		//---
+
 		keyframeMenu.addSeparator();
-		//---
+
 		moveAllAfter = new JMenuItem("Move After Current...");
 		moveAllAfter.addActionListener(this);
 		keyframeMenu.add( moveAllAfter );
-		//---
+
 		scaleAllAfter = new JMenuItem("Scale After Current...");
 		scaleAllAfter.addActionListener(this);
 		keyframeMenu.add( scaleAllAfter );
-		//---
+
 		keyframeMenu.addSeparator();
 
 		keyframeMenu.show( e.getComponent(), e.getX(), e.getY() );

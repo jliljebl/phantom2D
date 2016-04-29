@@ -22,6 +22,8 @@ package animator.phantom.gui.timeline;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -30,7 +32,9 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Vector;
 
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.ParamEditController;
@@ -38,21 +42,30 @@ import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.gui.AnimFrameGUIParams;
 import animator.phantom.gui.GUIColors;
+import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.GUIUtils;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.undo.PhantomUndoManager;
 import animator.phantom.undo.TimeLineUndoEdit;
 
-public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener
+public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListener
 {	
 	//--- ImageOperations currently in timeline editing.
 	private Vector <TimeLineEditorIOPClip> iopClips = new Vector<TimeLineEditorIOPClip>();
 
 	private TimeLineEditorIOPClip currentClipBeingEdited = null;
-
-	private int verticalPos = 0;
+	
+	private int verticalPos = 0;// we're using real slider here now, look to remove
 	private int sliderPos = 50;// this is not a real slider
 
+	private JPopupMenu clipMenu;
+	private JMenuItem moveUp;
+	private JMenuItem moveDown;
+	private JMenuItem clipOutToCurrent;
+	private JMenuItem clipInToCurrent;
+	private JMenuItem moveClipTailToCurrent;
+	private JMenuItem moveClipHeadToCurrent;
+	
 	//---------------------------------------------- CONSTRUCTOR
 	public TimeLineEditorPanel()
 	{
@@ -91,20 +104,27 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 	{
 		PreviewController.stopPlaybackRequest();
 
-		//--- Send press event to clip that correxpionds to y. 
+		//--- Send press event to clip that corresponds to y. 
 		int y = e.getY() - verticalPos;
 		int rowHeight = AnimFrameGUIParams.TE_ROW_HEIGHT;
-		//--- if press below all clps leave.
+		//--- if press below all clips, leave.
 		if( y >=  (iopClips.size() * rowHeight ) )
 		{
 			TimeLineController.unselectAllClips();
 			TimeLineController.clipEditorRepaint();
 			return;
 		}
-		//--- Get clip inbdex.
+		//--- Get clip index.
 		int clipIndex = y / rowHeight;
 		//--- forward event
 		TimeLineEditorIOPClip clip = iopClips.elementAt( clipIndex );
+		if(e.getButton() == MouseEvent.BUTTON3 )
+		{
+			TimeLineController.setAsSingleSelectedClip( clip.getIOP() );
+			showPopup(e);
+			return;
+		}
+			
 		if( clip.getIOP().getLocked() )
 			return;
 		clip.mousePressed( e );
@@ -238,5 +258,44 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 			g.drawLine( 0, i * rowHeight + verticalPos, getWidth(), i * rowHeight + verticalPos );
 		}
 	}
-	
+
+	//----------------------------------------- popup menu items
+	public void actionPerformed(ActionEvent e)
+	{
+		
+	}
+	//-------------------------------------------------------------- Popup menu
+	private void showPopup(MouseEvent e) 
+	{
+		clipMenu = new JPopupMenu();
+		
+		moveUp = new JMenuItem("Move Up");
+		moveUp.addActionListener(this);
+		clipMenu.add( moveUp );
+
+		moveDown = new JMenuItem("Move Down");
+		moveDown.addActionListener(this);
+		clipMenu.add( moveDown );
+
+		clipMenu.addSeparator();
+		
+		clipOutToCurrent = new JMenuItem("Strecth clip out to current frame" );
+		clipOutToCurrent.addActionListener(this);
+		clipMenu.add( clipOutToCurrent );
+		
+		clipInToCurrent = new JMenuItem("Strecth clip in to current frame" );
+		clipInToCurrent.addActionListener(this);
+		clipMenu.add( clipInToCurrent );
+		
+		moveClipTailToCurrent = new JMenuItem("Move clip to end in current frame" );
+		moveClipTailToCurrent.addActionListener(this);
+		clipMenu.add( moveClipTailToCurrent );
+		
+		moveClipHeadToCurrent = new JMenuItem("Move clip to start in current frame" );
+		moveClipHeadToCurrent.addActionListener(this);
+		clipMenu.add( moveClipHeadToCurrent );
+		
+		clipMenu.show( e.getComponent(), e.getX(), e.getY() );
+	}
+
 }//end class
