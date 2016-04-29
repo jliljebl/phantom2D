@@ -108,15 +108,9 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 	//--- keyframe popupmenu
 	private JPopupMenu keyframeMenu;
 	private JMenuItem setInterpolation;
-	private JMenuItem clearAll;
 	private JMenuItem freezeAll;
-	private JMenuItem addToAll;
-	private JMenuItem clearCurrent;
-	private JMenuItem removeAllAfter;
-	private JMenuItem scaleAllAfter;
-	private JMenuItem moveAllAfter;
-	private JMenuItem removeAllBefore;
-
+	private JMenuItem selectFollowing;
+	private JMenuItem selectPrevious;
 
 	public KeyFrameEditorPanel()
 	{		
@@ -743,43 +737,21 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 		setInterpolation.addActionListener(this);
 		keyframeMenu.add( setInterpolation );
 
-		clearAll = new JMenuItem("Clear All");
-		clearAll.addActionListener(this);
-		keyframeMenu.add( clearAll );
+		keyframeMenu.addSeparator();
 
-		freezeAll = new JMenuItem("Freeze All To Current");
+		freezeAll = new JMenuItem("Freeze Value To Current");
 		freezeAll.addActionListener(this);
 		keyframeMenu.add( freezeAll );
 
-		addToAll = new JMenuItem("Add To All In Current");
-		addToAll.addActionListener(this);
-		keyframeMenu.add( addToAll );
-
 		keyframeMenu.addSeparator();
 
-		clearCurrent = new JMenuItem("Clear In Current");
-		clearCurrent.addActionListener(this);
-		keyframeMenu.add( clearCurrent );
+		selectFollowing = new JMenuItem("Select Following Keyframes");
+		selectFollowing.addActionListener(this);
+		keyframeMenu.add( selectFollowing );
 
-		removeAllAfter = new JMenuItem("Clear After Current");
-		removeAllAfter.addActionListener(this);
-		keyframeMenu.add( removeAllAfter );
-
-		removeAllBefore = new JMenuItem("Clear Before Current");
-		removeAllBefore.addActionListener(this);
-		keyframeMenu.add( removeAllBefore );
-
-		keyframeMenu.addSeparator();
-
-		moveAllAfter = new JMenuItem("Move After Current...");
-		moveAllAfter.addActionListener(this);
-		keyframeMenu.add( moveAllAfter );
-
-		scaleAllAfter = new JMenuItem("Scale After Current...");
-		scaleAllAfter.addActionListener(this);
-		keyframeMenu.add( scaleAllAfter );
-
-		keyframeMenu.addSeparator();
+		selectPrevious = new JMenuItem("Select Previous Keyframes");
+		selectPrevious.addActionListener(this);
+		keyframeMenu.add( selectPrevious );
 
 		keyframeMenu.show( e.getComponent(), e.getX(), e.getY() );
 	}
@@ -787,14 +759,7 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 	public void actionPerformed(ActionEvent e)
 	{
 		if( e.getSource() == setInterpolation ) MenuActions.setInterpolation();
-		if( e.getSource() == clearCurrent ) MenuActions.clearCurrent();
-		if( e.getSource() == clearAll ) MenuActions.clearAll();
 		if( e.getSource() == freezeAll ) MenuActions.freezeAllToCurrent();
-		if( e.getSource() == addToAll ) MenuActions.addToAllInCurrent();
-		if( e.getSource() == removeAllAfter ) MenuActions.clearAfterCurrent();
-		if( e.getSource() == removeAllBefore ) MenuActions.clearBeforeCurrent();
-		if( e.getSource() == scaleAllAfter ) MenuActions.scaleAfterCurrent();
-		if( e.getSource() == moveAllAfter ) MenuActions.moveAfterCurrent();
 	}
 
 }//end class
