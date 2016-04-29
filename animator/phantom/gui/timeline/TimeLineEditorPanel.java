@@ -42,7 +42,7 @@ import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.gui.AnimFrameGUIParams;
 import animator.phantom.gui.GUIColors;
-import animator.phantom.gui.GUIResources;
+//import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.GUIUtils;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.undo.PhantomUndoManager;
@@ -127,7 +127,9 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 			
 		if( clip.getIOP().getLocked() )
 			return;
+		
 		clip.mousePressed( e );
+		
 		if( clip.isBeingEdited()   )
 		{
 			currentClipBeingEdited = clip;
@@ -262,7 +264,12 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 	//----------------------------------------- popup menu items
 	public void actionPerformed(ActionEvent e)
 	{
-		
+		if( e.getSource() == clipInToCurrent ) TimeLineController.trimSelectedStartToCurrent();
+		if( e.getSource() == clipOutToCurrent ) TimeLineController.trimSelectedEndToCurrent();
+		if( e.getSource() == moveClipHeadToCurrent ) TimeLineController.moveClipStartToCurrent();
+		if( e.getSource() == moveClipTailToCurrent ) TimeLineController.moveClipEndToCurrent();
+		if( e.getSource() == moveUp )TimeLineController.moveSelectedClipsUp();
+		if( e.getSource() == moveDown ) TimeLineController.moveSelectedClipsDown();
 	}
 	//-------------------------------------------------------------- Popup menu
 	private void showPopup(MouseEvent e) 

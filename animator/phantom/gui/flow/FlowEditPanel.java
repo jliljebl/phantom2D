@@ -29,7 +29,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-//import java.io.File;
 import java.util.Vector;
 
 import javax.swing.JMenu;
@@ -47,7 +46,6 @@ import animator.phantom.controller.MenuActions;
 import animator.phantom.controller.ParamEditController;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.ProjectController;
-import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.controller.UserActions;
 import animator.phantom.controller.keyaction.CopyAction;
@@ -72,7 +70,7 @@ import animator.phantom.undo.PhantomUndoManager;
 //--- GUI component used to edit the render flow.
 public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionListener, ActionListener
 {
-	//--- All selectable boxes
+	//--- All boxes
 	public Vector<FlowBox> boxes;
 	//--- Selected Boxes
 	public Vector<FlowBox> selectedBoxes = new Vector<FlowBox>();
@@ -86,14 +84,11 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 	private EditMode editMode;
 	//--- ImageOperation being added.
 	private ImageOperation addIOP = null;
-	//--- FlowBox that is displayed while IOP is being added.
-	private FlowBox shadowBox = null;
 	//--- Work area is divided into grid. Vectors in lookUpGrid[x][y] have references 
 	//--- to all graphics that have cornerpoints in given grid cell.
 	//--- This is a quite overkill optimization.
 	public LookUpGrid lookUpGrid;
 	//--- State flags.
-	//private boolean ADD_IN_PROGRESS = false;
 	private boolean MOVING_STOPPED = true;
 	//--- View target handling
 	private BufferedImage viewTargetInFlow = GUIResources.getResourceBufferedImage( GUIResources.viewTargetInFlow );
@@ -105,10 +100,9 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 	private FlowBox popupSource = null;
 	private int mediaPopUpX = 0;
 	private int mediaPopUpY = 0;
+	
 	private  JPopupMenu popup;
-	private  JMenuItem sendToClipEditor;
 	private  JMenuItem deleteNode;
-	private  JMenuItem openInParamEditor;
 	private  JMenuItem renameNode;
 	private  JMenuItem setAsrenderTarget;
 	private  JMenuItem cloneNode;
@@ -137,12 +131,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 
 		//--- Node context popup menu
 		popup = new JPopupMenu();
-		openInParamEditor = new JMenuItem("Open in Node Editor");
-		openInParamEditor.addActionListener(this);
-		popup.add( openInParamEditor );
-		sendToClipEditor = new JMenuItem("Open in Timeline Editor");
-		sendToClipEditor.addActionListener(this);
-		popup.add( sendToClipEditor );
+
 		setAsrenderTarget = new JMenuItem("Set as View Editor Target");
 		setAsrenderTarget.addActionListener(this);
 		popup.add( setAsrenderTarget );
@@ -252,17 +241,9 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		//--- Create node to added.
 		RenderNode addNode = new RenderNode( addIOP );
 		//--- Create box to be added.
-		FlowBox addBox;
-		//--- Add box either on shadow box place or on click.
-		if( shadowBox != null ) 
-			addBox = new FlowBox( shadowBox.getX(), shadowBox.getY(), addNode );
-		else
-		{
-			addBox = new FlowBox(   x - ( FlowBox.width / 2 ),
+		FlowBox addBox = new FlowBox(   x - ( FlowBox.width / 2 ),
 						y - ( FlowBox.height / 2 ),
 						addNode );
-		}
-		shadowBox = null;
 
 		NodeAddUndoEdit undoEdit = new NodeAddUndoEdit( addNode, addBox );
 
@@ -850,17 +831,9 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 
 	public void actionPerformed(ActionEvent e)
 	{
-		if( e.getSource() == sendToClipEditor )
-		{
-			TimeLineController.sendClipsToTimeline();
-		}
 		if( e.getSource() == deleteNode )
 		{
 			FlowController.deleteSelected();
-		}
-		if( e.getSource() == openInParamEditor )
-		{
-			ParamEditController.displayEditFrame( popupSource.getImageOperation() );
 		}
 		if( e.getSource() == renameNode )
 		{

@@ -88,7 +88,7 @@ public class TimeLineEditorIOPClip
 		if( state == NOT_BEING_EDITED ) return false;
 		else return true;
 	}
-
+	
 	//-------------------------------------------- MOUSE EVENTS
 	//--- Handle mouse press on clip y area on panel.
 	public void mousePressed(MouseEvent e)

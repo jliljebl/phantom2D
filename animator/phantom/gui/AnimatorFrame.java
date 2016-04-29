@@ -81,7 +81,7 @@ import animator.phantom.gui.preview.PreViewUpdater;
 //import animator.phantom.gui.preview.PreViewPanel;
 import animator.phantom.gui.timeline.TCDisplay;
 import animator.phantom.gui.timeline.TimeLineDisplayPanel;
-import animator.phantom.gui.timeline.TimeLineEditButtons;
+//import animator.phantom.gui.timeline.TimeLineEditButtons;
 import animator.phantom.gui.timeline.TimeLineEditorLayout;
 import animator.phantom.gui.timeline.TimeLineEditorPanel;
 import animator.phantom.gui.timeline.TimeLineIOPColumnPanel;
@@ -247,7 +247,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		TimeLineDisplayPanel timeLineDisplay = new TimeLineDisplayPanel();
 		TimeLineIOPColumnPanel iopColumn = new TimeLineIOPColumnPanel();
 		TimeLineEditorPanel timelineEditor = new TimeLineEditorPanel();
-		TimeLineEditButtons timeLineEditButtons = new TimeLineEditButtons();
+		//TimeLineEditButtons timeLineEditButtons = new TimeLineEditButtons();
 
 		JPanel timeDummyPanelTop = new JPanel();
 		JPanel scaleStrip = new JPanel();
@@ -359,11 +359,11 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		tlineButtonsPane = new JPanel();
 		tlineButtonsPane.setLayout(new BoxLayout( tlineButtonsPane, BoxLayout.X_AXIS));
 		tlineButtonsPane.add( timeLineToolButtons );
-		tlineButtonsPane.add( timeLineEditButtons );
+		//tlineButtonsPane.add( timeLineEditButtons );
 
 		kfButtonsPane = new JPanel();
 		kfButtonsPane.setLayout(new BoxLayout( kfButtonsPane, BoxLayout.X_AXIS));
-		kfButtonsPane.add( Box.createRigidArea(new Dimension( 5, 0 ) ) );
+		//kfButtonsPane.add( Box.createRigidArea(new Dimension( 5, 0 ) ) );
 		kfButtonsPane.add( kfButtons );
 
 		//------------------------------------------- middle row, left side

@@ -49,11 +49,11 @@ public class TimeLineEditButtons extends JPanel implements ActionListener
 		//--- Create layout.
 		JPanel p = new JPanel();
 		p.setLayout(new BoxLayout( p, BoxLayout.X_AXIS));
-		p.add( clipInToCurrent );
-		p.add( clipOutToCurrent );
+		//p.add( clipInToCurrent );
+		//p.add( clipOutToCurrent );
 		p.add( Box.createRigidArea( new Dimension( 6, 0 ) ) );
-		p.add( moveClipHeadToCurrent );
-		p.add( moveClipTailToCurrent );
+		//p.add( moveClipHeadToCurrent );
+		//p.add( moveClipTailToCurrent );
 
 		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
 		add( Box.createVerticalGlue() );
