@@ -760,6 +760,8 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 	{
 		if( e.getSource() == setInterpolation ) MenuActions.setInterpolation();
 		if( e.getSource() == freezeAll ) MenuActions.freezeAllToCurrent();
+		if( e.getSource() == selectFollowing ) EditorsController.selectFollowing();
+		if( e.getSource() == selectPrevious ) EditorsController.selectPrevious();
 	}
 
 }//end class

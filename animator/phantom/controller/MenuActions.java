@@ -898,38 +898,7 @@ public class MenuActions
 		EditorsController.updateKFForValueChange();
 	}
 	
-	//--- Clears all keyframes from iop
-	public static void clearAll()
-	{
-		ImageOperation iop = GUIComponents.keyFrameEditPanel.getIOP();
-		if( iop == null )
-			return;
 
-		Vector<KeyFrameParam> params = iop.getKeyFrameParams();
-		addAnimateValueVectorParams( iop, params );
-
-		boolean first = true;
-		for( KeyFrameParam kfp : params )
-		{
-			Vector <AnimationKeyFrame> kfs = kfp.getKeyFrames();
-			Vector <AnimationKeyFrame> newKfs = new Vector<AnimationKeyFrame>();
-			newKfs.add( kfs.elementAt( 0 ) );
-			kfp.setKeyFrames( newKfs );
-			//--- undo
-			if( first )
-			{
-				first = false;
-				kfp.getAsParam().registerUndo( true );
-			}
-			else
-				kfp.getAsParam().registerUndo( false );
-		}
-
-		UpdateController.valueChangeUpdate();
-		//--- kf diamonds update
-		iop.createKeyFramesDrawVector();
-		TimeLineController.initClipsGUI();
-	}
 	//--- Clears all keyframes from iop andset first ones value to current frame value
 	public static void freezeAllToCurrent()
 	{
@@ -963,6 +932,40 @@ public class MenuActions
 		TimeLineController.initClipsGUI();
 	}
 
+	
+	//--- Clears all keyframes from iop
+	public static void clearAll()
+	{
+		ImageOperation iop = GUIComponents.keyFrameEditPanel.getIOP();
+		if( iop == null )
+			return;
+
+		Vector<KeyFrameParam> params = iop.getKeyFrameParams();
+		addAnimateValueVectorParams( iop, params );
+
+		boolean first = true;
+		for( KeyFrameParam kfp : params )
+		{
+			Vector <AnimationKeyFrame> kfs = kfp.getKeyFrames();
+			Vector <AnimationKeyFrame> newKfs = new Vector<AnimationKeyFrame>();
+			newKfs.add( kfs.elementAt( 0 ) );
+			kfp.setKeyFrames( newKfs );
+			//--- undo
+			if( first )
+			{
+				first = false;
+				kfp.getAsParam().registerUndo( true );
+			}
+			else
+				kfp.getAsParam().registerUndo( false );
+		}
+
+		UpdateController.valueChangeUpdate();
+		//--- kf diamonds update
+		iop.createKeyFramesDrawVector();
+		TimeLineController.initClipsGUI();
+	}
+	
 	public static void addToAllInCurrent()
 	{
 		ImageOperation iop = GUIComponents.keyFrameEditPanel.getIOP();

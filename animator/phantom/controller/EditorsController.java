@@ -312,20 +312,8 @@ public class EditorsController
 	//--- Changes parameter that is being edited
 	public static void setKFEditParam( KeyFrameParam editValue, ImageOperation iop )
 	{
-		//--- NOTE:  Sets currentKFParam as a SIDE EFFECT!!!
-		//---------- because it may be special dunmmy value
 		GUIComponents.keyFrameEditPanel.initEditor( editValue, iop );
 		selectedKeyframes = new Vector<AnimationKeyFrame>();
-		/*
-		if( currentKF != null )
-		{
-			int kfMovieFrame = currentKF.getFrame() + iop.getBeginFrame();
-			AnimationKeyFrame newKF = currentKFParam.getKeyFrame( kfMovieFrame );
-			setCurrentKeyFrame( newKF );
-			if( newKF == null )
-				GUIComponents.keyFrameEditPanel.setFocusFrame( -1 );
-		}
-		*/
 		GUIComponents.kfControl.setStepped( editValue.getStepped() );
 		GUIComponents.kfColumnPanel.repaint();
 	}
@@ -340,6 +328,33 @@ public class EditorsController
 	{
 		selectedKeyframes.add(kf);
 	}
+
+	public static void selectFollowing()
+	{
+		AnimationKeyFrame ckf = getCurrentKeyFrame();
+		if (ckf  == null)
+			return;
+		selectedKeyframes = new Vector<AnimationKeyFrame>();
+		Vector<AnimationKeyFrame> allkFs = GUIComponents.keyFrameEditPanel.getEditValue().getKeyFrames();
+		for (AnimationKeyFrame kf : allkFs)
+			if (kf.getFrame() >= ckf.getFrame())
+				selectedKeyframes.add(kf);
+		GUIComponents.keyFrameEditPanel.repaint();
+	}
+	
+	public static void selectPrevious()
+	{
+		AnimationKeyFrame ckf = getCurrentKeyFrame();
+		if (ckf  == null)
+			return;
+		selectedKeyframes = new Vector<AnimationKeyFrame>();
+		Vector<AnimationKeyFrame> allkFs = GUIComponents.keyFrameEditPanel.getEditValue().getKeyFrames();
+		for (AnimationKeyFrame kf : allkFs)
+			if (kf.getFrame() <= ckf.getFrame())
+				selectedKeyframes.add(kf);
+		GUIComponents.keyFrameEditPanel.repaint();
+	}
+	
 	public static AnimationKeyFrame getCurrentKeyFrame()
 	{ 
 		if (selectedKeyframes.size() == 0) return null;
