@@ -76,27 +76,17 @@ public class Project
 	//--- This constructor called when projects created.
 	public Project( String name, MovieFormat movieFormat )
 	{
-		//---
-		System.out.println("CREATING PROJECT: " + name );
-		
 		//--- Capture data.
 		this.name = name;
 		
 		framesPerSecond = movieFormat.getFPS();
 		screenSize = movieFormat.getScreenSize();
 		formatName = movieFormat.getName();
-
-		System.out.println( "Format: " + formatName );
-
-		//---- This added at creation and cannot be deleted
-		//renderFlow.addOutputNode();
-		
-		//--- init data.
 		
 		bins = new Vector<Bin>();
 		addBin( new Bin( "bin1" ) );
 
-		System.out.println("PROJECT \"" + name + "\" CREATED." );
+		System.out.println("PROJECT \"" + name + "\" CREATED IN FORMAT: "  + formatName );
 	}
 
 	//-------------------------------------------- PROJECT DATA INTERFACE

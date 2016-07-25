@@ -125,7 +125,6 @@ public class DarkTheme extends OceanTheme
 		super.addCustomEntriesToTable( table );
 
 		Object toglleui = table.get("ToggleButtonUI");
-		System.out.println( (String) toglleui );
 
 		List<Object> buttonGradient = Arrays.asList(new Object[] { new Float(1f),
 			new Float(0.7f), lighter, dark,

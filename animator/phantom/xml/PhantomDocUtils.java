@@ -56,7 +56,7 @@ public class PhantomDocUtils
 				DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			doc = builder.parse( path );
-			System.out.println("XML document " + path + " read and parsed");
+			//System.out.println("XML document read: " + path );
 		}
 		catch (Exception e) { System.out.println("loadXMLDoc(path), Exception"); }
 

@@ -42,7 +42,7 @@ import animator.phantom.undo.PhantomUndoManager;
 public class Application implements WindowListener
 {
 	//--- There can only be one.
-	public static Application app;
+        public static Application app;
 	public static Application getApplication(){ return app; }
 
 	//--- Flag to load plugins when opening default project
@@ -82,9 +82,9 @@ public class Application implements WindowListener
 
 	public void startUp()
 	{
-		System.out.println( "//----------------------- THREADED BRACH -------------------------------//" );
+		AppUtils.printTitle("PHANTOM 2D" );
 
-		System.out.println("LD Library Path:" + System.getProperty("java.library.path"));
+
 				
 		//--- Lets find out where we are and set paths.
 		ClassLoader loader = getClass().getClassLoader();
@@ -105,6 +105,8 @@ public class Application implements WindowListener
 			System.out.println( "This is not running in file system or jar?");
 		}
 
+		System.out.println("");
+		
 		//--- Get home path and set RESOURCE_PATH, PERSISTANCE_PATH and LANG_PATH, FORMAT_PATH
 		//--- if were not running in jar
 		String urlPath = urlToThisClass.getPath();
@@ -121,12 +123,10 @@ public class Application implements WindowListener
 		LANG_PATH = homePath + LANG_PATH;
 		FORMAT_PATH = homePath + FORMAT_PATH;
 		
-		System.out.println("app home path:" + homePath );
-		System.out.println("FORMAT_PATH:" + FORMAT_PATH );
-		System.out.println( "resource path:" + getResourcePath());
-		
-		//--- Start bringing app up
-		AppUtils.printTitle("PHANTOM 2D" );
+		System.out.println("");
+		System.out.println("APP ROOT PATH:" + homePath );
+		//System.out.println("FORMAT_PATH:" + FORMAT_PATH );
+		//System.out.println( "resource path:" + getResourcePath());
 
 		//--- Read editor persistence for lang, recent documents, plugin dir, import dir etc...
 		if( !inJar )

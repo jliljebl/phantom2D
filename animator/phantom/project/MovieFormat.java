@@ -49,7 +49,6 @@ public class MovieFormat
 		formats.add( NTSC_SQUARE );
 
 		String formatPath = Application.getFormatPath();
-		System.out.println( formatPath );
 		File[] files = new File(formatPath).listFiles();
 		for (File file : files) 
 		{
