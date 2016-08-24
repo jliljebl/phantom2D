@@ -80,7 +80,7 @@ public class Application implements WindowListener
 
 	public Application(){ app = this; }
 
-	public void startUp()
+	public void startUp(String profileUnderscoreDesc)
 	{
 		AppUtils.printTitle("PHANTOM 2D" );
 
@@ -171,8 +171,29 @@ public class Application implements WindowListener
 			System.out.println("Error setting LAF: " + e);
 		}
 
+		MovieFormat startupFormat = null;
+		if (profileUnderscoreDesc != null)
+		{
+                    for( int i = 0; i < MovieFormat.formats.size(); i++ )
+                    {
+			
+			if (profileUnderscoreDesc.equals(MovieFormat.formats.elementAt( i ).getUnderscrorName() ))
+			{
+                            startupFormat = MovieFormat.formats.elementAt( i );
+                        }
+                    }
+		}
+		
 		//--- There is always a document open.
-		openDefaultProject();
+		if (startupFormat != null )
+		{
+                    Project project = new Project( "untitled.phr", startupFormat );
+                    openProject( project );
+                }
+		else
+		{
+                    openDefaultProject();
+		}
 		
 		//--- Display info window on first run.
 		if( EditorPersistance.getBooleanPref( EditorPersistance.FIRST_RUN ) )

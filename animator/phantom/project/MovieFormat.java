@@ -159,5 +159,6 @@ public class MovieFormat
 	public int getFPS(){ return framesPerSecond; }
 	public float getFPSAccurate(){ return framesPerSecondAccurate; }
 	public Dimension getScreenSize(){ return screenSize; }
+        public String getUnderscrorName(){ return name.replaceAll("\\s+", "_"); }
 
 }//end class

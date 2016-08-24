@@ -168,7 +168,7 @@ public class Project
 			if( fs.getID() >= nextFileSourceId )
 				nextFileSourceId =  fs.getID() + 1;
 		}
-		return nextFileSourceId; 
+		return nextFileSourceId;
 	}
 
 	public FileSource getFileSource( int id )

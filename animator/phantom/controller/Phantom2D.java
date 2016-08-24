@@ -24,25 +24,20 @@ public class Phantom2D
 	public static void main( String args[] )
 	{
 		boolean runServer = false;
-		for (String arg:args)
+		String profile = null;
+		for (int i=0; i < args.length; i++)
 		{
-			System.out.println(arg);
+			String arg = args[i];
 			
-			if (arg.equals("-server"))
-				runServer = true;
+			if (arg.equals("profile"))
+                            profile =  args[i + 1];
 		}
 		
-		if (runServer == false)
-		{
-			Application app = new Application();
-			app.startUp();
-		}
-		else
-		{
-			PhantomServer server = new PhantomServer(args);
-			server.startUp();
+		System.out.println(profile);
 		
-		}
+                Application app = new Application();
+                app.startUp(profile);
+
 	}
 
 }//end class
