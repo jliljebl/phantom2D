@@ -53,7 +53,7 @@ public class EditorsController
  	private static KeyFrameParam currentKFParam = null;
 
  	private static Dimension viewEditorSize = null;
- 	
+
 	//--- VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR
 	//--- VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR
 	//--- VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR, VIEW EDITOR
@@ -74,7 +74,7 @@ public class EditorsController
 			return;
 		//--- Only render and set bgimage if mouse move stopped in timeline or in
 		//--- view editor.
-		if( !GUIComponents.viewEditor.mouseActionUnderway() 
+		if( !GUIComponents.viewEditor.mouseActionUnderway()
 			&& !timelineDragInProgress )
 		{
 			MovieRenderer movieRenderer = new MovieRenderer(  ProjectController.getFlow(), MovieRenderer.FULL_SIZE, 1 );
@@ -115,7 +115,7 @@ public class EditorsController
 			}
 
 			//--- Create and start render thread.
-			ViewEditorRenderThread renderThread = 
+			ViewEditorRenderThread renderThread =
 				new ViewEditorRenderThread ( movieRenderer,
 											 GUIComponents.viewEditor,
 											 TimeLineController.getCurrentFrame() );
@@ -148,7 +148,7 @@ public class EditorsController
 	{
 		for( int i = 0; i < nodes.size(); i++ )
 		{
-			RenderNode node = (RenderNode)nodes.elementAt( i );	
+			RenderNode node = (RenderNode)nodes.elementAt( i );
 			GUIComponents.viewEditor.removeLayer( node.getImageOperation() );
 		}
 		displayCurrentInViewEditor( false );
@@ -186,10 +186,8 @@ public class EditorsController
 		 displayCurrentInViewEditor( false );
 	}
 	//--- Sets view editor size
-	public static void setViewSize( int size )	
+	public static void setViewSize( int size )
 	{ 
-		System.out.println(size);
-		System.out.println("BBsize");
 		GUIComponents.viewEditor.quickChangeSize( size );
 
 		//bar.setValue( (bar.getMaximum() - bar.getVisibleAmount() - bar.getMinimum()) / 2 );
@@ -269,7 +267,7 @@ public class EditorsController
 		if( iop != null )
 		{
 			Vector<KeyFrameParam> kfs = iop.getKeyFrameParams();
-			
+
 			if( kfs.size() == 0 )
 			{
 				GUIComponents.keyFrameEditPanel.initEditor( null, iop );
@@ -280,7 +278,7 @@ public class EditorsController
 				GUIComponents.keyFrameEditPanel.initEditor( kfs.elementAt( 0 ), iop );
 				GUIComponents.kfColumnPanel.setSelected( 0 );
 			}
-			
+
 			GUIComponents.keyFrameEditPanel.scaleOrPositionChanged();
 			setKFEditorNameLabelText( iop );
 		}
@@ -341,7 +339,7 @@ public class EditorsController
 				selectedKeyframes.add(kf);
 		GUIComponents.keyFrameEditPanel.repaint();
 	}
-	
+
 	public static void selectPrevious()
 	{
 		AnimationKeyFrame ckf = getCurrentKeyFrame();
@@ -354,15 +352,15 @@ public class EditorsController
 				selectedKeyframes.add(kf);
 		GUIComponents.keyFrameEditPanel.repaint();
 	}
-	
+
 	public static AnimationKeyFrame getCurrentKeyFrame()
-	{ 
+	{
 		if (selectedKeyframes.size() == 0) return null;
-		return selectedKeyframes.elementAt(0); 
+		return selectedKeyframes.elementAt(0);
 	}
 	public static Vector<AnimationKeyFrame> getSelectedKeyFrames()
-	{ 
-		return selectedKeyframes; 
+	{
+		return selectedKeyframes;
 	}
 	public static int[] getFocusKeyFrames( ImageOperation iop )
 	{
@@ -409,7 +407,7 @@ public class EditorsController
 	{
 		int currentFrame = TimeLineController.getCurrentFrame();
 		KeyFrameParam param = getCurrentKFParam();
-		if( param == null ) 
+		if( param == null )
 			return;
 		param.addKeyFrame( currentFrame, param.getValue( currentFrame ) );
 		updateKeyFrameParam( param );
@@ -419,7 +417,7 @@ public class EditorsController
 	{
 		int currentFrame = TimeLineController.getCurrentFrame();
 		KeyFrameParam param = getCurrentKFParam();
-		if( param == null ) 
+		if( param == null )
 			return;
 		param.addKeyFrame( currentFrame, value );
 		updateKeyFrameParam( param );

@@ -22,12 +22,13 @@ package animator.phantom.gui.flow;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+
 //--- Objects with this interface can be draw on FlowEditPanel.
 public interface FlowGraphic
 {
 	//--- Draws graohic.
 	public void draw( Graphics g );
-	
+
 	//--- Returns bounding box area of this graphic.
 	public Rectangle getArea();
 

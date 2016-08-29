@@ -99,10 +99,11 @@ public class MovieFormat
 		int frame_rate_den  = 0;
 		int width  = 0;
 		int height  = 0;
-		//int sample_aspect_num  = 0;
-		//int sample_aspect_den  = 0;
-		//int display_aspect_num  = 0;// not used currently
-		//int display_aspect_den = 0;// not used currently
+		int progressive = 0;
+		int sample_aspect_num  = 0;
+		int sample_aspect_den  = 0;
+		int display_aspect_num  = 0;// not used currently
+		int display_aspect_den = 0;// not used currently
 			
 		for( int i = 0; i < lines.size(); i++ )
 		{
@@ -125,19 +126,19 @@ public class MovieFormat
 					height = Integer.parseInt(line);
 					break;
 				case 5:
-					//progressive = Integer.parseInt(line);
+					progressive = Integer.parseInt(line);
 					break;
 				case 6:
-					//sample_aspect_num = Integer.parseInt(line);
+					sample_aspect_num = Integer.parseInt(line);
 					break;
 				case 7:
-					//sample_aspect_den = Integer.parseInt(line);
+					sample_aspect_den = Integer.parseInt(line);
 					break;
 				case 8:
-					//display_aspect_num = Integer.parseInt(line);
+					display_aspect_num = Integer.parseInt(line);
 					break;
 				case 9:
-					//display_aspect_den = Integer.parseInt(line);
+					display_aspect_den = Integer.parseInt(line);
 					break;
 			}
 		}

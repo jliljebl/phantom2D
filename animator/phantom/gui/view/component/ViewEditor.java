@@ -70,7 +70,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	private Vector<ViewEditorLayer> layers = new Vector<ViewEditorLayer>();
 	//--- current scale of view
 	private float scale;
-	//--- Flag for mouse acation 
+	//--- Flag for mouse acation
 	private boolean mouseActionNow = false;
 	//--- Flag to differentiate left and right mouse press on request.
 	private boolean lastMousePressWasLeftButton = true;
@@ -82,14 +82,16 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	private static boolean beingFilled = false;
 	//--- Flag for full render
 	private boolean fullRender = true;
-	//--- Flag for first draw, used to calculate paint params when component is painted first time.
-	private boolean firstDraw = true;
 	//--- small area around view with scroll bars view, sort of border pad
 	public static final int BIG_VIEW_PAD = 10;
 	//--- Flag preview display mode
 	private boolean previewDisplay = false;
 	//--- Flag for first frame of preview display
 	private boolean firstPreviewFrame = false;
+	//---
+	private boolean displayWaitIcon = true;
+
+
 
 	public static ViewEditor getInstance()
 	{
@@ -133,14 +135,14 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		else
 			scaledBgImg = getScaledVersion( newBgImage );
 
-		//--- Because img size may change, we use the already set scale to calculate draw params 
+		//--- Because img size may change, we use the already set scale to calculate draw params
 		setScale( scale );
 	}
 	public void setBeingFilled( boolean b ){ beingFilled = b; }
 	//--- Scale handling. Scale in normalized space. Scale 1.0: 1 panel pix = 1 movie screen pix.
 	public void setScreenSize( int size_ )
 	{
-		size = size_;		
+		size = size_;
 		float newScale = getFloatSize( size_ );
 		setScale( newScale );
 	}
@@ -187,7 +189,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		setEditorSize( componentSize );
 
 		//--- If scaled screen smaller then component size center it and set origo
-		if( scaledScreensize.width < componentSize.width && 
+		if( scaledScreensize.width < componentSize.width &&
 			scaledScreensize.height < componentSize.height )
 		{
 			int origoX = ( componentSize.width - scaledScreensize.width ) / 2;
@@ -195,7 +197,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 			origo = new Point2D.Float( (float) origoX, (float) origoY );
 		}
 		//--- If scaled screen larger then component size set component size to it.
-		else if( scaledScreensize.width >= componentSize.width || 
+		else if( scaledScreensize.width >= componentSize.width ||
 			scaledScreensize.height >= componentSize.height )
 		{
 			int newW = scaledScreensize.width > componentSize.width ? scaledScreensize.width + (BIG_VIEW_PAD * 2) : componentSize.width;
@@ -211,18 +213,18 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	public Dimension getScalesCenterPosition(Dimension portSize)
 	{
 		int horizPos = 0;
-		int vertPos = 0; 
-		
+		int vertPos = 0;
+
 		//--- If scaled screen smaller then component keep default values
 
 		//--- If scaled screen larger then component size set component size to it.
-		if( componentSize.width >= portSize.width || 
+		if( componentSize.width >= portSize.width ||
 				componentSize.height >= portSize.height )
 		{
 			horizPos = (componentSize.width - portSize.width) / 2;
 			vertPos =  (componentSize.height - portSize.height) / 2;
 		}
-		
+
 		return new Dimension( horizPos, vertPos );
 	}
 
@@ -240,8 +242,8 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	}
 	//--- If set true all layers are drawn
 	public void drawAllLayers( boolean val )
-	{ 
-		drawNonActiveLayers = val; 
+	{
+		drawNonActiveLayers = val;
 		repaint();
 	}
 	//--- Returns edit mode.
@@ -257,7 +259,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		if( editLayer == null ) return null;
 		return editLayer.getIOP();
 	}
-	//--- Movie screen not 
+	//--- Movie screen not
 	private Dimension getScaledMovieScreenSize()
 	{
 		int w;
@@ -290,18 +292,21 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		setMaximumSize( newSize );
 	}
 
+
+	public void setDisplayWaitIcon( boolean b ){ displayWaitIcon = b; }
+
 	//--------------------------------------------------------------- SPACE CONVERSIONS
 	//--- Converts panel( screen coordinate ) into real ( movie screen pix ) coordinate.
 	public Point2D.Float getRealPoint( Point2D.Float panelPoint )
 	{
 		float panelXCoord = panelPoint.x - origo.x;
 		float panelYCoord = panelPoint.y - origo.y;
-	
+
 		float conversionMultiplier = 1 / scale;
 
 		float realXCoord = conversionMultiplier * panelXCoord;
 		float realYCoord = conversionMultiplier * panelYCoord;
-	
+
 		return new Point2D.Float( realXCoord, realYCoord );
 	}
 
@@ -310,7 +315,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	{
 		float panelXCoord = realPoint.x * scale + origo.x;
 		float panelYCoord = realPoint.y * scale + origo.y;
-	
+
 		return new Point2D.Float( panelXCoord, panelYCoord );
 	}
 
@@ -379,7 +384,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 			layers.remove( removeIndex );
 		}
 		updateLayerSelector();
-	}	
+	}
 	//--- Replace a layer with another and sets it edit layer if removed was
 	public void replaceEditlayer( ViewEditorLayer newEditLayer )
 	{
@@ -412,7 +417,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	//--- Sets the layer being edited, changes buttons, caches filesource and updates layer selector
 	private void setEditLayer( ViewEditorLayer newEditLayer, boolean updateOthers )
 	{
-		if( editLayer != null ) 
+		if( editLayer != null )
 			editLayer.setActiveState( false );
 		editLayer = newEditLayer;
 		if( editLayer != null )
@@ -472,7 +477,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 
 	public Vector<ViewEditorLayer> getLayers(){ return layers; }
 
-	//--- Returns scaled version of image 
+	//--- Returns scaled version of image
 	private BufferedImage getScaledVersion( BufferedImage img )
 	{
 		if( size == MovieRenderer.FULL_SIZE ) return img;
@@ -498,16 +503,16 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 			GUIComponents.animatorFrame.centerViewEditor();
 			return;
 		}
-			
-		if( editLayer != null 
+
+		if( editLayer != null
 			&& !editLayer.getIOP().
 				frameInClipArea( TimeLineController.getCurrentFrame() ) )
 			return;
 
 		mouseActionNow = true;
-		Point2D.Float realPoint = 
+		Point2D.Float realPoint =
 			getRealPoint( new Point2D.Float( (float)e.getX(), (float)e.getY() ));
-		
+
 		//--- Check editLayer hit first if exists.
 		if( editLayer != null )
 		{
@@ -522,12 +527,12 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	//--- Translates mouse event point to real space and passes it to layer
 	public void mouseDragged(MouseEvent e)
 	{
-		if( editLayer != null 
+		if( editLayer != null
 			&& !editLayer.getIOP().
 				frameInClipArea( TimeLineController.getCurrentFrame() ) )
 			return;
 
-		Point2D.Float realPoint = 
+		Point2D.Float realPoint =
 			getRealPoint( new Point2D.Float( (float)e.getX(), (float)e.getY() ));
 
 		if( editLayer != null )
@@ -540,14 +545,14 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	//--- Translates mouse event point to real space and passes it to layer
 	public void mouseReleased(MouseEvent e)
 	{
-		if( editLayer != null 
+		if( editLayer != null
 			&& !editLayer.getIOP().
 				frameInClipArea( TimeLineController.getCurrentFrame() ) )
 			return;
 
 		mouseActionNow = false;
 
-		Point2D.Float realPoint = 
+		Point2D.Float realPoint =
 			getRealPoint( new Point2D.Float( (float)e.getX(), (float)e.getY() ));
 
 		if( editLayer != null )
@@ -595,7 +600,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		this.firstPreviewFrame = false;
 		repaint();
 	}
-	
+
 	public void setPreviewFrame( BufferedImage frame )
 	{
 		scaledBgImg = frame;
@@ -604,6 +609,13 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 	//------------------------------------------------ PAINT
 	public void paintComponent( Graphics g )
 	{
+
+		if (displayWaitIcon)
+		{
+		    drawWaitIcon( (Graphics2D) g );
+			return;
+		}
+
 		if( previewDisplay )
 		{
 			drawPreviewFrame( (Graphics2D) g );
@@ -613,12 +625,6 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		//--- Convert graphics object.
 		Graphics2D g2 = (Graphics2D) g;
 
-		if( firstDraw )
-		{
-			firstDraw = false;
-			setScale( 1.0f );
-		}
-
 		//--- Paint BG
 		Rectangle drawRect = null;
 		Rectangle2D.Float eraseRectF = null;
@@ -626,17 +632,17 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		if( editLayer != null )
 		{
 			eraseRectF = editLayer.getLastDrawRect();
-			
+
 			if( eraseRectF != null )
 			{
 				//--- Convert real space rect to panel space rect
 				eraseRectF = getBoundingPanelCoordsRect( eraseRectF );
-		
+
 				//--- Convert to int
 				//--- Add some for handles.
 				eraseRect = new Rectangle( 	(int) eraseRectF.x - 10,
-								(int) eraseRectF.y - 10, 
-								(int) eraseRectF.width + 20, 
+								(int) eraseRectF.y - 10,
+								(int) eraseRectF.width + 20,
 								(int) eraseRectF.height + 20 );
 			}
 		}
@@ -644,11 +650,11 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		//--- Erase, set gray paint
 		g2.setColor( GUIColors.viewEditorBGColor );
 
-		//--- top 
+		//--- top
 		drawRect = getDrawRect( new Rectangle(  0,
 							0,
-							componentSize.width, 
-							(int) origo.y ), 
+							componentSize.width,
+							(int) origo.y ),
 					eraseRect );
 		if( !drawRect.isEmpty() )
 			g2.fillRect( drawRect.x, drawRect.y, drawRect.width, drawRect.height );
@@ -656,26 +662,26 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		//--- bottom
 		drawRect = getDrawRect( new Rectangle( 	0,
 							(int) origo.y + scaledScreensize.height,
-							componentSize.width, 
-							componentSize.height ), 
+							componentSize.width,
+							componentSize.height ),
 					eraseRect );
 		if( !drawRect.isEmpty() )
 			g2.fillRect( drawRect.x, drawRect.y, drawRect.width, drawRect.height );
 
 		//--- left
 		drawRect = getDrawRect( new Rectangle( 	0,
-							(int) origo.y, 
-							(int) origo.x, 
-							scaledScreensize.height  ), 
+							(int) origo.y,
+							(int) origo.x,
+							scaledScreensize.height  ),
 					eraseRect );
 		if( !drawRect.isEmpty() )
 			g2.fillRect( drawRect.x, drawRect.y, drawRect.width, drawRect.height );
 
 		//--- right
 		drawRect = getDrawRect( new Rectangle(  (int) origo.x + scaledScreensize.width,
-							(int) origo.y, 
-							componentSize.width - (int) origo.x - scaledScreensize.width, 
-							scaledScreensize.height ), 
+							(int) origo.y,
+							componentSize.width - (int) origo.x - scaledScreensize.width,
+							scaledScreensize.height ),
 					eraseRect );
 		if( !drawRect.isEmpty() )
 			g2.fillRect( drawRect.x, drawRect.y, drawRect.width, drawRect.height );
@@ -685,7 +691,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 		g2.setColor( Color.lightGray );
 		g2.fillRect( 	(int)Math.round(origo.x),
 				(int)Math.round(origo.y),
-				scaledScreensize.width, 
+				scaledScreensize.width,
 				scaledScreensize.height );
 
 		//--- If bg image exists paint it
@@ -702,7 +708,7 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 			for( ViewEditorLayer layer :  layers )
 				layer.paint( g2 );
 
-	
+
 		//--- Paint current layer on top if exists.
 		if( editLayer != null )
 			editLayer.paint( g2 );
@@ -736,5 +742,13 @@ public class ViewEditor extends JPanel implements MouseListener, MouseMotionList
 
 		return updateRect.intersection( eraseRect );
 	}
+
+        private void drawWaitIcon( Graphics2D g )
+        {
+				if (g == null) return;
+				if (componentSize == null) return;
+                g.setColor( Color.darkGray );
+                g.fillRect( 0, 0, componentSize.width, componentSize.height );
+        }
 
 }//end class

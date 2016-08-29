@@ -45,7 +45,7 @@ public class ViewSizeSelector extends JPanel implements ActionListener
 		comboBox.addActionListener( this );
 		comboBox.setFont( GUIResources.TOP_LEVEL_COMBO_FONT );
 		comboBox.setPreferredSize( new Dimension( 68, 24 ));
-		
+
 		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
 		add( Box.createVerticalGlue() );
 		add( comboBox );
@@ -56,13 +56,13 @@ public class ViewSizeSelector extends JPanel implements ActionListener
 	{
 		int maxSelIndex = 0;
 		Dimension viewPortSize = EditorsController.getViewEditorSize();
-		
+
 		// This may not be available at launch, we need some default value
 		if (viewPortSize ==  null)
 		{
 			return 6;// 75%
 		}
-		
+
 		Dimension screenSize = ProjectController.getScreenSize();
 		for (int i = 8; i >= 0; i--)
 		{
@@ -76,22 +76,17 @@ public class ViewSizeSelector extends JPanel implements ActionListener
 		System.out.println(maxSelIndex);
 		return  maxSelIndex;
 	}
-	/*
-	public float[] getSizeSelectionsScales()
-	{
-		return scales;
-	}
-	*/
+
 	public void setSelected( int index)
 	{
 		comboBox.setSelectedIndex( index );
 	}
-	
+
 	public int getSelectionIndex()
 	{
 		return comboBox.getSelectedIndex();
 	}
-	
+
 	public void zoomIn()
 	{
 		int selected = comboBox.getSelectedIndex();
@@ -115,9 +110,9 @@ public class ViewSizeSelector extends JPanel implements ActionListener
 
  	public int getViewSize()
  	{
- 		return getMovieRendererSize( comboBox.getSelectedIndex() ); 
+ 		return getMovieRendererSize( comboBox.getSelectedIndex() );
  	}
- 	
+
  	public int getMovieRendererSize( int selectedIndex )
  	{
 		int size = 0;

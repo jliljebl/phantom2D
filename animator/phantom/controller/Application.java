@@ -50,7 +50,7 @@ public class Application implements WindowListener
 
 	//--- Windows
 	private AnimatorFrame animatorFrame;
-	
+
 	//--- Render abort management
 	public static final int PREVIEW_RENDER = 0;
 	public static final int WRITE_RENDER = 1;
@@ -77,6 +77,8 @@ public class Application implements WindowListener
 	public static boolean inJar = false;
 	public static String filePrefPathForJar;
 
+	private ProjectOpenUpdate popenUpdate;
+
 
 	public Application(){ app = this; }
 
@@ -85,7 +87,7 @@ public class Application implements WindowListener
 		AppUtils.printTitle("PHANTOM 2D" );
 
 
-				
+
 		//--- Lets find out where we are and set paths.
 		ClassLoader loader = getClass().getClassLoader();
 		URL urlToThisClass = loader.getResource( CLASS_PATH_TO_THIS );
@@ -93,7 +95,7 @@ public class Application implements WindowListener
 		if( urlToThisClass.getProtocol().equals( FILE_URL_PROTOCOL ) )
 		{
 			System.out.println( "App running in file system.");
-			
+
 		}
 		else if( urlToThisClass.getProtocol().equals( JAR_URL_PROTOCOL ) )
 		{
@@ -106,7 +108,7 @@ public class Application implements WindowListener
 		}
 
 		System.out.println("");
-		
+
 		//--- Get home path and set RESOURCE_PATH, PERSISTANCE_PATH and LANG_PATH, FORMAT_PATH
 		//--- if were not running in jar
 		String urlPath = urlToThisClass.getPath();
@@ -117,12 +119,12 @@ public class Application implements WindowListener
 		String homePath = urlPath;
 
 		MLTFrameServerController.init( homePath, "/home/janne/.flowblade/node_compositors/phantom_disk_cache" );
-		
+
 		RESOURCE_PATH = homePath + RESOURCE_PATH;
 		PERSISTANCE_PATH = homePath + PERSISTANCE_PATH;
 		LANG_PATH = homePath + LANG_PATH;
 		FORMAT_PATH = homePath + FORMAT_PATH;
-		
+
 		System.out.println("");
 		System.out.println("APP ROOT PATH:" + homePath );
 		//System.out.println("FORMAT_PATH:" + FORMAT_PATH );
@@ -133,7 +135,7 @@ public class Application implements WindowListener
 		{
 			EditorPersistance.read( PERSISTANCE_PATH + EditorPersistance.DOC_NAME, false );
 		}
-		else 
+		else
 		{
 			//--- if running in jar we might have to create prefdoc in file system out side jar
 			filePrefPathForJar = homePath + PERSISTANCE_PATH_IN_FILESYSTEM_FOR_JAR;
@@ -176,14 +178,14 @@ public class Application implements WindowListener
 		{
                     for( int i = 0; i < MovieFormat.formats.size(); i++ )
                     {
-			
+
 			if (profileUnderscoreDesc.equals(MovieFormat.formats.elementAt( i ).getUnderscrorName() ))
 			{
                             startupFormat = MovieFormat.formats.elementAt( i );
                         }
                     }
 		}
-		
+
 		//--- There is always a document open.
 		if (startupFormat != null )
 		{
@@ -194,14 +196,14 @@ public class Application implements WindowListener
 		{
                     openDefaultProject();
 		}
-		
+
 		//--- Display info window on first run.
 		if( EditorPersistance.getBooleanPref( EditorPersistance.FIRST_RUN ) )
 		{
 			EditorPersistance.setPref( EditorPersistance.FIRST_RUN, false );
 			EditorPersistance.write();
 		}
-		
+
 		AppUtils.printTitle( "APPLICATION LOADED!" );
 	}
 
@@ -213,7 +215,7 @@ public class Application implements WindowListener
 		Project project = new Project( "untitled.phr", format );
 		openProject( project );
 	}
-	
+
 	public void openProject( Project project )
 	{
 		AppUtils.printTitle("OPEN PROJECT " + project.getName() );
@@ -227,7 +229,7 @@ public class Application implements WindowListener
 			Dimension viewPortSize = GUIComponents.animatorFrame.getViewEditorSize();
 			EditorsController.setViewEditorSize(viewPortSize);
 		}
-		
+
 		//--- (re-)read editor persistance for recent documents
 		if( !inJar )
 			EditorPersistance.read( PERSISTANCE_PATH + EditorPersistance.DOC_NAME, false );
@@ -256,25 +258,28 @@ public class Application implements WindowListener
 		//--- Windows
 		animatorFrame.initializeEditor();
 
+		//--- display grey first
+                GUIComponents.viewEditor.setDisplayWaitIcon( true );
+
 		//--- Notify MemoryManager to start guessing
 		MemoryManager.calculateCacheSizes();
 
-		//--- 
+		//---
 		animatorFrame.setVisible( true );
 		GUIComponents.renderFlowPanel.setIgnoreRepaint( false );// bugs when not visible?
 
 		ProjectController.updateProjectInfo();
-		 
+
 		//--- First render for view editor
 		EditorsController.fillViewEditor();
-		
+
 		/*
 		int fullViewSelIndex = EditorsController.getMaxFullViewSelectionIndex();
 		int currentViewIndex = GUIComponents.viewSizeSelector.getSelectionIndex();
 		//GUIComponents.viewSizeSelector.setSelected(fullViewSelIndex);
 		System.out.println("fullViewSelIndex");
 		System.out.println(fullViewSelIndex);
-		
+
 
 		if (fullViewSelIndex == currentViewIndex)
 		{
@@ -286,10 +291,10 @@ public class Application implements WindowListener
 			GUIComponents.viewEditor.setScreenSize(GUIComponents.viewSizeSelector.getMovieRendererSize(fullViewSelIndex));
 		}
 		*/
-		
+
 		EditorsController.displayCurrentInViewEditor( false );
 		int viewSize = GUIComponents.viewSizeSelector. getViewSize();
-		EditorsController.setViewSize( viewSize );	
+		EditorsController.setViewSize( viewSize );
 		//--- Display loaded clips
 		TimeLineController.addClips( project.getLoadClips() );
 		TimeLineController.initClipEditorGUI();
@@ -300,14 +305,18 @@ public class Application implements WindowListener
 		GUIComponents.animatorFrame.centerViewEditor();
 		//--- Unblock cache and view editor updates.
 		projectLoading = false;
+
+		popenUpdate = new ProjectOpenUpdate();
+		popenUpdate.start();
+
 	}
 
  	//--- We're blocking some updates that will fire when project data is created.
 	public static boolean isLoading(){ return projectLoading; }
-	
+
 	//--- layout calculations need this
 	public static int getParamEditHeight()
-	{ 
+	{
 		int SCREEN_HEIGHT = getUsableScreen().height;
 		return SCREEN_HEIGHT / 2;
 	}
@@ -324,7 +333,7 @@ public class Application implements WindowListener
 		System.out.println( "Application.renderAbort()" );
 		if( currentRenderType == WRITE_RENDER ) RenderModeController.frameRendererAborted();
 	}
-	//--- A code initiating rendering sets this when it starts rendering 
+	//--- A code initiating rendering sets this when it starts rendering
 	//--- so we can return to correct place after abort.
 	public static void setCurrentRenderType( int rType ) { currentRenderType = rType; }
 
@@ -344,5 +353,29 @@ public class Application implements WindowListener
 	public void windowDeiconified(WindowEvent e){}
 	public void windowIconified(WindowEvent e){}
 	public void windowOpened(WindowEvent e) {}
+
+	class ProjectOpenUpdate extends Thread
+	{
+		public ProjectOpenUpdate()
+		{
+
+		}
+
+		//--- Render, set and display bg image.
+		public void run()
+		{
+			try
+			{
+				Thread.sleep(500);
+				GUIComponents.viewSizeSelector.setSelected(0);
+				GUIComponents.viewSizeSelector.setSelected(8);
+				Thread.sleep(1000);
+				GUIComponents.viewEditor.setDisplayWaitIcon( false );
+				GUIComponents.viewEditor.repaint();
+			}
+			catch(Exception e){}
+			System.out.println("doen");
+		}
+	}//end class ProjectOpenUpdate
 
 }//end class
