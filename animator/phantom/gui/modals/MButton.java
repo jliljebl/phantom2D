@@ -32,12 +32,7 @@ public class MButton extends MInputField
 	{
 		this(  msg, PHButtonFactory.getPreferredWidth( msg ), listener );
 	}
-	/*
-	public MButton( String msg, MActionListener listener,  boolean buttonOnLeft  )
-	{
-		this(  msg, PHButtonFactory.getPreferredWidth( msg ), listener, buttonOnLeft );
-	}
-	*/
+
 	public MButton( String msg, int width, MActionListener listener )
 	{
 		this( msg, width, listener, true );
@@ -51,7 +46,7 @@ public class MButton extends MInputField
 
 		JButton button = PHButtonFactory.getButton( msg, width );
 		button.addActionListener( listener );
-	
+
 		textLabel = new JLabel("");
 
 		if( buttonOnLeft )
@@ -65,7 +60,7 @@ public class MButton extends MInputField
 			this.rightComponent = button;
 			this.rightJustifyRightComponent = true;
 		}
-		
+
 		initPanels();
 	}
 

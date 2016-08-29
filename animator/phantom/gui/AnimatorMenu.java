@@ -32,7 +32,6 @@ import javax.swing.KeyStroke;
 
 import animator.phantom.controller.EditorPersistance;
 import animator.phantom.controller.FlowController;
-//import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.MenuActions;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.ProjectController;
@@ -63,14 +62,11 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 	JMenuItem disableSelected;
 	JMenuItem cloneSelected;
 	JMenuItem memorySettings;
+	JMenuItem diskCache;
 	JMenuItem editorLayout;
 	JMenuItem projectSettings;
 	JMenuItem kfPreferences;
-	
-	//--- View
-	//JMenuItem viewEditorHeight;
-	//JMenuItem flowEditorWidth;
-	
+
 	//--- Media Menu
 	JMenu mediaMenu;
 	JMenuItem addImage;
@@ -111,7 +107,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		newProjectItems.add( customItem );
 		for( int i = 0; i < MovieFormat.formats.size(); i++ )
 		{
-			
+
 			JMenuItem addItem = new JMenuItem( MovieFormat.formats.elementAt( i ).getName() );
 			addItem.addActionListener(this);
 			newSelect.add( addItem );
@@ -181,43 +177,34 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		editMenu.add( disableSelected );
 
 		editMenu.addSeparator();
-		
+
 		memorySettings = new JMenuItem("Memory Manager...");
 		memorySettings.addActionListener(this);
 		editMenu.add( memorySettings );
 
+		diskCache = new JMenuItem("Disk Cache...");
+		diskCache.addActionListener(this);
+		editMenu.add( diskCache );
+
 		editorLayout = new JMenuItem("Panel sizes...");
 		editorLayout.addActionListener(this);
 		editMenu.add( editorLayout );
-		
+
 		kfPreferences = new JMenuItem("Keyframe Preferences...");
 		kfPreferences.addActionListener(this);
 		editMenu.add( kfPreferences );
-		
+
 		projectSettings = new JMenuItem("Project Properties...");
 		projectSettings.addActionListener(this);
 		editMenu.add( projectSettings);
-		
+
 		//--------------------------- Media menu
 		mediaMenu = new JMenu("Media");
 		updateAppMediaMenu();
 
-		//------------------------------------ View menu
-		/*
-		JMenu viewMenu = new JMenu("View");
-	
-		viewEditorHeight = new JMenuItem("View Editor Height...");
-		viewEditorHeight.addActionListener(this);
-		viewMenu.add( viewEditorHeight );
-
-		flowEditorWidth = new JMenuItem("Composition Editor Width...");
-		flowEditorWidth.addActionListener(this);
-		viewMenu.add( flowEditorWidth );
-		*/
-		
 		//------------------------------------ Node menu
 		JMenu iopMenu = new JMenu("Node");
-	
+
 		buildIOPMenu( iopMenu, this );
 
 		//--- ------------------------------- Render menu
@@ -250,7 +237,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		renderMovie.setAccelerator( KeyStroke.getKeyStroke( "F12"  ) );
 		renderMenu.add( renderMovie );
 
-		//----------------------------------- Help menu	
+		//----------------------------------- Help menu
 		JMenu helpMenu = new JMenu("Help");
 
 		keyboardShortcuts = new JMenuItem("Keyboard Shortcuts");
@@ -258,7 +245,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		helpMenu.add( keyboardShortcuts );
 
 		helpMenu.addSeparator();
-		
+
 		about = new JMenuItem("About Phantom2D");
 		about.addActionListener(this);
 		helpMenu.add( about );
@@ -291,13 +278,13 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			iopMenu.add( subMenu );
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static Vector<JMenu> getNodesMenus(  ActionListener listener )
 	{
 		Vector<String> groups = IOPLibrary.getGroupKeys();
 		Vector<JMenu> groupMenus = new Vector<JMenu>();
-		 
+
 		for( String group : groups )
 		{
 			@SuppressWarnings("rawtypes")
@@ -311,7 +298,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 				if( o instanceof ImageOperation )
 				{
 					ImageOperation iop = (ImageOperation) o;
-					item = new IOPMenuItem( iop.getName(), iop.getClass().getName() );	
+					item = new IOPMenuItem( iop.getName(), iop.getClass().getName() );
 				}
 				else
 				{
@@ -346,13 +333,13 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			}
 		}
 	}
-	
+
 	public void updateAppMediaMenu()
 	{
 		mediaMenu.removeAll();
 
 		Vector<FileSource> fileSources = ProjectController.getFileSources();
-		
+
 		if (fileSources.size() > 0)
 		{
 			AnimatorMenu.fillFileSourcesMenu(mediaMenu, this);
@@ -364,13 +351,13 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			noRefs.setFont(GUIResources.BASIC_FONT_ITALIC_11);
 			mediaMenu.add(noRefs);
 		}
-		
+
 		mediaMenu.addSeparator();
-		
+
 		addVideo = new JMenuItem("Add Video Clips...");
 		addVideo.addActionListener(this);
 		mediaMenu.add( addVideo );
-		
+
 		addImage  = new JMenuItem("Add Images...");
 		addImage.addActionListener(this);
 		mediaMenu.add( addImage );
@@ -394,9 +381,9 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			}
 		}
 	}
-	
+
 	//--------------------------------------------- MENU ACTIONS
-	public void actionPerformed(ActionEvent e) 
+	public void actionPerformed(ActionEvent e)
 	{
 		//-------------------------------------------- File menu
 		for( int i = 0; i < newProjectItems.size(); i++ )
@@ -431,8 +418,9 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 		if( e.getSource() == projectSettings ) MenuActions.setProjectProperties();
 		if( e.getSource() == kfPreferences ) MenuActions.keyframePreferences();
 		if( e.getSource() == memorySettings ) MenuActions.setMemorySettings();
+		if( e.getSource() == diskCache ) MenuActions.diskCacheDialog();
 		if( e.getSource() == editorLayout ) MenuActions.setFlowWidth();
-		
+
 		//--------------------------------------------- Media menu
 		if( e.getSource() == addImage )
 		{
@@ -469,13 +457,13 @@ public class AnimatorMenu extends JMenuBar implements ActionListener
 			MediaMenuItem source =  ( MediaMenuItem ) e.getSource();
 			FlowController.addToCenterFromFileSource( source.getFileSource() );
 		}
-		
+
 		if( e.getSource() instanceof IOPMenuItem )
 		{
 			IOPMenuItem source = ( IOPMenuItem )e.getSource();
 			MenuActions.addIOP( source.getIopClassName() );
 		}
-		
+
 		//-------------------------------------------------- Render menu.
 		if( e.getSource() == threadsSettings ) MenuActions.setThreadsAndBlenders();
 		if( e.getSource() == previewCurrent ) PreviewController.renderAndDisplayCurrent();

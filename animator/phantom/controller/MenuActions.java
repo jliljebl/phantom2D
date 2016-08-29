@@ -46,6 +46,7 @@ import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.GUIUtils;
 import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.gui.modals.MActionListener;
+import animator.phantom.gui.modals.MButton;
 import animator.phantom.gui.modals.MCheckBox;
 import animator.phantom.gui.modals.MComboBox;
 import animator.phantom.gui.modals.MFileSelect;
@@ -78,7 +79,7 @@ public class MenuActions
 	private static FileLoadWindow loadWindow;
 	private static MSlider compSlider;
 	private static MSlider tlineSlider;
-	
+
 	//------------------------------------------------------------ file
 	public static void newProject( int selectionIndex )
 	{
@@ -102,12 +103,12 @@ public class MenuActions
 	public static void openProject()
 	{
 		String acceptedExtensions[] = { Project.PROJECT_FILE_EXTENSION, "xml"};
-		File loadFile = GUIUtils.selectFilteredFile( 
+		File loadFile = GUIUtils.selectFilteredFile(
 				GUIComponents.getAnimatorFrame(),
 				acceptedExtensions,
 				"Open project");
 		if( loadFile == null ) return;
-		
+
 		openProjectFile( loadFile );
 	}
 	public static void openProjectFile( File f )
@@ -132,7 +133,7 @@ public class MenuActions
 
 		}.start();
 	}
-	//--- 
+	//---
 	public static void saveProject()
 	{
 		File saveFile = ProjectController.getProject().getSaveFile();
@@ -145,14 +146,14 @@ public class MenuActions
 			EditorPersistance.addRecent( saveFile );
 			EditorPersistance.write();
 		}
-		else 
+		else
 			saveProjectAs();
 	}
 	//--- Saves project with user specified name and sets it as projects name
 	public static void saveProjectAs()
 	{
 		String[] filters = { Project.PROJECT_FILE_EXTENSION };
-		File saveFile = GUIUtils.selectSaveFile( 
+		File saveFile = GUIUtils.selectSaveFile(
 					GUIComponents.getAnimatorFrame(),
 					filters,
 					"Save As",
@@ -161,7 +162,7 @@ public class MenuActions
 		if( saveFile == null ) return;
 
 		String extension = AppUtils.getExtension( saveFile );
-		if( extension == null ) saveFile = new File( saveFile.getAbsolutePath() 
+		if( extension == null ) saveFile = new File( saveFile.getAbsolutePath()
 			+ "." + Project.PROJECT_FILE_EXTENSION );
 		else if( !extension.equals(  Project.PROJECT_FILE_EXTENSION  ) )
 		{
@@ -178,20 +179,20 @@ public class MenuActions
 		GUIComponents.animatorMenu.updateRecentMenu();
 		ProjectController.updateProjectInfo();
 	}
-	
+
 	//--- Closes current project if confirmed.
 	public static void close()
 	{
 		String[] opts = { "Cancel", "Close project" };
 		String[] bLines = { "Are you sure you want to close current project." };
 		String[] tLines = { "All unsaved progress will be lost." };
-		int answer 
-			= DialogUtils.showTwoTextStyleDialog( 	
-								JOptionPane.WARNING_MESSAGE, 
-								"Closing project", 
-								opts, 
-								bLines, 
-								tLines, 
+		int answer
+			= DialogUtils.showTwoTextStyleDialog(
+								JOptionPane.WARNING_MESSAGE,
+								"Closing project",
+								opts,
+								bLines,
+								tLines,
 								GUIComponents.getAnimatorFrame() );
 
 		if( answer != 1 ) return;
@@ -205,13 +206,13 @@ public class MenuActions
 		String[] opts = {  "Quit and Discard", "Cancel",  "Save", };
 		String[] bLines = { "Are you sure you want to quit?" };
 		String[] tLines = { "All unsaved changes for " + ProjectController.getName() + " will be lost." };
-		int answer 
-			= DialogUtils.showTwoTextStyleDialog( 	
-								JOptionPane.WARNING_MESSAGE, 
-								"Quit Phantom2D", 
-								opts, 
-								bLines, 
-								tLines, 
+		int answer
+			= DialogUtils.showTwoTextStyleDialog(
+								JOptionPane.WARNING_MESSAGE,
+								"Quit Phantom2D",
+								opts,
+								bLines,
+								tLines,
 								GUIComponents.getAnimatorFrame() );
 
 		//--- Do actual quitting
@@ -283,7 +284,7 @@ public class MenuActions
 		mArea.add( width );
 		mArea.add( height );
 		mArea.add( fps );
-		
+
 		MInputArea mArea2 = new MInputArea( "Length" );
 		mArea2.add( length );
 
@@ -292,10 +293,10 @@ public class MenuActions
 		pPanel.add( mArea2 );
 
 		formats.addActionListener
-		( 
-			new MActionListener() 
+		(
+			new MActionListener()
 			{
-				public void actionPerformed(ActionEvent e) 
+				public void actionPerformed(ActionEvent e)
 				{
 					String formatName = (String) formats.getValue();
 					int index = -1;
@@ -304,10 +305,10 @@ public class MenuActions
 						 if( MovieFormat.formats.elementAt( i ).getName().equals( formatName ) )
 							index = i;
 					}
-			
+
 					if( index == -1 )
 						return;
-					
+
 					MovieFormat format = MovieFormat.formats.elementAt( index );
 					width.textField.setText( ( new Integer( format.getScreenSize().width ) ).toString() );
 					height.textField.setText( ( new Integer( format.getScreenSize().height ) ).toString() );
@@ -329,14 +330,14 @@ public class MenuActions
 		int editHeight = height.getIntValue();
 		int editFps = (int) fps.getFloatValue();
 		int editLength = length.getIntValue();
-		if(	ProjectController.getScreenSize().width != editWidth || 
+		if(	ProjectController.getScreenSize().width != editWidth ||
 			ProjectController.getScreenSize().height != editHeight ||
 			ProjectController.getFramesPerSecond() != editFps ||
  			ProjectController.getLength() != editLength )
 		{
 			reloadNeeded = true;
 		}
-		
+
 		if( reloadNeeded )
 		{
 			Vector<ImageOperation> oldClips = new Vector<ImageOperation>( TimeLineController.getClips() );
@@ -351,9 +352,9 @@ public class MenuActions
 			TimeLineController.initClipEditorGUI();
 			FlowController.clearSelection();
 		}
-		
+
 		GUIComponents.renderFlowButtons.repaint();
-		
+
 	}
 
 	public static void showProjectInfo()
@@ -375,9 +376,9 @@ public class MenuActions
 		MInputArea area = new MInputArea( "Path" );
 		area.add( tfs );
 
-		MActionListener listener = 	new MActionListener() 
+		MActionListener listener = 	new MActionListener()
 						{
-							public void actionPerformed(ActionEvent e) 
+							public void actionPerformed(ActionEvent e)
 							{
 								displayPlugins();
 							}
@@ -388,7 +389,7 @@ public class MenuActions
 
 		MInputArea area2 = new MInputArea( "Info" );
 		area2.add( button );
- 
+
 		final MInputPanel iPanel = new MInputPanel( "Plugin Settins" );
 		iPanel.add( area );
 		iPanel.add( area2 );
@@ -537,7 +538,7 @@ public class MenuActions
 		infoRow = new MTextInfo(  "Timeline previous frame",  EditorPersistance.TLINE_PREV_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
-		//--- tline next 
+		//--- tline next
 		infoRow = new MTextInfo(  "Timeline next frame",  EditorPersistance.TLINE_NEXT_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
@@ -553,7 +554,7 @@ public class MenuActions
 		infoRow = new MTextInfo(  "Render frame preview",  EditorPersistance.RENDER_PRE_FRAME_KEY_SC_DEFAULT );
 		inputArea.add( infoRow );
 
-		editPanel.add( inputArea );		
+		editPanel.add( inputArea );
 
 		int retVal = DialogUtils.showMultiInput( editPanel, 400, 400, false );
 		if( retVal != DialogUtils.OK_OPTION ) return;
@@ -563,7 +564,7 @@ public class MenuActions
 	public static void renameSelected()
 	{
 		Vector<RenderNode> nodes = GUIComponents.renderFlowPanel.getSelectedNodes();
-		if( nodes.size() == 0 ) 
+		if( nodes.size() == 0 )
 			return;
 
 		RenderNode rn = nodes.elementAt( 0 );
@@ -573,7 +574,7 @@ public class MenuActions
 							iop.getName(),
 							150,
 							250);
-		if( newName == null ) 
+		if( newName == null )
 			return;
 
 		iop.setName( newName );
@@ -598,7 +599,7 @@ public class MenuActions
 
 		//--- Get new editlayer with new name.
 		ViewEditorLayer newEditLayer = iop.getEditorlayer();
-		
+
 		//--- BasicTwoMergeIOP returns null for edit layer because it creates and adds
 		//--- them by its self when first properly connected, so it is special cased here.
 		if( iop instanceof BasicTwoMergeIOP )
@@ -622,7 +623,7 @@ public class MenuActions
 	public static void cloneSelected()
 	{
 		Vector<RenderNode> nodes = GUIComponents.renderFlowPanel.getSelectedNodes();
-		if( nodes.size() == 0 ) 
+		if( nodes.size() == 0 )
 			return;
 
 		RenderNode rn = nodes.elementAt( 0 );
@@ -679,9 +680,9 @@ public class MenuActions
 		panel.add( area );
 
 		DialogUtils.showMultiInput( panel, 450, 110 );
-		
+
 		AnimatorFrameLayout.VIEW_H = slider.getIntValue();
-		
+
 		GUIComponents.animatorFrame.validate();
 		GUIComponents.animatorFrame.repaint();
 	}
@@ -692,7 +693,7 @@ public class MenuActions
 
 		MInputArea compArea = new MInputArea( "" );
 		compArea.add( compSlider );
-		compSlider.addSliderChangeListener( 
+		compSlider.addSliderChangeListener(
 				new ChangeListener() {
 						@Override
 						public void stateChanged(ChangeEvent e) {
@@ -704,12 +705,12 @@ public class MenuActions
 						}
 
 		    });
-		
+
 		tlineSlider = new MSlider("View Editor height",  150, 250, AnimatorFrameLayout.VIEW_H, 380, 700 );
 
 		MInputArea tlineArea = new MInputArea( "" );
 		tlineArea.add( tlineSlider );
-		tlineSlider.addSliderChangeListener( 
+		tlineSlider.addSliderChangeListener(
 				new ChangeListener() {
 						@Override
 						public void stateChanged(ChangeEvent e) {
@@ -726,11 +727,11 @@ public class MenuActions
 		panel.add( tlineArea );
 
 		DialogUtils.showMultiInput( panel, 450, 140 );
-		
+
 
 	}
 
-	
+
 	public static void reloadSelected()
 	{
 		/*
@@ -739,7 +740,7 @@ public class MenuActions
 		{
 			GUIComponents.binsPanel.destroyIcons( selected );
 
-			//--- Get image sizes and add GUI components to panels 
+			//--- Get image sizes and add GUI components to panels
 			for( FileSource addFS : selected )
 			{
 				addFS.firstLoadData();
@@ -786,7 +787,7 @@ public class MenuActions
 
 		//--- This has multiple failure modes for user doing the wrong things.
 		//--- These sould be pretty obivous but very hard to identify here so
-		//--- so we'll just display simple info for failure 
+		//--- so we'll just display simple info for failure
 		try
 		{
 			//--- Failure in next lines will set this false.
@@ -824,7 +825,7 @@ public class MenuActions
 			if (oldFile != null )
 				line1 = "Could not replace file " + oldFile.getName() + " with " + newFile.getName();
 			String[] tLines = { line1, "Make sure that files are of same type" };
-			
+
 			targetFS.setFile( oldFile );
 			targetFS.setResourceAvailable( wasAvailable );
 			DialogUtils.showTwoStyleInfo( "File replace failed", tLines, DialogUtils.WARNING_MESSAGE );
@@ -858,38 +859,38 @@ public class MenuActions
 		//if( kfProperties.getIcon() == propsDisabled ) return;//icon used as flag for button being enabled
 		String[] interpolations = { "linear","bezier" };
 		AnimationKeyFrame kf = EditorsController.getCurrentKeyFrame();
-	
+
 		// Build dialog
 		final MComboBox leadingInterp = new MComboBox( "Interpolation", interpolations );
 		final MTextField leadingTens = new MTextField( "Tension", new Float(0.3f ));
 		leadingTens.setTextFieldSize( 50 );
-		
+
 		leadingInterp.setSelectedIndex( kf.getLeadingInterpolation() - 1 );// -1 to make values correspond with selection indexes
 		leadingTens.setValue( kf.getLeadingTension() );
-		
+
 		MInputArea lArea = new MInputArea( "Leading" );
 		lArea.add( leadingInterp );
 		lArea.add( leadingTens );
-		
+
 		final MComboBox trailingInterp = new MComboBox( "Interpolation", interpolations );
 		final MTextField trailingTens = new MTextField( "Tension", new Float( 0.3f ));
 		trailingTens.setTextFieldSize( 50 );
-		
+
 		trailingInterp.setSelectedIndex( kf.getTrailingInterpolation() - 1 );// -1 to make values correspond with selection indexes
 		trailingTens.setValue( kf.getTrailingTension() );
-		
+
 		MInputArea tArea = new MInputArea( "Trailing" );
 		tArea.add( trailingInterp );
 		tArea.add( trailingTens );
-		
+
 		final MInputPanel pPanel = new MInputPanel( "Keyframe Properties" );
 		pPanel.add( lArea );
 		pPanel.add( tArea );
-		
+
 		// Display
 		int retVal = DialogUtils.showMultiInput( pPanel, 400, 250 );//blocks
 		if( retVal != DialogUtils.OK_OPTION ) return;
-	
+
 		// Set values and repaint
 		kf.setLeadingInterpolation( leadingInterp.getSelectedIndex() + 1 );
 		kf.setTrailingInterpolation( trailingInterp.getSelectedIndex() + 1 );
@@ -897,7 +898,7 @@ public class MenuActions
 		kf.setTrailingTension( trailingTens.getFloatValue() );
 		EditorsController.updateKFForValueChange();
 	}
-	
+
 
 	//--- Clears all keyframes from iop andset first ones value to current frame value
 	public static void freezeAllToCurrent()
@@ -932,7 +933,7 @@ public class MenuActions
 		TimeLineController.initClipsGUI();
 	}
 
-	
+
 	//--- Clears all keyframes from iop
 	public static void clearAll()
 	{
@@ -965,7 +966,7 @@ public class MenuActions
 		iop.createKeyFramesDrawVector();
 		TimeLineController.initClipsGUI();
 	}
-	
+
 	public static void addToAllInCurrent()
 	{
 		ImageOperation iop = GUIComponents.keyFrameEditPanel.getIOP();
@@ -976,7 +977,7 @@ public class MenuActions
 		addAnimateValueVectorParams( iop, params );
 		//int current = GUIComponents.keyFrameEditPanel.getFocusFrame();
 		int current = 0; //temp, not fixed
-		
+
 		boolean first = true;
 		for( KeyFrameParam kfp : params )
 		{
@@ -1022,7 +1023,7 @@ public class MenuActions
 		addAnimateValueVectorParams( iop, params );
 		//int current = GUIComponents.keyFrameEditPanel.getFocusFrame();
 		int current = 0;
-		
+
 		boolean first = true;
 		for( KeyFrameParam kfp : params )
 		{
@@ -1153,7 +1154,7 @@ public class MenuActions
 		ImageOperation iop = GUIComponents.keyFrameEditPanel.getIOP();
 		if( iop == null )
 			return;
-		
+
 		//--- Scale params
 		Vector<KeyFrameParam> params = iop.getKeyFrameParams();
 		addAnimateValueVectorParams( iop, params );
@@ -1173,7 +1174,7 @@ public class MenuActions
 							System.out.println(newFrame);
 				if( newFrame <= 0 )
 					continue;
-				kf.setFrame( newFrame );		
+				kf.setFrame( newFrame );
 			}
 
 			AnimatedValue av = (AnimatedValue) kfp;
@@ -1225,7 +1226,7 @@ public class MenuActions
 		ImageOperation iop = GUIComponents.keyFrameEditPanel.getIOP();
 		if( iop == null )
 			return;
-		
+
 		Vector<KeyFrameParam> params = iop.getKeyFrameParams();
 		addAnimateValueVectorParams( iop, params );
 		//int currentFrame = GUIComponents.keyFrameEditPanel.getFocusFrame() + 1;
@@ -1240,17 +1241,17 @@ public class MenuActions
 				AnimationKeyFrame kf = kfs.elementAt( i );
 				if( iop.getBeginFrame() + kf.getFrame() < currentFrame )
 					continue;
-				int newFrame = kf.getFrame() + delta; 
+				int newFrame = kf.getFrame() + delta;
 				if( newFrame <= 0 )
 					continue;
 				kf.setFrame( newFrame );
 
 			}
-		
+
 			AnimatedValue av = (AnimatedValue) kfp;
 			av.sortKeyframes();
 
-			//--- Register only first as significant to package all as 
+			//--- Register only first as significant to package all as
 			//--- one undo.
 			if( first )
 			{
@@ -1288,7 +1289,7 @@ public class MenuActions
 		panel.add( area );
 
 		int retVal = DialogUtils.showMultiInput( panel, 500, 155 );
-		if( retVal != DialogUtils.OK_OPTION ) 
+		if( retVal != DialogUtils.OK_OPTION )
 			return;
 
 		//--- Set values and write.
@@ -1337,7 +1338,7 @@ public class MenuActions
 
 		globalMB.addActionListener
 		(
-			new MActionListener() 
+			new MActionListener()
 			{
 				public void actionPerformed(ActionEvent e)
 				{
@@ -1365,10 +1366,10 @@ public class MenuActions
 		boolean shutterGood = false;
 		if( shutterVal >= Blender.minShutterAngle && shutterVal <= Blender.maxShutterAngle )
 			shutterGood = true;
-		
+
 		if( !shutterGood )
 		{
-			DialogUtils.showTwoStyleInfo( "Motion blur setting info","You have to set shutter value angle between " 
+			DialogUtils.showTwoStyleInfo( "Motion blur setting info","You have to set shutter value angle between "
 				+ Blender.minShutterAngle + " and " + Blender.maxShutterAngle + " degrees.",
 				 DialogUtils.WARNING_MESSAGE);
 			setMotionBlur();
@@ -1428,13 +1429,13 @@ public class MenuActions
 	}
 
 	public static void setThreadsAndBlenders()
-	{		
+	{
  		String[] qualityOpts = { "normal","draft" };
 		MComboBox quality = new MComboBox( "Render quality", qualityOpts );
 
 		MInputArea qArea = new MInputArea( "Quality" );
 		qArea.add( quality );
-		
+
 		String[] mboptions = { "on","off" };
 		MComboBox globalMB = new MComboBox( "Global motion blur", mboptions );
 
@@ -1451,7 +1452,7 @@ public class MenuActions
 		mbArea.add( globalMB );
 		mbArea.add( passes );
 		mbArea.add( angle );
-		
+
 		//--- Quality and size
 		//int LEFT = 190;
 		//int RIGHT = 160;
@@ -1488,18 +1489,16 @@ public class MenuActions
 		RenderModeController.setWriteQuality( quality.getSelectedIndex() );
 	}
 
-	//--- ???????? values arent going anywhere ? 
+	//--- ???????? values arent going anywhere ?
 	public static void setMemorySettings()
 	{
 		MTextInfo previewFrame = new MTextInfo( "Available preview frames", MemoryManager.getPreviewSizeEstimate() );
-		//MTextInfo previewMem = new MTextInfo( "Available preview memory", MemoryManager.getMBString( MemoryManager.getPreviewSizeEstimate()) );
 		MTextInfo freeMem = new MTextInfo( "Free memory after start-up",  MemoryManager.getMBString( MemoryManager.getAppFreeMem() ) );
-		
+
 		MInputArea museArea = new MInputArea( "Memory Use Estimates" );
 		museArea.add( previewFrame );
-		//museArea.add( previewMem );
 		museArea.add( freeMem );
-		
+
 		MTextField maxMem = new MTextField( "Max. memory consumption MB", 60, 1024 );
 		maxMem.setTextFieldSize( 60 );
 		MInputArea mArea = new MInputArea( "Memory Settings" );
@@ -1523,12 +1522,35 @@ public class MenuActions
 		if( retVal != DialogUtils.OK_OPTION ) return;
 	}
 
+	//--- frames disk cache management
+	public static void diskCacheDialog()
+	{
+		MTextInfo dickCacheSize = new MTextInfo( "Disk cache size", "1.2 GB");
+		MTextInfo clipsCount = new MTextInfo( "Caches clips",  "49" );
+
+		MInputArea infoArea = new MInputArea( "Disk Cache Info" );
+		infoArea.add( dickCacheSize );
+		infoArea.add( clipsCount );
+
+		MButton clearButton = new MButton( "Delete Disk Cache", 300, null, true );
+
+		MInputArea actionsArea = new MInputArea( "Actions" );
+		actionsArea.add( clearButton );
+
+		MInputPanel panel = new MInputPanel( "" );
+		panel.add( infoArea );
+		panel.add( actionsArea );
+
+		int retVal = DialogUtils.showMultiInput( panel, 450, 250 );
+		if( retVal != DialogUtils.OK_OPTION ) return;
+	}
+
 	//------------------------------------------------------ help
 	public static void displayAbout()
 	{
 		JLabel logo = new JLabel( GUIResources.getIcon( GUIResources.phantomLogoSmall ) );
-		JLabel version = new JLabel( "Ver. 0.4.0" ); 
-		JLabel line1 = new JLabel( "Open source bitmap animation and" ); 
+		JLabel version = new JLabel( "Ver. 0.4.0" );
+		JLabel line1 = new JLabel( "Open source bitmap animation and" );
 		JLabel line2 =  new JLabel( "compositing program." );
 		JLabel line3 = new JLabel( "Licenced under GPL3." );
 
