@@ -39,6 +39,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import animator.phantom.blender.Blender;
+import animator.phantom.controller.MLTFrameServerController;
 import animator.phantom.gui.AnimatorFrameLayout;
 import animator.phantom.gui.ContentPaneLayout;
 import animator.phantom.gui.FileLoadWindow;
@@ -49,6 +50,7 @@ import animator.phantom.gui.modals.MActionListener;
 import animator.phantom.gui.modals.MButton;
 import animator.phantom.gui.modals.MCheckBox;
 import animator.phantom.gui.modals.MComboBox;
+import animator.phantom.gui.modals.MDialog;
 import animator.phantom.gui.modals.MFileSelect;
 import animator.phantom.gui.modals.MInputArea;
 import animator.phantom.gui.modals.MInputPanel;
@@ -1419,7 +1421,6 @@ public class MenuActions
 		if( retVal != DialogUtils.OK_OPTION ) return;
 
 		//--- Set render values.
-		//RenderModeController.setOutFrameType( (String) outputFileType.getValue() );
 		RenderModeController.setFrameName( framename.getStringValue() );
 		RenderModeController.setWriteFolder( tfs.getSelectedFile() );
 		int zpad = pad.getSelectedIndex();
@@ -1454,8 +1455,6 @@ public class MenuActions
 		mbArea.add( angle );
 
 		//--- Quality and size
-		//int LEFT = 190;
-		//int RIGHT = 160;
  		String[] threadOpts = { "1","2", "3", "4" };
 		MComboBox threads = new MComboBox( "Threads", threadOpts );
 		int currentThreads = RenderModeController.getRenderThreadsCount();
@@ -1525,15 +1524,25 @@ public class MenuActions
 	//--- frames disk cache management
 	public static void diskCacheDialog()
 	{
-		MTextInfo dickCacheSize = new MTextInfo( "Disk cache size", "1.2 GB");
-		MTextInfo clipsCount = new MTextInfo( "Caches clips",  "49" );
+		MTextInfo dickCacheSize = new MTextInfo( "Disk cache size", "");
+		MTextInfo clipsCount = new MTextInfo( "Cached clips",  "" );
 
 		MInputArea infoArea = new MInputArea( "Disk Cache Info" );
 		infoArea.add( dickCacheSize );
 		infoArea.add( clipsCount );
 
 		MButton clearButton = new MButton( "Delete Disk Cache", 300, null, true );
-
+		clearButton.addActionListener
+		(
+			new MActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					MLTFrameServerController.clearDiskCache();
+					MLTFrameServerController.calculateCacheSize(dickCacheSize, clipsCount);
+				}
+			}
+		);
 		MInputArea actionsArea = new MInputArea( "Actions" );
 		actionsArea.add( clearButton );
 
@@ -1541,8 +1550,14 @@ public class MenuActions
 		panel.add( infoArea );
 		panel.add( actionsArea );
 
-		int retVal = DialogUtils.showMultiInput( panel, 450, 250 );
-		if( retVal != DialogUtils.OK_OPTION ) return;
+		MDialog cacheDialog = DialogUtils.getMultiInputDialog( panel, 450, 250, true );
+
+		MLTFrameServerController.calculateCacheSize(dickCacheSize, clipsCount);
+
+		cacheDialog.setVisible( true );//this blocks until button pressed
+		int retVal = cacheDialog.getResponseValue();
+
+		//if( retVal != DialogUtils.OK_OPTION ) return;
 	}
 
 	//------------------------------------------------------ help

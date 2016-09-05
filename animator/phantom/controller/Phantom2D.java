@@ -25,18 +25,23 @@ public class Phantom2D
 	{
 		boolean runServer = false;
 		String profile = null;
+		String diskCacheDirPath = null;
 		for (int i=0; i < args.length; i++)
 		{
 			String arg = args[i];
-			
+
 			if (arg.equals("profile"))
-                            profile =  args[i + 1];
+				profile =  args[i + 1];
+
+			if (arg.equals("cachefolder"))
+				diskCacheDirPath =  args[i + 1];
+
 		}
-		
+
 		System.out.println(profile);
-		
-                Application app = new Application();
-                app.startUp(profile);
+
+		Application app = new Application();
+		app.startUp(profile, diskCacheDirPath);
 
 	}
 

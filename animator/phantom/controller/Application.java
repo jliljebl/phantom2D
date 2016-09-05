@@ -82,7 +82,7 @@ public class Application implements WindowListener
 
 	public Application(){ app = this; }
 
-	public void startUp(String profileUnderscoreDesc)
+	public void startUp(String profileUnderscoreDesc, String diskCacheDirPath)
 	{
 		AppUtils.printTitle("PHANTOM 2D" );
 
@@ -118,7 +118,8 @@ public class Application implements WindowListener
 
 		String homePath = urlPath;
 
-		MLTFrameServerController.init( homePath, "/home/janne/.flowblade/node_compositors/phantom_disk_cache" );
+		MLTFrameServerController.init( homePath, diskCacheDirPath );
+		//MLTFrameServerController.calculateCacheSize(null);
 
 		RESOURCE_PATH = homePath + RESOURCE_PATH;
 		PERSISTANCE_PATH = homePath + PERSISTANCE_PATH;

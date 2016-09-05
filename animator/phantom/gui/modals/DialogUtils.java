@@ -58,7 +58,7 @@ public class DialogUtils
 	private static Component currentParent = null;
 
 	private static ColorSelect colorSelect = new ColorSelect();
-	private static ColorSelectTarget selectTarget = null; 
+	private static ColorSelectTarget selectTarget = null;
 
 	public static void setDialogParent( Component parent ){ currentParent = parent; }
 
@@ -80,20 +80,20 @@ public class DialogUtils
 
 		int retVal = DialogUtils.showMultiInput( panel, 450, 110 );
 		if( retVal != DialogUtils.OK_OPTION ) return null;
-	
+
 		return textInput.getStringValue();
 	}
-	
+
 	public static int showMultiInput( MInputPanel ip)
 	{
 		return showMultiInput( ip, 500, 500 );
 	}
-	//--- 
+	//---
 	public static int showMultiInput( MInputPanel ip, int width, int height )
 	{
 		return showMultiInput( ip, width, height, true );
 	}
-	
+
 	public static int showMultiInput( MInputPanel ip, int width, int height, boolean showCancel )
 	{
 		MultiInputDialogPanel p = new MultiInputDialogPanel( ip );
@@ -101,16 +101,29 @@ public class DialogUtils
 
 		Component parent = currentParent;
 		if( parent == null ) parent = GUIComponents.getAnimatorFrame();
-	
+
 		MDialog dialog = new MDialog( (Frame) parent,  ip.getTitle(), p,  width, height, showCancel );
 
 		dialog.setVisible( true );//this blocks until button pressed
- 
+
 		int selectedValue = dialog.getResponseValue();
 
 		//--- With this button order return values correspond to CLOSED_OPTION, OK_OPTION, CANCEL_OPTION
 		//--- as defined here.
 		return selectedValue;
+	}
+
+	public static MDialog getMultiInputDialog( MInputPanel ip, int width, int height, boolean showCancel )
+	{
+		MultiInputDialogPanel p = new MultiInputDialogPanel( ip );
+		ip.setPanel( p );
+
+		Component parent = currentParent;
+		if( parent == null ) parent = GUIComponents.getAnimatorFrame();
+
+		MDialog dialog = new MDialog( (Frame) parent,  ip.getTitle(), p,  width, height, showCancel );
+
+		return dialog;
 	}
 
 	public static void showPanelOKDialog( JPanel panel, String title, int width, int height )
@@ -120,7 +133,7 @@ public class DialogUtils
 		PHDialog dialog = new PHDialog( GUIComponents.getAnimatorFrame(), title, options, panel, PHDialog.PLAIN_MESSAGE );
 		dialog.setVisible( true );//blocks
 	}
-	
+
 	public static void showTwoStyleInfo( String boldText, String text, int type )
 	{
 		String[] tLines = { text };
@@ -132,11 +145,11 @@ public class DialogUtils
 		String[] bLines = { boldText };
 		String[] options = { "Ok" };
 
-		showTwoTextStyleDialog( type, 
-					null, 
-					options, 
-					bLines, 
-					tLines, 
+		showTwoTextStyleDialog( type,
+					null,
+					options,
+					bLines,
+					tLines,
 					GUIComponents.getAnimatorFrame() );
 	}
 
@@ -152,11 +165,11 @@ public class DialogUtils
 		return showTwoTextStyleDialog( type, title, options, bLines, tLines, GUIComponents.getAnimatorFrame() );
 	}
 
-	public static int showTwoTextStyleDialog( 	int type, 
-							String title, 
-							String[] options, 
-							String[] bLines, 
-							String[] tLines, 
+	public static int showTwoTextStyleDialog( 	int type,
+							String title,
+							String[] options,
+							String[] bLines,
+							String[] tLines,
 							Component parent )
 	{
 		JPanel pane = new JPanel();
@@ -177,9 +190,9 @@ public class DialogUtils
 		}
 
 		PHDialog dialog = new PHDialog((Frame)parent, title, options, pane, type );
-			              
+
 		dialog.setVisible( true );//this blocks
- 
+
 		int selectedValue = dialog.getResponseValue();
 		dialog = null;
 		if( selectedValue == -1 ) return JOptionPane.CLOSED_OPTION;
@@ -211,7 +224,7 @@ public class DialogUtils
 		panel.setLayout( new BoxLayout( panel, BoxLayout.X_AXIS) );
 		left.setLayout( new BoxLayout( left, BoxLayout.Y_AXIS) );
 		right.setLayout( new BoxLayout( right, BoxLayout.Y_AXIS) );
-		
+
 		panel.add( left );
 		panel.add( right );
 
@@ -256,7 +269,7 @@ public class DialogUtils
 		right.add( getSmallRigid() );
 		right.add( getRightLabel( ( new Integer( project.getBins().size() ) ).toString()  ) );
 
-		String[] options = { "Ok" };	
+		String[] options = { "Ok" };
 		PHDialog dialog = new PHDialog( GUIComponents.getAnimatorFrame(), "Project Info", options, panel, PHDialog.PLAIN_MESSAGE );
 		dialog.setVisible( true );//blocks
 	}
@@ -270,7 +283,7 @@ public class DialogUtils
 		panel.setLayout( new BoxLayout( panel, BoxLayout.X_AXIS) );
 		left.setLayout( new BoxLayout( left, BoxLayout.Y_AXIS) );
 		right.setLayout( new BoxLayout( right, BoxLayout.Y_AXIS) );
-		
+
 		panel.add( left );
 		panel.add( right );
 
@@ -310,29 +323,29 @@ public class DialogUtils
 		right.add( getSmallRigid() );
 		right.add( getRightLabel( length ) );
 
-		String[] options = { "Ok" };	
+		String[] options = { "Ok" };
 		PHDialog dialog = new PHDialog( GUIComponents.getAnimatorFrame(), "File Source Info", options, panel, PHDialog.PLAIN_MESSAGE );
 		dialog.setVisible( true );//blocks
 	}
 
-		
+
 	public static int showFrameSelectDialog( String title, String msg, int value, int lowerBound, int higherBound )
 	{
 		MFrameSlider slider = new MFrameSlider(msg,  150, 250, value, lowerBound, higherBound );
-	
+
 		MInputArea area = new MInputArea( "" );
 		area.add( slider );
-	
+
 		MInputPanel panel = new MInputPanel( title );
 		panel.add( area );
-	
+
 		int selectedValue = showMultiInput( panel, 500, 110 );
-		
+
 		if ( selectedValue == 1) //OK button
 		{
 			return slider.getIntValue();
 		}
-		else return -1;	
+		else return -1;
 	}
 
 	private static JLabel getRightLabel( String s )
@@ -346,5 +359,5 @@ public class DialogUtils
 	{
 		return Box.createRigidArea( new Dimension( 10, 0 ) );
 	}
-	
+
 }//end class

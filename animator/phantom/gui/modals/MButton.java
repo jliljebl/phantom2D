@@ -27,6 +27,7 @@ import animator.phantom.gui.PHButtonFactory;
 public class MButton extends MInputField
 {
 	private JLabel textLabel;
+	private JButton button;
 
 	public MButton( String msg, MActionListener listener )
 	{
@@ -44,7 +45,7 @@ public class MButton extends MInputField
 		if( width > ( ROW_LEFT_SIZE - 5 ) )
 			width = ROW_LEFT_SIZE - 5;
 
-		JButton button = PHButtonFactory.getButton( msg, width );
+		button = PHButtonFactory.getButton( msg, width );
 		button.addActionListener( listener );
 
 		textLabel = new JLabel("");
@@ -69,4 +70,8 @@ public class MButton extends MInputField
 		textLabel.setText( text );
 	}
 
+	public void addActionListener(MActionListener listener)
+	{
+		button.addActionListener( listener );
+	}
 }//end class

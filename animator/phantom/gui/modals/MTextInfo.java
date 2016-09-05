@@ -25,6 +25,8 @@ import animator.phantom.gui.GUIResources;
 
 public class MTextInfo extends MInputField
 {
+	private JLabel valueLabel = null;
+
 	public MTextInfo( String key, int value )
 	{
 		this(key, Integer.toString(value) );
@@ -34,7 +36,7 @@ public class MTextInfo extends MInputField
 	{
 		this(key, Long.toString(value) );
 	}
-	
+
 	public MTextInfo( String key, String value )
 	{
 		initComponents( key, value );
@@ -45,10 +47,14 @@ public class MTextInfo extends MInputField
 	private void initComponents(  String key, String value )
 	{
 		JLabel keyLabel  = new JLabel( key );
-		JLabel valueLabel  = new JLabel( value );
+		valueLabel  = new JLabel( value );
 
 		this.leftComponent = keyLabel;
 		this.rightComponent = valueLabel;
 	}
 
+	public void setText(String text)
+	{
+		valueLabel.setText(text);
+	}
 }//end class
