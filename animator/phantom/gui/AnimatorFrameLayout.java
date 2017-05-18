@@ -33,38 +33,38 @@ public class AnimatorFrameLayout implements LayoutManager
 	private Component paramEditFrame;
 	private Component editorArea;
 	private Component bottomRow;
-	
+
 	private static Dimension containerSize;
 
 	public static int VIEW_H = EditorPersistance.getIntPref( EditorPersistance.LAYOUT_MID );
-	public static int PARAM_EDIT_WIDTH = 350;
+	//public static int PARAM_EDIT_WIDTH = 350;
 	public static int MIDDLE_ROW_HEIGHT = 0;
 	public static int BOTTOM_ROW_HEIGHT = 44;
-	
+
 	public AnimatorFrameLayout( 	Component viewArea,
-									Component paramEditFrame,
+									/*Component paramEditFrame,*/
 									Component editorArea,
 									Component bottomRow )
 	{
 		this.viewArea = viewArea;
-		this.paramEditFrame = paramEditFrame;
+		//this.paramEditFrame = paramEditFrame;
 		this.editorArea = editorArea;
 		this.bottomRow = bottomRow;
 	}
 
-    public void layoutContainer(Container cont) 
+    public void layoutContainer(Container cont)
 	{
-		synchronized (cont.getTreeLock()) 
+		synchronized (cont.getTreeLock())
 		{
 			containerSize = cont.getSize();
 
 			int comps = cont.getComponentCount();
 
-			for (int i = 0 ; i < comps ; i++) 
+			for (int i = 0 ; i < comps ; i++)
 			{
 				Component c = cont.getComponent(i);
 				if( c == viewArea ) layoutViewPane(c);
-				if( c == paramEditFrame ) layoutParamEditFrame(c);
+				//if( c == paramEditFrame ) layoutParamEditFrame(c);
 				if( c == editorArea ) layoutEditorPane(c);
 				if( c == bottomRow ) layoutBottomRow(c);
 			}
@@ -73,33 +73,38 @@ public class AnimatorFrameLayout implements LayoutManager
 
 	private void layoutViewPane( Component pane )
 	{
-		pane.setBounds( 0, 0, containerSize.width - PARAM_EDIT_WIDTH, VIEW_H );
+		pane.setBounds( 0, 0, containerSize.width, VIEW_H );
 	}
 
+	/*
 	private void layoutParamEditFrame( Component pane )
 	{
 		pane.setBounds(  containerSize.width - PARAM_EDIT_WIDTH, 0, PARAM_EDIT_WIDTH, VIEW_H );
 	}
-	
+
 	private void layoutEditorPane( Component pane )
 	{
 		pane.setBounds( 0, VIEW_H + MIDDLE_ROW_HEIGHT, containerSize.width - 6, containerSize.height - VIEW_H - MIDDLE_ROW_HEIGHT - BOTTOM_ROW_HEIGHT);
 	}
-
+	*/
+	private void layoutEditorPane( Component pane )
+	{
+		pane.setBounds( 0, VIEW_H + MIDDLE_ROW_HEIGHT, containerSize.width - 6, containerSize.height - VIEW_H - MIDDLE_ROW_HEIGHT - BOTTOM_ROW_HEIGHT);
+	}
 	private void layoutBottomRow(Component pane )
 	{
 		int editorHeight = containerSize.height - VIEW_H - MIDDLE_ROW_HEIGHT - BOTTOM_ROW_HEIGHT;
-	
+
 		pane.setBounds( 0, VIEW_H + MIDDLE_ROW_HEIGHT + editorHeight, containerSize.width, BOTTOM_ROW_HEIGHT );
 	}
-				
+
 	//--- noop
 	public void addLayoutComponent(String name, Component comp) {}
 	//--- noop
 	public void removeLayoutComponent(Component comp) {}
 	//--- Preferred size is as big as possible
-	public Dimension preferredLayoutSize(Container target) 
-	{ 
+	public Dimension preferredLayoutSize(Container target)
+	{
 		return new Dimension( Toolkit.getDefaultToolkit().getScreenSize().width -  ContentPaneLayout.LEFT_WIDTH - 10,
 					Toolkit.getDefaultToolkit().getScreenSize().height - 2 );
 	}

@@ -21,28 +21,46 @@ package animator.phantom.controller;
 
 public class Phantom2D
 {
+	static private int PHANTOM2D = 0;
+	static private int GRAPHIC_ANIMATOR = 1;
+
 	public static void main( String args[] )
 	{
 		boolean runServer = false;
 		String profile = null;
 		String diskCacheDirPath = null;
+		int application = PHANTOM2D;
+
 		for (int i=0; i < args.length; i++)
 		{
 			String arg = args[i];
 
-			if (arg.equals("profile"))
+			if (arg.equals("-p"))
 				profile =  args[i + 1];
 
-			if (arg.equals("cachefolder"))
-				diskCacheDirPath =  args[i + 1];
+			if (arg.equals("-c"))
+				diskCacheDirPath = args[i + 1];
+
+			if (arg.equals("-app"))
+			{
+				String app = args[i + 1];
+				if (app.equals("ganim"))
+					application = GRAPHIC_ANIMATOR;
+			}
 
 		}
 
 		System.out.println(profile);
-
-		Application app = new Application();
-		app.startUp(profile, diskCacheDirPath);
-
+		if (application == PHANTOM2D)
+		{
+			Application app = new Application();
+			app.startUp(profile, diskCacheDirPath);
+		}
+		else if (application == GRAPHIC_ANIMATOR)
+		{
+			GraphicsAnimatorApplication app = new GraphicsAnimatorApplication();
+			app.startUp(profile, diskCacheDirPath);
+		}
 	}
 
 }//end class

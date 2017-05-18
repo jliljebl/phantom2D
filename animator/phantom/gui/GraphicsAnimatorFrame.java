@@ -91,9 +91,9 @@ import animator.phantom.gui.timeline.TimeLineControls;
 import animator.phantom.gui.view.component.ViewControlButtons;
 import animator.phantom.gui.view.component.ViewEditor;
 
-public class AnimatorFrame extends JFrame implements ActionListener
+public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListener
 {
-	private JViewport flowViewPort;
+	//private JViewport flowViewPort;
 	private JPanel contentPane = null;
 	private JPanel editorsPane = null;
 
@@ -107,7 +107,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	public JToggleButton timelineButton;
 	public JToggleButton splineButton;
 
-	private JPanel flowHolder;
+	//private JPanel flowHolder;
 	private	JPanel timelinePanel;
 	private JPanel keyEditorPanel;
 	private TimeLineControls tlineControls;
@@ -118,7 +118,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 
 	private ParamEditFrame editFrame;
 
-	private FlowEditPanel renderFlowPanel;
+	//private FlowEditPanel renderFlowPanel;
 
 	private JPanel screenViewsPanel;
 	private JPanel viewPanel;
@@ -129,7 +129,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	private boolean initializing = false;
 	private int displayedEditor = 0;
 
-	public AnimatorFrame()
+	public GraphicsAnimatorFrame()
 	{
 		super();
 		setVisible( false );//set visible when properly initialized.
@@ -139,7 +139,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	//--- project loaded.
 	public void initializeEditor()
 	{
-		setTitle(  ProjectController.getName() + " - Phantom2D" );
+		setTitle( ProjectController.getName() + " - Phantom2D" );
 
 		try
 		{
@@ -154,15 +154,17 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	//--- Create gui. All components are recreated.
 	private void createGui()
 	{
+		/*
 		AppUtils.printTitle( "INIT GUI" );
 
 		initializing = true;
 
 		//--- app menu
-		AnimatorMenu menuBar = new AnimatorMenu();
+		GraphicsAnimatorMenu menuBar = new GraphicsAnimatorMenu();
 		setJMenuBar( menuBar );
 
 		//----------------------------------- flow Editor
+
 		int flowW = EditorPersistance.getIntPref( EditorPersistance.FLOW_WIDTH );
 		int flowH = EditorPersistance.getIntPref( EditorPersistance.FLOW_HEIGHT );
 
@@ -189,6 +191,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		flowPane.setLayout( new EditorsLayout() );
 		flowPane.add( flowHolder );
 
+		RenderFlowViewButtons renderFlowButtons = new RenderFlowViewButtons( this );
 		//---------------------------------------- view editor
 		ViewEditor viewEdit = new ViewEditor( ProjectController.getScreenSize() );
 
@@ -209,7 +212,11 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		viewPanel = new JPanel();
 		viewPanel.add( viewScrollPane );
 
-
+		//--------------------------------------------------- Panel holding all the middle row buttons
+		buttonRowHolder = new JPanel();
+		buttonRowHolder.setLayout(new BoxLayout( buttonRowHolder, BoxLayout.X_AXIS));
+		buttonRowHolder.add( viewControlButtons );
+		buttonRowHolder.add( Box.createHorizontalGlue() );
 
 		//----------------------------------------------- preview
 		previewUpdater = new PreViewUpdater();
@@ -220,12 +227,10 @@ public class AnimatorFrame extends JFrame implements ActionListener
 
 		PreViewControlPanel previewControl = new PreViewControlPanel( timecodeDisplay);
 
-		//--------------------------------------------------- Panel holding all the middle row buttons
-		buttonRowHolder = new JPanel();
-		buttonRowHolder.setLayout(new ButtonsRowLayout());
-		buttonRowHolder.add( viewControlButtons );
-		buttonRowHolder.add( previewControl );
-
+		//--------------------------------------------- view editor + button row panel
+		screenViewsPanel.add( viewPanel );
+		screenViewsPanel.add( buttonRowHolder );
+		screenViewsPanel.add( previewControl );
 
 		//-------------------------------------------- param edit
 		editFrame = new ParamEditFrame();
@@ -241,15 +246,11 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		paramEditPanelPanel.add( Box.createRigidArea( new Dimension( 0, 4 ) ) );
 		paramEditPanelPanel.add( paramEditHolder );
 
-		//--------------------------------------------- view editor + button + param edit
-		screenViewsPanel.add( viewPanel );
-		screenViewsPanel.add( buttonRowHolder );
-		screenViewsPanel.add( paramEditPanelPanel );
-
 		//--------------------------------------- timeline editor
 		TimeLineDisplayPanel timeLineDisplay = new TimeLineDisplayPanel();
 		TimeLineIOPColumnPanel iopColumn = new TimeLineIOPColumnPanel();
 		TimeLineEditorPanel timelineEditor = new TimeLineEditorPanel();
+		//TimeLineEditButtons timeLineEditButtons = new TimeLineEditButtons();
 
 		JPanel timeDummyPanelTop = new JPanel();
 		JPanel scaleStrip = new JPanel();
@@ -399,6 +400,10 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		JLabel projectInfoLabel = new JLabel();
 		projectInfoLabel.setFont( GUIResources.BASIC_FONT_11 );
 
+		/*
+		JLabel projectInfoLabel = new JLabel();
+		projectInfoLabel.setFont( GUIResources.BASIC_FONT_11 );
+
 		JPanel realContentPanel = new JPanel();
 		ContentPaneLayout rclayout = new ContentPaneLayout();
 		realContentPanel.setLayout( rclayout );
@@ -406,6 +411,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		realContentPanel.add( flowButtonsPane );
 		realContentPanel.add( contentPane );
 		realContentPanel.add( projectInfoLabel );
+
 
 		//--- global keyactions.
 		KeyUtils.clearGlobalActions();
@@ -431,7 +437,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		//--- Connect GUI components to be accessed elsewhere.
 		GUIComponents.animatorFrame = this;
 		GUIComponents.animatorMenu = menuBar;
-		GUIComponents.renderFlowPanel = renderFlowPanel;//this has to be present when loading boxes.
+		//GUIComponents.renderFlowPanel = renderFlowPanel;//this has to be present when loading boxes.
 		GUIComponents.timeLineIOPColumnPanel = iopColumn;
 		GUIComponents.timeLineEditorPanel = timelineEditor;
 		GUIComponents.timeLineScaleDisplays.add( timeLineDisplay );
@@ -457,7 +463,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		//--- Remove all components (why? reload?)
 		getContentPane().removeAll();
 
-		add( realContentPanel );
+		add( contentPane );
 
 		setDefaultCloseOperation( WindowConstants.DO_NOTHING_ON_CLOSE );
 		setExtendedState( getExtendedState()|JFrame.MAXIMIZED_BOTH );
@@ -469,6 +475,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 
 		MinimizeSetTimer minimSet = new MinimizeSetTimer( this );
 		minimSet.start();
+		*/
 	}
 
 	//----------------------------------------------- Editor change buttons.
@@ -524,6 +531,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	}
 
 	//------------------------------------------------ render flow view scroll stuff for box placement
+	/*
 	//--- Return x,y of left up corner postion of viewport in RenderFlowViewPanel
 	public Point getScrollPos(){ return flowViewPort.getViewPosition(); }
 	//--- Return middlepoint for current viewport size.
@@ -534,7 +542,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	}
 	//--- Returns view port size.
 	public Dimension getViewPortSize(){ return flowViewPort.getExtentSize(); }
-
+*/
 	public Dimension getViewEditorSize()
 	{
 		return viewScrollPane.getViewport().getExtentSize();

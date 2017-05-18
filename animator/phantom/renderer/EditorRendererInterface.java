@@ -22,7 +22,6 @@ package animator.phantom.renderer;
 import java.awt.Dimension;
 
 import animator.phantom.controller.Application;
-import animator.phantom.controller.FlowController;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.RenderModeController;
 
@@ -31,7 +30,7 @@ import animator.phantom.controller.RenderModeController;
 public class EditorRendererInterface
 {
 	public static int getMovieLength()
-	{ 
+	{
 		return ProjectController.getLength();
 	}
 	public static Dimension getScreenDimensions()
@@ -40,7 +39,7 @@ public class EditorRendererInterface
 	}
 	public static RenderNode getNode( int nodeID )
 	{
-		return FlowController.getNode( nodeID );
+		return ProjectController.getFlow().getNode( nodeID );
 	}
 	//--- Get methods for global render settings.
 	//public static boolean getGlobalMotionBlur(){ return RenderModeController.getGlobalMotionBlur(); }

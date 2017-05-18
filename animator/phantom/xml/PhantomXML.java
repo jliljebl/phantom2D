@@ -26,6 +26,7 @@ import org.w3c.dom.Element;
 
 import animator.phantom.controller.FlowController;
 import animator.phantom.controller.TimeLineController;
+import animator.phantom.controller.ProjectController;
 import animator.phantom.gui.flow.FlowBox;
 import animator.phantom.project.Bin;
 import animator.phantom.project.Project;
@@ -79,7 +80,7 @@ public class PhantomXML extends PhantomDocUtils
 			bins.add( bin );
 		}
 		project.setBins( bins );
-		
+
 		//--- Flow
 		Element flowE = getFirstChild( projE, FLOW_ELEM );
 		RenderFlow flow = new RenderFlow();
@@ -88,7 +89,7 @@ public class PhantomXML extends PhantomDocUtils
 		//--- RenderNodes
 		Vector<RenderNode> rnodes =  new Vector<RenderNode>();
 		initIter( flowE, RenderNodeXML.ELEMENT_NAME);
-		while( iterMore() )	
+		while( iterMore() )
 		{
 			Element rnodeE = iterNext();
 			Element iopE = getFirstChild( rnodeE, ImageOperationXML.ELEMENT_NAME );
@@ -150,7 +151,7 @@ public class PhantomXML extends PhantomDocUtils
 	{
 		Document doc = null;
 
-	  	try 
+	  	try
 		{
 			//--- Create Document
 			doc = createDocument();
@@ -172,7 +173,7 @@ public class PhantomXML extends PhantomDocUtils
 			Vector<FileSource> fsources = projObj.getFileSources();
 			for( FileSource fs : fsources )
 				fileSourceLib.appendChild( FileSourceXML.getElement( fs ) );
-		
+
 			//--- Bins
 			Element bins = doc.createElement( BINS_ELEM );
 			Vector<Bin> binObjs = projObj.getBins();
@@ -205,7 +206,7 @@ public class PhantomXML extends PhantomDocUtils
 			Element clipsE = doc.createElement( TIMELINECLIPS_ELEM );
 			Vector<ImageOperation> clips = TimeLineController.getClips();
 			for( ImageOperation iop : clips )
-				clipsE.appendChild( TimeLineClipXML.getElement( FlowController.getNode( iop ) ));
+				clipsE.appendChild( TimeLineClipXML.getElement( ProjectController.getFlow().getNode( iop ) ));
 			project.appendChild( clipsE );
 
 			//--- Timeline marks
@@ -221,9 +222,9 @@ public class PhantomXML extends PhantomDocUtils
 			//--- Render out values
 			Element rOutE = RenderOutXML.getElement();
 			project.appendChild( rOutE );
-			
+
 		}
-		catch (Exception e) 
+		catch (Exception e)
 		{
 			System.out.println("in catch");
 			System.out.println(e);
@@ -237,7 +238,7 @@ public class PhantomXML extends PhantomDocUtils
 	{
 		Vector <Integer> retMarks = loadMarks;
 		loadMarks = new Vector <Integer>();
-		return retMarks; 
+		return retMarks;
 	}
 	*/
 	public static void addMark( int mark ){ loadMarks.add( new Integer( mark ) ); }

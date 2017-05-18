@@ -31,20 +31,19 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import animator.phantom.controller.EditorPersistance;
-import animator.phantom.controller.FlowController;
+import animator.phantom.controller.GraphicsAnimatorController;
 import animator.phantom.controller.MenuActions;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.RenderModeController;
 import animator.phantom.controller.TimeLineController;
-import animator.phantom.controller.UserActions;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.project.MovieFormat;
 import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
 
-public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCallbackInterface
+public class GraphicsAnimatorMenu extends JMenuBar implements ActionListener, MenuBarCallbackInterface
 {
 	//--- File
 	JMenuItem openProject;
@@ -57,25 +56,12 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 	//--- Edit
 	JMenuItem undo;
 	JMenuItem redo;
-	JMenuItem renameSelected;
-	JMenuItem enableSelected;
-	JMenuItem disableSelected;
-	JMenuItem cloneSelected;
-	JMenuItem memorySettings;
-	JMenuItem diskCache;
-	JMenuItem editorLayout;
-	JMenuItem projectSettings;
-	JMenuItem kfPreferences;
 
-	//--- Media Menu
-	JMenu mediaMenu;
+	//--- Project Menu
 	JMenuItem addImage;
-	JMenuItem addImageSequence;
-	JMenuItem addVideo;
-	JMenuItem noRefs;
+	JMenuItem projectSettings;
 
 	//--- Render
-	JMenuItem threadsSettings;
 	JMenuItem previewCurrent;
 	JMenuItem previewFromCurrent;
 	JMenuItem previewFromStart;
@@ -91,7 +77,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 	//---
 	Vector<JMenuItem> newProjectItems = new Vector<JMenuItem>();
 
-	public AnimatorMenu()
+	public GraphicsAnimatorMenu()
 	{
 		super();
 
@@ -158,62 +144,18 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 		redo.setAccelerator( KeyStroke.getKeyStroke( "ctrl shift pressed Z"  ) );
 		editMenu.add( redo );
 
-		editMenu.addSeparator();
-/*
-		renameSelected = new JMenuItem("Rename...");
-		renameSelected.addActionListener(this);
-		editMenu.add( renameSelected );
-
-		cloneSelected = new JMenuItem("Clone");
-		cloneSelected.addActionListener(this);
-		editMenu.add( cloneSelected );
-
-		enableSelected = new JMenuItem("Enable");
-		enableSelected.addActionListener(this);
-		editMenu.add( enableSelected );
-
-		disableSelected = new JMenuItem("Disable");
-		disableSelected.addActionListener(this);
-		editMenu.add( disableSelected );
-
-		editMenu.addSeparator();
-		*/
-		memorySettings = new JMenuItem("Memory Manager...");
-		memorySettings.addActionListener(this);
-		editMenu.add( memorySettings );
-
-		diskCache = new JMenuItem("Disk Cache...");
-		diskCache.addActionListener(this);
-		editMenu.add( diskCache );
-
-		editorLayout = new JMenuItem("Panel sizes...");
-		editorLayout.addActionListener(this);
-		editMenu.add( editorLayout );
-
-		kfPreferences = new JMenuItem("Keyframe Preferences...");
-		kfPreferences.addActionListener(this);
-		editMenu.add( kfPreferences );
-
+		//--------------------------- Media menu
+		JMenu projectMenu = new JMenu("Project");
 		projectSettings = new JMenuItem("Project Properties...");
 		projectSettings.addActionListener(this);
-		editMenu.add( projectSettings);
+		projectMenu.add( projectSettings);
 
-		//--------------------------- Media menu
-		mediaMenu = new JMenu("Media");
-		updateAppMediaMenu();
-
-		//------------------------------------ Node menu
-		JMenu iopMenu = new JMenu("Node");
-
-		buildIOPMenu( iopMenu, this );
+		addImage  = new JMenuItem("Add Images...");
+		addImage.addActionListener(this);
+		projectMenu.add( addImage );
 
 		//--- ------------------------------- Render menu
 		JMenu renderMenu = new JMenu("Render");
-		threadsSettings = new JMenuItem("Rendering Settings...");
-		threadsSettings.addActionListener(this);
-		renderMenu.add( threadsSettings );
-
-		renderMenu.addSeparator();
 
 		previewFromCurrent = new JMenuItem("Preview From Current" );
 		previewFromCurrent.addActionListener(this);
@@ -246,15 +188,13 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 
 		helpMenu.addSeparator();
 
-		about = new JMenuItem("About Phantom2D");
+		about = new JMenuItem("About...");
 		about.addActionListener(this);
 		helpMenu.add( about );
 
 		add( fileMenu );
 		add( editMenu );
-		add( iopMenu );
-		//add( viewMenu );
-		add( mediaMenu );
+		add( projectMenu );
 		add( renderMenu );
 		add( helpMenu );
 	}
@@ -269,49 +209,6 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 		return rBuf.toString();
 	}
 
-	//--- Builds "ImageOperation" menu using input from IOPLibrary
-	public static void buildIOPMenu( JMenu iopMenu, ActionListener listener )
-	{
-		Vector<JMenu> groupMenus =  getNodesMenus(  listener );
-		for( JMenu subMenu : groupMenus )
-		{
-			iopMenu.add( subMenu );
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public static Vector<JMenu> getNodesMenus(  ActionListener listener )
-	{
-		Vector<String> groups = IOPLibrary.getGroupKeys();
-		Vector<JMenu> groupMenus = new Vector<JMenu>();
-
-		for( String group : groups )
-		{
-			@SuppressWarnings("rawtypes")
-			Vector iops = IOPLibrary.getGroupContents( group );
-			Collections.sort( iops );
-			JMenu subMenu = new JMenu( getItemString( group,"",0 ));
-			for( int j = 0; j < iops.size(); j++ )
-			{
-				Object o = iops.elementAt( j );
-				IOPMenuItem item = null;
-				if( o instanceof ImageOperation )
-				{
-					ImageOperation iop = (ImageOperation) o;
-					item = new IOPMenuItem( iop.getName(), iop.getClass().getName() );
-				}
-				else
-				{
-					PhantomPlugin p = (PhantomPlugin) o;
-					item = new IOPMenuItem( p.getIOP().getName(), p.getClass().getName() );
-				}
-				item.addActionListener(listener);
-				subMenu.add( item );
-			}
-			groupMenus.add( subMenu );
-		}
-		return groupMenus;
-	}
 
 	public void updateRecentMenu()
 	{
@@ -336,50 +233,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 
 	public void updateAppMediaMenu()
 	{
-		mediaMenu.removeAll();
 
-		Vector<FileSource> fileSources = ProjectController.getFileSources();
-
-		if (fileSources.size() > 0)
-		{
-			AnimatorMenu.fillFileSourcesMenu(mediaMenu, this);
-		}
-		else
-		{
-			noRefs = new JMenuItem("No media sources");
-			noRefs.setEnabled(false);
-			noRefs.setFont(GUIResources.BASIC_FONT_ITALIC_11);
-			mediaMenu.add(noRefs);
-		}
-
-		mediaMenu.addSeparator();
-
-		addVideo = new JMenuItem("Add Video Clips...");
-		addVideo.addActionListener(this);
-		mediaMenu.add( addVideo );
-
-		addImage  = new JMenuItem("Add Images...");
-		addImage.addActionListener(this);
-		mediaMenu.add( addImage );
-
-		addImageSequence  = new JMenuItem("Add Image Sequence...");
-		addImageSequence.addActionListener(this);
-		mediaMenu.add( addImageSequence );
-	}
-
-	public static void fillFileSourcesMenu( JMenu menu, ActionListener listener  )
-	{
-		Vector<FileSource> fileSources = ProjectController.getFileSources();
-		if( fileSources.size() > 0 )
-		{
-			for( FileSource f : fileSources )
-			{
-				System.out.print(f.getName());
-				MediaMenuItem addr = new MediaMenuItem( f.getName(), f );
-				addr.addActionListener( listener );
-				menu.add( addr );
-			}
-		}
 	}
 
 	//--------------------------------------------- MENU ACTIONS
@@ -411,61 +265,14 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 		if( e.getSource() == undo ) MenuActions.undo();
 		if( e.getSource() == redo ) MenuActions.redo();
 
-		if( e.getSource() == renameSelected ) MenuActions.renameSelected();
-		if( e.getSource() == cloneSelected ) MenuActions.cloneSelected();
-		if( e.getSource() == disableSelected ) MenuActions.disableSelected();
-		if( e.getSource() == enableSelected ) MenuActions.enableSelected();
+		//--------------------------------------------- Project menu
 		if( e.getSource() == projectSettings ) MenuActions.setProjectProperties();
-		if( e.getSource() == kfPreferences ) MenuActions.keyframePreferences();
-		if( e.getSource() == memorySettings ) MenuActions.setMemorySettings();
-		if( e.getSource() == diskCache ) MenuActions.diskCacheDialog();
-		if( e.getSource() == editorLayout ) MenuActions.setFlowWidth();
-
-		//--------------------------------------------- Media menu
 		if( e.getSource() == addImage )
 		{
-			new Thread()
-			{
-				public void run()
-				{
-					UserActions.addSingleFileSources(FileSource.IMAGE_FILE, -1, -1);
-				}
-			}.start();
-		}
-		if( e.getSource() == addImageSequence )
-		{
-			new Thread()
-			{
-				public void run()
-				{
-					UserActions.addFileSequenceSource();
-				}
-			}.start();
-		}
-		if( e.getSource() == addVideo )
-		{
-			new Thread()
-			{
-				public void run()
-				{
-					UserActions.addSingleFileSources(FileSource.VIDEO_FILE, -1, -1);
-				}
-			}.start();
-		}
-		if( e.getSource() instanceof MediaMenuItem )
-		{
-			MediaMenuItem source =  ( MediaMenuItem ) e.getSource();
-			FlowController.addToCenterFromFileSource( source.getFileSource() );
-		}
-
-		if( e.getSource() instanceof IOPMenuItem )
-		{
-			IOPMenuItem source = ( IOPMenuItem )e.getSource();
-			MenuActions.addIOP( source.getIopClassName() );
+			GraphicsAnimatorController.setAnimatedGraphic();
 		}
 
 		//-------------------------------------------------- Render menu.
-		if( e.getSource() == threadsSettings ) MenuActions.setThreadsAndBlenders();
 		if( e.getSource() == previewCurrent ) PreviewController.renderAndDisplayCurrent();
 		if( e.getSource() == previewFromStart ) PreviewController.renderAndPlayRange( 0, ProjectController.getLength() - 1 );
 		if( e.getSource() == previewFromCurrent ) PreviewController.renderAndPlayRange( TimeLineController.getCurrentFrame(), ProjectController.getLength() - 1 );

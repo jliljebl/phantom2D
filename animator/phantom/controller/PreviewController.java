@@ -30,9 +30,9 @@ public class PreviewController
 	//--- Preview params.
 	private static boolean displayWhenRendering = true;
 	private static int renderSize = MovieRenderer.FULL_SIZE; // used for View Editor current frame
-	private static int previewSize  = MovieRenderer.FULL_SIZE; // used for previews frame
+	private static int previewSize = MovieRenderer.FULL_SIZE; // used for previews frame
 	private static int quality = RenderModeController.NORMAL;
-	
+
 	//--- Rendering
 	private static MovieRenderer movieRenderer;
 	private static PreviewRenderThread renderThread;
@@ -57,7 +57,7 @@ public class PreviewController
 	private static long lastFrameTime;
 	private static int timesMissed;
 	private static long FRAME_MISS_THRESHOLD = 5;
-	
+
 	public static void reset()
 	{
 		locked = false;
@@ -78,7 +78,7 @@ public class PreviewController
 		startFrame = -1;
 		endFrame = -1;//exclusive
 	}
-	
+
 	//------------------------------------------------ PARAMS INTERFACE
 	//--- Locking
 	public static void setLocked( boolean locked_ ){ locked = locked_; }
@@ -101,14 +101,14 @@ public class PreviewController
 			int frameIndex = frame - startFrame;
 			if( frameIndex < 0 || frameIndex > frames.size() - 1 )
 				GUIComponents.previewUpdater.setFrame( null );
-			else 
+			else
 				GUIComponents.viewEditor.setPreviewFrame( frames.elementAt( frameIndex ) );
 		}
 		else if( singleFrame != null )
 		{
-			if( frame == startFrame ) 
+			if( frame == startFrame )
 				GUIComponents.viewEditor.setPreviewFrame( singleFrame );
-			else 
+			else
 				GUIComponents.previewUpdater.setFrame( null );
 		}
 		else GUIComponents.previewUpdater.setFrame( null );
@@ -170,11 +170,11 @@ public class PreviewController
 		locked = true;
 
 		GUIComponents.viewEditor.setPreviewDisplay();
-		
+
 		Application.setCurrentRenderType( Application.PREVIEW_RENDER );
 
 		previewSize = GUIComponents.viewControlButtons.getViewSize();
-		
+
 		movieRenderer = new MovieRenderer(  ProjectController.getFlow(), previewSize, RenderModeController.getRenderThreadsCount() );
 		movieRenderer.setUpdateRange( true );
 
@@ -196,7 +196,7 @@ public class PreviewController
 	{
 		return previewSize;
 	}
-	
+
 	//--- Abort handling start.
 	//--- This is called when user pushes stop button
 	public static void abortPreviewRender()
@@ -237,7 +237,7 @@ public class PreviewController
 		TimeLineController.repaintTimeLineScaleDisplay();
 	}
 
-	//--- loop	
+	//--- loop
 	public static void setLoop( boolean val ){ loop = val; }
 
 	//--- Starts displaying frames from current frame.
@@ -270,7 +270,7 @@ public class PreviewController
 	{
 		int frame = TimeLineController.getCurrentFrame();
 
-		//--- 
+		//---
 		if( !firstFrame )
 		{
 			//--- Stop if end, loop handled in stopPlayback();
@@ -308,15 +308,15 @@ public class PreviewController
 
 		if( frames != null && frameIndex >= 0 && frameIndex < frames.size() )
 			GUIComponents.viewEditor.setPreviewFrame( frames.elementAt( frameIndex ) );
-		else if( singleFrame != null && frame == startFrame ) 
+		else if( singleFrame != null && frame == startFrame )
 			GUIComponents.viewEditor.setPreviewFrame( singleFrame );
-		else 
+		else
 			GUIComponents.previewUpdater.setFrame( null );
 
 		GUIComponents.viewEditor.repaint();
 		UpdateController.repaintFramePosititionDisplayers();
 	}
-	
+
 	//--- Checks if we shold loop or stop.
 	private static boolean playbackEndCheck()
 	{

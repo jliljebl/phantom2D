@@ -108,11 +108,11 @@ public class FlowController
 
 	private static ImageOperation getNewIOPFromSource( FileSource fs )
 	{
-		if( fs.getType() == FileSource.IMAGE_FILE ) 
+		if( fs.getType() == FileSource.IMAGE_FILE )
 			return new FileImageSource( (FileSingleImageSource) fs );
-		if( fs.getType() == FileSource.IMAGE_SEQUENCE ) 
+		if( fs.getType() == FileSource.IMAGE_SEQUENCE )
 			return new ImageSequenceIOP( (FileSequenceSource) fs );
-		if( fs.getType() == FileSource.VIDEO_FILE ) 
+		if( fs.getType() == FileSource.VIDEO_FILE )
 			return new VideoClipIOP( (VideoClipSource) fs );
 		return null; //this will crash very soon, and it should
 	}
@@ -135,12 +135,12 @@ public class FlowController
 		EditorsController.removeLayers( nodes );
 		EditorsController.clearKFEditIfNecessery( nodes );
 		//--- FlowPanel deletes boxes and arrows from its display.
-		//--- It also disconnects nodes and removes them from flow data 
+		//--- It also disconnects nodes and removes them from flow data
 		//--- using callbacks ( FlowController.disconnectNodes(..), FlowController.deleteRenderNodes(...) )
 		//--- MultiDeleteUndoEdit is also created there because you need positions of boxes arroes for it.
 		GUIComponents.renderFlowPanel.deleteSelectedBoxes();
 	}
-	//--- Deletes Vector of nodes. USed user forces a delete of file source that has some nodes using it. 
+	//--- Deletes Vector of nodes. USed user forces a delete of file source that has some nodes using it.
 	public static void deleteVector( Vector<RenderNode> vec )
 	{
 		for( RenderNode node : vec )
@@ -151,7 +151,7 @@ public class FlowController
 		EditorsController.removeLayers( vec );
 		EditorsController.clearKFEditIfNecessery( vec );
 		//--- FlowPanel deletes boxes and arrows from its display.
-		//--- It also disconnects nodes and removes them from flow data 
+		//--- It also disconnects nodes and removes them from flow data
 		//--- using callbacks ( FlowController.disconnectNodes(..), FlowController.deleteRenderNodes(...) )
 		GUIComponents.renderFlowPanel.deleteBoxes( vec );
 	}
@@ -166,7 +166,7 @@ public class FlowController
 		TimeLineController.targetIopChanged( iop );
 
 		EditorsController.addLayerForIop( iop );
-		//--- If new iop does not have edit layer we need render view editor bg 
+		//--- If new iop does not have edit layer we need render view editor bg
 		//--- because layer add did not trigger render.
 		if( iop.getEditorlayer() == null )
 			 EditorsController.displayCurrentInViewEditor( false );
@@ -204,6 +204,7 @@ public class FlowController
 		ProjectController.getFlow().
 			connectNodes( source, target, sourceCIndex, targetCIndex );
 	}
+
 	//--- Disconnects provided nodes.
 	public static void disconnectNodes( RenderNode source, RenderNode target,
 								int sourceCIndex, int targetCIndex )
@@ -236,46 +237,19 @@ public class FlowController
 		}
 
 		//--- Set source nodes targets vector to new size.
-		if( outputsNumber < targets.size() ) 
+		if( outputsNumber < targets.size() )
 			targets.subList( outputsNumber, targets.size() ).clear();
 		else if( outputsNumber > targets.size() )
 		{
 			int times =  outputsNumber - targets.size();
-			for( int i = 0; i < times; i++ ) 
+			for( int i = 0; i < times; i++ )
 				targets.add( null );
 		}
 
 		//--- Repaint
 		GUIComponents.renderFlowPanel.repaint();
 	}
-	//--- 
-	public static int getNumberOfTargetsOfNode( ImageOperation iop )
-	{
-		RenderNode node = ProjectController.getFlow().getNode( iop );
-		return node.getTargetsVector().size();
-	}
 
-	//--- Used when parenting.
-	public static Vector <ImageOperation> getAnimatebleIops()
-	{
-		return ProjectController.getFlow().getAnimatebleIops();
-	}
-
-	//--- Returns node corresponding to node ID.
-	public static RenderNode getNode( int nodeID )
-	{
-		return ProjectController.getFlow().getNode( nodeID );
-	}
-	//--- Returns node that contains provided IOP.
-	public static RenderNode getNode( ImageOperation iop )
-	{
-		return ProjectController.getFlow().getNode( iop );
-	}
-	//--- Return all nodes that contain filesource.
-	public static Vector<RenderNode> getNodesWithFileSource( FileSource fs )
-	{
-		return ProjectController.getFlow().getNodesWithFileSource( fs );
-	}
 	//--- Creates of column of selected boxes.
 	public static void arrangeBoxRow()
 	{
@@ -333,12 +307,12 @@ public class FlowController
 		if( selectedBoxes.size() < 2 ) return;
 
 		LookUpGrid lookUpGrid = GUIComponents.renderFlowPanel.getLookUpGrid();
-	
+
 		for( int i = 0; i < selectedBoxes.size() - 1; i++ )
 		{
 			FlowBox b1 = selectedBoxes.elementAt( i );
 			FlowBox b2 = selectedBoxes.elementAt( i + 1);
-	
+
 			int targetid = b1.getRenderNode().getFreeTargetID();
 			int sourceid = b2.getRenderNode().getFreeSourceID();
 
@@ -376,12 +350,12 @@ public class FlowController
 		Vector<FlowConnectionArrow> deleteArrows = new Vector<FlowConnectionArrow>();
 		Collections.sort( selectedBoxes );
 		if( selectedBoxes.size() < 2 ) return;
-	
+
 		for( int k = 0; k < selectedBoxes.size() - 1; k++ )
 		{
 			FlowBox sbox = selectedBoxes.elementAt( k );
 			FlowBox tbox = selectedBoxes.elementAt( k + 1);
-	
+
 			RenderNode source = sbox.getRenderNode();
 			RenderNode target = tbox.getRenderNode();
 
@@ -418,7 +392,7 @@ public class FlowController
 	}
 	//--- Returns all arrows connected selected nodes
 	private static Vector<FlowConnectionArrow> getArrowsToSelected( Vector<FlowBox> selectedBoxes )
-	{	
+	{
 		Vector<FlowConnectionArrow> arrowsToSelected = new Vector<FlowConnectionArrow>();
 		for( FlowBox b : selectedBoxes )
 		{
@@ -448,7 +422,7 @@ public class FlowController
 		{
 			viewTargetNode = selectedNode;
 		}
-			
+
 		//--- Call repaints on needed gui.
 		GUIComponents.renderFlowPanel.updateForViewTarget();
 		GUIComponents.renderFlowPanel.repaint();
@@ -460,7 +434,7 @@ public class FlowController
 	public static void updateViewTargetNode()
 	{
 		if( viewTargetNode == null ) return;
-		if( getNode( viewTargetNode.getID() ) == null ) viewTargetNode = null;
+		if(  ProjectController.getFlow().getNode( viewTargetNode.getID() ) == null ) viewTargetNode = null;
 		GUIComponents.renderFlowPanel.updateForViewTarget();
 	}
 	//---
@@ -474,7 +448,7 @@ public class FlowController
 		if( iop == null )
 			editTargetNode = null;
 		else
-			editTargetNode = getNode( iop );
+			editTargetNode = ProjectController.getFlow().getNode( iop );
 
 		GUIComponents.renderFlowPanel.updateForEditTarget();
 	}
@@ -499,7 +473,7 @@ public class FlowController
 	{
 		GUIComponents.renderFlowPanel.selectAll();
 		GUIComponents.renderFlowPanel.repaint();
-	}	
+	}
 
 	//--- Does undo if flow is cyclic, clears redos and displays message.
 	//--- This is called after edit is done and added to undo manager.
@@ -523,18 +497,18 @@ public class FlowController
 		Vector<FileSource> projectFileSources = ProjectController.getProject().getFileSources();
 		Vector<FileSource> replacementSources = new Vector<FileSource>(projectFileSources);
 		replacementSources.remove(originalSource);
-		
+
 		if (replacementSources.size() == 0)
 		{
 			String[] tLines = { "Only one media source found in project.","A media source cannot be replaced with itself.","Add more media sources to project."  };
 			DialogUtils.showTwoStyleInfo( "Media replace not possible", tLines, PHDialog.WARNING_MESSAGE );
 			return;
 		}
-		
+
  		String[] media = new String[replacementSources.size()];
  		for (int i = 0; i < replacementSources.size(); i++ )
  			media[i] = replacementSources.elementAt(i).getName();
- 			
+
 		MComboBox replacementMedia = new MComboBox( "Select Replacement Media", media );
 
 		MInputArea qArea = new MInputArea( "" );
@@ -545,13 +519,13 @@ public class FlowController
 
 		int retVal = DialogUtils.showMultiInput( panel, 450, 120 );
 		if( retVal != DialogUtils.OK_OPTION ) return;
-		
+
 		FileSource replacementFileSource = replacementSources.elementAt(replacementMedia.getSelectedIndex());
 		MovingBlendedIOP replacementIOP = (MovingBlendedIOP) getNewIOPFromSource( replacementFileSource );
-	
+
 		originalIOP.cloneValuesToReplacement(replacementIOP);
 		replacementIOP.loadParentIOP( ProjectController.getFlow() );
-		
+
 		targetNode.setImageOperation(replacementIOP);
 
 		GUIComponents.viewEditor.removeLayer( originalIOP );
@@ -560,7 +534,7 @@ public class FlowController
 		{
 			GUIComponents.viewEditor.addEditlayer( layer );
 		}
-		
+
 		ParamEditController.displayEditFrame( null );
 		iopNameChanged( targetNode );
 		PreviewController.renderAndDisplayCurrent();

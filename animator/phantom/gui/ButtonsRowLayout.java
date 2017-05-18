@@ -24,22 +24,11 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 
-public class BigEditorsLayout implements LayoutManager
+public class ButtonsRowLayout implements LayoutManager
 {
-	//public static int MID_Y = EditorPersistance.getIntPref( EditorPersistance.LAYOUT_MID );
+	private int PREVIEW_BUTTONS_WIDTH = 600;
 
-	private int STRIP_HEIGHT = 35;
-	private int STRIP_INSET = 0;
-	private int BIG_EDITOR_INSET = 0;
-	private int BIG_EDITOR_UP_INSET = 4;
-	private int LEFT_GAP = 0;
-	private int RIGHT_GAP = 0;
-	private int TOP_GAP = 0;
-	private int VIEW_EDITOR_HEIGHT_REDUCTION = 0;
-	private int PARAM_EDIT_WIDTH = 360;
-
-
-	public BigEditorsLayout(){}
+	public ButtonsRowLayout(){}
 
 	//--- This all depends on order that components are added into container
     public void layoutContainer(Container cont)
@@ -53,39 +42,27 @@ public class BigEditorsLayout implements LayoutManager
 				Component c = cont.getComponent(i);
 				switch( i )
 				{
-					//--- View Editor
+					//--- View buttons
 					case 0:
-						c.setBounds(	LEFT_GAP,
-										TOP_GAP,
-										containerSize.width - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH,
-										containerSize.height - STRIP_HEIGHT - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION );
-						Container c1 = (Container) c;
-						Component e1 = c1.getComponent( 0 );//--- There will be one.
-						e1.setPreferredSize(
-							new Dimension(  containerSize.width - BIG_EDITOR_INSET - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH ,
-									containerSize.height - STRIP_HEIGHT - BIG_EDITOR_UP_INSET - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION) );
+						c.setBounds(	0,
+										0,
+										containerSize.width - PREVIEW_BUTTONS_WIDTH,
+										containerSize.height);
+
 
 						break;
-					//--- ActionButtons
+					//--- Preview Buttons
 					case 1:
-						c.setBounds( 	LEFT_GAP + STRIP_INSET,
-								containerSize.height - STRIP_HEIGHT + 2,
-								containerSize.width - RIGHT_GAP,
-								STRIP_HEIGHT);
-						break;
-					//--- Param edit frame
-					case 2:
-						c.setBounds( 	containerSize.width - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH,
-								TOP_GAP,
-								PARAM_EDIT_WIDTH,
-								containerSize.height - STRIP_HEIGHT - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION);
-					default:
+					c.setBounds(	containerSize.width - PREVIEW_BUTTONS_WIDTH,
+									0,
+									PREVIEW_BUTTONS_WIDTH,
+									containerSize.height);
 						break;
 
 				}
 			}
 		}
-    	}
+    }
 
 	//---------------------------------------------------- LAYOUT MANAGER METHODS
 	//--- noop

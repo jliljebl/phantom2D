@@ -1556,8 +1556,6 @@ public class MenuActions
 
 		cacheDialog.setVisible( true );//this blocks until button pressed
 		int retVal = cacheDialog.getResponseValue();
-
-		//if( retVal != DialogUtils.OK_OPTION ) return;
 	}
 
 	//------------------------------------------------------ help

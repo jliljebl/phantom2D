@@ -57,4 +57,5 @@ public class MTextInfo extends MInputField
 	{
 		valueLabel.setText(text);
 	}
+	
 }//end class

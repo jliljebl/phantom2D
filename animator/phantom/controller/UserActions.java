@@ -27,6 +27,7 @@ import java.util.Vector;
 //import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import animator.phantom.controller.GUIComponents;
 import animator.phantom.gui.GUIUtils;
 import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.gui.modals.MComboBox;
@@ -55,13 +56,13 @@ public class UserActions
 			if( addFiles == null ) return;
 
 			GUIComponents.animatorFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-			
+
 			//--- Create new FileSources.
 			Vector<FileSource> addFileSources = new Vector<FileSource>();
 			Vector<File> movies = new Vector<File>();
 			for( int i = 0; i < addFiles.length; i++ )
 			{
-				String wrongChar = AppUtils.testStringForSequences(	
+				String wrongChar = AppUtils.testStringForSequences(
 									AppUtils.forbiddenFileNameChars,
 									addFiles[ i ].getName() );
 				if( wrongChar != null )
@@ -73,7 +74,7 @@ public class UserActions
 				String ext = AppUtils.getExtension( addFiles[ i ] );
 				if( AppUtils.isMovieExtension( ext ) )
 				{
-					movies.add( addFiles[ i ] ); 
+					movies.add( addFiles[ i ] );
 				}
 				else
 				{
@@ -87,31 +88,33 @@ public class UserActions
 			//--- Add them to project data. Gives id's to filesources.
 			ProjectController.addFileSourcesToProject( addFileSources );
 
-			//--- Get image sizes and add GUI components to panels 
+			//--- Get image sizes and add GUI components to panels
 			for( FileSource addFS : addFileSources )
 			{
 				addFS.firstLoadData();
 				addFS.clearData();
-				System.out.println("mouseX");
-				System.out.println(mouseX);
-				System.out.println(mouseY);
-				if (mouseX == -1 )
-					FlowController.addToCenterFromFileSource( addFS );
-				else
-					FlowController.addIOPFromFileSourceRightAway( addFS, new Point( mouseX, mouseY ));
+
+				if (GUIComponents.renderFlowPanel != null)
+				{
+					if (mouseX == -1 )
+						FlowController.addToCenterFromFileSource( addFS );
+					else
+						FlowController.addIOPFromFileSourceRightAway( addFS, new Point( mouseX, mouseY ));
+				}
 			}
 			mediaLoadUpdate();
-			
+
 			//--- MemoryManager needs to update cache.
 			MemoryManager.fileSourcesAdded();
 		}
 		catch( Exception e )
 		{
+			e.printStackTrace(System.out);
 			GUIComponents.animatorFrame.setCursor(Cursor.getDefaultCursor());
 					String[] buttons = {"Ok"};
 					String[] bLines = { "File import failed" };
 					String[] tLines = {  "Phantom2D is unable to complete file import.",
-								"It may be that you are trying to import corrupt files or", 
+								"It may be that you are trying to import corrupt files or",
 								"files of a type that is not supported by Phantom2D." };
 					DialogUtils.showTwoTextStyleDialog( JOptionPane.WARNING_MESSAGE, null, buttons, bLines, tLines );
 		}
@@ -135,7 +138,7 @@ public class UserActions
 			File addFile = GUIUtils.addISingleImageFile( GUIComponents.getAnimatorFrame(), "Select first frame of sequence" );
 			if( addFile == null ) return;
 
-			String wrongChar = AppUtils.testStringForSequences(	
+			String wrongChar = AppUtils.testStringForSequences(
 									AppUtils.forbiddenFileNameChars,
 									addFile.getName() );
 			if( wrongChar != null )
@@ -157,7 +160,7 @@ public class UserActions
 			FlowController.addToCenterFromFileSource( addFS );
 
 			mediaLoadUpdate();
-			
+
 			//--- MemoryManager needs to update cache.
 			MemoryManager.fileSourcesAdded();
 		}
@@ -166,20 +169,23 @@ public class UserActions
 					String[] buttons = {"Ok"};
 					String[] bLines = { "File import failed" };
 					String[] tLines = {     "Phantom2D is unable to complete file import.",
-								"It may be that you are trying to import corrupt files or", 
+								"It may be that you are trying to import corrupt files or",
 								"files of a type that is not supported by Phantom2D." };
 					DialogUtils.showTwoTextStyleDialog( JOptionPane.WARNING_MESSAGE, null, buttons, bLines, tLines );
 		}
-		 
+
 	}
 
 	private static void mediaLoadUpdate()
 	{
-		GUIComponents.renderFlowPanel.updateMediaMenu();
+		if (GUIComponents.renderFlowPanel != null)
+		{
+			GUIComponents.renderFlowPanel.updateMediaMenu();
+		}
 		GUIComponents.animatorMenu.updateAppMediaMenu();
 		ProjectController.updateProjectInfo();
 	}
-	
+
 	public static void deleteFileSources()
 	{
 		/*
@@ -192,19 +198,19 @@ public class UserActions
 		Vector<RenderNode> nodesWithFs = new Vector<RenderNode>();
 		for( FileSource fs : selected )
 			nodesWithFs.addAll( FlowController.getNodesWithFileSource( fs ) );
-		
+
 		int answer;
 		String[] options = { "Cancel","Ok" };
-		if( nodesWithFs.size() == 0 ) 
-			answer = DialogUtils.showTwoTextStyleDialog( 	JOptionPane.WARNING_MESSAGE, 
-									"Confirm delete", 
+		if( nodesWithFs.size() == 0 )
+			answer = DialogUtils.showTwoTextStyleDialog( 	JOptionPane.WARNING_MESSAGE,
+									"Confirm delete",
 									options,
-									"Confirm delete", 
+									"Confirm delete",
 									"Delete " + selected.size() + fsString + " from bin." );
-		else 
+		else
 			answer = DialogUtils.showTwoTextStyleDialog(
 						JOptionPane.WARNING_MESSAGE,
-						"Confirm delete", 
+						"Confirm delete",
 						options,
 						"Delete file sources and nodes",
 						"There are nodes in the render flow that use deleted file sources." );
@@ -213,9 +219,9 @@ public class UserActions
 
 		ProjectController.deleteFileSourceVectorFromBin( selected, bPanel.currentBin() );
 		ProjectController.deleteFileSourceVector( selected );
-		MemoryManager.deleteFromViewCache( selected ); 
+		MemoryManager.deleteFromViewCache( selected );
 		FlowController.deleteVector( nodesWithFs );
-	
+
 		bPanel.currentSelectPanel().deleteSelected();
 		bPanel.updateGUI();
 		*/
@@ -224,14 +230,14 @@ public class UserActions
 	//--- GUI for setting animation properties for iops.
 	public static void manageAnimationSettings( ImageOperation iop )
 	{
-		Vector <ImageOperation> parentIops = FlowController.getAnimatebleIops();
+		Vector <ImageOperation> parentIops = ProjectController.getFlow().getAnimatebleIops();
 		parentIops.remove( iop );
 		int pselindex = 0;
 		int typeselindex = 0;
 
-		if( iop.parentNodeID != -1 ) 
+		if( iop.parentNodeID != -1 )
 		{
-			ImageOperation piop = ( FlowController.getNode( iop.parentNodeID )).getImageOperation();
+			ImageOperation piop = ( ProjectController.getFlow().getNode( iop.parentNodeID )).getImageOperation();
 			pselindex = parentIops.indexOf( piop ) + 1;
 			typeselindex = iop.parentMoverType;
 		}
@@ -245,7 +251,7 @@ public class UserActions
 		MComboBox actions = new MComboBox( "Child follows", AbstractParentMover.types );
 		parents.setSelectedIndex( pselindex );
 		actions.setSelectedIndex( typeselindex );
-	
+
 		MInputArea area = new MInputArea( "Parent Settings" );
 		area.add( parents );
 		area.add( actions );
@@ -256,7 +262,7 @@ public class UserActions
 
 		MInputArea larea = new MInputArea( "Looping" );
 		larea.add( looping );
- 
+
 		MInputPanel panel = new MInputPanel( "Animation Properties" );
 		panel.add( area );
 		panel.add( larea );
@@ -266,7 +272,7 @@ public class UserActions
 		int p = parents.getSelectedIndex();
 		int ac = actions.getSelectedIndex();
 		if( p == 0 ) iop.setParentMover( -1, -1, null );
-		else 
+		else
 		{
 			ImageOperation parentIOP = parentIops.elementAt( p - 1 );
 			if( isCyclicParenting( iop, parentIOP ) )
@@ -276,7 +282,7 @@ public class UserActions
 			}
 			else
 			{
-				RenderNode node = FlowController.getNode( parentIOP );
+				RenderNode node = ProjectController.getFlow().getNode( parentIOP );
 				iop.setParentMover( ac, node.getID(), parentIOP  );
 			}
 		}
@@ -313,7 +319,7 @@ public class UserActions
 
 		MInputArea larea = new MInputArea( "Looping" );
 		larea.add( looping );
- 
+
 		MInputPanel panel = new MInputPanel( "Animation Properties" );
 		panel.add( larea );
 
@@ -321,13 +327,13 @@ public class UserActions
 		ParamEditController.reBuildEditFrame();
 		UpdateController.valueChangeUpdate();
 	}
-	//--- 
+	//---
 	public static void importMovies( Vector<File> movies, Vector<FileSource> addFileSources  )
 	{
 		importMovies( movies, addFileSources, false );
 	}
 
-	//--- 
+	//---
 	public static void importMovies( Vector<File> movies, Vector<FileSource> addFileSources, boolean isReplaceImport )
 	{
 		for ( File movieClip : movies )

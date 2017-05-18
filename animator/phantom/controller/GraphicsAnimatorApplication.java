@@ -22,39 +22,27 @@ package animator.phantom.controller;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
 import javax.swing.plaf.metal.MetalTheme;
 
-import animator.phantom.blender.Blender;
-import animator.phantom.gui.AnimatorFrame;
+import animator.phantom.gui.GraphicsAnimatorFrame;
 import animator.phantom.project.MovieFormat;
+import animator.phantom.blender.Blender;
 import animator.phantom.project.Project;
 import animator.phantom.undo.PhantomUndoManager;
 
-
 //--- Logic and application wide state, including app initializing, window management, opening projects and render aborts.
-public class Application extends AbstractApplication implements WindowListener
+public class GraphicsAnimatorApplication extends AbstractApplication implements WindowListener
 {
-	//--- There can only be one.
-    public static Application app;
-	public static Application getApplication(){ return app; }
-
-	//--- Flag to load plugins when opening default project
-	public static boolean pluginsLoaded = false;
-
 	//--- Windows
-	private AnimatorFrame animatorFrame;
-
-	//--- Window params.
-	public static int SMALL_WINDOW_WIDTH = 320;
+	private GraphicsAnimatorFrame graphicsAnimatorFrame;
 
 	private ProjectOpenUpdate popenUpdate;
 
-	public Application(){ app = this; }
+	public GraphicsAnimatorApplication(){}
 
 	public void startUp(String profileUnderScoreDesc, String diskCacheDirPath)
 	{
-		AppUtils.printTitle("PHANTOM 2D" );
+		AppUtils.printTitle("GRAPHICS ANIMATOR" );
 
 		//--- Detect runtime env
 		detectJarAndPaths();
@@ -73,12 +61,13 @@ public class Application extends AbstractApplication implements WindowListener
 		MetalTheme appTheme = new DarkTheme();
 
 		//--- Create window
-		animatorFrame = new AnimatorFrame();
-		animatorFrame.setVisible( false );
-		animatorFrame.addWindowListener( this );
+
+		graphicsAnimatorFrame = new GraphicsAnimatorFrame();
+		graphicsAnimatorFrame.setVisible( false );
+		graphicsAnimatorFrame.addWindowListener( this );
 
 		//--- Look and feel
-		setLAF( appTheme, animatorFrame );
+		setLAF( appTheme, graphicsAnimatorFrame );
 
 		MovieFormat startupFormat = getStartupFormat( profileUnderScoreDesc );
 
@@ -152,7 +141,7 @@ public class Application extends AbstractApplication implements WindowListener
 		PhantomUndoManager.init();
 
 		//--- Windows
-		animatorFrame.initializeEditor();
+		graphicsAnimatorFrame.initializeEditor();
 
 		//--- display grey first
 		GUIComponents.viewEditor.setDisplayWaitIcon( true );
@@ -161,8 +150,8 @@ public class Application extends AbstractApplication implements WindowListener
 		MemoryManager.calculateCacheSizes();
 
 		//---
-		animatorFrame.setVisible( true );
-		GUIComponents.renderFlowPanel.setIgnoreRepaint( false );// bugs when not visible?
+		graphicsAnimatorFrame.setVisible( true );
+		//GUIComponents.renderFlowPanel.setIgnoreRepaint( false );// bugs when not visible?
 
 		ProjectController.updateProjectInfo();
 
@@ -187,8 +176,6 @@ public class Application extends AbstractApplication implements WindowListener
 		popenUpdate.start();
 	}
 
-
-	//---------------------------------------------- Hnadled WINDOW EVENTS
 	public void windowClosing(WindowEvent e)
 	{
 		MenuActions.quit();//catch for close confirmation

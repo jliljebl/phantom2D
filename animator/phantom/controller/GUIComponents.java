@@ -26,7 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import animator.phantom.gui.AnimatorFrame;
-import animator.phantom.gui.AnimatorMenu;
+import animator.phantom.gui.MenuBarCallbackInterface;
 import animator.phantom.gui.NodesPanel;
 import animator.phantom.gui.flow.FlowEditPanel;
 import animator.phantom.gui.flow.RenderFlowViewButtons;
@@ -53,7 +53,7 @@ public class GUIComponents
 	//--- GUI COMPONENTS, GUI COMPONENTS, GUI COMPONENTS, GUI COMPONENTS, GUI COMPONENTS
 	//--- The editor frame.
 	public static AnimatorFrame animatorFrame;
-	public static AnimatorMenu animatorMenu;
+	public static MenuBarCallbackInterface animatorMenu;
 	//--- GUI component used to edit composition.
 	public static FlowEditPanel renderFlowPanel;
 	//--- GUI component for editing mainly image positions on movie screen.
@@ -65,7 +65,7 @@ public class GUIComponents
 	//--- GUI component for doing timeline editing
 	public static TimeLineEditorPanel timeLineEditorPanel;
 	//--- Gui components (2) for displaying timeline scale
-	public static Vector<TimeLineDisplayPanel> timeLineScaleDisplays 
+	public static Vector<TimeLineDisplayPanel> timeLineScaleDisplays
 						= new Vector<TimeLineDisplayPanel>();
 	//--- Gui components for timecode display.
 	public static TCDisplay tcDisplay;
@@ -92,7 +92,7 @@ public class GUIComponents
 	public static JPanel keyEditorContainerPanel;
 	//--- View editor scroll pane
 	public static JScrollPane viewScrollPane;
-	//--- 
+	//---
 	public static FilterStackPanel filterStackPanel;
 
 	//---
@@ -100,7 +100,7 @@ public class GUIComponents
 	public static NodesPanel nodesPanel;
 	public static JLabel projectInfoLabel;
 	public static JScrollPane filterStackTablePane;
-	
+
 	public static void reset()
 	{
 		animatorMenu = null;

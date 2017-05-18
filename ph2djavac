@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Building Phantom 2D in source directory..."
+cd /home/janne/codes/phantom2d/phantom2D
+ant compile

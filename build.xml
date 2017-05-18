@@ -1,0 +1,17 @@
+<project name="phantom" basedir=".">
+
+  <target name="compile">
+    <mkdir dir="build" />
+    <javac srcdir="giotto2D" destdir="build" />
+    <javac srcdir="animator" destdir="build" />
+  </target>
+
+  <target name="compileall">
+    <mkdir dir="build" />
+    <javac srcdir="giotto2D" destdir="build" />
+    <javac srcdir="com" destdir="build" />
+    <javac srcdir="animator" destdir="build" />
+  </target>
+
+</project>
+

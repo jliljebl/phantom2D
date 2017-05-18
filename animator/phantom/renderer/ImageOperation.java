@@ -73,7 +73,7 @@ import animator.phantom.renderer.param.KeyFrameParam;
 import animator.phantom.renderer.param.Param;
 import animator.phantom.renderer.parent.AbstractParentMover;
 
-//--- Base class for all operations that are combined in render flow to create output.  
+//--- Base class for all operations that are combined in render flow to create output.
 public abstract class ImageOperation implements Comparable<Object>
 {
 	//--- Image operations that have maximum length: movie clips, frame sequences, audio clips
@@ -97,8 +97,8 @@ public abstract class ImageOperation implements Comparable<Object>
 	public static final int TRANSPARENT_BACKGROUND = 1;
 	//--- Filter tack size
 	public static final int STACK_MAX_SIZE = 7;
-	
-	//--- If this is a plugin iop, plugin sets reference of self here 
+
+	//--- If this is a plugin iop, plugin sets reference of self here
 	protected PhantomPlugin plugin = null;
 
 	//--- Clip type. FREE_LENGTH  or NOT_FREE_LENGTH
@@ -133,7 +133,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	public IntegerParam blendMode = new IntegerParam( ImageBlender.NORMAL );
 	//---  NOT USED. The operation used when applying input mask.
 	public IntegerParam inputMaskOp = new IntegerParam( INPUT_MASK_BLEND_MASK );
-	//--- If this flag is true and inputMaskOp.get() == IntegerParam( INPUT_MASK_BLEND_MASK 
+	//--- If this flag is true and inputMaskOp.get() == IntegerParam( INPUT_MASK_BLEND_MASK
 	//--- do combine blend between received and rendered image.
  	public boolean doInputMaskCombineBlend = false;
 	//--- Opacity, may not be used at all or if animatedCoordinates used, then opacity defined there.
@@ -161,7 +161,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	//--- Filters that are applied before doing affine transform.
 	private Vector<ImageOperation> filterStack = new  Vector<ImageOperation>();
 	//--- True if iop is in Filter stack
-	//--- Filter stack iops are not part of flow and thus cannot have some attributes. 
+	//--- Filter stack iops are not part of flow and thus cannot have some attributes.
 	protected boolean isFilterStackIop = false;
 	//--- If set true this is added toiop available to be made added to filter stack.
 	//--- Some plugin types are made available automatically and don't need this, this is used for some
@@ -172,7 +172,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	private boolean reducedSwitches = false;
 	//--- if true, a button enabling centering anchor point is presented to user
 	private boolean centerable = false;
-	
+
 	//--- First frame of ImageOperation in the timeline.
 	protected int beginFrame = 0;
 	//--- Maximum length of program. Is discarded if FREE_LENGTH. Default value not meaningfull.
@@ -209,7 +209,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	private Object acLock = new Object();
 	//--- Used by FrameRenderer.
 	private boolean isLeaf = false;
-	
+
 	//--- GUI stuff
 	private static ImageIcon viewEditIcon = GUIResources.getIcon( GUIResources.viewEditorLabel );
 	private static ImageIcon noViewEditIcon = GUIResources.getIcon( GUIResources.noViewEditorLabel );
@@ -226,8 +226,8 @@ public abstract class ImageOperation implements Comparable<Object>
 	}
 
 	//--- FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK
-	//--- FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK 
-	//--- FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK 
+	//--- FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK
+	//--- FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK, FILTER STACK
 	//--- Applies filter stack to copy of source image.
 	//--- change or improve with thred info for multithreaded rendering
 	private boolean renderingFilterStack = false;
@@ -257,7 +257,7 @@ public abstract class ImageOperation implements Comparable<Object>
 			{
 				stackIop.renderImage( frame, sourceImages );
 			}
-			else // this hard codes all others as type STATIC_SOURCE plugins. 
+			else // this hard codes all others as type STATIC_SOURCE plugins.
 			{
 				PluginStaticSourceIOP pSource = (PluginStaticSourceIOP) stackIop;
 				pSource.renderImage( frame, sourceImages );
@@ -284,7 +284,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	//--- PLUGIN HANDLING, PLUGIN HANDLING, PLUGIN HANDLING, PLUGIN HANDLING, PLUGIN HANDLING
 	//--- PLUGIN HANDLING, PLUGIN HANDLING, PLUGIN HANDLING, PLUGIN HANDLING, PLUGIN HANDLING
 	//--- PLUGIN HANDLING, PLUGIN HANDLING, PLUGIN HANDLING, PLUGIN HANDLING, PLUGIN HANDLING
-	//--- If this iop is a part of a plugin then 
+	//--- If this iop is a part of a plugin then
 	//--- plugin places reference for its self using this.
 	public void setPlugin( PhantomPlugin plugin )
 	{
@@ -297,7 +297,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	public boolean isPluginIOP(){ return plugin != null; }
 
 	public boolean isOutput(){ return false; }
-			
+
 	//--- PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING
 	//--- PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING
 	//--- PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING, PARAMETERS HANDLING
@@ -334,19 +334,19 @@ public abstract class ImageOperation implements Comparable<Object>
 		nextParamId++;
 	}
 	//--- Returns animatedCoordinates object which holds basic 2d params.
-	//--- synchronized access because of parent replacing it when rendering 
+	//--- synchronized access because of parent replacing it when rendering
 	public AnimatedImageCoordinates getCoords()
 	{
 		synchronized( acLock )
-		{	
+		{
 			return animatedCoordinates;
 		}
 	}
 	public void setCoords( AnimatedImageCoordinates coords )
 	{
 		animatedCoordinates = coords;
-	} 
-	//--- 
+	}
+	//---
 	public void registerFileSource( FileSource fs )
 	{
 		fileSource = fs;
@@ -366,7 +366,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	public void setCenterable(){ centerable = true; }
 	public boolean getCenterable(){ return centerable; }
 	public SwitchData getSwitches(){ return switches; }
-	//--- 
+	//---
 	public Vector<KeyFrameParam> getKeyFrameParams(){ return kfParams; }
 	//--- Returns all key frame params as params
 	public Vector<Param> getkeyFrameParamsAsParams()
@@ -385,7 +385,7 @@ public abstract class ImageOperation implements Comparable<Object>
 			KeyFrameParam p = kfParams.elementAt( i );
 			Vector <AnimationKeyFrame> testVec = p.getKeyFrames();
 			for( int j = 0; j < testVec.size(); j++ )
-			{	
+			{
 				AnimationKeyFrame kf = testVec.elementAt( j );
 				if( !keyFrameInFrameExists( kf.getFrame() ) ) drawKeyFrames.add( kf );
 			}
@@ -401,7 +401,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	}
 	//--- Used by GUI
 	public Vector <AnimationKeyFrame> getDrawKeyFrames(){ return drawKeyFrames; }
-	//--- I/O time access 
+	//--- I/O time access
 	public Vector<Param> getParameters()
 	{
 		return parameters;
@@ -421,7 +421,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	public void printParams()
 	{
 		System.out.println( "parameters.size()" + parameters.size() );
-		
+
 		for( int i = 0; i < parameters.size(); i++ )
 		{
 			Param p = parameters.elementAt( i );
@@ -477,11 +477,11 @@ public abstract class ImageOperation implements Comparable<Object>
 		//--- AnimCoords are accessed elsewhere too so access to them needs to be synchronized
 		//--- because they are being temporarily replaced with a clone here.
 		synchronized( acLock )
-		{	
+		{
 			//--- Now we have meaningful input for all types of iops.
 			//--- Do coordinate transform.
 			//--- Looped is transformed with both looped and unlooped coords
-			if( looping == NO_LOOPING ) 
+			if( looping == NO_LOOPING )
 				transformCoordinates( frame );
 			else
 				transformLoopedCoordinates( frame, loopedFrame );
@@ -545,8 +545,8 @@ public abstract class ImageOperation implements Comparable<Object>
 	public void cropRenderedImageToScreenSize()
 	{
 		Dimension screenSize = ProjectController.getScreenSize();
-		if( 	screenSize.width >= renderedImage.getWidth() 
-			&& screenSize.height >= renderedImage.getHeight() ) 
+		if( 	screenSize.width >= renderedImage.getWidth()
+			&& screenSize.height >= renderedImage.getHeight() )
 			return;
 
 		int w = Math.min( screenSize.width, renderedImage.getWidth()  );
@@ -591,7 +591,7 @@ public abstract class ImageOperation implements Comparable<Object>
 		if( parentMoverType == -1 ) return;
 		//--- Set original untransformed coordinates.
 		animatedCoordinates = parentMover.getUntransformed();
-	}	
+	}
 	//---
 	public void setParentMover( int parentMoverType, int parentNodeID, ImageOperation pIOP )
 	{
@@ -627,19 +627,19 @@ public abstract class ImageOperation implements Comparable<Object>
 		if (plugin == null)
 			return getClass().getName();
 		else
-			return plugin.getClass().getName();	
+			return plugin.getClass().getName();
 	}
-	
-	//--- 
+
+	//---
 	public int getDefaultNumberOfSources(){ return DEFAULT_SOURCES_COUNT; }
-	//--- 
+	//---
 	public int getDefaultNumberOfTargets(){ return DEFAULT_TARGETS_COUNT; }
 	//---
 	public Vector<ImageOperation> getFilterStack(){ return filterStack; }
 	public void setFilterStack( Vector<ImageOperation> newStack ){ filterStack = newStack; }
 	//---
 	//protected void setEditPanel( ParamEditPanel editPanel){ this.editPanel = editPanel; }
-	//--- This is called after iop add and project load. 
+	//--- This is called after iop add and project load.
 	//--- Extending MUST override to provide edit panels.
 	public abstract ParamEditPanel getEditPanelInstance();
 	//--- Returns edit panel and creates new if necessary.
@@ -656,8 +656,8 @@ public abstract class ImageOperation implements Comparable<Object>
 	}
 	//--- If isOn true, this iop is rendered.
 	public void setOnOffState( boolean isOnNow )
-	{ 
-		isOn = isOnNow; 
+	{
+		isOn = isOnNow;
 
 		if( switchPanel == null )
 			return;
@@ -694,9 +694,9 @@ public abstract class ImageOperation implements Comparable<Object>
 		if( switches == null ) return false;
 		else return switches.motionBlur;
 	}
-	//---	
+	//---
 	public boolean doReceivedCopyCombine()
-	{ 
+	{
 		// do for filters
 		if( NO_INPUT_MEANS_NO_OP )
 			return true;
@@ -709,7 +709,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	}
 	//--- Sets iop to be source that will be rendered even without input
 	public void setAsSource()
-	{ 
+	{
 		NO_INPUT_MEANS_NO_OP = false;
 	}
 	//--- Sets number of inputs, INCLUDING mask input.
@@ -741,7 +741,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	{
 		if ( destroyFirst == true )
 			editFrame = null;
-		
+
 		if( editFrame == null )
 		{
 			boolean scrollPaneNeeded = true;
@@ -785,7 +785,8 @@ public abstract class ImageOperation implements Comparable<Object>
 			{
 				OutputsNumberSelector outSelect = new OutputsNumberSelector( this );
 
-				outSelect.getComboBox().setSelectedIndex( FlowController.getNumberOfTargetsOfNode( this ) - 1 );
+				int targetNodes = ProjectController.getFlow().getNode( this ).getTargetsVector().size();
+				outSelect.getComboBox().setSelectedIndex( targetNodes - 1 );
 				addPanel.add( outSelect );
 				addPanel.add( new RowSeparator() );
 			}
@@ -800,20 +801,20 @@ public abstract class ImageOperation implements Comparable<Object>
 			{
 				addPanel.add( filterStackPanel );
 			}
-			
+
 			if( isFilterStackIop == true )
 			{
 				addPanel.add( Box.createRigidArea( new Dimension( 0, 24 ) ) );
 				addPanel.add( new StackEditExitPanel() );
 			}
-			
+
 			if( scrollPaneNeeded )
 			{
 				JScrollPane scrollPane = new JScrollPane( addPanel,
 						ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 						ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
-				
-				scrollPane.setPreferredSize( 
+
+				scrollPane.setPreferredSize(
 					new Dimension( ParamEditResources.PARAM_COLUMN_WIDTH * 2,
 							Application.getParamEditHeight() - SCROLL_HEIGHT_PAD ) );
 				JScrollBar vsb = scrollPane.getVerticalScrollBar();
@@ -829,7 +830,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	{
 		JLabel name = new JLabel();
 		Color bgColor = GUIColors.MEDIA_ITEM_SELECTED_BG;
-	
+
 		if( !isFilterStackIop )
 			name.setText( getName() );
 		else
@@ -864,15 +865,15 @@ public abstract class ImageOperation implements Comparable<Object>
 			namePanel.add( new JLabel( filterStackIcon ) );
 
 		namePanel.add( Box.createRigidArea( new Dimension( 3, 0 ) ) );
-		
+
 		Border empty = BorderFactory.createEmptyBorder(3,1,3,0);
 		namePanel.setBorder(empty);
-		
+
 		JPanel paddedPanel = new JPanel();
 		paddedPanel.setLayout(new BoxLayout( paddedPanel, BoxLayout.Y_AXIS));
 		paddedPanel.add( namePanel );
 		paddedPanel.setBackground( bgColor );
-		
+
 		return paddedPanel;
 	}
 
@@ -918,10 +919,10 @@ public abstract class ImageOperation implements Comparable<Object>
 		{
 			beginFrame = 0;
 			clipStartFrame = 0;
-		
+
 			//--- Max length has been set when in constructor of
 			//--- NOT_FREE_LENGTH type IOP using info provided by FileSource.
-			
+
 			//--- Set clip end frame, - 1 = we start from 0.
 			int movielength = EditorRendererInterface.getMovieLength();
 			if( maxLength > movielength ) clipEndFrame = movielength - 1;
@@ -946,15 +947,15 @@ public abstract class ImageOperation implements Comparable<Object>
 		clipStartFrame = newclipStartFrame;
 		clipEndFrame = newClipEndFrame;
 	}
-	
-	//--- 
+
+	//---
 	public int getBeginFrame(){ return beginFrame; }
 	//--- Sets the beginFrame and MOVES clipStartFrame and clipEndFrame accordingly.
 	public void setBeginFrame( int newBeginFrame )
-	{ 
+	{
 		int delta = newBeginFrame - beginFrame;
 		beginFrame = newBeginFrame;
-		
+
 		//--- Move clip.
 		clipStartFrame = clipStartFrame + delta;
 		clipEndFrame = clipEndFrame + delta;
@@ -966,14 +967,14 @@ public abstract class ImageOperation implements Comparable<Object>
 	{
 		int newBF = newEndFrame - maxLength + 1;
 		setBeginFrame( newBF );
-	}	
-	//--- 
-	public int getEndFrame(){ return beginFrame + maxLength - 1; } 
-	//--- 
+	}
+	//---
+	public int getEndFrame(){ return beginFrame + maxLength - 1; }
+	//---
 	public int getMaxLength(){ return maxLength; }
-	//--- 
+	//---
 	public void setProgramLength( int len ){ setMaxLength( len ); }
-	//--- 
+	//---
 	public void setMaxLength( int newLength )
 	{
 		if( newLength < 1 ) maxLength = 1;
@@ -990,23 +991,23 @@ public abstract class ImageOperation implements Comparable<Object>
 			if( newStart > ( beginFrame + maxLength - 1 ) )
 						newStart = beginFrame + maxLength - 1;
 			if( newStart > clipEndFrame ) newStart = clipEndFrame;
-	
+
 			clipStartFrame = newStart;
 		}
 		//--- clipType == FREE_LENGTH
 		else
 		{
 			//--- Start must be before end.
-			if( newStart > ( beginFrame + maxLength - 1 ) ) 
+			if( newStart > ( beginFrame + maxLength - 1 ) )
 				newStart = beginFrame + maxLength - 1;
-			if( newStart > clipEndFrame ) 
+			if( newStart > clipEndFrame )
 				newStart = clipEndFrame;
-	
+
 			clipStartFrame = newStart;
 		}
 
 		updateStackFilterTimeParams();
-	}	
+	}
 	//---
 	public int getClipStartFrame(){ return clipStartFrame; }
 	//--- Clip length must be at least 1 frame.
@@ -1015,13 +1016,13 @@ public abstract class ImageOperation implements Comparable<Object>
 	{
 		if( clipType == NOT_FREE_LENGTH )
 		{
-			//--- Check bounds set by beginFrame, length, clipEndFrame and 
+			//--- Check bounds set by beginFrame, length, clipEndFrame and
 			//--- correct if needed.
 			if( newEnd < beginFrame ) newEnd = beginFrame;
 			if( newEnd > ( beginFrame + maxLength - 1 ) )
 						newEnd = beginFrame + maxLength - 1;
 			if( newEnd < clipStartFrame ) newEnd = clipStartFrame;
-	
+
 			clipEndFrame = newEnd;
 		}
 		//--- clipType == FREE_LENGTH
@@ -1030,17 +1031,17 @@ public abstract class ImageOperation implements Comparable<Object>
 			//--- End can not be before start.
 			if( newEnd < beginFrame ) newEnd = beginFrame;
 			if( newEnd < clipStartFrame ) newEnd = clipStartFrame;
-	
+
 			//--- Set clip end length to new value.
 			clipEndFrame = newEnd;
 			maxLength = newEnd - beginFrame + 1;
 		}
 
 		updateStackFilterTimeParams();
-	}	
-	//--- 
+	}
+	//---
 	public int getClipEndFrame(){ return clipEndFrame; }
-	//--- 
+	//---
 	public boolean frameInClipArea( int frame )
 	{
 		if( frame >=  clipStartFrame && frame <= clipEndFrame ) return true;
@@ -1051,7 +1052,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	{
 		if( clipType == FREE_LENGTH ) return true;
 		if( frame >= beginFrame && frame < beginFrame + maxLength ) return true;
-		
+
 		return false;
 	}
 	//--- True if clip has no set length program
@@ -1069,13 +1070,13 @@ public abstract class ImageOperation implements Comparable<Object>
 			loopedFrame = clipStartFrame + ( clipLength + mod );//mod is always negative
 		else
 			loopedFrame = clipStartFrame;
-		
+
 		if( looping == LOOP )
 			return loopedFrame;
 
 		//--- PING PONG
 		int clipNum = Math.abs( delta / clipLength );
-		//--- 
+		//---
 		if( delta > 0 )
 		{
 			if( clipNum % 2 == 0 )
@@ -1109,12 +1110,12 @@ public abstract class ImageOperation implements Comparable<Object>
 
 	public void printDebugInfo()
 	{
-		System.out.println( 	"iop:" + getClass().getName() + 
-					", blendMode:" + blendMode.get() + 
-					", on/off: " + isOn + 
-					", beginFrame:" + beginFrame + 
-					", maxLength:" + maxLength + 
-					", clipStartFrame:" + clipStartFrame + 
+		System.out.println( 	"iop:" + getClass().getName() +
+					", blendMode:" + blendMode.get() +
+					", on/off: " + isOn +
+					", beginFrame:" + beginFrame +
+					", maxLength:" + maxLength +
+					", clipStartFrame:" + clipStartFrame +
 					", clipEndFrame:" + clipEndFrame );
 	}
 
@@ -1135,7 +1136,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	public int compareTo( Object anotherObj )
 	{
 		ImageOperation compIOP = null;
-		if( anotherObj instanceof ImageOperation )	
+		if( anotherObj instanceof ImageOperation )
 			compIOP = (ImageOperation) anotherObj;
 		else
 			compIOP = ((PhantomPlugin) anotherObj).getIOP();

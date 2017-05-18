@@ -98,7 +98,7 @@ public class EditorsController
 			{
 				ImageOperation selectedIOP = ParamEditController.getParamEditIOP();
 				//--- NOTE: worst case is for loop of all nodes to display a frame.
-				RenderNode selectedNode = FlowController.getNode( selectedIOP );
+				RenderNode selectedNode = ProjectController.getFlow().getNode( selectedIOP );
 
 				if( selectedNode!= null )
 					movieRenderer.setStopNode( selectedNode );
@@ -187,7 +187,7 @@ public class EditorsController
 	}
 	//--- Sets view editor size
 	public static void setViewSize( int size )
-	{ 
+	{
 		GUIComponents.viewEditor.quickChangeSize( size );
 
 		//bar.setValue( (bar.getMaximum() - bar.getVisibleAmount() - bar.getMinimum()) / 2 );
