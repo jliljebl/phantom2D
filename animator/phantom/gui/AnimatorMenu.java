@@ -194,12 +194,8 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 		kfPreferences.addActionListener(this);
 		editMenu.add( kfPreferences );
 
-		projectSettings = new JMenuItem("Project Properties...");
-		projectSettings.addActionListener(this);
-		editMenu.add( projectSettings);
-
 		//--------------------------- Media menu
-		mediaMenu = new JMenu("Media");
+		mediaMenu = new JMenu("Project");
 		updateAppMediaMenu();
 
 		//------------------------------------ Node menu
@@ -338,19 +334,9 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 	{
 		mediaMenu.removeAll();
 
-		Vector<FileSource> fileSources = ProjectController.getFileSources();
-
-		if (fileSources.size() > 0)
-		{
-			AnimatorMenu.fillFileSourcesMenu(mediaMenu, this);
-		}
-		else
-		{
-			noRefs = new JMenuItem("No media sources");
-			noRefs.setEnabled(false);
-			noRefs.setFont(GUIResources.BASIC_FONT_ITALIC_11);
-			mediaMenu.add(noRefs);
-		}
+		projectSettings = new JMenuItem("Project Settings...");
+		projectSettings.addActionListener(this);
+		mediaMenu.add( projectSettings);
 
 		mediaMenu.addSeparator();
 
@@ -365,6 +351,22 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 		addImageSequence  = new JMenuItem("Add Image Sequence...");
 		addImageSequence.addActionListener(this);
 		mediaMenu.add( addImageSequence );
+
+			mediaMenu.addSeparator();
+
+		Vector<FileSource> fileSources = ProjectController.getFileSources();
+
+		if (fileSources.size() > 0)
+		{
+			AnimatorMenu.fillFileSourcesMenu(mediaMenu, this);
+		}
+		else
+		{
+			noRefs = new JMenuItem("No media sources");
+			noRefs.setEnabled(false);
+			noRefs.setFont(GUIResources.BASIC_FONT_ITALIC_11);
+			mediaMenu.add(noRefs);
+		}
 	}
 
 	public static void fillFileSourcesMenu( JMenu menu, ActionListener listener  )

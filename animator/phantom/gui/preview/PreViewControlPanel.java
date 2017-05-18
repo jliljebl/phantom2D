@@ -33,8 +33,8 @@ import javax.swing.JToggleButton;
 
 import animator.phantom.controller.AppUtils;
 import animator.phantom.controller.MenuActions;
-//import animator.phantom.controller.EditorsController;
 import animator.phantom.controller.PreviewController;
+import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.gui.GUIResources;
@@ -45,7 +45,6 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 	private JButton render = new JButton( GUIResources.getIcon( GUIResources.renderPreview));
 	private JToggleButton loop = new JToggleButton( GUIResources.getIcon( GUIResources.loop ));
 	private JButton stopPreviewRender = new JButton( GUIResources.getIcon( GUIResources.stopPreviewRender ));
-	private JButton panelsLayout = new JButton( GUIResources.getIcon( GUIResources.panelSizes ));
 	private JButton trashPreviewRender = new JButton( GUIResources.getIcon( GUIResources.trashPreviewRender ));
 	private ImageIcon playIcon =  GUIResources.getIcon( GUIResources.play );
 	private ImageIcon pauseIcon =  GUIResources.getIcon( GUIResources.pause );
@@ -53,8 +52,8 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 	private JButton toPreviousFrame = new JButton( GUIResources.getIcon(GUIResources.toPreviousFrameNavi ));
 	private JButton toNextFrame = new JButton( GUIResources.getIcon( GUIResources.toNextFrameNavi ));
 	private JLabel previewTimeInfo = new JLabel();
-	
-	public PreViewControlPanel( TCDisplay timecodeDisplay )
+
+	public PreViewControlPanel()
 	{
 		GUIResources.prepareMediumButton( loop, this, "Loop preview");
 		GUIResources.prepareMediumButton( stopPreviewRender, this, "Stop preview render");
@@ -62,20 +61,15 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 		GUIResources.prepareMediumButton( toPreviousFrame, this, "Previous frame" );
 		GUIResources.prepareMediumButton( playStop, this, "Play / Stop preview" );
 		GUIResources.prepareMediumButton( toNextFrame, this, "Next frame" );
-		GUIResources.prepareMediumButton( panelsLayout, this, "Set panel sizes" );
 		GUIResources.prepareMediumMediumButton( render,this, "Render preview" );
 
 		loop.setSelectedIcon( GUIResources.getIcon( GUIResources.loopPressed ) );
 		loop.setSelected( true );
-		
+
 		previewTimeInfo.setFont( GUIResources.BASIC_FONT_11 );
-		
+
 		JPanel p2 = new JPanel();
 		p2.setLayout(new BoxLayout( p2, BoxLayout.X_AXIS));
-		p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
-
-		p2.add( timecodeDisplay );
-		p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
 		p2.add( toPreviousFrame );
 		p2.add( playStop );
 		p2.add( toNextFrame );
@@ -86,10 +80,8 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 		p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
 		p2.add( trashPreviewRender );
 		p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
-		//p2.add( Box.createHorizontalGlue() );
 		p2.add( previewTimeInfo );
 		p2.add( Box.createHorizontalGlue() );
-		p2.add( panelsLayout );
 		setLayout(new BoxLayout( this, BoxLayout.Y_AXIS));
 		add( p2 );
 	}
@@ -97,7 +89,7 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 	public void updatePreviewRenderInfo( int millis, int frame )
 	{
 		String frameTime = 	AppUtils.createTimeString( millis, true );
-		previewTimeInfo.setText( "frame: " + Integer.toString(frame) + ", render time:" + frameTime);
+		previewTimeInfo.setText(Integer.toString(frame) + "/" + Integer.toString(ProjectController.getLength()) + ", " + frameTime);
 	}
 
 	public void updatePlayButton()
@@ -138,10 +130,6 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 		{
 			TimeLineController.changeCurrentFrame( -1 );
 			UpdateController.updateCurrentFrameDisplayers( false );
-		}
-		if( e.getSource() == panelsLayout )
-		{
-			MenuActions.setFlowWidth();
 		}
 	}
 

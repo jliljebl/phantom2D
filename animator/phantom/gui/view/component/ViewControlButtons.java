@@ -39,6 +39,8 @@ import animator.phantom.controller.EditorsController;
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.view.editlayer.ViewEditorLayer;
+import  animator.phantom.gui.timeline.TCDisplay;
+
 
 public class ViewControlButtons extends JPanel implements ActionListener
 {
@@ -47,7 +49,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 
 	public JToggleButton editorUpdates = new JToggleButton( GUIResources.getIcon(GUIResources.showViewEditUpdates ) );
 	public JToggleButton viewFlow = new JToggleButton(  GUIResources.getIcon(GUIResources.viewFlow ) );
-	public JToggleButton viewTarget = new JToggleButton(  GUIResources.getIcon( GUIResources.viewTarget ) );
 	public JToggleButton viewSelected = new JToggleButton(  GUIResources.getIcon( GUIResources.viewSelected ) );
 	public JToggleButton viewColor = new JToggleButton(  GUIResources.getIcon( GUIResources.viewImagePressed ) );
 	public JToggleButton allBoxes = new JToggleButton(  GUIResources.getIcon( GUIResources.allBoxes ) );
@@ -55,33 +56,33 @@ public class ViewControlButtons extends JPanel implements ActionListener
 	public JLabel renderClock = new JLabel();
 	public ImageIcon clockIcon = GUIResources.getIcon( GUIResources.renderClockTheme );
 
-	public ModeButton move 
+	public ModeButton move
 		= new ModeButton(  GUIResources.getIcon( GUIResources.move ), ViewEditorLayer.MOVE_MODE );
-	public ModeButton rotate 
+	public ModeButton rotate
 		= new ModeButton(  GUIResources.getIcon( GUIResources.rotate ), ViewEditorLayer.ROTATE_MODE );
-	public ModeButton kfEdit 
+	public ModeButton kfEdit
 		= new ModeButton(  GUIResources.getIcon( GUIResources.kfEdit ), ViewEditorLayer.KF_EDIT_MODE );
-	public ModeButton kfAdd 
+	public ModeButton kfAdd
 		= new ModeButton(  GUIResources.getIcon( GUIResources.kfAdd ), ViewEditorLayer.KF_ADD_MODE );
-	public ModeButton kfRemove 
+	public ModeButton kfRemove
 		= new ModeButton(  GUIResources.getIcon( GUIResources.kfRemove ), ViewEditorLayer.KF_REMOVE_MODE );
-	public ModeButton pickColor 
+	public ModeButton pickColor
 		= new ModeButton(  GUIResources.getIcon( GUIResources.pickColor ), ViewEditorLayer.PICK_COLOR_MODE );
-	public ModeButton custom1 
+	public ModeButton custom1
 		= new ModeButton(  GUIResources.getIcon( GUIResources.customButton ), ViewEditorLayer.CUSTOM_EDIT_MODE_1 );
-	public ModeButton custom2 
+	public ModeButton custom2
 		= new ModeButton(  GUIResources.getIcon( GUIResources.customButton ), ViewEditorLayer.CUSTOM_EDIT_MODE_2 );
-	public ModeButton custom3 
+	public ModeButton custom3
 		= new ModeButton(  GUIResources.getIcon( GUIResources.customButton ), ViewEditorLayer.CUSTOM_EDIT_MODE_3 );
-	public ModeButton custom4 
+	public ModeButton custom4
 		= new ModeButton(  GUIResources.getIcon( GUIResources.customButton ), ViewEditorLayer.CUSTOM_EDIT_MODE_4 );
-	public ModeButton custom5 
+	public ModeButton custom5
 		= new ModeButton(  GUIResources.getIcon( GUIResources.customButton ), ViewEditorLayer.CUSTOM_EDIT_MODE_5 );
-	public ModeButton custom6 
+	public ModeButton custom6
 		= new ModeButton(  GUIResources.getIcon( GUIResources.customButton ), ViewEditorLayer.CUSTOM_EDIT_MODE_6 );
-	public ModeButton custom7 
+	public ModeButton custom7
 		= new ModeButton(  GUIResources.getIcon( GUIResources.customButton ), ViewEditorLayer.CUSTOM_EDIT_MODE_7 );
-	public ModeButton custom8 
+	public ModeButton custom8
 		= new ModeButton(  GUIResources.getIcon( GUIResources.customButton ), ViewEditorLayer.CUSTOM_EDIT_MODE_8 );
 
 	// Since these are same as mode values this is basically data duplication, but used too much to remove.
@@ -91,9 +92,9 @@ public class ViewControlButtons extends JPanel implements ActionListener
 	public static final int KF_ADD_B = 3;
 	public static final int KF_REMOVE_B = 4;
 	public static final int PICK_COLOR_B = 5;
-	
+
 	private static Vector<ModeButton> modeButtons = new Vector<ModeButton>();
-	
+
 	public JButton layerUp = new JButton( GUIResources.getIcon( GUIResources.layerUp ) );
 	public JLabel layerText = new JLabel("");
 
@@ -106,7 +107,7 @@ public class ViewControlButtons extends JPanel implements ActionListener
 	private JPanel staticPanel = new JPanel();
 	private JPanel parent;
 
-	public ViewControlButtons( JPanel parentContainer )
+	public ViewControlButtons( JPanel parentContainer, TCDisplay timecodeDisplay )
 	{
 		parent = parentContainer;
 
@@ -119,7 +120,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		GUIResources.prepareMediumButton( kfRemove, this, "Remove Points" );
 		GUIResources.prepareMediumButton( viewColor, this, "View image / alpha" );
 		GUIResources.prepareMediumButton( viewFlow, this, "View Composition" );
-		GUIResources.prepareMediumButton( viewTarget, this, "View from node set as target" );
 		GUIResources.prepareMediumButton( viewSelected, this, "View from node open in Property Editor" );
 		GUIResources.prepareMediumButton( allBoxes, this, "Display bounding boxes" );
 		GUIResources.prepareMediumButton( pickColor, this, "Select color" );
@@ -141,7 +141,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		kfRemove.setSelectedIcon( GUIResources.getIcon(  GUIResources.kfRemovePressed ) );
 		viewColor.setSelectedIcon( GUIResources.getIcon(  GUIResources.viewAlphaPressed ) );
 		viewFlow.setSelectedIcon( GUIResources.getIcon(  GUIResources.viewFlowPressed ) );
-		viewTarget.setSelectedIcon( GUIResources.getIcon(  GUIResources.viewTargetPressed ) );
 		viewSelected.setSelectedIcon( GUIResources.getIcon(  GUIResources.viewSelectedPressed ) );
 		allBoxes.setSelectedIcon( GUIResources.getIcon(  GUIResources.allBoxesPressed ) );
 		pickColor.setSelectedIcon( GUIResources.getIcon(  GUIResources.pickColorPressed ) );
@@ -174,7 +173,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		modes = new ButtonGroup();
 		modes.add( viewFlow );
 		modes.add( viewSelected );
-		modes.add( viewTarget );
 		modes.setSelected( viewFlow.getModel(), true );
 
 		layerText.setFont( GUIResources.BASIC_FONT_12 );
@@ -193,9 +191,9 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		lPanel.setMaximumSize( new Dimension( 200, 30 ) );
 
 		staticPanel.setLayout( new BoxLayout( staticPanel, BoxLayout.X_AXIS));
-
+		staticPanel.add( timecodeDisplay );
+		staticPanel.add( Box.createRigidArea( new Dimension(24,0) ));
 		staticPanel.add( viewFlow );
-		staticPanel.add( viewTarget );
 		staticPanel.add( viewSelected );
 		staticPanel.add( Box.createRigidArea( new Dimension(6,0) ));
 		staticPanel.add( viewColor );
@@ -211,7 +209,7 @@ public class ViewControlButtons extends JPanel implements ActionListener
 		setLayout( new BoxLayout( this, BoxLayout.X_AXIS));
 
 		setModeButtons(new Vector<Integer>());
-		
+
 		GUIComponents.viewSizeSelector = viewSizeSelect;
 	}
 
@@ -303,12 +301,12 @@ public class ViewControlButtons extends JPanel implements ActionListener
 	}
 
 	public int getViewSize(){ return viewSizeSelect.getViewSize(); }
-	
+
 	public void zoomIn()
 	{
 		viewSizeSelect.zoomIn();
 	}
-	
+
 	public void zoomOut()
 	{
 		viewSizeSelect.zoomOut();
@@ -372,8 +370,6 @@ public class ViewControlButtons extends JPanel implements ActionListener
 			EditorsController.setViewMode( EditorsController.FLOW_VIEW );
 		if( e.getSource() == viewSelected )
 			EditorsController.setViewMode( EditorsController.SELECT_VIEW );
-		if( e.getSource() == viewTarget )
-			EditorsController.setViewMode( EditorsController.TARGET_VIEW );
 
 		//--- color / alpha
 		if( e.getSource() == viewColor )

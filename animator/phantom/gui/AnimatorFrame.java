@@ -189,13 +189,16 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		flowPane.setLayout( new EditorsLayout() );
 		flowPane.add( flowHolder );
 
+		//-------------------------------------- Timecode display
+		TCDisplay timecodeDisplay = new TCDisplay("00:00:00");
+
 		//---------------------------------------- view editor
 		ViewEditor viewEdit = new ViewEditor( ProjectController.getScreenSize() );
 
 		screenViewsPanel = new JPanel();
 		screenViewsPanel.setLayout( new BigEditorsLayout() );
 
-		ViewControlButtons viewControlButtons = new ViewControlButtons(screenViewsPanel);
+		ViewControlButtons viewControlButtons = new ViewControlButtons(screenViewsPanel, timecodeDisplay);
 
 		viewScrollPane = new JScrollPane( viewEdit,
 			 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -209,16 +212,9 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		viewPanel = new JPanel();
 		viewPanel.add( viewScrollPane );
 
-
-
 		//----------------------------------------------- preview
 		previewUpdater = new PreViewUpdater();
-
-		TimeLineToolButtons timeLineToolButtons = new TimeLineToolButtons();
-		TCDisplay timecodeDisplay = new TCDisplay("00:00:00");
-
-
-		PreViewControlPanel previewControl = new PreViewControlPanel( timecodeDisplay);
+		PreViewControlPanel previewControl = new PreViewControlPanel();
 
 		//--------------------------------------------------- Panel holding all the middle row buttons
 		buttonRowHolder = new JPanel();
@@ -229,7 +225,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 
 		//-------------------------------------------- param edit
 		editFrame = new ParamEditFrame();
-		//nodesPanel = new NodesPanel();
 
 		paramEditHolder = new JPanel();
 		paramEditHolder.setLayout(new BoxLayout( paramEditHolder, BoxLayout.Y_AXIS));
@@ -262,7 +257,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		timeLineEditorStrip.add( iopColumn );
 		timeLineEditorStrip.add( timelineEditor );
 
-		//temp solution
 		Dimension newSize = new Dimension(1000, 1000);
 		timeLineEditorStrip.setSize( newSize );
 		timeLineEditorStrip.setPreferredSize( newSize );
@@ -358,14 +352,13 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		flowButtonsPane.add( Box.createRigidArea(new Dimension( 5, 0 ) ) );
 		flowButtonsPane.add( renderFlowButtons );
 
+		TimeLineToolButtons timeLineToolButtons = new TimeLineToolButtons();
 		tlineButtonsPane = new JPanel();
 		tlineButtonsPane.setLayout(new BoxLayout( tlineButtonsPane, BoxLayout.X_AXIS));
 		tlineButtonsPane.add( timeLineToolButtons );
-		//tlineButtonsPane.add( timeLineEditButtons );
 
 		kfButtonsPane = new JPanel();
 		kfButtonsPane.setLayout(new BoxLayout( kfButtonsPane, BoxLayout.X_AXIS));
-		//kfButtonsPane.add( Box.createRigidArea(new Dimension( 5, 0 ) ) );
 		kfButtonsPane.add( kfButtons );
 
 		//------------------------------------------- middle row, left side
@@ -387,12 +380,10 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		editorsPane.add( timelinePanel );
 
 		AnimatorFrameLayout frameLayout = new AnimatorFrameLayout( 	screenViewsPanel,
-										//paramEditPanelPanel,
 										editorsPane,
 										bottomRow );
 		contentPane.setLayout( frameLayout );
  		contentPane.add( screenViewsPanel );
- 		//contentPane.add( paramEditPanelPanel );
 		contentPane.add( editorsPane );
 		contentPane.add( bottomRow );
 
@@ -451,6 +442,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		GUIComponents.kfControl = kfButtons;
 		GUIComponents.tlineControls = tlineControls;
 		GUIComponents.projectInfoLabel = projectInfoLabel;
+
 		//--- This needs init.
 		TimeLineController.initClipEditorGUI();
 

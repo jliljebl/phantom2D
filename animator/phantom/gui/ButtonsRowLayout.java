@@ -26,7 +26,7 @@ import java.awt.LayoutManager;
 
 public class ButtonsRowLayout implements LayoutManager
 {
-	private int PREVIEW_BUTTONS_WIDTH = 600;
+	private int PREVIEW_BUTTONS_WIDTH = 350;
 
 	public ButtonsRowLayout(){}
 
