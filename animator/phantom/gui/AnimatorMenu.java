@@ -95,8 +95,6 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 	{
 		super();
 
-		setFont( GUIResources.BASIC_FONT_12 );
-
 		//---------------------------------- File menu
 		JMenu fileMenu = new JMenu("File");
 
@@ -159,25 +157,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 		editMenu.add( redo );
 
 		editMenu.addSeparator();
-/*
-		renameSelected = new JMenuItem("Rename...");
-		renameSelected.addActionListener(this);
-		editMenu.add( renameSelected );
 
-		cloneSelected = new JMenuItem("Clone");
-		cloneSelected.addActionListener(this);
-		editMenu.add( cloneSelected );
-
-		enableSelected = new JMenuItem("Enable");
-		enableSelected.addActionListener(this);
-		editMenu.add( enableSelected );
-
-		disableSelected = new JMenuItem("Disable");
-		disableSelected.addActionListener(this);
-		editMenu.add( disableSelected );
-
-		editMenu.addSeparator();
-		*/
 		memorySettings = new JMenuItem("Memory Manager...");
 		memorySettings.addActionListener(this);
 		editMenu.add( memorySettings );
@@ -242,14 +222,13 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 
 		helpMenu.addSeparator();
 
-		about = new JMenuItem("About Phantom2D");
+		about = new JMenuItem("About");
 		about.addActionListener(this);
 		helpMenu.add( about );
 
 		add( fileMenu );
 		add( editMenu );
 		add( iopMenu );
-		//add( viewMenu );
 		add( mediaMenu );
 		add( renderMenu );
 		add( helpMenu );
@@ -364,7 +343,7 @@ public class AnimatorMenu extends JMenuBar implements ActionListener, MenuBarCal
 		{
 			noRefs = new JMenuItem("No media sources");
 			noRefs.setEnabled(false);
-			noRefs.setFont(GUIResources.BASIC_FONT_ITALIC_11);
+			noRefs.setFont(GUIResources.BASIC_FONT_ITALIC_14);
 			mediaMenu.add(noRefs);
 		}
 	}

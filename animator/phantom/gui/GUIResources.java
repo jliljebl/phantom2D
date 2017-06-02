@@ -40,10 +40,14 @@ public class GUIResources
 
 	//--- FONTS
 	public static String FREE_SANS_PATH = resourcePath + "font/FreeSans.ttf";
+	public static final Font BASIC_FONT_18 = new Font( "SansSerif", Font.PLAIN, 18 );
+	public static final Font BASIC_FONT_14 = new Font( "SansSerif", Font.PLAIN, 14 );
+	public static final Font BASIC_FONT_13 = new Font( "SansSerif", Font.PLAIN, 13 );
 	public static final Font BASIC_FONT_12 = new Font( "SansSerif", Font.PLAIN, 12 );
 	public static final Font BASIC_FONT_11 = new Font( "SansSerif", Font.PLAIN, 11 );
 	public static final Font BASIC_FONT_10 = new Font( "SansSerif", Font.PLAIN, 10 );
 	public static final Font BASIC_FONT_ITALIC_11 = new Font( "SansSerif", Font.PLAIN|Font.ITALIC, 11 );
+	public static final Font BASIC_FONT_ITALIC_14 = new Font( "SansSerif", Font.PLAIN|Font.ITALIC, 14 );
 	public static final Font BOLD_FONT_11 = new Font( "SansSerif", Font.BOLD, 11 );
 	public static final Font BOLD_FONT_12 = new Font( "SansSerif", Font.BOLD, 12 );
 	public static final Font BOLD_FONT_14 = new Font( "SansSerif", Font.BOLD, 14 );
@@ -64,7 +68,7 @@ public class GUIResources
 	public static String openFileSeqSmall = resourcePath + "openFileSeqSmall.png";
 	public static String deleteFileSmall = resourcePath + "deleteFileSmall.png";
 
-	//--- RenderFlowViewButtons 
+	//--- RenderFlowViewButtons
 	public static String deleteBoxes = resourcePath + "deleteBoxes.png";
 	public static String lineUpBoxes = resourcePath + "lineUpBoxes.png";
 	public static String connectBoxes = resourcePath + "connectBoxes.png";
@@ -73,7 +77,7 @@ public class GUIResources
 	public static String editTargetInFlow = resourcePath + "editTargetInFlow.png";
 	public static String showGrid = resourcePath + "showGrid.png";
 
-	//--- Buttons for IOP groups 
+	//--- Buttons for IOP groups
  	public static String transformGroup = resourcePath + "transformGroup.png";
 
 	//--- Key frame editor.
@@ -90,7 +94,7 @@ public class GUIResources
 	public static String kfOffDark = resourcePath + "kfOffDark.png";
 	public static String kfOffTheme = kfOff;
 	public static String stepped = resourcePath + "stepped.png";
-	
+
 	public static String addClip = resourcePath + "addClip.png";
 	public static String deleteClip = resourcePath + "deleteClip.png";
 	public static String clipDown = resourcePath + "clipDown.png";
@@ -104,8 +108,8 @@ public class GUIResources
 
 	public static String zoomIn = resourcePath + "zoomOut.png";
 	public static String zoomOut = resourcePath + "zoomIn.png";
-	
-	//--- TimeLine navi and preview buttons 
+
+	//--- TimeLine navi and preview buttons
 	public static String toPreviousFrameNavi = resourcePath + "toPreviousFrameNavi.png";
 	public static String toNextFrameNavi = resourcePath + "toNextFrameNavi.png";
 	public static String play = resourcePath + "play.png";
@@ -156,7 +160,7 @@ public class GUIResources
 	public static String viewEditorLabel = resourcePath + "viewEditorLabel.png";
 	public static String noViewEditorLabel = resourcePath + "noViewEditorLabel.png";
 	public static String allBoxes = resourcePath + "allBoxes.png";
-	public static String allBoxesPressed = resourcePath + "allBoxesPressed.png";	
+	public static String allBoxesPressed = resourcePath + "allBoxesPressed.png";
 	public static String pickColor = resourcePath + "pickColor.png";
 	public static String pickColorPressed = resourcePath + "pickColorPressed.png";
 	public static String pickFGColor = resourcePath + "pickFGColor.png";
@@ -169,7 +173,7 @@ public class GUIResources
 	public static String customButton = resourcePath + "custombutton.png";
 	public static String customPressed = resourcePath + "custombuttonpressed.png";
 	public static String panelSizes = resourcePath + "panelSizes.png";
-	
+
 	//--- View editor action buttons
 	public static String move = resourcePath + "move.png";
 	public static String movePressed = resourcePath + "movePressed.png";
@@ -204,7 +208,7 @@ public class GUIResources
 	public static final String keyFrameSmall = resourcePath + "keyFrameSmall.png";
 
 	public static final String keyframeProperties = resourcePath + "keyframeProperties.png";
-	
+
 	public static final String keyframePropertiesDisabled  = resourcePath + "keyframePropertiesDisabled.png";
 
 	//--- Dialogs
@@ -213,9 +217,9 @@ public class GUIResources
  	public static final Dimension mediumButton = new Dimension( 27, 27 );
 	public static String emptyIcon = resourcePath + "emptyIcon.png";
 	public static String draggedNode = resourcePath + "draggedNode.png";
- 
+
 	public static ImageIcon getIcon( String path )
-	{ 
+	{
 		return new ImageIcon( path );
 	}
 
@@ -224,7 +228,7 @@ public class GUIResources
 		return GUIUtils.getBufferedImageFromFile( new File( path ) );
 	}
 
-	public static Font getFont( String path ) 
+	public static Font getFont( String path )
 	{
 		Font font = null;
 
@@ -232,8 +236,8 @@ public class GUIResources
 			InputStream is = null;
 			is = new FileInputStream( path );
 			font = Font.createFont(Font.TRUETYPE_FONT, is);
-		} 
-		catch (Exception ex) 
+		}
+		catch (Exception ex)
 		{
 			ex.printStackTrace();
 			System.err.println( path + " font was not loaded.");

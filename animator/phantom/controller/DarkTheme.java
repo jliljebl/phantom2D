@@ -58,9 +58,9 @@ public class DarkTheme extends OceanTheme
 	{
 		Font freeSans = GUIResources.getFont( GUIResources.FREE_SANS_PATH );
 		if( freeSans != null )
-			MENU_FONT = freeSans.deriveFont( Font.BOLD, 11.0f );
+			MENU_FONT = freeSans.deriveFont( Font.BOLD, 14.0f );
 		else
-			MENU_FONT = GUIResources.BASIC_FONT_12;
+			MENU_FONT = GUIResources.BASIC_FONT_14;
 
 		GUIColors.MEDIA_ITEM_TEXT_COLOR = light;
 		GUIColors.MEDIA_ITEM_SELECTED_BG = new Color( 48, 52, 65 );
@@ -69,7 +69,7 @@ public class DarkTheme extends OceanTheme
 		GUIColors.SEPARATOR_BG = dark;
 		GUIColors.SEPARATOR_LINE = darkBg;
 		GUIColors.timeLineColumnColor = dark;
-		GUIColors.timeLineFontColor = light;	
+		GUIColors.timeLineFontColor = light;
 		GUIColors.THUMB_BORDER = dark;
 		GUIColors.frameBorder = darkBg;
 
@@ -101,10 +101,10 @@ public class DarkTheme extends OceanTheme
 	public ColorUIResource getControlShadow() { return darker; }
 	public ColorUIResource getControlDarkShadow(){ return black; }
 
-	public ColorUIResource getPrimaryControl() { return dark; } 
+	public ColorUIResource getPrimaryControl() { return dark; }
 	public ColorUIResource getPrimaryControlHighlight() { return lighter; }
 	public ColorUIResource getPrimaryControlShadow() { return middark; } // non-selected tabs
-	public ColorUIResource getPrimaryControlInfo() { return light; } 
+	public ColorUIResource getPrimaryControlInfo() { return light; }
 
 	public ColorUIResource getPrimary1() { return black; }
 	public ColorUIResource getPrimary2() { return darkBg; }
@@ -204,7 +204,7 @@ public class DarkTheme extends OceanTheme
 		"FileView.directoryIcon",
 		new IconUIResource( GUIResources.getIcon( GUIResources.folderIcon ) ),
 		"FileView.fileIcon",
-		new IconUIResource( GUIResources.getIcon( GUIResources.fileIcon ) ), 
+		new IconUIResource( GUIResources.getIcon( GUIResources.fileIcon ) ),
 
 		"TextField.margin",
 		new InsetsUIResource(0, 2, 0, 0)
