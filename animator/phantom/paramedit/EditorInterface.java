@@ -50,9 +50,10 @@ public class EditorInterface
 		TimeLineController.moveCurrentFrameToPreviousKeyFrame( param );
 		UpdateController.updateCurrentFrameDisplayers( false );
 	}
+	/*
 	public static void outputsNumberChanged( ImageOperation iop, int outputsNumber )
 	{
 		FlowController.outputsNumberChanged( iop, outputsNumber );
 	}
-
+	*/
 }//end class

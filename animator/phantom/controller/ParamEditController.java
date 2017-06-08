@@ -34,7 +34,7 @@ public class ParamEditController
 	public static void displayEditFrame( ImageOperation iop )
 	{
 		//--- These need to have own references
-		FlowController.setEditTargetNode( iop );
+		//FlowController.setEditTargetNode( iop );
 		FilterStackController.setEditTarget( iop );
 		editTarget = iop;
 		paramEditFrame.display( iop );
@@ -43,7 +43,7 @@ public class ParamEditController
 	public static void clearEditframe()
 	{ 
 		displayEditFrame( null );
-		FlowController.setEditTargetNode( null );
+		//FlowController.setEditTargetNode( null );
 	}
 	//--- Returns ImageOperation being edited in parameditFrame.
 	public static ImageOperation getParamEditIOP()

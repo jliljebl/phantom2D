@@ -22,7 +22,6 @@ package animator.phantom.controller;
 public class Phantom2D
 {
 	static private int PHANTOM2D = 0;
-	static private int GRAPHIC_ANIMATOR = 1;
 
 	public static void main( String args[] )
 	{
@@ -44,17 +43,17 @@ public class Phantom2D
 			if (arg.equals("-app"))
 			{
 				String app = args[i + 1];
-				if (app.equals("ganim"))
-					application = GRAPHIC_ANIMATOR;
+				//if (app.equals("ganim"))
+				//	application = GRAPHIC_ANIMATOR;
 			}
 
 		}
 
-		Application app = new Application();
-		app.startUp(profile, diskCacheDirPath);
-		
-		//LayerCompositorApplication app = new LayerCompositorApplication();
+		//Application app = new Application();
 		//app.startUp(profile, diskCacheDirPath);
+		
+		LayerCompositorApplication app = new LayerCompositorApplication();
+		app.startUp(profile, diskCacheDirPath);
 		/*
 		System.out.println(profile);
 		if (application == PHANTOM2D)
@@ -62,11 +61,8 @@ public class Phantom2D
 			Application app = new Application();
 			app.startUp(profile, diskCacheDirPath);
 		}
-		else if (application == GRAPHIC_ANIMATOR)
-		{
-			GraphicsAnimatorApplication app = new GraphicsAnimatorApplication();
-			app.startUp(profile, diskCacheDirPath);
-		}*/
+		*/
+
 		
 	}
 

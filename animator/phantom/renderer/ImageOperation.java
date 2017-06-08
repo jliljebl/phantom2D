@@ -57,7 +57,6 @@ import animator.phantom.paramedit.AnimationParentPanel;
 import animator.phantom.paramedit.FilterStackPanel;
 import animator.phantom.paramedit.MaskSwitchPanel;
 import animator.phantom.paramedit.OnOffPanel;
-import animator.phantom.paramedit.OutputsNumberSelector;
 import animator.phantom.paramedit.ParamEditResources;
 import animator.phantom.paramedit.RowSeparator;
 import animator.phantom.paramedit.StackEditExitPanel;
@@ -779,17 +778,6 @@ public abstract class ImageOperation implements Comparable<Object>
 			}
 			addPanel.add( getEditPanel() );
 			addPanel.add( new RowSeparator() );
-
-			//--- IOPs in filter stack don't have outputs
-			if( isFilterStackIop == false )
-			{
-				OutputsNumberSelector outSelect = new OutputsNumberSelector( this );
-
-				int targetNodes = ProjectController.getFlow().getNode( this ).getTargetsVector().size();
-				outSelect.getComboBox().setSelectedIndex( targetNodes - 1 );
-				addPanel.add( outSelect );
-				addPanel.add( new RowSeparator() );
-			}
 
 			if ( animParentPanel != null )
 			{

@@ -36,7 +36,7 @@ public class UpdateController
 	public static void editTargetIOPChangedFromClipEditor( ImageOperation iop )
 	{
 		EditorsController.initKeyFrameEditor( iop );
-		GUIComponents.renderFlowPanel.setAsOnlySelected( iop );
+		//GUIComponents.renderFlowPanel.setAsOnlySelected( iop );
 		EditorsController.setEditorLayerForIop( iop );
 		targetIOP = iop;
 	}
@@ -53,7 +53,7 @@ public class UpdateController
 	{
 		EditorsController.initKeyFrameEditor( iop );
 		TimeLineController.targetIopChanged( iop );
-		GUIComponents.renderFlowPanel.setAsOnlySelected( iop );
+		//GUIComponents.renderFlowPanel.setAsOnlySelected( iop );
 		targetIOP = iop;
 	}
 	//--- Theres only one iop that is target of editing. This is called from Stack editor.
@@ -63,7 +63,7 @@ public class UpdateController
 		EditorsController.initKeyFrameEditor( iop );
 		EditorsController.setEditorLayerForIop( null );
 		TimeLineController.targetIopChanged( null );
-		GUIComponents.renderFlowPanel.setAsOnlySelected( null );
+		//GUIComponents.renderFlowPanel.setAsOnlySelected( null );
 		targetIOP = iop;
 	}
 	//--- Called by for eg. PreViewPanel	

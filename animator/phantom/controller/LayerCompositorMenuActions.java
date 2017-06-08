@@ -243,7 +243,7 @@ public class LayerCompositorMenuActions
 		UpdateController.valueChangeUpdate();
 		ParamEditController.undoUpdate();
 		//--- Clear all selections, selction is transient and not a (data) edit action
-		FlowController.clearSelection();
+		//FlowController.clearSelection();
 		//--- kf diamonds update
 		ImageOperation iop = PhantomUndoManager.getLastActionIOP();
 		if( iop == null )
@@ -258,7 +258,7 @@ public class LayerCompositorMenuActions
 		UpdateController.valueChangeUpdate();
 		ParamEditController.undoUpdate();
 		//--- Clear all selections, selction is transient and not a (data) edit action
-		FlowController.clearSelection();
+		//FlowController.clearSelection();
 		//--- kf diamonds update
 		ImageOperation iop = PhantomUndoManager.getLastActionIOP();
 		if( iop == null )
@@ -353,7 +353,7 @@ public class LayerCompositorMenuActions
 
 			TimeLineController.addClips( oldClips );
 			TimeLineController.initClipEditorGUI();
-			FlowController.clearSelection();
+			//FlowController.clearSelection();
 		}
 
 		GUIComponents.renderFlowButtons.repaint();
@@ -619,7 +619,7 @@ public class LayerCompositorMenuActions
 		}
 
 		TimeLineController.targetIopChanged( iop );
-		FlowController.iopNameChanged( rn );
+		//FlowController.iopNameChanged( rn );
 	}
 
 	//--- Clone seöected node
@@ -642,7 +642,7 @@ public class LayerCompositorMenuActions
 		ImageOperation cloneIOP = ImageOperationXML.getObject( iopElem, ProjectController.getProject(), false );
 		cloneIOP.loadParentIOP( ProjectController.getFlow() );
 
-		FlowController.addIOPRightAway( cloneIOP );
+		//FlowController.addIOPRightAway( cloneIOP );
 	}
 
 	public static void disableSelected()

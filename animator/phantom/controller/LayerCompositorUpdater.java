@@ -3,6 +3,7 @@ package animator.phantom.controller;
 import java.util.Vector;
 
 import animator.phantom.renderer.ImageOperation;
+import animator.phantom.renderer.RenderNode;
 
 public class LayerCompositorUpdater 
 {
@@ -37,5 +38,21 @@ public class LayerCompositorUpdater
 		TimeLineController.initClipEditorGUI();
 		ParamEditController.displayEditFrame( addIOP );// ALSO TO INIT PARAM NAMES IN RAW IOPS, plugins do this by them selves
 	}
+
+	public static void layerDeleteUpdate( Vector<RenderNode> deleteVec )
+	{
+		EditorsController.removeLayers( deleteVec );
+		EditorsController.clearKFEditIfNecessery( deleteVec );
+
+		RenderNode deleteNode = deleteVec.elementAt(0);
+		if( ParamEditController.getParamEditIOP() == deleteNode.getImageOperation() )
+			 ParamEditController.clearEditframe();
 		
+		ImageOperation iop = deleteNode.getImageOperation();
+		Vector<ImageOperation> deleteClips = new  Vector<ImageOperation>();
+		deleteClips.add( iop );
+		TimeLineController.removeClips( deleteClips );
+		TimeLineController.initClipEditorGUI();		
+	}
+	
 }//end class

@@ -18,7 +18,7 @@ public class LayerCompositorProject
 		this.layers = new Vector<LayerCompositorLayer>();
 	}
 	
-	public void addLayer( ImageOperation iop )
+	public LayerCompositorLayer addLayer( ImageOperation iop )
 	{
 		RenderNode addNode = new RenderNode( iop );
 		LayerCompositorLayer addLayer = new LayerCompositorLayer( addNode );
@@ -29,8 +29,27 @@ public class LayerCompositorProject
 		connectLayers();
 
 		LayerCompositorUpdater.layerAddUpdate( iop );
+		
+		return addLayer;
 	}
 	
+
+	public void deleteLayer( LayerCompositorLayer deleteLayer )
+	{
+		RenderNode deleteNode = deleteLayer.getNode();
+		Vector<RenderNode> deleteVec = new Vector<RenderNode>();
+		deleteVec.add( deleteNode );
+
+		this.layers.removeElement( deleteLayer );
+		
+		getFlow().removeNodes( deleteVec );
+
+		connectLayers();
+		
+		LayerCompositorUpdater.layerDeleteUpdate( deleteVec );
+			
+	}
+
 	private Project getNodeProject()
 	{
 		return ProjectController.getProject();

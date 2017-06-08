@@ -215,12 +215,13 @@ public class FlowController
 	//--- Called when user changes outputs number for node.
 	public static void outputsNumberChanged( ImageOperation iop, int outputsNumber )
 	{
+		/*
 		//-- Get node
 		RenderNode source = ProjectController.getFlow().getNode( iop );
 
 		//--- Change FlowBox data and redraw it.
 		//--- Destroy arrows in FlowViewPanel outside new outputs number range.
-		GUIComponents.renderFlowPanel.nodeOutputsNumberChanged( source, outputsNumber );
+		//GUIComponents.renderFlowPanel.nodeOutputsNumberChanged( source, outputsNumber );
 
 		//--- Get node targets vector
 		Vector<RenderNode> targets = source.getTargetsVector();
@@ -248,6 +249,7 @@ public class FlowController
 
 		//--- Repaint
 		GUIComponents.renderFlowPanel.repaint();
+		*/
 	}
 
 	//--- Creates of column of selected boxes.
