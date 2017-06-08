@@ -1,15 +1,12 @@
 package animator.phantom.project;
 
-import animator.phantom.renderer.RenderNode;
-import animator.phantom.undo.PhantomUndoManager;
-
 import java.util.Vector;
 
-import animator.phantom.controller.EditorsController;
+import animator.phantom.controller.LayerCompositorUpdater;
 import animator.phantom.controller.ProjectController;
-import animator.phantom.controller.TimeLineController;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderFlow;
+import animator.phantom.renderer.RenderNode;
 
 public class LayerCompositorProject 
 {
@@ -31,28 +28,7 @@ public class LayerCompositorProject
 
 		connectLayers();
 
-		//--- Update GUI
-		TimeLineController.targetIopChanged( iop );
-		EditorsController.addLayerForIop( iop );
-		//--- If new iop does not have edit layer we need render view editor
-		//--- because layer add did not trigger render.
-		if( iop.getEditorlayer() == null )
-			 EditorsController.displayCurrentInViewEditor( false );
-
-		//--- Request editpanel so params will be named.
-		//--- Params are named by editors and names are used in save/load and kfeditor
-		//--- Do this in thread because might take 500ms+
-		final ImageOperation fholder = iop;
-		new Thread()
-		{
-			public void run()
-			{
-				fholder.getEditFrame( false );
-				EditorsController.initKeyFrameEditor( fholder );
-			}
-		}.start();
-		
-
+		LayerCompositorUpdater.layerAddUpdate( iop );
 	}
 	
 	private Project getNodeProject()
