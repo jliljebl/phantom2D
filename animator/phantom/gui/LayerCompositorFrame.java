@@ -91,9 +91,9 @@ import animator.phantom.gui.timeline.TimeLineControls;
 import animator.phantom.gui.view.component.ViewControlButtons;
 import animator.phantom.gui.view.component.ViewEditor;
 
-public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListener
+public class LayerCompositorFrame extends AnimatorFrame implements ActionListener
 {
-	//private JViewport flowViewPort;
+	private JViewport flowViewPort;
 	private JPanel contentPane = null;
 	private JPanel editorsPane = null;
 
@@ -107,7 +107,7 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 	public JToggleButton timelineButton;
 	public JToggleButton splineButton;
 
-	//private JPanel flowHolder;
+	private JPanel flowHolder;
 	private	JPanel timelinePanel;
 	private JPanel keyEditorPanel;
 	private TimeLineControls tlineControls;
@@ -129,7 +129,7 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 	private boolean initializing = false;
 	private int displayedEditor = 0;
 
-	public GraphicsAnimatorFrame()
+	public LayerCompositorFrame()
 	{
 		super();
 		setVisible( false );//set visible when properly initialized.
@@ -139,7 +139,7 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 	//--- project loaded.
 	public void initializeEditor()
 	{
-		setTitle( ProjectController.getName() + " - Phantom2D" );
+		setTitle(  ProjectController.getName() + " - LayerCompositor" );
 
 		try
 		{
@@ -154,24 +154,23 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 	//--- Create gui. All components are recreated.
 	private void createGui()
 	{
-		/*
 		AppUtils.printTitle( "INIT GUI" );
 
 		initializing = true;
 
 		//--- app menu
-		GraphicsAnimatorMenu menuBar = new GraphicsAnimatorMenu();
+		LayerCompositorMenu menuBar = new LayerCompositorMenu();
 		setJMenuBar( menuBar );
 
 		//----------------------------------- flow Editor
-
 		int flowW = EditorPersistance.getIntPref( EditorPersistance.FLOW_WIDTH );
 		int flowH = EditorPersistance.getIntPref( EditorPersistance.FLOW_HEIGHT );
-
+			
+		/*
  		renderFlowPanel = new FlowEditPanel( flowW, flowH );
 		Vector<FlowBox> boxes = ProjectController.getBoxes();
 		renderFlowPanel.loadBoxes( boxes );
-
+		
 		RenderFlowViewButtons renderFlowButtons = new RenderFlowViewButtons( this );
 
 		JScrollPane flowScrollPane = new JScrollPane( renderFlowPanel,
@@ -190,15 +189,18 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 		JPanel flowPane = new JPanel();
 		flowPane.setLayout( new EditorsLayout() );
 		flowPane.add( flowHolder );
+		*/
+		
+		//-------------------------------------- Timecode display
+		TCDisplay timecodeDisplay = new TCDisplay("00:00:00");
 
-		RenderFlowViewButtons renderFlowButtons = new RenderFlowViewButtons( this );
 		//---------------------------------------- view editor
 		ViewEditor viewEdit = new ViewEditor( ProjectController.getScreenSize() );
 
 		screenViewsPanel = new JPanel();
 		screenViewsPanel.setLayout( new BigEditorsLayout() );
 
-		ViewControlButtons viewControlButtons = new ViewControlButtons(screenViewsPanel);
+		ViewControlButtons viewControlButtons = new ViewControlButtons(screenViewsPanel, timecodeDisplay);
 
 		viewScrollPane = new JScrollPane( viewEdit,
 			 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -212,29 +214,19 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 		viewPanel = new JPanel();
 		viewPanel.add( viewScrollPane );
 
-		//--------------------------------------------------- Panel holding all the middle row buttons
-		buttonRowHolder = new JPanel();
-		buttonRowHolder.setLayout(new BoxLayout( buttonRowHolder, BoxLayout.X_AXIS));
-		buttonRowHolder.add( viewControlButtons );
-		buttonRowHolder.add( Box.createHorizontalGlue() );
-
 		//----------------------------------------------- preview
 		previewUpdater = new PreViewUpdater();
+		PreViewControlPanel previewControl = new PreViewControlPanel();
 
-		TimeLineToolButtons timeLineToolButtons = new TimeLineToolButtons();
-		TCDisplay timecodeDisplay = new TCDisplay("00:00:00");
+		//--------------------------------------------------- Panel holding all the middle row buttons
+		buttonRowHolder = new JPanel();
+		buttonRowHolder.setLayout(new ButtonsRowLayout());
+		buttonRowHolder.add( viewControlButtons );
+		buttonRowHolder.add( previewControl );
 
-
-		PreViewControlPanel previewControl = new PreViewControlPanel( timecodeDisplay);
-
-		//--------------------------------------------- view editor + button row panel
-		screenViewsPanel.add( viewPanel );
-		screenViewsPanel.add( buttonRowHolder );
-		screenViewsPanel.add( previewControl );
 
 		//-------------------------------------------- param edit
 		editFrame = new ParamEditFrame();
-		//nodesPanel = new NodesPanel();
 
 		paramEditHolder = new JPanel();
 		paramEditHolder.setLayout(new BoxLayout( paramEditHolder, BoxLayout.Y_AXIS));
@@ -246,11 +238,15 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 		paramEditPanelPanel.add( Box.createRigidArea( new Dimension( 0, 4 ) ) );
 		paramEditPanelPanel.add( paramEditHolder );
 
+		//--------------------------------------------- view editor + button + param edit
+		screenViewsPanel.add( viewPanel );
+		screenViewsPanel.add( buttonRowHolder );
+		screenViewsPanel.add( paramEditPanelPanel );
+
 		//--------------------------------------- timeline editor
 		TimeLineDisplayPanel timeLineDisplay = new TimeLineDisplayPanel();
 		TimeLineIOPColumnPanel iopColumn = new TimeLineIOPColumnPanel();
 		TimeLineEditorPanel timelineEditor = new TimeLineEditorPanel();
-		//TimeLineEditButtons timeLineEditButtons = new TimeLineEditButtons();
 
 		JPanel timeDummyPanelTop = new JPanel();
 		JPanel scaleStrip = new JPanel();
@@ -263,7 +259,6 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 		timeLineEditorStrip.add( iopColumn );
 		timeLineEditorStrip.add( timelineEditor );
 
-		//temp solution
 		Dimension newSize = new Dimension(1000, 1000);
 		timeLineEditorStrip.setSize( newSize );
 		timeLineEditorStrip.setPreferredSize( newSize );
@@ -354,19 +349,19 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 		tlineControls = new TimeLineControls();
 
 		//---------------------------------------------------------- editor buttons panes
+		/*
 		flowButtonsPane = new JPanel();
 		flowButtonsPane.setLayout( new BoxLayout( flowButtonsPane, BoxLayout.X_AXIS));
 		flowButtonsPane.add( Box.createRigidArea(new Dimension( 5, 0 ) ) );
 		flowButtonsPane.add( renderFlowButtons );
-
+		*/
+		TimeLineToolButtons timeLineToolButtons = new TimeLineToolButtons();
 		tlineButtonsPane = new JPanel();
 		tlineButtonsPane.setLayout(new BoxLayout( tlineButtonsPane, BoxLayout.X_AXIS));
 		tlineButtonsPane.add( timeLineToolButtons );
-		//tlineButtonsPane.add( timeLineEditButtons );
 
 		kfButtonsPane = new JPanel();
 		kfButtonsPane.setLayout(new BoxLayout( kfButtonsPane, BoxLayout.X_AXIS));
-		//kfButtonsPane.add( Box.createRigidArea(new Dimension( 5, 0 ) ) );
 		kfButtonsPane.add( kfButtons );
 
 		//------------------------------------------- middle row, left side
@@ -388,22 +383,17 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 		editorsPane.add( timelinePanel );
 
 		AnimatorFrameLayout frameLayout = new AnimatorFrameLayout( 	screenViewsPanel,
-										//paramEditPanelPanel,
 										editorsPane,
 										bottomRow );
 		contentPane.setLayout( frameLayout );
  		contentPane.add( screenViewsPanel );
- 		//contentPane.add( paramEditPanelPanel );
 		contentPane.add( editorsPane );
 		contentPane.add( bottomRow );
 
 		JLabel projectInfoLabel = new JLabel();
 		projectInfoLabel.setFont( GUIResources.BASIC_FONT_11 );
 
-		
-		JLabel projectInfoLabel = new JLabel();
-		projectInfoLabel.setFont( GUIResources.BASIC_FONT_11 );
-
+		/*
 		JPanel realContentPanel = new JPanel();
 		ContentPaneLayout rclayout = new ContentPaneLayout();
 		realContentPanel.setLayout( rclayout );
@@ -411,8 +401,7 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 		realContentPanel.add( flowButtonsPane );
 		realContentPanel.add( contentPane );
 		realContentPanel.add( projectInfoLabel );
-
-
+		*/
 		//--- global keyactions.
 		KeyUtils.clearGlobalActions();
 		KeyUtils.setGlobalAction( new CTRLPressedAction(), "ctrl pressed CONTROL" );
@@ -442,7 +431,7 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 		GUIComponents.timeLineEditorPanel = timelineEditor;
 		GUIComponents.timeLineScaleDisplays.add( timeLineDisplay );
 		GUIComponents.timeLineScaleDisplays.add( KFtimeLineDisplay );
-		GUIComponents.renderFlowButtons = renderFlowButtons;
+		//GUIComponents.renderFlowButtons = renderFlowButtons;
 		GUIComponents.tcDisplay = timecodeDisplay;
 		ParamEditController.paramEditFrame = editFrame;
 		GUIComponents.viewEditor = viewEdit;
@@ -457,6 +446,7 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 		GUIComponents.kfControl = kfButtons;
 		GUIComponents.tlineControls = tlineControls;
 		GUIComponents.projectInfoLabel = projectInfoLabel;
+
 		//--- This needs init.
 		TimeLineController.initClipEditorGUI();
 
@@ -475,7 +465,6 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 
 		MinimizeSetTimer minimSet = new MinimizeSetTimer( this );
 		minimSet.start();
-		*/
 	}
 
 	//----------------------------------------------- Editor change buttons.
@@ -531,7 +520,6 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 	}
 
 	//------------------------------------------------ render flow view scroll stuff for box placement
-	/*
 	//--- Return x,y of left up corner postion of viewport in RenderFlowViewPanel
 	public Point getScrollPos(){ return flowViewPort.getViewPosition(); }
 	//--- Return middlepoint for current viewport size.
@@ -542,7 +530,7 @@ public class GraphicsAnimatorFrame extends AnimatorFrame implements ActionListen
 	}
 	//--- Returns view port size.
 	public Dimension getViewPortSize(){ return flowViewPort.getExtentSize(); }
-*/
+
 	public Dimension getViewEditorSize()
 	{
 		return viewScrollPane.getViewport().getExtentSize();

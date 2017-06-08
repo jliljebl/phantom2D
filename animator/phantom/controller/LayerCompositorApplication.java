@@ -22,27 +22,40 @@ package animator.phantom.controller;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
 import javax.swing.plaf.metal.MetalTheme;
 
-import animator.phantom.gui.GraphicsAnimatorFrame;
-import animator.phantom.project.MovieFormat;
 import animator.phantom.blender.Blender;
+import animator.phantom.gui.LayerCompositorFrame;
+import animator.phantom.project.LayerCompositorProject;
+import animator.phantom.project.MovieFormat;
 import animator.phantom.project.Project;
 import animator.phantom.undo.PhantomUndoManager;
 
+
 //--- Logic and application wide state, including app initializing, window management, opening projects and render aborts.
-public class GraphicsAnimatorApplication extends AbstractApplication implements WindowListener
+public class LayerCompositorApplication extends AbstractApplication implements WindowListener
 {
+	//--- There can only be one.
+    public static LayerCompositorApplication app;
+	public static LayerCompositorApplication getApplication(){ return app; }
+
+	//--- Flag to load plugins when opening default project
+	public static boolean pluginsLoaded = false;
+
 	//--- Windows
-	private GraphicsAnimatorFrame graphicsAnimatorFrame;
+	private LayerCompositorFrame animatorFrame;
+
+	//--- Window params.
+	public static int SMALL_WINDOW_WIDTH = 320;
 
 	private ProjectOpenUpdate popenUpdate;
 
-	public GraphicsAnimatorApplication(){}
+	public LayerCompositorApplication(){ app = this; }
 
 	public void startUp(String profileUnderScoreDesc, String diskCacheDirPath)
 	{
-		AppUtils.printTitle("GRAPHICS ANIMATOR" );
+		AppUtils.printTitle("LAYER COMPOSITOR 2D" );
 
 		//--- Detect runtime env
 		detectJarAndPaths();
@@ -61,13 +74,12 @@ public class GraphicsAnimatorApplication extends AbstractApplication implements 
 		MetalTheme appTheme = new DarkTheme();
 
 		//--- Create window
-
-		graphicsAnimatorFrame = new GraphicsAnimatorFrame();
-		graphicsAnimatorFrame.setVisible( false );
-		graphicsAnimatorFrame.addWindowListener( this );
+		animatorFrame = new LayerCompositorFrame();
+		animatorFrame.setVisible( false );
+		animatorFrame.addWindowListener( this );
 
 		//--- Look and feel
-		setLAF( appTheme, graphicsAnimatorFrame );
+		setLAF( appTheme, animatorFrame );
 
 		MovieFormat startupFormat = getStartupFormat( profileUnderScoreDesc );
 
@@ -103,7 +115,6 @@ public class GraphicsAnimatorApplication extends AbstractApplication implements 
 
 	public void openProject( Project project )
 	{
-		/*
 		AppUtils.printTitle("OPEN PROJECT " + project.getName() );
 
 		//--- Block cache updates
@@ -123,13 +134,17 @@ public class GraphicsAnimatorApplication extends AbstractApplication implements 
 			EditorPersistance.read( filePrefPathForJar, false );
 
 		//--- reset some global data.
-		GUIComponents.reset();
+		GUIComponents.LCReset();
 		TimeLineController.reset();
 		PreviewController.reset();
 
 		//--- Set project.
 		ProjectController.reset();
 		ProjectController.setProject( project );
+		
+		//--- 
+		AppData.layerProject = new LayerCompositorProject();
+		
 
 		//--- Blender
 		Blender.initBlenders();
@@ -142,7 +157,7 @@ public class GraphicsAnimatorApplication extends AbstractApplication implements 
 		PhantomUndoManager.init();
 
 		//--- Windows
-		graphicsAnimatorFrame.initializeEditor();
+		animatorFrame.initializeEditor();
 
 		//--- display grey first
 		GUIComponents.viewEditor.setDisplayWaitIcon( true );
@@ -151,7 +166,7 @@ public class GraphicsAnimatorApplication extends AbstractApplication implements 
 		MemoryManager.calculateCacheSizes();
 
 		//---
-		graphicsAnimatorFrame.setVisible( true );
+		animatorFrame.setVisible( true );
 		//GUIComponents.renderFlowPanel.setIgnoreRepaint( false );// bugs when not visible?
 
 		ProjectController.updateProjectInfo();
@@ -175,9 +190,10 @@ public class GraphicsAnimatorApplication extends AbstractApplication implements 
 
 		popenUpdate = new ProjectOpenUpdate();
 		popenUpdate.start();
-		*/
 	}
 
+
+	//---------------------------------------------- Hnadled WINDOW EVENTS
 	public void windowClosing(WindowEvent e)
 	{
 		MenuActions.quit();//catch for close confirmation

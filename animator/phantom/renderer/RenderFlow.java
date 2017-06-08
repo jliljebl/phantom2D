@@ -39,15 +39,6 @@ public class RenderFlow
 	
 	//-------------------------------------------- CONSTRUCTOR
 	public RenderFlow(){}
-
-		/*
-	public void addOutputNode()
-	{
-		System.out.println( "DDDDD." );
-		RenderNode outputNode = new RenderNode( new OutputIOP() );
-		addNode( outputNode );
-	}
-	*/
 	
 	//--- Returns the number of nodes in this flow.
 	public int getSize(){ return renderNodes.size(); }

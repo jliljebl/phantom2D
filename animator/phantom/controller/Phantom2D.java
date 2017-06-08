@@ -50,6 +50,12 @@ public class Phantom2D
 
 		}
 
+		Application app = new Application();
+		app.startUp(profile, diskCacheDirPath);
+		
+		//LayerCompositorApplication app = new LayerCompositorApplication();
+		//app.startUp(profile, diskCacheDirPath);
+		/*
 		System.out.println(profile);
 		if (application == PHANTOM2D)
 		{
@@ -60,7 +66,8 @@ public class Phantom2D
 		{
 			GraphicsAnimatorApplication app = new GraphicsAnimatorApplication();
 			app.startUp(profile, diskCacheDirPath);
-		}
+		}*/
+		
 	}
 
 }//end class

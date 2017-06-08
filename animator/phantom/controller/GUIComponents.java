@@ -114,6 +114,20 @@ public class GUIComponents
 		tcDisplay = null;
 		filterStackEdit = null;
 	}
+	
+
+	public static void LCReset()
+	{
+		animatorMenu = null;
+		viewEditor = null;
+		ParamEditController.paramEditFrame = null;
+		timeLineIOPColumnPanel = null;
+		timeLineEditorPanel = null;
+		timeLineScaleDisplays = new Vector<TimeLineDisplayPanel>();
+		tcDisplay = null;
+		filterStackEdit = null;
+	}
+	
 	//--- Legacy
 	public static AnimatorFrame getAnimatorFrame(){ return animatorFrame; }
 	//public static FlowEditPanel getFlowEditPanel(){ return renderFlowPanel; }
