@@ -1,5 +1,6 @@
 package animator.phantom.project;
 
+import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
 
 public class LayerCompositorLayer 
@@ -12,5 +13,6 @@ public class LayerCompositorLayer
 	}
 
 	public RenderNode getNode(){ return this.node; }
+	public ImageOperation getIop(){ return this.node.getImageOperation(); }
 	
 }//end class

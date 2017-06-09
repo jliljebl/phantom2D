@@ -120,25 +120,7 @@ public class FlowController
 	//--- Delete selected boxes and nodes from flow.
 	public static void deleteSelected()
 	{
-		Vector<RenderNode> nodes = GUIComponents.renderFlowPanel.getSelectedNodes();
 
-		//--- If currently edited iop is among deleted, clear display and set ViewEditor mode to flow view
-		ImageOperation current = ParamEditController.getParamEditIOP();
-		if( current != null )
-		{
-			EditorsController.setViewMode( EditorsController.FLOW_VIEW );
-			ParamEditController.clearEditframe();
-		}
-
-		//--- Remove from editors.
-		TimeLineController.removeClipsCorrespondingtoNodes( nodes );
-		EditorsController.removeLayers( nodes );
-		EditorsController.clearKFEditIfNecessery( nodes );
-		//--- FlowPanel deletes boxes and arrows from its display.
-		//--- It also disconnects nodes and removes them from flow data
-		//--- using callbacks ( FlowController.disconnectNodes(..), FlowController.deleteRenderNodes(...) )
-		//--- MultiDeleteUndoEdit is also created there because you need positions of boxes arroes for it.
-		GUIComponents.renderFlowPanel.deleteSelectedBoxes();
 	}
 	//--- Deletes Vector of nodes. USed user forces a delete of file source that has some nodes using it.
 	public static void deleteVector( Vector<RenderNode> vec )

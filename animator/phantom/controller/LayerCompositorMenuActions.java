@@ -62,10 +62,17 @@ import animator.phantom.gui.view.editlayer.MergeEditLayer;
 import animator.phantom.gui.view.editlayer.ViewEditorLayer;
 import animator.phantom.project.MovieFormat;
 import animator.phantom.project.Project;
+import animator.phantom.renderer.FileSequenceSource;
+import animator.phantom.renderer.FileSingleImageSource;
+import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
+import animator.phantom.renderer.VideoClipSource;
 import animator.phantom.renderer.imagemerge.BasicTwoMergeIOP;
+import animator.phantom.renderer.imagesource.FileImageSource;
+import animator.phantom.renderer.imagesource.ImageSequenceIOP;
+import animator.phantom.renderer.imagesource.VideoClipIOP;
 import animator.phantom.renderer.param.AnimatedValue;
 import animator.phantom.renderer.param.AnimatedValueVectorParam;
 import animator.phantom.renderer.param.AnimationKeyFrame;
@@ -73,6 +80,7 @@ import animator.phantom.renderer.param.KeyFrameParam;
 import animator.phantom.renderer.param.Param;
 import animator.phantom.undo.PhantomUndoManager;
 import animator.phantom.undo.layercompositor.LCAddLayer;
+import animator.phantom.undo.layercompositor.LCDeleteLayer;
 import animator.phantom.xml.ImageOperationXML;
 import animator.phantom.xml.PhantomXML;
 
@@ -266,6 +274,17 @@ public class LayerCompositorMenuActions
 		iop.createKeyFramesDrawVector();
 		TimeLineController.initClipsGUI();
 	}
+	
+	public static void delete()
+	{
+		//--- If currently edited iop is among deleted, clear display and set ViewEditor mode to flow view
+		ImageOperation currentIOP = ParamEditController.getParamEditIOP();
+		if( currentIOP == null ) return;
+
+		LCDeleteLayer edit = new LCDeleteLayer( currentIOP );
+		edit.doEdit();
+	}
+	
 	//--- Display properties panel and changes.
 	public static void setProjectProperties()
 	{
@@ -348,16 +367,13 @@ public class LayerCompositorMenuActions
 			ProjectController.setScreenSize( new Dimension( editWidth, editHeight ) );
 			ProjectController.setFramesPerSecond( editFps );
  			ProjectController.setLength( editLength );
+ 			
 			//--- Open old project with updated settings.
-			Application.getApplication().openProject( ProjectController.getProject() );
+			LayerCompositorApplication.getApplication().openProject( ProjectController.getProject() );
 
 			TimeLineController.addClips( oldClips );
 			TimeLineController.initClipEditorGUI();
-			//FlowController.clearSelection();
 		}
-
-		GUIComponents.renderFlowButtons.repaint();
-
 	}
 
 	public static void showProjectInfo()
@@ -566,12 +582,11 @@ public class LayerCompositorMenuActions
 	//------------------------------------------------------ Node
 	public static void renameSelected()
 	{
-		Vector<RenderNode> nodes = GUIComponents.renderFlowPanel.getSelectedNodes();
-		if( nodes.size() == 0 )
-			return;
-
-		RenderNode rn = nodes.elementAt( 0 );
-		ImageOperation iop = rn.getImageOperation();
+		ImageOperation iop = ParamEditController.getParamEditIOP();
+		if( iop == null ) return;
+		
+		RenderNode node = AppData.project.getRenderFlow().getNode( iop );
+		
 		String newName = DialogUtils.getTextInput( "Rename Node",
 							"New name",
 							iop.getName(),
@@ -582,7 +597,7 @@ public class LayerCompositorMenuActions
 
 		iop.setName( newName );
 
-		iopNameChanged( iop, rn );
+		iopNameChanged( iop, node );
 	}
 
 	private static void iopNameChanged( ImageOperation iop, RenderNode rn )
@@ -625,12 +640,11 @@ public class LayerCompositorMenuActions
 	//--- Clone seöected node
 	public static void cloneSelected()
 	{
-		Vector<RenderNode> nodes = GUIComponents.renderFlowPanel.getSelectedNodes();
-		if( nodes.size() == 0 )
-			return;
-
-		RenderNode rn = nodes.elementAt( 0 );
-		cloneNode( rn );
+		ImageOperation iop = ParamEditController.getParamEditIOP();
+		if( iop == null ) return;
+		
+		RenderNode node = AppData.project.getRenderFlow().getNode( iop );
+		cloneNode( node );
 	}
 
 	//--- Clone iop inside RenderNode
@@ -642,7 +656,8 @@ public class LayerCompositorMenuActions
 		ImageOperation cloneIOP = ImageOperationXML.getObject( iopElem, ProjectController.getProject(), false );
 		cloneIOP.loadParentIOP( ProjectController.getFlow() );
 
-		//FlowController.addIOPRightAway( cloneIOP );
+		LCAddLayer edit = new LCAddLayer( cloneIOP );
+		edit.doEdit();
 	}
 
 	public static void disableSelected()
@@ -852,6 +867,26 @@ public class LayerCompositorMenuActions
 		edit.doEdit();
 	}
 
+	public static void addFileSourceLayer( FileSource fs )
+	{
+		if( fs == null )
+			return;
+		ImageOperation addIOP = getNewIOPFromSource( fs );
+		LCAddLayer edit = new LCAddLayer( addIOP );
+		edit.doEdit();
+	}
+
+	private static ImageOperation getNewIOPFromSource( FileSource fs )
+	{
+		if( fs.getType() == FileSource.IMAGE_FILE )
+			return new FileImageSource( (FileSingleImageSource) fs );
+		if( fs.getType() == FileSource.IMAGE_SEQUENCE )
+			return new ImageSequenceIOP( (FileSequenceSource) fs );
+		if( fs.getType() == FileSource.VIDEO_FILE )
+			return new VideoClipIOP( (VideoClipSource) fs );
+		return null; //this will crash very soon, and it should
+	}
+	
 	/*
 	public static void addIOP( String className, Point p  )
 	{

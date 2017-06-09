@@ -93,14 +93,6 @@ public class UserActions
 			{
 				addFS.firstLoadData();
 				addFS.clearData();
-
-				if (GUIComponents.renderFlowPanel != null)
-				{
-					if (mouseX == -1 )
-						FlowController.addToCenterFromFileSource( addFS );
-					else
-						FlowController.addIOPFromFileSourceRightAway( addFS, new Point( mouseX, mouseY ));
-				}
 			}
 			mediaLoadUpdate();
 

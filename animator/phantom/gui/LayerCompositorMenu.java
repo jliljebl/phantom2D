@@ -57,6 +57,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 	//--- Edit
 	JMenuItem undo;
 	JMenuItem redo;
+	JMenuItem deleteSelected;
 	JMenuItem renameSelected;
 	JMenuItem enableSelected;
 	JMenuItem disableSelected;
@@ -158,6 +159,20 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 
 		editMenu.addSeparator();
 
+		deleteSelected = new JMenuItem("Delete");
+		deleteSelected.addActionListener(this);
+		editMenu.add( deleteSelected );
+
+		renameSelected = new JMenuItem("Rename");
+		renameSelected.addActionListener(this);
+		editMenu.add( renameSelected );
+		
+		cloneSelected = new JMenuItem("Clone");
+		cloneSelected.addActionListener(this);
+		editMenu.add( cloneSelected );
+		
+		editMenu.addSeparator();
+		
 		memorySettings = new JMenuItem("Memory Manager...");
 		memorySettings.addActionListener(this);
 		editMenu.add( memorySettings );
@@ -166,6 +181,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		diskCache.addActionListener(this);
 		editMenu.add( diskCache );
 
+		/*
 		editorLayout = new JMenuItem("Panel sizes...");
 		editorLayout.addActionListener(this);
 		editMenu.add( editorLayout );
@@ -173,13 +189,13 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		kfPreferences = new JMenuItem("Keyframe Preferences...");
 		kfPreferences.addActionListener(this);
 		editMenu.add( kfPreferences );
-
+		*/
 		//--------------------------- Media menu
 		mediaMenu = new JMenu("Project");
 		updateAppMediaMenu();
 
 		//------------------------------------ Node menu
-		JMenu iopMenu = new JMenu("Node");
+		JMenu iopMenu = new JMenu("Layer");
 
 		buildIOPMenu( iopMenu, this );
 
@@ -391,7 +407,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		//--------------------------------------------- Edit menu
 		if( e.getSource() == undo ) LayerCompositorMenuActions.undo();
 		if( e.getSource() == redo ) LayerCompositorMenuActions.redo();
-
+		if( e.getSource() == deleteSelected) LayerCompositorMenuActions.delete();
 		if( e.getSource() == renameSelected ) LayerCompositorMenuActions.renameSelected();
 		if( e.getSource() == cloneSelected ) LayerCompositorMenuActions.cloneSelected();
 		if( e.getSource() == disableSelected ) LayerCompositorMenuActions.disableSelected();
@@ -436,7 +452,8 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		if( e.getSource() instanceof MediaMenuItem )
 		{
 			MediaMenuItem source =  ( MediaMenuItem ) e.getSource();
-			FlowController.addToCenterFromFileSource( source.getFileSource() );
+			LayerCompositorMenuActions.addFileSourceLayer( source.getFileSource() );
+			//FlowController.addToCenterFromFileSource( source.getFileSource() );
 		}
 
 		if( e.getSource() instanceof IOPMenuItem )

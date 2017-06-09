@@ -42,7 +42,7 @@ import animator.phantom.controller.FlowController;
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.KeyActionController;
 import animator.phantom.controller.KeyStatus;
-import animator.phantom.controller.MenuActions;
+//import animator.phantom.controller.MenuActions;
 import animator.phantom.controller.ParamEditController;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.ProjectController;
@@ -54,7 +54,7 @@ import animator.phantom.controller.keyaction.DeleteAction;
 import animator.phantom.controller.keyaction.KeyUtils;
 import animator.phantom.controller.keyaction.PasteAction;
 import animator.phantom.controller.keyaction.SelectAllAction;
-import animator.phantom.gui.AnimatorMenu;
+//import animator.phantom.gui.AnimatorMenu;
 import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.IOPMenuItem;
@@ -168,12 +168,13 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		
 		editorPopup.addSeparator();
 		
+		/*
 		Vector<JMenu> nodeGroupMenus = AnimatorMenu.getNodesMenus( this );
 		for( JMenu subMenu : nodeGroupMenus )
 		{
 			editorPopup.add( subMenu );
 		}
-		
+		*/
 		//--- Key actions
 		setFocusable( true );
 		KeyUtils.setFocusAction( this, new DeleteAction(), "DELETE" );
@@ -802,6 +803,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 
 		Vector<FileSource> fileSources = ProjectController.getFileSources();
 		
+		/*
 		if (fileSources.size() > 0)
 		{
 			AnimatorMenu.fillFileSourcesMenu(mediaMenu, this);
@@ -813,7 +815,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 			noRefs.setFont(GUIResources.BASIC_FONT_ITALIC_11);
 			mediaMenu.add(noRefs);
 		}
-		
+		*/
 		mediaMenu.addSeparator();
 		
 		addVideo = new JMenuItem("Add Video Clips...");
@@ -837,7 +839,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		}
 		if( e.getSource() == renameNode )
 		{
-			MenuActions.renameSelected();
+			//MenuActions.renameSelected();
 		}
 		if( e.getSource() == setAsrenderTarget )
 		{
@@ -859,13 +861,13 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		
 		if( e.getSource() == freezeAllValues )
 		{
-			MenuActions.freezeAllToCurrent();
+			//MenuActions.freezeAllToCurrent();
 		}
 
 		if( e.getSource() instanceof IOPMenuItem )
 		{
 			IOPMenuItem source = ( IOPMenuItem ) e.getSource();
-			MenuActions.addIOP( source.getIopClassName(),  new Point(mediaPopUpX, mediaPopUpY) );
+			//MenuActions.addIOP( source.getIopClassName(),  new Point(mediaPopUpX, mediaPopUpY) );
 		}
 
 		if( e.getSource() instanceof MediaMenuItem )

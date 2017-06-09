@@ -10,6 +10,7 @@ import animator.phantom.renderer.RenderNode;
 
 public class LayerCompositorProject 
 {
+	
 	private Vector<LayerCompositorLayer> layers;
 	
 	
@@ -33,7 +34,17 @@ public class LayerCompositorProject
 		return addLayer;
 	}
 	
+	public void insertLayer( LayerCompositorLayer insertLayer, int index )
+	{
+		this.layers.insertElementAt( insertLayer, index );
+		
+		getFlow().addNode( insertLayer.getNode() );
 
+		connectLayers();
+
+		LayerCompositorUpdater.layerAddUpdate( insertLayer.getIop() );
+	}
+	
 	public void deleteLayer( LayerCompositorLayer deleteLayer )
 	{
 		RenderNode deleteNode = deleteLayer.getNode();
@@ -50,6 +61,19 @@ public class LayerCompositorProject
 			
 	}
 
+	public LayerCompositorLayer getLayer( ImageOperation iop )
+	{
+		for( LayerCompositorLayer layer : layers )
+		{
+			if( layer.getIop() == iop)
+				return layer;
+		}
+		
+		return null;
+	}
+	
+	public int getLayerIndex( LayerCompositorLayer layer ){ return layers.indexOf( layer ); }
+	
 	private Project getNodeProject()
 	{
 		return ProjectController.getProject();

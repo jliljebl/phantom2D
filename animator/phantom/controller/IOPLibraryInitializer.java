@@ -138,19 +138,19 @@ public class IOPLibraryInitializer
 		IOPLibrary.registerGroup( "Artistic" );
 		IOPLibrary.registerGroup( "Source" );
 		IOPLibrary.registerGroup( "Render" );
-		IOPLibrary.registerGroup( "Merge" );
+		//IOPLibrary.registerGroup( "Merge" );
 		IOPLibrary.registerGroup( "Key" );
 		IOPLibrary.registerGroup( "Alpha" );
 		IOPLibrary.registerGroup( "Mask" );
 		IOPLibrary.registerGroup( "Distort" );
 		IOPLibrary.registerGroup( "Animation" );
-		IOPLibrary.registerGroup( "Output" );
+		//IOPLibrary.registerGroup( "Output" );
 
 		//--- File sources.
 		IOPLibrary.registerIOP( new FileImageSource(), null );
 		IOPLibrary.registerIOP( new ImageSequenceIOP(), null );
 		IOPLibrary.registerIOP( new VideoClipIOP(), null );
-		IOPLibrary.registerIOP( new OutputIOP(), "Output" );
+		//IOPLibrary.registerIOP( new OutputIOP(), "Output" );
 		
 		//--- Color
 		IOPLibrary.registerPlugin( new InvertPlugin(), "Color" );
@@ -230,12 +230,13 @@ public class IOPLibraryInitializer
 		IOPLibrary.registerPlugin( new FBMPlugin(), "Render" ); 
 
 		//--- Merge
+		/*
 		IOPLibrary.registerIOP( new BasicTwoMergeIOP(), "Merge" );
 		IOPLibrary.registerPlugin( new ShapeMergePlugin(), "Merge" );
 		IOPLibrary.registerPlugin( new ShapeGridMergePlugin(), "Merge" );
 		IOPLibrary.registerPlugin( new SplitScreenPlugin(), "Merge" );
 		IOPLibrary.registerNonUserPlugin( new FileImagePatternMergePlugin() );
-
+		*/
 		//--- Key 
 		IOPLibrary.registerPlugin( new LumaKeyPlugin(), "Key" );
 		IOPLibrary.registerPlugin( new MatteModifyPlugin(), "Key" );
@@ -248,9 +249,9 @@ public class IOPLibraryInitializer
 		IOPLibrary.registerPlugin( new ImageToAlphaPlugin(), "Alpha" );
 		IOPLibrary.registerPlugin( new AlphaToImagePlugin(), "Alpha" );
 		IOPLibrary.registerPlugin( new DivideByAlphaPlugin(), "Alpha" );
-		IOPLibrary.registerPlugin( new AlphaReplacePlugin(), "Alpha" );
-		IOPLibrary.registerPlugin( new AlphaMergePlugin(), "Alpha" );
-		IOPLibrary.registerPlugin( new ImageToAlphaMergePlugin(), "Alpha" );
+		//IOPLibrary.registerPlugin( new AlphaReplacePlugin(), "Alpha" );
+		//IOPLibrary.registerPlugin( new AlphaMergePlugin(), "Alpha" );
+		//IOPLibrary.registerPlugin( new ImageToAlphaMergePlugin(), "Alpha" );
 
 		//--- Mask
 		IOPLibrary.registerPlugin( new PolyLineMaskPlugin(), "Mask" );

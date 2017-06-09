@@ -159,8 +159,8 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		initializing = true;
 
 		//--- app menu
-		AnimatorMenu menuBar = new AnimatorMenu();
-		setJMenuBar( menuBar );
+		//AnimatorMenu menuBar = new AnimatorMenu();
+		//setJMenuBar( menuBar );
 
 		//----------------------------------- flow Editor
 		int flowW = EditorPersistance.getIntPref( EditorPersistance.FLOW_WIDTH );
@@ -421,7 +421,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 
 		//--- Connect GUI components to be accessed elsewhere.
 		GUIComponents.animatorFrame = this;
-		GUIComponents.animatorMenu = menuBar;
+		//GUIComponents.animatorMenu = menuBar;
 		GUIComponents.renderFlowPanel = renderFlowPanel;//this has to be present when loading boxes.
 		GUIComponents.timeLineIOPColumnPanel = iopColumn;
 		GUIComponents.timeLineEditorPanel = timelineEditor;

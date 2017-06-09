@@ -191,7 +191,7 @@ public class Application extends AbstractApplication implements WindowListener
 	//---------------------------------------------- Hnadled WINDOW EVENTS
 	public void windowClosing(WindowEvent e)
 	{
-		MenuActions.quit();//catch for close confirmation
+		//MenuActions.quit();//catch for close confirmation
 	}
 
 }//end class

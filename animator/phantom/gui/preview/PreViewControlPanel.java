@@ -32,7 +32,6 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import animator.phantom.controller.AppUtils;
-import animator.phantom.controller.MenuActions;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.TimeLineController;

@@ -55,4 +55,17 @@ public class LayerCompositorUpdater
 		TimeLineController.initClipEditorGUI();		
 	}
 	
+	/*
+	EditorsController.setViewMode( EditorsController.FLOW_VIEW );
+	ParamEditController.clearEditframe();
+	
+	RenderNode node = AppData.project.getRenderFlow().getNode( currentIOP );
+	Vector<RenderNode> nodes = new Vector<RenderNode>();
+	nodes.add( node );
+	//--- Remove from editors.
+	TimeLineController.removeClipsCorrespondingtoNodes( nodes );
+	EditorsController.removeLayers( nodes );
+	EditorsController.clearKFEditIfNecessery( nodes );
+	*/
+	
 }//end class

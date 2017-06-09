@@ -141,6 +141,7 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 		//--- Set project.
 		ProjectController.reset();
 		ProjectController.setProject( project );
+		AppData.setProject( project );
 		
 		//--- 
 		AppData.layerProject = new LayerCompositorProject();
@@ -196,7 +197,7 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 	//---------------------------------------------- Hnadled WINDOW EVENTS
 	public void windowClosing(WindowEvent e)
 	{
-		MenuActions.quit();//catch for close confirmation
+		LayerCompositorMenuActions.quit();//catch for close confirmation
 	}
 
 }//end class

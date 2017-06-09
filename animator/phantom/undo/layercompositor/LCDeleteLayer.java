@@ -9,28 +9,26 @@ import animator.phantom.renderer.RenderNode;
 import animator.phantom.undo.PhantomUndoManager;
 
 
-public class LCAddLayer extends LCUndoableEdit
+public class LCDeleteLayer extends LCUndoableEdit
 {
-	private LayerCompositorLayer addLayer;
+	private LayerCompositorLayer deleteLayer;
+	private int layerIndex;
 	
-	
-	public LCAddLayer( ImageOperation addIOP )
+	public LCDeleteLayer( ImageOperation deleteIOP )
 	{
-		this.iop = addIOP;
-		this.iop.initIOPTimelineValues();
-		PhantomUndoManager.newIOPCreated( iop ); //--- Create initial state for Paramvalue change  undos
+		this.iop = deleteIOP;
 	}
 	
 	public void undo()
 	{
-		
-		layerProject().deleteLayer( this.addLayer );
+		layerProject().insertLayer( this.deleteLayer, this.layerIndex );
 	}
 	
 	public void redo()
 	{
-		
-		this.addLayer = layerProject().addLayer( this.iop );
+		this.deleteLayer = layerProject().getLayer( this.iop );
+		this.layerIndex = layerProject().getLayerIndex( this.deleteLayer );
+		layerProject().deleteLayer( this.deleteLayer );
 	}
 
 }//end class

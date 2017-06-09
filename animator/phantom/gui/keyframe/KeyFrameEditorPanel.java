@@ -42,7 +42,7 @@ import javax.swing.JPopupMenu;
 import animator.phantom.bezier.BezierSegment;
 import animator.phantom.controller.EditorsController;
 import animator.phantom.controller.KeyStatus;
-import animator.phantom.controller.MenuActions;
+import animator.phantom.controller.LayerCompositorMenuActions;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.gui.AnimFrameGUIParams;
@@ -758,8 +758,8 @@ public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseM
 
 	public void actionPerformed(ActionEvent e)
 	{
-		if( e.getSource() == setInterpolation ) MenuActions.setInterpolation();
-		if( e.getSource() == freezeAll ) MenuActions.freezeAllToCurrent();
+		if( e.getSource() == setInterpolation ) LayerCompositorMenuActions.setInterpolation();
+		if( e.getSource() == freezeAll ) LayerCompositorMenuActions.freezeAllToCurrent();
 		if( e.getSource() == selectFollowing ) EditorsController.selectFollowing();
 		if( e.getSource() == selectPrevious ) EditorsController.selectPrevious();
 	}

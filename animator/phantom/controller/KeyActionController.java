@@ -80,7 +80,7 @@ public class KeyActionController
 
 		if( source == GUIComponents.renderFlowPanel )
 		{
-			MenuActions.cloneNode((RenderNode) lastItems.elementAt( 0 ) );
+			//MenuActions.cloneNode((RenderNode) lastItems.elementAt( 0 ) );
 		}
 
 		if( source == GUIComponents.keyEditorContainerPanel )
