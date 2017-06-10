@@ -423,7 +423,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		GUIComponents.animatorFrame = this;
 		//GUIComponents.animatorMenu = menuBar;
 		GUIComponents.renderFlowPanel = renderFlowPanel;//this has to be present when loading boxes.
-		GUIComponents.timeLineIOPColumnPanel = iopColumn;
+		//GUIComponents.timeLineIOPColumnPanel = iopColumn;
 		GUIComponents.timeLineEditorPanel = timelineEditor;
 		GUIComponents.timeLineScaleDisplays.add( timeLineDisplay );
 		GUIComponents.timeLineScaleDisplays.add( KFtimeLineDisplay );

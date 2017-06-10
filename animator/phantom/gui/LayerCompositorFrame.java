@@ -85,6 +85,7 @@ import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 import animator.phantom.gui.timeline.TimeLineEditorLayout;
 import animator.phantom.gui.timeline.TimeLineEditorPanel;
 import animator.phantom.gui.timeline.TimeLineIOPColumnPanel;
+import animator.phantom.gui.timeline.TimeLineIOPColumnPanel2;
 import animator.phantom.gui.timeline.TimeLineRowLayout;
 import animator.phantom.gui.timeline.TimeLineToolButtons;
 import animator.phantom.gui.timeline.TimeLineControls;
@@ -107,12 +108,12 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 	public JToggleButton timelineButton;
 	public JToggleButton splineButton;
 
-	private JPanel flowHolder;
+	//private JPanel flowHolder;
 	private	JPanel timelinePanel;
 	private JPanel keyEditorPanel;
 	private TimeLineControls tlineControls;
 
-	private JPanel flowButtonsPane;
+	//private JPanel flowButtonsPane;
 	private JPanel tlineButtonsPane;
 	private JPanel kfButtonsPane;
 
@@ -245,7 +246,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 
 		//--------------------------------------- timeline editor
 		TimeLineDisplayPanel timeLineDisplay = new TimeLineDisplayPanel();
-		TimeLineIOPColumnPanel iopColumn = new TimeLineIOPColumnPanel();
+		TimeLineIOPColumnPanel2 iopColumn = new TimeLineIOPColumnPanel2();
 		TimeLineEditorPanel timelineEditor = new TimeLineEditorPanel();
 
 		JPanel timeDummyPanelTop = new JPanel();

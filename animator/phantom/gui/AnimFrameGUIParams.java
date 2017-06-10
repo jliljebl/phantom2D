@@ -31,8 +31,8 @@ public class AnimFrameGUIParams
 	public static int OUT_BORDER_WIDTH = 10;
 
 	//--- TIME EDITORS DRAW PARAMS
-	public static int TE_ROW_HEIGHT = 22;
-	public static int TE_LEFT_COLUMN_WIDTH = 180;
+	public static int TE_ROW_HEIGHT = 26;
+	public static int TE_LEFT_COLUMN_WIDTH = 290;
 	private static int TE_RIGHT_COLUMN_INSET = 55;
 	public static int TE_SMALL_WINDOW_INSET = 315;
 	public static int TE_SCALE_DISPLAY_HEIGHT = 22;

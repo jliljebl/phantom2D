@@ -24,6 +24,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Vector;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import animator.phantom.controller.GUIComponents;
@@ -36,32 +38,39 @@ import animator.phantom.gui.GUIColors;
 import animator.phantom.renderer.ImageOperation;
 
 //--- Left side panel of time line editor. Holds column of TimeLineIOPBoxes.
-public class TimeLineIOPColumnPanel extends JPanel implements MouseListener
+public class TimeLineIOPColumnPanel2 extends JPanel implements MouseListener
 {
-	private Vector <TimeLineIOPBox> iopBoxes = new Vector <TimeLineIOPBox>();
+	private Vector <TimeLineIOPBox2> iopBoxes = new Vector <TimeLineIOPBox2>();
 
 	//------------------------------------------------- CONSTRUCTOR	
-	public TimeLineIOPColumnPanel()
+	public TimeLineIOPColumnPanel2()
 	{	
-		addMouseListener( this );
+		setLayout( new TimeLineColumnColumnLayout() );
+		//addMouseListener( this );
 	}
 
 	//------------------------------------------------- INTERFACE
 	public void initGUI()
 	{
-		iopBoxes = new Vector <TimeLineIOPBox>();
+		removeAll();
+		
+		iopBoxes = new Vector <TimeLineIOPBox2>();
 		Vector<ImageOperation> clips = TimeLineController.getClips();
 		for( int i = 0; i < clips.size(); i++ )
 		{
-			TimeLineIOPBox addBox = new TimeLineIOPBox( clips.elementAt( i ));
+			TimeLineIOPBox2 addBox = new TimeLineIOPBox2( clips.elementAt( i ));
 			iopBoxes.addElement( addBox );
+			add( addBox );
 		}
+		
+		add( Box.createVerticalGlue() );
 		repaint();
 	}
 
 	//------------------------------------------------- MOUSE EVENTS
 	public void mousePressed(MouseEvent e)
 	{
+		/*
 		//--- Get click coordinates.
  		int y = e.getY() - GUIComponents.timeLineEditorPanel.getVerticalPos();
 		//--- Clik is not on any iopBox if too big y, deslect all and leave
@@ -85,6 +94,7 @@ public class TimeLineIOPColumnPanel extends JPanel implements MouseListener
 
 		TimeLineController.clipEditorRepaint();
 		UpdateController.editTargetIOPChangedFromClipEditor( clickedBox.getIop() );
+		*/
 	}
 	
 	//Only clicks are handled
@@ -94,6 +104,7 @@ public class TimeLineIOPColumnPanel extends JPanel implements MouseListener
 	//--- Double click opens iop in ParamEditor
 	public void mouseClicked(MouseEvent e)
 	{
+		/*
 		int y = e.getY() - GUIComponents.timeLineEditorPanel.getVerticalPos();
 		if( y > ( iopBoxes.size() * AnimFrameGUIParams.TE_ROW_HEIGHT ) - 1 )
 			return;
@@ -105,12 +116,16 @@ public class TimeLineIOPColumnPanel extends JPanel implements MouseListener
 			ParamEditController.displayEditFrame( clickedBox.getIop() );
 			repaint();
 		//}
+		 * */
+		 
 	}
 	public void mouseReleased(MouseEvent e){}
 
 	//------------------------------------------------- GRAPHICS 
+	/*
 	public void paintComponent( Graphics g )
 	{
+		
 		//--- Draw bg
 		g.setColor( GUIColors.timeLineColumnColor );
 		g.fillRect( 0, 0, getWidth(), getHeight() );
@@ -129,5 +144,6 @@ public class TimeLineIOPColumnPanel extends JPanel implements MouseListener
 					0 + AnimFrameGUIParams.TE_LEFT_COLUMN_WIDTH,
 					( iopBoxes.size() * AnimFrameGUIParams.TE_ROW_HEIGHT ) + 1 );
 	}
+	*/
 
 }//end class

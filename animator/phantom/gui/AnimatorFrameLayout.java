@@ -42,7 +42,6 @@ public class AnimatorFrameLayout implements LayoutManager
 	public static int BOTTOM_ROW_HEIGHT = 44;
 
 	public AnimatorFrameLayout( 	Component viewArea,
-									/*Component paramEditFrame,*/
 									Component editorArea,
 									Component bottomRow )
 	{
@@ -64,7 +63,6 @@ public class AnimatorFrameLayout implements LayoutManager
 			{
 				Component c = cont.getComponent(i);
 				if( c == viewArea ) layoutViewPane(c);
-				//if( c == paramEditFrame ) layoutParamEditFrame(c);
 				if( c == editorArea ) layoutEditorPane(c);
 				if( c == bottomRow ) layoutBottomRow(c);
 			}

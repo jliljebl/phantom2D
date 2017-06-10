@@ -42,6 +42,7 @@ import animator.phantom.gui.timeline.TimeLineControls;
 import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 import animator.phantom.gui.timeline.TimeLineEditorPanel;
 import animator.phantom.gui.timeline.TimeLineIOPColumnPanel;
+import animator.phantom.gui.timeline.TimeLineIOPColumnPanel2;
 import animator.phantom.gui.view.component.ViewControlButtons;
 import animator.phantom.gui.view.component.ViewEditor;
 import animator.phantom.gui.view.component.ViewSizeSelector;
@@ -61,7 +62,7 @@ public class GUIComponents
 	//--- GUI component for buttons used to control render flow
 	public static RenderFlowViewButtons renderFlowButtons;
 	//--- GUI component that displays names of components in timeline editing.
-	public static TimeLineIOPColumnPanel timeLineIOPColumnPanel;
+	public static TimeLineIOPColumnPanel2 timeLineIOPColumnPanel;
 	//--- GUI component for doing timeline editing
 	public static TimeLineEditorPanel timeLineEditorPanel;
 	//--- Gui components (2) for displaying timeline scale
