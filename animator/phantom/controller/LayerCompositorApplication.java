@@ -179,7 +179,7 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 		EditorsController.setViewSize( viewSize );
 
 		//--- Display loaded clips
-		TimeLineController.addClips( project.getLoadClips() );
+		TimeLineController.loadClips();
 		TimeLineController.initClipEditorGUI();
 
 		//--- Set cache sizes with current information.

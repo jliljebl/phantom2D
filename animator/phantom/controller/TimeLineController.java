@@ -273,49 +273,16 @@ public class TimeLineController
 	//----------------------------------------------- TIMELINE CLIP ACTIONS
 	//--- Clips being edited in timeline
 	public static Vector<ImageOperation> getClips(){ return timelineClips; }
-	//--- Add clips to timeline
-	public static void addClips( Vector<ImageOperation> addClips )
+	
+	public static void loadClips()
 	{
-		for( ImageOperation clip : addClips )
-			if( !clipsContain( clip ) )
-				timelineClips.add( clip );
-	}
-	//--- Removes clip
-	public static void removeClip( ImageOperation iop )
-	{
-		timelineClips.remove( iop );
+		timelineClips = AppData.layerProject.getLayerGUIIops();
 	}
 
 	//--- Return true if clips contain iop
 	public static boolean clipsContain( ImageOperation iop )
 	{
 		return timelineClips.contains( iop );
-	}
-
-	public static void sendClipsToTimeline()
-	{
-		Vector<ImageOperation> sendClips = GUIComponents.renderFlowPanel.getAllSelectedIOPs();
-		if( sendClips.size() == 0 ) return;
-
-		ClipAddUndoEdit addEdit = new ClipAddUndoEdit( sendClips );
-		addEdit.doEdit();
-		PhantomUndoManager.addUndoEdit( addEdit );
-	}
-
-	public static void removeClipsCorrespondingtoNodes( Vector<RenderNode> nodes )
-	{
-		for( int i = 0;  i < nodes.size(); i++ )
-		{
-			ImageOperation iop = ((RenderNode)nodes.elementAt( i )).getImageOperation();
-			removeClip( iop );
-		}
-		initClipEditorGUI();
-	}
-
-	public static void removeClips( Vector<ImageOperation> removeClips )
-	{
-		for( ImageOperation clip : removeClips )
-			removeClip( clip );
 	}
 
 	public static void targetIopChanged( ImageOperation iop )

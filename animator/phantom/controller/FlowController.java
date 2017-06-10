@@ -129,7 +129,7 @@ public class FlowController
 			if(  ParamEditController.getParamEditIOP() == node.getImageOperation() )
 				ParamEditController.clearEditframe();
 
-		TimeLineController.removeClipsCorrespondingtoNodes( vec );
+		//TimeLineController.removeClipsCorrespondingtoNodes( vec );
 		EditorsController.removeLayers( vec );
 		EditorsController.clearKFEditIfNecessery( vec );
 		//--- FlowPanel deletes boxes and arrows from its display.

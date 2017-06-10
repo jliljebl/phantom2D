@@ -53,7 +53,7 @@ public class NFNodeAddUndoEdit extends PhantomUndoableEdit
 		Vector<ImageOperation> addClips = new  Vector<ImageOperation>();
 		addClips.add( iop );
 
-		TimeLineController.removeClips( addClips );
+		TimeLineController.loadClips();
 		TimeLineController.initClipEditorGUI();
 	}
 
@@ -68,7 +68,7 @@ public class NFNodeAddUndoEdit extends PhantomUndoableEdit
 		Vector<ImageOperation> addClips = new  Vector<ImageOperation>();
 		addClips.add( iop );
 
-		TimeLineController.addClips( addClips );
+		TimeLineController.loadClips();
 		TimeLineController.initClipEditorGUI();
 
 	}

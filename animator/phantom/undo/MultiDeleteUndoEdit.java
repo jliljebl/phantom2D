@@ -102,7 +102,7 @@ public class MultiDeleteUndoEdit extends PhantomUndoableEdit
 		ImageOperation current = ParamEditController.getParamEditIOP();
 		if( current != null ) ParamEditController.clearEditframe();
 
-		TimeLineController.removeClipsCorrespondingtoNodes( removeNodes );
+		//TimeLineController.removeClipsCorrespondingtoNodes( removeNodes );
 		EditorsController.removeLayers( removeNodes );
 		EditorsController.clearKFEditIfNecessery( removeNodes );
 

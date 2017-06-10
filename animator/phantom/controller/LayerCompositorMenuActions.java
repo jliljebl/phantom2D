@@ -371,7 +371,7 @@ public class LayerCompositorMenuActions
 			//--- Open old project with updated settings.
 			LayerCompositorApplication.getApplication().openProject( ProjectController.getProject() );
 
-			TimeLineController.addClips( oldClips );
+			TimeLineController.loadClips();
 			TimeLineController.initClipEditorGUI();
 		}
 	}

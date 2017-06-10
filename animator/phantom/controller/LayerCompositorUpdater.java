@@ -34,7 +34,7 @@ public class LayerCompositorUpdater
 		Vector<ImageOperation> addClips = new  Vector<ImageOperation>();
 		addClips.add( addIOP );
 		
-		TimeLineController.addClips( addClips );
+		TimeLineController.loadClips();
 		TimeLineController.initClipEditorGUI();
 		ParamEditController.displayEditFrame( addIOP );// ALSO TO INIT PARAM NAMES IN RAW IOPS, plugins do this by them selves
 	}
@@ -51,7 +51,7 @@ public class LayerCompositorUpdater
 		ImageOperation iop = deleteNode.getImageOperation();
 		Vector<ImageOperation> deleteClips = new  Vector<ImageOperation>();
 		deleteClips.add( iop );
-		TimeLineController.removeClips( deleteClips );
+		TimeLineController.loadClips();
 		TimeLineController.initClipEditorGUI();		
 	}
 	

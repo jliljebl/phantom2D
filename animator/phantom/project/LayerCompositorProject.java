@@ -74,6 +74,17 @@ public class LayerCompositorProject
 	
 	public int getLayerIndex( LayerCompositorLayer layer ){ return layers.indexOf( layer ); }
 	
+	
+	public Vector<ImageOperation> getLayerGUIIops()
+	{
+		Vector<ImageOperation> layersIops = new Vector<ImageOperation>();
+		for( int i = this.layers.size() - 1; i > - 1; i-- )
+		{
+			layersIops.add( layers.elementAt(i).getIop() );
+		}
+		return layersIops;
+	}
+	
 	private Project getNodeProject()
 	{
 		return ProjectController.getProject();

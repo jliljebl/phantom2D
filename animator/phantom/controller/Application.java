@@ -173,7 +173,7 @@ public class Application extends AbstractApplication implements WindowListener
 		EditorsController.setViewSize( viewSize );
 
 		//--- Display loaded clips
-		TimeLineController.addClips( project.getLoadClips() );
+		//TimeLineController.addClips( project.getLoadClips() );
 		TimeLineController.initClipEditorGUI();
 
 		//--- Set cache sizes with current information.

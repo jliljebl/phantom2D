@@ -37,13 +37,13 @@ public class ClipAddUndoEdit extends PhantomUndoableEdit
 
 	public void undo()
 	{
-		TimeLineController.removeClips( clips );
+		TimeLineController.loadClips();
 		TimeLineController.initClipEditorGUI();
 	}
 
 	public void redo()
 	{
-		TimeLineController.addClips( clips );
+		//TimeLineController.addClips( clips );
 		TimeLineController.setAsSingleSelectedClip( UpdateController.getTargetIOP() );
 		TimeLineController.initClipEditorGUI();
 		//GUIComponents.animatorFrame.setEditorTabSelected( AnimatorFrame.CLIP_EDITOR_TAB_INDEX );
