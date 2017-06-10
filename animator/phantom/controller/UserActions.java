@@ -149,12 +149,13 @@ public class UserActions
 			ProjectController.addFileSourcesToProject( fsVec );
 			addFS.firstLoadData();
 			addFS.clearData();
-			FlowController.addToCenterFromFileSource( addFS );
+			//FlowController.addToCenterFromFileSource( addFS );
 
 			mediaLoadUpdate();
 
 			//--- MemoryManager needs to update cache.
 			MemoryManager.fileSourcesAdded();
+			
 		}
 		catch( Exception e )
 		{
@@ -165,7 +166,6 @@ public class UserActions
 								"files of a type that is not supported by Phantom2D." };
 					DialogUtils.showTwoTextStyleDialog( JOptionPane.WARNING_MESSAGE, null, buttons, bLines, tLines );
 		}
-
 	}
 
 	private static void mediaLoadUpdate()
