@@ -30,7 +30,7 @@ public class FileSourceEditLayer extends AnchorRectEditLayer
 	public FileSourceEditLayer( FileImageSource fImgSource )
 	{
 		super( fImgSource, fImgSource.getImageSize() );
-		name = fImgSource.getName();
+		setName( fImgSource.getName() );
 		registerFileSource( fImgSource.getFileSource() );
 	}
 

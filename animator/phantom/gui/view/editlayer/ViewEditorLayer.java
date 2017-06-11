@@ -27,6 +27,9 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
+import javax.swing.JLabel;
+
+import animator.phantom.controller.AppData;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.gui.view.EditPoint;
@@ -36,6 +39,7 @@ import animator.phantom.gui.view.component.ViewControlButtons;
 import animator.phantom.gui.view.component.ViewEditor;
 import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.ImageOperation;
+import animator.phantom.renderer.RenderNode;
 
 
 /**
@@ -143,7 +147,12 @@ public abstract class ViewEditorLayer
 	* Sets used displayed name for layer. This may be clalled repetedly if user renames nodes.
 	* @param newName New name for layer.
 	*/
-	public void setName( String newName ){ name = newName; }
+	public void setName( String newName )
+	{ 
+		RenderNode node = AppData.getFlow().getNode( iop );
+		String idStr = "#" + Integer.toString( node.getID() ) + " ";
+		name = idStr + newName; 
+	}
 	/**
 	* Returns name of edit layer. 
 	* @return Layer name.

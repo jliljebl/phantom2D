@@ -29,7 +29,7 @@ import animator.phantom.gui.AnimatorFrame;
 import animator.phantom.gui.MenuBarCallbackInterface;
 import animator.phantom.gui.NodesPanel;
 import animator.phantom.gui.flow.FlowEditPanel;
-import animator.phantom.gui.flow.RenderFlowViewButtons;
+//import animator.phantom.gui.flow.RenderFlowViewButtons;
 import animator.phantom.gui.keyframe.KFColumnPanel;
 import animator.phantom.gui.keyframe.KFToolButtons;
 import animator.phantom.gui.keyframe.KeyFrameEditorPanel;
@@ -60,7 +60,7 @@ public class GUIComponents
 	//--- GUI component for editing mainly image positions on movie screen.
 	public static ViewEditor viewEditor;
 	//--- GUI component for buttons used to control render flow
-	public static RenderFlowViewButtons renderFlowButtons;
+	//public static RenderFlowViewButtons renderFlowButtons;
 	//--- GUI component that displays names of components in timeline editing.
 	public static TimeLineIOPColumnPanel2 timeLineIOPColumnPanel;
 	//--- GUI component for doing timeline editing
@@ -107,7 +107,7 @@ public class GUIComponents
 		animatorMenu = null;
 		renderFlowPanel = null;
 		viewEditor = null;
-		renderFlowButtons = null;
+		//renderFlowButtons = null;
 		ParamEditController.paramEditFrame = null;
 		timeLineIOPColumnPanel = null;
 		timeLineEditorPanel = null;

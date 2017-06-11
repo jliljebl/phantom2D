@@ -43,6 +43,7 @@ import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
+import animator.phantom.controller.AppData;
 import animator.phantom.controller.AppUtils;
 import animator.phantom.controller.Application;
 import animator.phantom.controller.EditorPersistance;
@@ -72,7 +73,7 @@ import animator.phantom.controller.keyaction.TimelineZoomInAction;
 import animator.phantom.controller.keyaction.TimelineZoomOutAction;
 import animator.phantom.gui.flow.FlowBox;
 import animator.phantom.gui.flow.FlowEditPanel;
-import animator.phantom.gui.flow.RenderFlowViewButtons;
+//import animator.phantom.gui.flow.RenderFlowViewButtons;
 import animator.phantom.gui.keyframe.KFColumnPanel;
 import animator.phantom.gui.keyframe.KFToolButtons;
 import animator.phantom.gui.keyframe.KeyFrameEditorPanel;
@@ -166,32 +167,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		//----------------------------------- flow Editor
 		int flowW = EditorPersistance.getIntPref( EditorPersistance.FLOW_WIDTH );
 		int flowH = EditorPersistance.getIntPref( EditorPersistance.FLOW_HEIGHT );
-			
-		/*
- 		renderFlowPanel = new FlowEditPanel( flowW, flowH );
-		Vector<FlowBox> boxes = ProjectController.getBoxes();
-		renderFlowPanel.loadBoxes( boxes );
-		
-		RenderFlowViewButtons renderFlowButtons = new RenderFlowViewButtons( this );
 
-		JScrollPane flowScrollPane = new JScrollPane( renderFlowPanel,
-			 ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-			 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS );
-		flowScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-		JScrollBar vbf = flowScrollPane.getVerticalScrollBar();
-		vbf.setUI( new PHScrollUI() );
-		JScrollBar hbf = flowScrollPane.getHorizontalScrollBar();
-		hbf.setUI( new PHScrollUI() );
-
-		flowHolder = new JPanel();
-		flowHolder.add( flowScrollPane );
-		flowViewPort = flowScrollPane.getViewport();
-
-		JPanel flowPane = new JPanel();
-		flowPane.setLayout( new EditorsLayout() );
-		flowPane.add( flowHolder );
-		*/
-		
 		//-------------------------------------- Timecode display
 		TCDisplay timecodeDisplay = new TCDisplay("00:00:00");
 
@@ -350,12 +326,6 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		tlineControls = new TimeLineControls();
 
 		//---------------------------------------------------------- editor buttons panes
-		/*
-		flowButtonsPane = new JPanel();
-		flowButtonsPane.setLayout( new BoxLayout( flowButtonsPane, BoxLayout.X_AXIS));
-		flowButtonsPane.add( Box.createRigidArea(new Dimension( 5, 0 ) ) );
-		flowButtonsPane.add( renderFlowButtons );
-		*/
 		TimeLineToolButtons timeLineToolButtons = new TimeLineToolButtons();
 		tlineButtonsPane = new JPanel();
 		tlineButtonsPane.setLayout(new BoxLayout( tlineButtonsPane, BoxLayout.X_AXIS));
@@ -394,15 +364,6 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		JLabel projectInfoLabel = new JLabel();
 		projectInfoLabel.setFont( GUIResources.BASIC_FONT_11 );
 
-		/*
-		JPanel realContentPanel = new JPanel();
-		ContentPaneLayout rclayout = new ContentPaneLayout();
-		realContentPanel.setLayout( rclayout );
-		realContentPanel.add( flowPane );
-		realContentPanel.add( flowButtonsPane );
-		realContentPanel.add( contentPane );
-		realContentPanel.add( projectInfoLabel );
-		*/
 		//--- global keyactions.
 		KeyUtils.clearGlobalActions();
 		KeyUtils.setGlobalAction( new CTRLPressedAction(), "ctrl pressed CONTROL" );
@@ -435,6 +396,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		//GUIComponents.renderFlowButtons = renderFlowButtons;
 		GUIComponents.tcDisplay = timecodeDisplay;
 		ParamEditController.paramEditFrame = editFrame;
+		AppData.setParamEditFrame( editFrame );
 		GUIComponents.viewEditor = viewEdit;
 		GUIComponents.kfColumnPanel = kfColumnPanel;
 		GUIComponents.keyFrameEditPanel = kfEditPanel;
@@ -481,6 +443,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		editorsPane.add( timelinePanel );
 
 		bottomRow.removeAll();
+		bottomRow.add( Box.createRigidArea(new Dimension( 12, 0 ) ) );
 		bottomRow.add( editSwitchButtons );
 		bottomRow.add( Box.createRigidArea(new Dimension( 10, 0 ) ) );
 		bottomRow.add( tlineButtonsPane );
@@ -498,6 +461,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		editorsPane.add( keyEditorPanel );
 
 		bottomRow.removeAll();
+		bottomRow.add( Box.createRigidArea(new Dimension( 12, 0 ) ) );
 		bottomRow.add( editSwitchButtons );
 		bottomRow.add( Box.createRigidArea(new Dimension( 10, 0 ) ) );
 		bottomRow.add( kfButtonsPane );

@@ -32,7 +32,7 @@ public class TimeLineColumnRowLayout implements LayoutManager
 	private static final int START_GAP = 2;
 	private static final int TOP_GAP = 2;
 	private static final int ID_WIDTH = 24;
-	private static final int NAME_WIDTH = 130;
+	private static final int NAME_WIDTH = 150;
 	private static final int ACTIVE_WIDTH = 18;
 	private static final int BLEND_WIDTH = AnimFrameGUIParams.TE_LEFT_COLUMN_WIDTH - ID_WIDTH - NAME_WIDTH - ACTIVE_WIDTH - START_GAP;
 	
@@ -57,21 +57,21 @@ public class TimeLineColumnRowLayout implements LayoutManager
     					//--- ID label
     					case 0:
     						c.setBounds( 	START_GAP,
-    										TOP_GAP,
+    										0,
 		    								ID_WIDTH,
 		    								AnimFrameGUIParams.TE_ROW_HEIGHT);
     						break;
     					//--- Name label
     					case 1:
     						c.setBounds( 	ID_WIDTH,
-    										TOP_GAP ,
+    										0 ,
 		    								NAME_WIDTH,
 		    								AnimFrameGUIParams.TE_ROW_HEIGHT);
     						break;
         				//--- checkbox
         				case 2:
     						c.setBounds( 	ID_WIDTH + NAME_WIDTH,
-    										TOP_GAP,
+    										0,
 		    								ACTIVE_WIDTH,
 		    								AnimFrameGUIParams.TE_ROW_HEIGHT);
     						break;
@@ -80,7 +80,7 @@ public class TimeLineColumnRowLayout implements LayoutManager
     						c.setBounds( 	ID_WIDTH + NAME_WIDTH + ACTIVE_WIDTH,
     										TOP_GAP,
 		    								BLEND_WIDTH,
-		    								AnimFrameGUIParams.TE_ROW_HEIGHT - 2);
+		    								AnimFrameGUIParams.TE_ROW_HEIGHT - 4);
     						break;	
     					default:
     						break;

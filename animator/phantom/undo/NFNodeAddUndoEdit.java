@@ -60,7 +60,7 @@ public class NFNodeAddUndoEdit extends PhantomUndoableEdit
 	public void redo()
 	{
 
-		FlowController.addRenderNode( node );
+		//FlowController.addRenderNode( node );
 
 		ImageOperation iop = node.getImageOperation();
 

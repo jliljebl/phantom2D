@@ -63,7 +63,7 @@ public class TimeLineIOPColumnPanel2 extends JPanel implements MouseListener
 			add( addBox );
 		}
 		
-		add( Box.createVerticalGlue() );
+		//add( Box.createVerticalGlue() );
 		repaint();
 	}
 

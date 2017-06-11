@@ -144,7 +144,7 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 		AppData.setProject( project );
 		
 		//--- 
-		AppData.layerProject = new LayerCompositorProject();
+		AppData.setLayerProject( new LayerCompositorProject() );
 		
 
 		//--- Blender

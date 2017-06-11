@@ -34,6 +34,7 @@ public class KeyActionController
 	//@SuppressWarnings("unchecked")
 	public static void copyItems( Object source )
 	{
+		/*
 		lastSource = source;
 		Vector<Object> items = new Vector<Object>();
 
@@ -57,9 +58,10 @@ public class KeyActionController
 		{
 			items = (Vector<Object>) GUIComponents.binsPanel.currentSelectPanel().getSelectedPanels().clone();
 		}
-		*/
+		
 		
 		lastItems = items;
+		*/
 	}
 
 	public static void setSinglePasteItem( Object source, Object item )
@@ -98,7 +100,7 @@ public class KeyActionController
 
 		if( source == GUIComponents.renderFlowPanel )
 		{
-			FlowController.deleteSelected(); 
+			//FlowController.deleteSelected(); 
 		}
 
 	}
@@ -108,7 +110,7 @@ public class KeyActionController
 
 		if( source == GUIComponents.renderFlowPanel )
 		{
-			FlowController.selectAll(); 
+			//FlowController.selectAll(); 
 		}
 
 		/*
@@ -124,7 +126,7 @@ public class KeyActionController
 
 		if( source == GUIComponents.renderFlowPanel )
 		{
-			FlowController.clearSelection(); 
+			//FlowController.clearSelection(); 
 		}
 
 		/*

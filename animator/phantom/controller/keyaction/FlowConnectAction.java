@@ -29,6 +29,6 @@ public class FlowConnectAction extends AbstractAction
 {
 	public void actionPerformed( ActionEvent e )
 	{
-		FlowController.connectSelected();
+		//FlowController.connectSelected();
 	}
 }

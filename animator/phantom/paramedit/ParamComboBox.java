@@ -108,20 +108,6 @@ public abstract class ParamComboBox extends JPanel
 		rightPanel.add( Box.createHorizontalGlue() );
 	}
 	/**
-	* Reinitialises component with new options.
-	* @param text Displayed name for editor and parameter. Parameter name is not set.
-	* @param options Options texts.
-	* @param listener Selection change listener.
-	*/
-	/*
-	protected void reInitComboBox( String text, String[] options, ActionListener listener )
-	{
-		makeAndPlaceComponents( text, options, listener );
-		validate();
-		repaint();
-	}
-	*/
-	/**
 	* Sets font used to display options
 	* @param font Options font.
 	*/
@@ -146,5 +132,15 @@ public abstract class ParamComboBox extends JPanel
 	* @param newIndex New selected index of combo box options.
 	*/
 	public void setSelectedIndex( int newIndex ){ comboBox.setSelectedIndex( newIndex ); }
+
+	
+	public void setTransparent()
+	{
+		setOpaque( false );
+		comboBox.setOpaque( false );
+		textLabel.setOpaque( false );
+		rightPanel.setOpaque( false );
+		leftPanel.setOpaque( false );
+	}
 
 }//end class

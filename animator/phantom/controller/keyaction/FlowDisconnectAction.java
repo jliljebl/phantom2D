@@ -29,6 +29,6 @@ public class FlowDisconnectAction extends AbstractAction
 {
 	public void actionPerformed( ActionEvent e )
 	{
-		FlowController.disConnectSelected();
+		//FlowController.disConnectSelected();
 	}
 }

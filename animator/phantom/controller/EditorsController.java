@@ -79,6 +79,7 @@ public class EditorsController
 		{
 			MovieRenderer movieRenderer = new MovieRenderer(  ProjectController.getFlow(), MovieRenderer.FULL_SIZE, 1 );
 
+			/*
 			if( viewMode == TARGET_VIEW )
 			{
 				if( FlowController.getViewTarget() != null )
@@ -93,7 +94,7 @@ public class EditorsController
 					return;
 				}
 			}
-
+			*/
 			if( viewMode == SELECT_VIEW )
 			{
 				ImageOperation selectedIOP = ParamEditController.getParamEditIOP();

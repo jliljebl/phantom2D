@@ -276,7 +276,7 @@ public class TimeLineController
 	
 	public static void loadClips()
 	{
-		timelineClips = AppData.layerProject.getLayerGUIIops();
+		timelineClips = AppData.getLayerProject().getLayerGUIIops();
 	}
 
 	//--- Return true if clips contain iop

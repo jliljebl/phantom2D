@@ -585,7 +585,7 @@ public class LayerCompositorMenuActions
 		ImageOperation iop = ParamEditController.getParamEditIOP();
 		if( iop == null ) return;
 		
-		RenderNode node = AppData.project.getRenderFlow().getNode( iop );
+		RenderNode node = AppData.getProject().getRenderFlow().getNode( iop );
 		
 		String newName = DialogUtils.getTextInput( "Rename Node",
 							"New name",
@@ -643,7 +643,7 @@ public class LayerCompositorMenuActions
 		ImageOperation iop = ParamEditController.getParamEditIOP();
 		if( iop == null ) return;
 		
-		RenderNode node = AppData.project.getRenderFlow().getNode( iop );
+		RenderNode node = AppData.getProject().getRenderFlow().getNode( iop );
 		cloneNode( node );
 	}
 
@@ -662,6 +662,7 @@ public class LayerCompositorMenuActions
 
 	public static void disableSelected()
 	{
+		/*
 		Vector<RenderNode> nodes = GUIComponents.renderFlowPanel.getSelectedNodes();
 		for( Object node : nodes )
 		{
@@ -670,10 +671,12 @@ public class LayerCompositorMenuActions
 			iop.setOnOffState( false );
 		}
 		UpdateController.valueChangeUpdate();
+		*/
 	}
 
 	public static void enableSelected()
 	{
+		/*
 		Vector<RenderNode> nodes = GUIComponents.renderFlowPanel.getSelectedNodes();
 		for( Object node : nodes )
 		{
@@ -682,6 +685,7 @@ public class LayerCompositorMenuActions
 			iop.setOnOffState( true );
 		}
 		UpdateController.valueChangeUpdate();
+		*/
 	}
 
 	//------------------------------------------------------ bin

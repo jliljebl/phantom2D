@@ -29,6 +29,6 @@ public class FlowArrangeAction extends AbstractAction
 {
 	public void actionPerformed( ActionEvent e )
 	{
-		FlowController.arrangeBoxRow();
+		//FlowController.arrangeBoxRow();
 	}
 }

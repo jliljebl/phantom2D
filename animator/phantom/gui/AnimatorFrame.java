@@ -72,7 +72,7 @@ import animator.phantom.controller.keyaction.TimelineZoomInAction;
 import animator.phantom.controller.keyaction.TimelineZoomOutAction;
 import animator.phantom.gui.flow.FlowBox;
 import animator.phantom.gui.flow.FlowEditPanel;
-import animator.phantom.gui.flow.RenderFlowViewButtons;
+//import animator.phantom.gui.flow.RenderFlowViewButtons;
 import animator.phantom.gui.keyframe.KFColumnPanel;
 import animator.phantom.gui.keyframe.KFToolButtons;
 import animator.phantom.gui.keyframe.KeyFrameEditorPanel;
@@ -163,6 +163,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		//setJMenuBar( menuBar );
 
 		//----------------------------------- flow Editor
+		/*
 		int flowW = EditorPersistance.getIntPref( EditorPersistance.FLOW_WIDTH );
 		int flowH = EditorPersistance.getIntPref( EditorPersistance.FLOW_HEIGHT );
 
@@ -170,7 +171,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		Vector<FlowBox> boxes = ProjectController.getBoxes();
 		renderFlowPanel.loadBoxes( boxes );
 
-		RenderFlowViewButtons renderFlowButtons = new RenderFlowViewButtons( this );
+		//RenderFlowViewButtons renderFlowButtons = new RenderFlowViewButtons( this );
 
 		JScrollPane flowScrollPane = new JScrollPane( renderFlowPanel,
 			 ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
@@ -188,7 +189,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		JPanel flowPane = new JPanel();
 		flowPane.setLayout( new EditorsLayout() );
 		flowPane.add( flowHolder );
-
+		*/
 		//-------------------------------------- Timecode display
 		TCDisplay timecodeDisplay = new TCDisplay("00:00:00");
 
@@ -350,7 +351,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		flowButtonsPane = new JPanel();
 		flowButtonsPane.setLayout( new BoxLayout( flowButtonsPane, BoxLayout.X_AXIS));
 		flowButtonsPane.add( Box.createRigidArea(new Dimension( 5, 0 ) ) );
-		flowButtonsPane.add( renderFlowButtons );
+		//flowButtonsPane.add( renderFlowButtons );
 
 		TimeLineToolButtons timeLineToolButtons = new TimeLineToolButtons();
 		tlineButtonsPane = new JPanel();
@@ -393,7 +394,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		JPanel realContentPanel = new JPanel();
 		ContentPaneLayout rclayout = new ContentPaneLayout();
 		realContentPanel.setLayout( rclayout );
-		realContentPanel.add( flowPane );
+		//realContentPanel.add( flowPane );
 		realContentPanel.add( flowButtonsPane );
 		realContentPanel.add( contentPane );
 		realContentPanel.add( projectInfoLabel );
@@ -427,7 +428,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		GUIComponents.timeLineEditorPanel = timelineEditor;
 		GUIComponents.timeLineScaleDisplays.add( timeLineDisplay );
 		GUIComponents.timeLineScaleDisplays.add( KFtimeLineDisplay );
-		GUIComponents.renderFlowButtons = renderFlowButtons;
+		//GUIComponents.renderFlowButtons = renderFlowButtons;
 		GUIComponents.tcDisplay = timecodeDisplay;
 		ParamEditController.paramEditFrame = editFrame;
 		GUIComponents.viewEditor = viewEdit;

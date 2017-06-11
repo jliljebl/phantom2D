@@ -30,23 +30,21 @@ import animator.phantom.controller.EditorPersistance;
 public class AnimatorFrameLayout implements LayoutManager
 {
 	private Component viewArea;
-	private Component paramEditFrame;
 	private Component editorArea;
 	private Component bottomRow;
 
 	private static Dimension containerSize;
 
 	public static int VIEW_H = EditorPersistance.getIntPref( EditorPersistance.LAYOUT_MID );
-	//public static int PARAM_EDIT_WIDTH = 350;
 	public static int MIDDLE_ROW_HEIGHT = 0;
 	public static int BOTTOM_ROW_HEIGHT = 44;
-
+	public static int VIEW_PAD = 12;
+	
 	public AnimatorFrameLayout( 	Component viewArea,
 									Component editorArea,
 									Component bottomRow )
 	{
 		this.viewArea = viewArea;
-		//this.paramEditFrame = paramEditFrame;
 		this.editorArea = editorArea;
 		this.bottomRow = bottomRow;
 	}
@@ -71,20 +69,9 @@ public class AnimatorFrameLayout implements LayoutManager
 
 	private void layoutViewPane( Component pane )
 	{
-		pane.setBounds( 0, 0, containerSize.width, VIEW_H );
+		pane.setBounds(VIEW_PAD, 0, containerSize.width - VIEW_PAD, VIEW_H );
 	}
 
-	/*
-	private void layoutParamEditFrame( Component pane )
-	{
-		pane.setBounds(  containerSize.width - PARAM_EDIT_WIDTH, 0, PARAM_EDIT_WIDTH, VIEW_H );
-	}
-
-	private void layoutEditorPane( Component pane )
-	{
-		pane.setBounds( 0, VIEW_H + MIDDLE_ROW_HEIGHT, containerSize.width - 6, containerSize.height - VIEW_H - MIDDLE_ROW_HEIGHT - BOTTOM_ROW_HEIGHT);
-	}
-	*/
 	private void layoutEditorPane( Component pane )
 	{
 		pane.setBounds( 0, VIEW_H + MIDDLE_ROW_HEIGHT, containerSize.width - 6, containerSize.height - VIEW_H - MIDDLE_ROW_HEIGHT - BOTTOM_ROW_HEIGHT);

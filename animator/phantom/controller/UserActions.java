@@ -172,7 +172,7 @@ public class UserActions
 	{
 		if (GUIComponents.renderFlowPanel != null)
 		{
-			GUIComponents.renderFlowPanel.updateMediaMenu();
+			//GUIComponents.renderFlowPanel.updateMediaMenu();
 		}
 		GUIComponents.animatorMenu.updateAppMediaMenu();
 		ProjectController.updateProjectInfo();

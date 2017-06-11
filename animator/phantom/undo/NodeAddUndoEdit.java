@@ -52,7 +52,7 @@ public class NodeAddUndoEdit extends PhantomUndoableEdit
 		GUIComponents.renderFlowPanel.boxes.remove( box );
 		GUIComponents.renderFlowPanel.selectedBoxes.remove( box );
 		GUIComponents.renderFlowPanel.lookUpGrid.removeFlowGraphicFromGridInArea( box, box.getArea() );	
-		FlowController.deleteRenderNodes( vec );
+		//FlowController.deleteRenderNodes( vec );
 			
 		GUIComponents.renderFlowPanel.repaint();
 
@@ -71,7 +71,7 @@ public class NodeAddUndoEdit extends PhantomUndoableEdit
 	{
 		GUIComponents.renderFlowPanel.boxes.add( box );
 		GUIComponents.renderFlowPanel.lookUpGrid.addFlowGraphicToGrid( box );
-		FlowController.addRenderNode( node );
+		//FlowController.addRenderNode( node );
 
 		GUIComponents.renderFlowPanel.repaint();
 		

@@ -44,8 +44,8 @@ import animator.phantom.renderer.imagesource.ImageSequenceIOP;
 import animator.phantom.renderer.imagesource.MovingBlendedIOP;
 import animator.phantom.renderer.imagesource.VideoClipIOP;
 import animator.phantom.renderer.plugin.FileImagePatternMergePlugin;
-import animator.phantom.undo.FlowMoveUndoEdit;
-import animator.phantom.undo.MultiArrowAddUndoEdit;
+//import animator.phantom.undo.FlowMoveUndoEdit;
+//import animator.phantom.undo.MultiArrowAddUndoEdit;
 import animator.phantom.undo.PhantomUndoManager;
 
 //--- This class holds state and logic for render flow
@@ -60,6 +60,7 @@ public class FlowController
 	//--- The one with iop displayed in ParamEditor
 	private static RenderNode editTargetNode = null;
 
+		/*
 	public static void addIOPFromFileSourceRightAway( FileSource fs, Point screenPoint )
 	{
 		// NOTE CODE DUPLICATION nearby methods
@@ -70,7 +71,8 @@ public class FlowController
 		addIOPNow( addIOP, screenPoint );
 
 	}
-
+	*/
+	/*
 	//--- Adds iop right away near center i flow editor.
 	public static void addToCenterFromFileSource( FileSource fs )
 	{
@@ -80,7 +82,8 @@ public class FlowController
 		Point p = GUIComponents.renderFlowPanel.getAddPos();
 		addIOPNow( addIOP, p );
 	}
-
+	*/
+	/*
 	public static void addFileMergeFromFileSource( FileSource fs )
 	{
 		if( fs == null )
@@ -90,14 +93,16 @@ public class FlowController
 		Point p = GUIComponents.renderFlowPanel.getAddPos();
 		addIOPNow( plugin.getIOP(), p );
 	}
-
+	*/
+	/*
 	//--- Adds iop right away near center i flow editor.
 	public static void addIOPRightAway( ImageOperation addIOP )
 	{
 		Point p = GUIComponents.renderFlowPanel.getAddPos();
 		addIOPNow( addIOP, p );
 	}
-
+	*/
+	/*
 	public static void addIOPNow( ImageOperation addIOP, Point p )
 	{
 		addIOP.initIOPTimelineValues();
@@ -105,7 +110,8 @@ public class FlowController
 		GUIComponents.renderFlowPanel.addIOPRightAway( addIOP, addP.x, addP.y );
 		ParamEditController.displayEditFrame( addIOP );// ALSO TO INIT PARAM NAMES IN RAW IOPS, plugins do this by them selves
 	}
-
+	-*/
+	/*
 	private static ImageOperation getNewIOPFromSource( FileSource fs )
 	{
 		if( fs.getType() == FileSource.IMAGE_FILE )
@@ -115,13 +121,16 @@ public class FlowController
 		if( fs.getType() == FileSource.VIDEO_FILE )
 			return new VideoClipIOP( (VideoClipSource) fs );
 		return null; //this will crash very soon, and it should
-	}
-
+		}
+	*/
+	/*
 	//--- Delete selected boxes and nodes from flow.
 	public static void deleteSelected()
 	{
 
 	}
+	*/
+	/*
 	//--- Deletes Vector of nodes. USed user forces a delete of file source that has some nodes using it.
 	public static void deleteVector( Vector<RenderNode> vec )
 	{
@@ -137,6 +146,8 @@ public class FlowController
 		//--- using callbacks ( FlowController.disconnectNodes(..), FlowController.deleteRenderNodes(...) )
 		GUIComponents.renderFlowPanel.deleteBoxes( vec );
 	}
+	*/
+	/*
 	//--- Called from RenderFlowPanel witch creates addNode.
 	public static void addRenderNode( RenderNode addNode )
 	{
@@ -168,6 +179,8 @@ public class FlowController
 			}
 		}.start();
 	}
+	*/
+	/*
 	//--- Called from FlowController.deleteSelected() when it's ready to delete nodes.
 	public static void deleteRenderNodes( Vector<RenderNode> nodes )
 	{
@@ -179,6 +192,8 @@ public class FlowController
 				 ParamEditController.clearEditframe();
 		}
 	}
+	*/
+	/*
 	//--- Connects provided nodes.
 	public static void connectNodes( RenderNode source, RenderNode target,
 								int sourceCIndex,int targetCIndex )
@@ -194,6 +209,7 @@ public class FlowController
 		ProjectController.getFlow().
 			disconnectNodes( source, target, sourceCIndex, targetCIndex);
 	}
+	*/
 	//--- Called when user changes outputs number for node.
 	public static void outputsNumberChanged( ImageOperation iop, int outputsNumber )
 	{
@@ -234,6 +250,7 @@ public class FlowController
 		*/
 	}
 
+		/*
 	//--- Creates of column of selected boxes.
 	public static void arrangeBoxRow()
 	{
@@ -276,13 +293,15 @@ public class FlowController
 			lookUpGrid.addFlowGraphicToGrid( arrow );
 		}
 
-		FlowMoveUndoEdit undoEdit = new FlowMoveUndoEdit( selectedBoxes, startPlaceBoxes,
-							arrowsToSelected, startAreasForArrows );
-		PhantomUndoManager.addUndoEdit( undoEdit );
+		//FlowMoveUndoEdit undoEdit = new FlowMoveUndoEdit( selectedBoxes, startPlaceBoxes,
+		//					arrowsToSelected, startAreasForArrows );
+		//PhantomUndoManager.addUndoEdit( undoEdit );
 
 		GUIComponents.renderFlowPanel.repaint();
 	}
+	*/
 	//---- Connects 2-n selected boxes in order
+	/*
 	public static void connectSelected()
 	{
 		Vector<FlowBox> selectedBoxes = GUIComponents.renderFlowPanel.getSelectedBoxes();
@@ -315,7 +334,7 @@ public class FlowController
 				lookUpGrid.addFlowGraphicToGrid( addArrow );
 
 				//--- Connect nodes.
-				connectNodes( b1.getRenderNode(), b2.getRenderNode(), targetid, sourceid );
+				//connectNodes( b1.getRenderNode(), b2.getRenderNode(), targetid, sourceid );
 			}
 		}
 
@@ -327,7 +346,9 @@ public class FlowController
 		GUIComponents.renderFlowPanel.repaint();
 		EditorsController.displayCurrentInViewEditor( false );
 	}
+	*/
 	//--- Disconnects selected nodes
+	/*
 	public static void disConnectSelected()
 	{
 		Vector<FlowBox> selectedBoxes = GUIComponents.renderFlowPanel.getSelectedBoxes();
@@ -374,6 +395,7 @@ public class FlowController
 		GUIComponents.renderFlowPanel.repaint();
 		EditorsController.displayCurrentInViewEditor( false );
 	}
+	*/
 	//--- Returns all arrows connected selected nodes
 	private static Vector<FlowConnectionArrow> getArrowsToSelected( Vector<FlowBox> selectedBoxes )
 	{
@@ -392,6 +414,7 @@ public class FlowController
 	//--- Flip selected node as view target, on if not, off if it already is view target
 	public static void viewTargetPressed()
 	{
+		/*
 		Vector<FlowBox> selectedBoxes = GUIComponents.renderFlowPanel.getSelectedBoxes();
 		if( selectedBoxes.size() == 0 )
 			return;
@@ -412,14 +435,16 @@ public class FlowController
 		GUIComponents.renderFlowPanel.repaint();
 		ParamEditController.updateEditFrame();
 		EditorsController.displayCurrentInViewEditor( false );
+		*/
 	}
 	//--- Target node handling. Called after removing nodes from flow.
 	//--- Set target null if current not in flow anymore.
+	/*
 	public static void updateViewTargetNode()
 	{
 		if( viewTargetNode == null ) return;
 		if(  ProjectController.getFlow().getNode( viewTargetNode.getID() ) == null ) viewTargetNode = null;
-		GUIComponents.renderFlowPanel.updateForViewTarget();
+		//GUIComponents.renderFlowPanel.updateForViewTarget();
 	}
 	//---
 	public static RenderNode getViewTarget()
@@ -434,7 +459,7 @@ public class FlowController
 		else
 			editTargetNode = ProjectController.getFlow().getNode( iop );
 
-		GUIComponents.renderFlowPanel.updateForEditTarget();
+		//GUIComponents.renderFlowPanel.updateForEditTarget();
 	}
 
 	public static RenderNode getEditTarget()
@@ -444,23 +469,24 @@ public class FlowController
 
 	public static void iopNameChanged( RenderNode node )
 	{
-		GUIComponents.renderFlowPanel.reCreateBox( node );
+		//GUIComponents.renderFlowPanel.reCreateBox( node );
 	}
 
 	public static void clearSelection()
 	{
-		GUIComponents.renderFlowPanel.deselectEverything();
-		GUIComponents.renderFlowPanel.repaint();
+		//GUIComponents.renderFlowPanel.deselectEverything();
+		//GUIComponents.renderFlowPanel.repaint();
 	}
 
 	public static void selectAll()
 	{
-		GUIComponents.renderFlowPanel.selectAll();
-		GUIComponents.renderFlowPanel.repaint();
+		//GUIComponents.renderFlowPanel.selectAll();
+		//GUIComponents.renderFlowPanel.repaint();
 	}
-
+*/
 	//--- Does undo if flow is cyclic, clears redos and displays message.
 	//--- This is called after edit is done and added to undo manager.
+	/*
 	public static void rollBackCyclic()
 	{
 		if( ProjectController.getFlow().isCyclic() )
@@ -473,7 +499,8 @@ public class FlowController
 			DialogUtils.showTwoStyleInfo( boldText, tLines, DialogUtils.WARNING_MESSAGE );
 		}
 	}
-
+	*/
+	/*
 	public static void replaceMedia( RenderNode targetNode )
 	{
 		MovingBlendedIOP originalIOP = (MovingBlendedIOP) targetNode.getImageOperation();
@@ -505,10 +532,10 @@ public class FlowController
 		if( retVal != DialogUtils.OK_OPTION ) return;
 
 		FileSource replacementFileSource = replacementSources.elementAt(replacementMedia.getSelectedIndex());
-		MovingBlendedIOP replacementIOP = (MovingBlendedIOP) getNewIOPFromSource( replacementFileSource );
+		//MovingBlendedIOP replacementIOP = (MovingBlendedIOP) getNewIOPFromSource( replacementFileSource );
 
 		originalIOP.cloneValuesToReplacement(replacementIOP);
-		replacementIOP.loadParentIOP( ProjectController.getFlow() );
+		//replacementIOP.loadParentIOP( ProjectController.getFlow() );
 
 		targetNode.setImageOperation(replacementIOP);
 
@@ -523,5 +550,5 @@ public class FlowController
 		iopNameChanged( targetNode );
 		PreviewController.renderAndDisplayCurrent();
 	}
-
+	*/
 }//end class

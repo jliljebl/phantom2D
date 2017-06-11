@@ -46,6 +46,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 
 import animator.phantom.blender.Blender;
+import animator.phantom.controller.AppData;
 import animator.phantom.controller.Application;
 import animator.phantom.controller.FlowController;
 import animator.phantom.controller.ProjectController;
@@ -754,8 +755,10 @@ public abstract class ImageOperation implements Comparable<Object>
 			AnimationParentPanel animParentPanel = null;
 			FilterStackPanel filterStackPanel = null;
 
-			if( switches == null )
+			if( switches == null && isFilterStackIop == true )
 				switchPanel = new OnOffPanel( this );
+			else if( switches == null && isFilterStackIop == false )
+				switchPanel = null;
 			else if( reducedSwitches )
 				switchPanel = new MaskSwitchPanel( this );
 			else
@@ -768,7 +771,8 @@ public abstract class ImageOperation implements Comparable<Object>
 				switchPanel = new SwitchPanel( this );
 			}
 
-			editFrame.add( switchPanel );
+			if( switchPanel != null )
+				editFrame.add( switchPanel );
 
 			JPanel addPanel = editFrame;
 			if( scrollPaneNeeded )
@@ -776,6 +780,7 @@ public abstract class ImageOperation implements Comparable<Object>
 				addPanel = new JPanel();
 				addPanel.setLayout(new BoxLayout( addPanel, BoxLayout.Y_AXIS));
 			}
+			addPanel.add( Box.createRigidArea( new Dimension( 0, 12 ) ) );
 			addPanel.add( getEditPanel() );
 			addPanel.add( new RowSeparator() );
 
@@ -828,8 +833,15 @@ public abstract class ImageOperation implements Comparable<Object>
 			name.setForeground( new Color( 50, 50, 50 ) );
 		}
 
+		RenderNode node = AppData.getFlow().getNode( this );
+		String idStr = Integer.toString( node.getID() );
+		JLabel idLabel = new JLabel( "#" + idStr );
+		idLabel.setForeground(new Color(140, 140, 140));
+		
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new BoxLayout( namePanel, BoxLayout.X_AXIS));
+		namePanel.add( Box.createRigidArea( new Dimension( 5, 0 ) ) );
+		namePanel.add( idLabel );
 		namePanel.add( Box.createRigidArea( new Dimension( 5, 0 ) ) );
 		namePanel.add( name );
 		namePanel.add( Box.createHorizontalGlue() );

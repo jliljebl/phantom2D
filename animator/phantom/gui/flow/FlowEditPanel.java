@@ -63,12 +63,12 @@ import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
 import animator.phantom.renderer.imagesource.MovingBlendedIOP;
-import animator.phantom.undo.MultiDeleteUndoEdit;
+//import animator.phantom.undo.MultiDeleteUndoEdit;
 import animator.phantom.undo.NodeAddUndoEdit;
 import animator.phantom.undo.PhantomUndoManager;
 
 //--- GUI component used to edit the render flow.
-public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionListener, ActionListener
+public class FlowEditPanel extends JPanel //implements MouseListener, MouseMotionListener, ActionListener
 {
 	//--- All boxes
 	public Vector<FlowBox> boxes;
@@ -81,7 +81,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 	//--- Movin and / or graphics that need to be updated.
 	public Vector<FlowGraphic> movingGraphics = new Vector<FlowGraphic> ();
 	//--- Edit mode that is in effect after mouse press.
-	private EditMode editMode;
+	//private EditMode editMode;
 	//--- ImageOperation being added.
 	private ImageOperation addIOP = null;
 	//--- Work area is divided into grid. Vectors in lookUpGrid[x][y] have references 
@@ -126,44 +126,44 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		setPreferredSize( new Dimension(width, height ) );
 
 		//--- Listeners
-		addMouseListener( this );
-		addMouseMotionListener( this );
+		//addMouseListener( this );
+		//addMouseMotionListener( this );
 
 		//--- Node context popup menu
 		popup = new JPopupMenu();
 
 		setAsrenderTarget = new JMenuItem("Set as View Editor Target");
-		setAsrenderTarget.addActionListener(this);
+		//setAsrenderTarget.addActionListener(this);
 		popup.add( setAsrenderTarget );
 
 		popup.addSeparator();
 
 		replaceMedia = new JMenuItem("Replace Media...");
-		replaceMedia.addActionListener(this);
+		//replaceMedia.addActionListener(this);
 		popup.add( replaceMedia );
 
 		popup.addSeparator();
 		
 		freezeAllValues = new JMenuItem("Freeze All Values To Current");
-		freezeAllValues.addActionListener(this);
+		//freezeAllValues.addActionListener(this);
 		popup.add( freezeAllValues );
 
 		popup.addSeparator();
 
 		renameNode = new JMenuItem("Rename");
-		renameNode.addActionListener(this);
+		//renameNode.addActionListener(this);
 		popup.add( renameNode );
 		cloneNode = new JMenuItem("Clone");
-		cloneNode.addActionListener(this);
+		//cloneNode.addActionListener(this);
 		popup.add( cloneNode );
 		deleteNode = new JMenuItem("Delete");
-		deleteNode.addActionListener(this);
+		//deleteNode.addActionListener(this);
 		popup.add( deleteNode );
 
 		//--- Node context popup menu
 		editorPopup = new JPopupMenu();
 		mediaList = new JMenu("Media");
-		updateMediaMenu();
+		//updateMediaMenu();
 		editorPopup.add( mediaList );
 		
 		editorPopup.addSeparator();
@@ -186,7 +186,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		setBackground( GUIColors.flowBGColor );
 	}
 	
-	
+	/*
 	//-------------------------------------------------------------- INTERFACE
 	//--- Used when opening loaded project.
 	//--- This is NOT an I/O operation, I/O already done.
@@ -325,7 +325,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		}
 	
 		//---- Delete the nodes from renderflow
-		FlowController.deleteRenderNodes( removeNodes );
+		//FlowController.deleteRenderNodes( removeNodes );
 			
 		arrows.removeAll( removeArrows );
 
@@ -397,7 +397,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		}
 	
 		//---- Delete the nodes from renderflow
-		FlowController.deleteRenderNodes( removeNodes );
+		//FlowController.deleteRenderNodes( removeNodes );
 			
 		arrows.removeAll( removeArrows );
 
@@ -803,7 +803,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 
 		Vector<FileSource> fileSources = ProjectController.getFileSources();
 		
-		/*
+		
 		if (fileSources.size() > 0)
 		{
 			AnimatorMenu.fillFileSourcesMenu(mediaMenu, this);
@@ -815,7 +815,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 			noRefs.setFont(GUIResources.BASIC_FONT_ITALIC_11);
 			mediaMenu.add(noRefs);
 		}
-		*/
+		
 		mediaMenu.addSeparator();
 		
 		addVideo = new JMenuItem("Add Video Clips...");
@@ -835,7 +835,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 	{
 		if( e.getSource() == deleteNode )
 		{
-			FlowController.deleteSelected();
+			//FlowController.deleteSelected();
 		}
 		if( e.getSource() == renameNode )
 		{
@@ -873,7 +873,7 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 		if( e.getSource() instanceof MediaMenuItem )
 		{
 			MediaMenuItem source =  ( MediaMenuItem ) e.getSource();
-			FlowController.addIOPFromFileSourceRightAway( source.getFileSource(), new Point(mediaPopUpX, mediaPopUpY));
+			//FlowController.addIOPFromFileSourceRightAway( source.getFileSource(), new Point(mediaPopUpX, mediaPopUpY));
 			//FlowController.addToCenterFromFileSource( source.getFileSource() );
 		}
 		if( e.getSource() == addImage )
@@ -963,5 +963,5 @@ public class FlowEditPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.dispose();
 	}
-
+	*/
 }//end class

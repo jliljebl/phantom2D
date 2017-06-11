@@ -17,6 +17,7 @@ public abstract class LCUndoableEdit extends PhantomUndoableEdit
 	
 	public LayerCompositorProject layerProject()
 	{
-		return AppData.layerProject;
+		return AppData.getLayerProject();
 	}
+	
 }//end class
