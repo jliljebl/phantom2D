@@ -52,11 +52,11 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 	private Vector<Vector<ImageOperation>> groupIops;
 	private Vector<Vector<String>> groupClasses;
 
-	private JLabel addFilterPopupArea = new JLabel(GUIResources.getIcon(  GUIResources.addClip ) );
-	private JButton addFilter = new JButton( GUIResources.getIcon(  GUIResources.addClip ) );
-	private JButton deleteFilter = new JButton( GUIResources.getIcon(  GUIResources.deleteClip ) );
-	private JButton filterDown = new JButton( GUIResources.getIcon(  GUIResources.clipDown ) );
-	private JButton filterUp = new JButton( GUIResources.getIcon( GUIResources.clipUp ) );
+	private JLabel addFilterPopupArea;
+	private JButton addFilter;
+	private JButton deleteFilter;
+	private JButton filterDown;
+	private JButton filterUp;
 	private JButton editTargetButton;
 
 	private static final int ROW_HEIGHT = 20;
@@ -65,18 +65,19 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 	private static final int STACK_TABLE_HEIGHT = 140;
 	private static final int NAME_PANEL_PAD = 8;
 	private static final int SUB_TITLE_GAP = 2;
-	
-	private static Vector<ImageOperation> filters;
 
 	public FilterStackPanel( ImageOperation iop ) 
 	{
 		this.iop = iop;
 		GUIComponents.filterStackPanel = this;
 
-		filters = IOPLibrary.getFilters();
-		Collections.sort( filters );
+		addFilterPopupArea = new JLabel(GUIResources.getIcon(  GUIResources.addClip ) );
+		addFilter = new JButton( GUIResources.getIcon(  GUIResources.addClip ) );
+		deleteFilter = new JButton( GUIResources.getIcon(  GUIResources.deleteClip ) );
+		filterDown = new JButton( GUIResources.getIcon(  GUIResources.clipDown ) );
+		filterUp = new JButton( GUIResources.getIcon( GUIResources.clipUp ) );
+		
 
-		addFilterPopupArea.addMouseListener( this );
 		
 		GUIResources.prepareMediumButton( addFilter, this, "Add Filter" );
 		GUIResources.prepareMediumButton( deleteFilter, this, "Delete Selected Filter" );
@@ -129,7 +130,8 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 		add( Box.createRigidArea( new Dimension( 0, BUTTON_TABLE_GAP ) ) );
 		add( stackScrollPane );
 
-		
+		this.setComponentPopupMenu( filtersPopup );
+
 		EmptyBorder b1 = new EmptyBorder( new Insets( 0,0,0,0 )); 
 		TitledBorder b2 = (TitledBorder) BorderFactory.createTitledBorder( 	b1,
 								"Layer Filters",
@@ -200,6 +202,7 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 				else
 				{
 					PhantomPlugin p = (PhantomPlugin) o;
+					System.out.println("kkkkkkk" + p.getName());
 					if( p.getIOP().makeAvailableInFilterStack == true )
 					{
 						//--- No merge type filters can be stack filters.
@@ -208,6 +211,7 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 	
 						iops.add( p.getIOP() );
 						filterClasses.add( p.getClass().getName() );
+						System.out.println(p.getName());
 					}
 				}
 	
@@ -266,6 +270,7 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 				ImageOperation iop = iops.elementAt( j );
 				String claasName  = classNames.elementAt( j );
 				IOPMenuItem item =  new IOPMenuItem( iop.getName(), claasName );
+				System.out.println("mmmm" + iop.getName());
 				item.addActionListener(listener);
 				subMenu.add( item );
 			}

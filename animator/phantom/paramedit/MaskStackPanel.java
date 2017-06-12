@@ -52,11 +52,11 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 	private Vector<Vector<ImageOperation>> groupIops;
 	private Vector<Vector<String>> groupClasses;
 
-	private JLabel addFilterPopupArea = new JLabel(GUIResources.getIcon(  GUIResources.addClip ) );
-	private JButton addFilter = new JButton( GUIResources.getIcon(  GUIResources.addClip ) );
-	private JButton deleteFilter = new JButton( GUIResources.getIcon(  GUIResources.deleteClip ) );
-	private JButton filterDown = new JButton( GUIResources.getIcon(  GUIResources.clipDown ) );
-	private JButton filterUp = new JButton( GUIResources.getIcon( GUIResources.clipUp ) );
+	private JLabel addFilterPopupArea;
+	private JButton addFilter;
+	private JButton deleteFilter;
+	private JButton filterDown;
+	private JButton filterUp;
 	private JButton editTargetButton;
 
 	private static final int ROW_HEIGHT = 20;
@@ -66,17 +66,23 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 	private static final int NAME_PANEL_PAD = 8;
 	private static final int SUB_TITLE_GAP = 2;
 	
-	private static Vector<ImageOperation> filters;
+	//private static Vector<ImageOperation> filters;
 
 	public MaskStackPanel( ImageOperation iop ) 
 	{
 		this.iop = iop;
 		//GUIComponents.filterStackPanel = this;
 
-		filters = IOPLibrary.getFilters();
-		Collections.sort( filters );
+		addFilterPopupArea = new JLabel(GUIResources.getIcon(  GUIResources.addClip ) );
+		addFilter = new JButton( GUIResources.getIcon(  GUIResources.addClip ) );
+		deleteFilter = new JButton( GUIResources.getIcon(  GUIResources.deleteClip ) );
+		filterDown = new JButton( GUIResources.getIcon(  GUIResources.clipDown ) );
+		filterUp = new JButton( GUIResources.getIcon( GUIResources.clipUp ) );
+		
+		//filters = IOPLibrary.getFilters();
+		//Collections.sort( filters );
 
-		addFilterPopupArea.addMouseListener( this );
+		//addFilterPopupArea.addMouseListener( this );
 		
 		GUIResources.prepareMediumButton( addFilter, this, "Add Filter" );
 		GUIResources.prepareMediumButton( deleteFilter, this, "Delete Selected Filter" );
@@ -117,9 +123,10 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 		    }
 		});
 		
-		initFilterStack( 0 );
+		//initFilterStack( 0 );
 		initPopupMenu();
-
+		addFilterPopupArea.setComponentPopupMenu( filtersPopup );
+		
 		JScrollPane stackScrollPane = new JScrollPane( stackTable );
 		GUIComponents.filterStackTablePane = stackScrollPane;
 		
@@ -128,7 +135,6 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 		add( stackButtons );
 		add( Box.createRigidArea( new Dimension( 0, BUTTON_TABLE_GAP ) ) );
 		add( stackScrollPane );
-
 		
 		EmptyBorder b1 = new EmptyBorder( new Insets( 0,0,0,0 )); 
 		TitledBorder b2 = (TitledBorder) BorderFactory.createTitledBorder( 	b1,
@@ -143,6 +149,7 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 
 	public ImageOperation getIop(){ return iop; }
 
+	/*
 	public void initFilterStack()
 	{
 		initFilterStack( stackTable.getSelectedRow() );
@@ -172,7 +179,7 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 
 		repaint();
 	}
-
+	*/
 	private void initPopupMenu()
 	{
 		groups = IOPLibrary.getGroupKeys();
@@ -191,26 +198,25 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 				if( o instanceof ImageOperation )
 				{
 					ImageOperation iop = (ImageOperation) o;
-					if( iop.makeAvailableInFilterStack == true )
+					if( iop.makeAvailableForLayerMasks == true )
 					{
 							iops.add( iop );
 							filterClasses.add( iop.getClass().getName() );
+							System.out.println(iop.getClass().getName());
 					}
 				}
 				else
 				{
 					PhantomPlugin p = (PhantomPlugin) o;
-					if( p.getType() == PhantomPlugin.FILTER )
+					System.out.println(p.getIOP().getClass().getName());
+					//--- No merge type filters can be stack filters.
+					if( p.getIOP().makeAvailableForLayerMasks == true )
 					{
-						//--- No merge type filters can be stack filters.
-						if( !p.getIOP().hasMaskInput() && p.getIOP().getInputsCount() == 2 )
-							continue;
-	
 						iops.add( p.getIOP() );
 						filterClasses.add( p.getClass().getName() );
+						System.out.println(p.getIOP().getClass().getName());
 					}
 				}
-	
 			}
 			groupIops.add( iops );
 			groupClasses.add( filterClasses );
@@ -264,8 +270,8 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 			for( int j = 0; j < iops.size(); j++ )
 			{
 				ImageOperation iop = iops.elementAt( j );
-				String claasName  = classNames.elementAt( j );
-				IOPMenuItem item =  new IOPMenuItem( iop.getName(), claasName );
+				String className  = classNames.elementAt( j );
+				IOPMenuItem item =  new IOPMenuItem( iop.getName(), className );
 				item.addActionListener(listener);
 				subMenu.add( item );
 			}
@@ -273,16 +279,17 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 		}
 		return groupMenus;
 	}
-	
+	/*
 	private Vector<String> getRowVec( String str )
 	{
 		Vector<String> vec = new Vector<String>();
 		vec.add( str );
 		return vec;
 	}
-	
+	*/
 	public void actionPerformed( ActionEvent e )
 	{
+		/*
 
 		if( e.getSource() == deleteFilter )
 		{
@@ -333,6 +340,7 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 			ImageOperation filterIop = IOPLibrary.getNewInstance( source.getIopClassName() );
 			ParamEditController.addSelectedIOPToFilterStack( filterIop );
 		}
+//		*/
 	}
 
 	public void mousePressed(MouseEvent e)

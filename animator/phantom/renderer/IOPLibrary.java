@@ -74,9 +74,10 @@ public class IOPLibrary
 		groupForClassName.put(plugin.getIOP().getClassIDName(), group );
 	}
 
-	public static void registerPluginNOFS( PhantomPlugin plugin, String group )
+	public static void registerPluginAlphaMask( PhantomPlugin plugin, String group )
 	{
 		plugin.getIOP().makeAvailableInFilterStack = false;
+		//plugin.getIOP().makeAvailableForLayerMasks = true;
 		registerPlugin( plugin, group );
 	}
 	

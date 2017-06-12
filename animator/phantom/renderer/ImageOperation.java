@@ -160,6 +160,8 @@ public abstract class ImageOperation implements Comparable<Object>
 	//--- PhantomPlugin.FILTER are always available with automated exceptions and don't need this, this is used for
 	//--- special casing.
 	public boolean makeAvailableInFilterStack = false;
+	//--- If set true this is made available to be added layer mask stack.
+	public boolean makeAvailableForLayerMasks = false;
 	//--- If true only visible and motionblur checkboxes displayed
 	private boolean reducedSwitches = false;
 	//--- if true, a button enabling centering anchor point is presented to user
