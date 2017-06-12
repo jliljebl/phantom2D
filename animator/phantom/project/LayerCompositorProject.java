@@ -21,6 +21,8 @@ public class LayerCompositorProject
 	
 	public LayerCompositorLayer addLayer( ImageOperation iop )
 	{
+		disconnectLayers();
+		
 		RenderNode addNode = new RenderNode( iop );
 		LayerCompositorLayer addLayer = new LayerCompositorLayer( addNode );
 		this.layers.add( addLayer );
@@ -36,6 +38,8 @@ public class LayerCompositorProject
 	
 	public void insertLayer( LayerCompositorLayer insertLayer, int index )
 	{
+		disconnectLayers();
+		
 		this.layers.insertElementAt( insertLayer, index );
 		
 		getFlow().addNode( insertLayer.getNode() );
@@ -47,6 +51,8 @@ public class LayerCompositorProject
 	
 	public void deleteLayer( LayerCompositorLayer deleteLayer )
 	{
+		disconnectLayers();
+		
 		RenderNode deleteNode = deleteLayer.getNode();
 		Vector<RenderNode> deleteVec = new Vector<RenderNode>();
 		deleteVec.add( deleteNode );
@@ -94,7 +100,7 @@ public class LayerCompositorProject
 	{
 		return getNodeProject().getRenderFlow();
 	}
-	
+		
 	private void connectLayers()
 	{
 		if ( this.layers.size() < 2 ) return;
@@ -103,9 +109,20 @@ public class LayerCompositorProject
 		{
 			RenderNode layerNode1 = this.layers.elementAt( i ).getNode();
 			RenderNode layerNode2 = this.layers.elementAt( i + 1 ).getNode();
-			getFlow().disconnectNodes( layerNode1, layerNode2, 0, 0);
 			getFlow().connectNodes( layerNode1, layerNode2, 0, 0);
 		}	
 	}
 
+	private void disconnectLayers()
+	{
+		if ( this.layers.size() < 2 ) return;
+		
+		for( int i = 0; i < this.layers.size() - 1; i++ )
+		{
+			RenderNode layerNode1 = this.layers.elementAt( i ).getNode();
+			RenderNode layerNode2 = this.layers.elementAt( i + 1 ).getNode();
+			getFlow().disconnectNodes( layerNode1, layerNode2, 0, 0);
+		}	
+	}
+	
 }//end class

@@ -164,7 +164,7 @@ public class NodeSelectItem extends JPanel implements MouseListener
 			if( e.getXOnScreen() > pt.x && e.getXOnScreen() < pt.x + GUIComponents.filterStackTablePane.getWidth()
 				&& e.getYOnScreen() > pt.y && e.getYOnScreen() < pt.y + GUIComponents.filterStackTablePane.getHeight() )
 			{
-				ParamEditController.addSelectedIOPToFilterStack();
+				//ParamEditController.addSelectedIOPToFilterStack();
 			}
 		}
 		dragOn = false;

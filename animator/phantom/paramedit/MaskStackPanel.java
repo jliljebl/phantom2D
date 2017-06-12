@@ -42,7 +42,7 @@ import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
 
-public class FilterStackPanel extends JPanel implements ActionListener, MouseListener
+public class MaskStackPanel extends JPanel implements ActionListener, MouseListener
 {
 	private ImageOperation iop;
 	private JTable stackTable;
@@ -68,10 +68,10 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 	
 	private static Vector<ImageOperation> filters;
 
-	public FilterStackPanel( ImageOperation iop ) 
+	public MaskStackPanel( ImageOperation iop ) 
 	{
 		this.iop = iop;
-		GUIComponents.filterStackPanel = this;
+		//GUIComponents.filterStackPanel = this;
 
 		filters = IOPLibrary.getFilters();
 		Collections.sort( filters );
@@ -132,7 +132,7 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 		
 		EmptyBorder b1 = new EmptyBorder( new Insets( 0,0,0,0 )); 
 		TitledBorder b2 = (TitledBorder) BorderFactory.createTitledBorder( 	b1,
-								"Layer Filters",
+								"Layer Masks",
 								TitledBorder.CENTER,
 								TitledBorder.TOP );
 		b2.setTitleColor( GUIColors.grayTitle );
@@ -200,7 +200,7 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 				else
 				{
 					PhantomPlugin p = (PhantomPlugin) o;
-					if( p.getIOP().makeAvailableInFilterStack == true )
+					if( p.getType() == PhantomPlugin.FILTER )
 					{
 						//--- No merge type filters can be stack filters.
 						if( !p.getIOP().hasMaskInput() && p.getIOP().getInputsCount() == 2 )

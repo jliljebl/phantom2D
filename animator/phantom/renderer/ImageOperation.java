@@ -56,6 +56,7 @@ import animator.phantom.gui.PHScrollUI;
 import animator.phantom.gui.view.editlayer.ViewEditorLayer;
 import animator.phantom.paramedit.AnimationParentPanel;
 import animator.phantom.paramedit.FilterStackPanel;
+import animator.phantom.paramedit.MaskStackPanel;
 import animator.phantom.paramedit.MaskSwitchPanel;
 import animator.phantom.paramedit.OnOffPanel;
 import animator.phantom.paramedit.ParamEditResources;
@@ -97,10 +98,8 @@ public abstract class ImageOperation implements Comparable<Object>
 	public static final int TRANSPARENT_BACKGROUND = 1;
 	//--- Filter tack size
 	public static final int STACK_MAX_SIZE = 7;
-
 	//--- If this is a plugin iop, plugin sets reference of self here
 	protected PhantomPlugin plugin = null;
-
 	//--- Clip type. FREE_LENGTH  or NOT_FREE_LENGTH
 	protected int clipType = FREE_LENGTH;
 	//--- The default number of sources for operation.
@@ -115,12 +114,10 @@ public abstract class ImageOperation implements Comparable<Object>
 	//--- It means that ImageOperation needs input to be meaningfull.
 	//--- if true, sourceImages.elementAt( 0 ) == null means iop will not be rendered
 	protected boolean NO_INPUT_MEANS_NO_OP = true;
-
 	//--- Name displayd to user.
 	protected String name = "name not set";
 	//--- Incremented ID for registered parameters.
 	private int nextParamId = 0;
-
 	//--- All parameters used to define rendering and animation operations.
 	protected Vector<Param> parameters = new Vector<Param>();
 	//--- All parameters that have keyframes. Subset of parameters.
@@ -142,16 +139,12 @@ public abstract class ImageOperation implements Comparable<Object>
 	protected boolean isOn = true;
 	//--- Backgroud type created for source images
 	public IntegerParam backgroundType = new IntegerParam( BLACK_BACKGROUND );
-
 	//--- File source of this instance. Only certain type of iops use this.
 	private FileSource fileSource = null;
-
 	//--- Switches data of this instance.
 	public SwitchData switches = null;
-
 	//--- Extending classes perform their render operations on this. This is the image received from above in the rendering flow.
 	protected BufferedImage renderedImage;
-
 	//--- Received source images. renderedImage == sourceImgs.elementAt( 0 )
 	private Vector<BufferedImage> sourceImgs;
 	//--- Copy of received image for alpha operations using inputMask. This is copy of renderedImage before rendering in this iop is done.
@@ -163,16 +156,14 @@ public abstract class ImageOperation implements Comparable<Object>
 	//--- True if iop is in Filter stack
 	//--- Filter stack iops are not part of flow and thus cannot have some attributes.
 	protected boolean isFilterStackIop = false;
-	//--- If set true this is added toiop available to be made added to filter stack.
-	//--- Some plugin types are made available automatically and don't need this, this is used for some
+	//--- If set true this is made available to be added to filter stack.
+	//--- PhantomPlugin.FILTER are always available with automated exceptions and don't need this, this is used for
 	//--- special casing.
 	public boolean makeAvailableInFilterStack = false;
-
 	//--- If true only visible and motionblur checkboxes displayed
 	private boolean reducedSwitches = false;
 	//--- if true, a button enabling centering anchor point is presented to user
 	private boolean centerable = false;
-
 	//--- First frame of ImageOperation in the timeline.
 	protected int beginFrame = 0;
 	//--- Maximum length of program. Is discarded if FREE_LENGTH. Default value not meaningfull.
@@ -185,7 +176,6 @@ public abstract class ImageOperation implements Comparable<Object>
 	private int looping = NO_LOOPING;
 	//--- Timeline edit lock.
 	private boolean locked = false;
-
 	//--- Type of parent.
 	public int parentMoverType = -1;
 	//--- Node id of parent.
@@ -784,17 +774,27 @@ public abstract class ImageOperation implements Comparable<Object>
 			addPanel.add( getEditPanel() );
 			addPanel.add( new RowSeparator() );
 
+
+
+			if( filterStackPanel != null )
+			{
+				addPanel.add( Box.createRigidArea( new Dimension( 0, 24 ) ) );
+				addPanel.add( filterStackPanel );
+			}
+
+			if( isFilterStackIop == false )
+			{
+				addPanel.add( Box.createRigidArea( new Dimension( 0, 24 ) ) );
+				MaskStackPanel maskStackPanel = new MaskStackPanel( this );
+				addPanel.add( maskStackPanel );
+			}
+			
 			if ( animParentPanel != null )
 			{
 				addPanel.add( Box.createRigidArea( new Dimension( 0, 12 ) ) );
 				addPanel.add( animParentPanel );
 			}
-
-			if( filterStackPanel != null )
-			{
-				addPanel.add( filterStackPanel );
-			}
-
+			
 			if( isFilterStackIop == true )
 			{
 				addPanel.add( Box.createRigidArea( new Dimension( 0, 24 ) ) );
@@ -833,9 +833,13 @@ public abstract class ImageOperation implements Comparable<Object>
 			name.setForeground( new Color( 50, 50, 50 ) );
 		}
 
-		RenderNode node = AppData.getFlow().getNode( this );
-		String idStr = Integer.toString( node.getID() );
-		JLabel idLabel = new JLabel( "#" + idStr );
+		String idStr = "";
+		if( !isFilterStackIop )
+		{
+			RenderNode node = AppData.getFlow().getNode( this );
+			idStr =  "#" + Integer.toString( node.getID() );
+		}	
+		JLabel idLabel = new JLabel( idStr );
 		idLabel.setForeground(new Color(140, 140, 140));
 		
 		JPanel namePanel = new JPanel();

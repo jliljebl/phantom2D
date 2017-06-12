@@ -58,9 +58,9 @@ public class DarkTheme extends OceanTheme
 	{
 		Font freeSans = GUIResources.getFont( GUIResources.FREE_SANS_PATH );
 		if( freeSans != null )
-			MENU_FONT = freeSans.deriveFont( Font.BOLD, 14.0f );
+			MENU_FONT = freeSans.deriveFont( Font.BOLD, 13.0f );
 		else
-			MENU_FONT = GUIResources.BASIC_FONT_14;
+			MENU_FONT = GUIResources.BASIC_FONT_13;
 
 		GUIColors.MEDIA_ITEM_TEXT_COLOR = light;
 		GUIColors.MEDIA_ITEM_SELECTED_BG = new Color( 48, 52, 65 );

@@ -72,9 +72,9 @@ public class ParamEditController
 		paramEditFrame.displayGUI();
 	}
 
-	public static void addSelectedIOPToFilterStack()
+	public static void addSelectedIOPToFilterStack( ImageOperation selIOP )
 	{
-		ImageOperation selIOP = GUIComponents.nodesPanel.getSelectedIOP();
+		//ImageOperation selIOP = GUIComponents.nodesPanel.getSelectedIOP();
 		if( editTarget.getFilterStack().size() < ImageOperation.STACK_MAX_SIZE )
 		{
 			ImageOperation addFilter;

@@ -226,7 +226,9 @@ public abstract class PhantomPlugin implements Comparable<Object>
 	private void initFilter()
 	{
 		checkInit();
-		innerInit( new PluginIOP( this ) );
+		PluginIOP pluginIop = new PluginIOP( this );
+		pluginIop.makeAvailableInFilterStack = true;
+		innerInit( pluginIop );
 	}
 	//--- init plugin type STATIC_SOURCE
 	private void initStaticSource()
@@ -444,7 +446,7 @@ public abstract class PhantomPlugin implements Comparable<Object>
 		//addRowSeparator();
 		//addEditor( maskOpSelect );
 	}
-	//-- Adds defauklt editor components for filter type MOVING SOURCE
+	//-- Adds default editor components for filter type MOVING SOURCE
 	private void addMovingSourceEditors()
 	{
 		CoordsEditComponents coords = new CoordsEditComponents( iop );
@@ -525,28 +527,7 @@ public abstract class PhantomPlugin implements Comparable<Object>
 		addRowSeparator();
 		addEditor( blurEdit );
 	}
-	/*
-	private void addThreeDeeEditors()
-	{
-		Camera3DSelect cameraEdit = new Camera3DSelect( ((Plugin3DSourceIOP) iop).cameraID );
 
-		AnimValueNumberEditor opacityEdit = new AnimValueNumberEditor( "Opacity", iop.opacity );
-		IntegerComboBox blendSelect = 
-			new IntegerComboBox( iop.blendMode,
-						"Blend mode",
-						iop.blendModes );
-		blendSelect.setMaxComboRows( iop.blendModes.length );
-		CheckBoxEditor aOverB = new CheckBoxEditor( ((Plugin3DSourceIOP)iop).useOverRule, "Transparent BG", true );
-
-		addEditor( cameraEdit );
-		addRowSeparator();
-		addEditor( opacityEdit );
-		addRowSeparator();
-		addEditor( blendSelect );
-		addRowSeparator();
-		addEditor( aOverB );
-	}
-	*/
 	//---------------------------------------------- RENDER METHODS
 	/**
 	* Override to implement plugin functionality for plugins of type FILTER, STATIC_SOURCE, MOVING_SOURCE, 
@@ -593,34 +574,10 @@ public abstract class PhantomPlugin implements Comparable<Object>
 			return null;
 			//return new ImageSequenceIOP( (FileSequenceSource) fs );
 		}
-		/*
-		if( fs.getType() == FileSource.MOVIE_FILE )
-		{
-			return null;
-			//return new MovieSourceIOP( (MovieSource) fs );
-		}
-		*/
+
 		
 		return null;// if we ever get here, this should crash.
 	}
-	/**
-	* Returns true if associated file source provides new image per frame.
-	*/
-	/*
-	public boolean fileSourceImageChangesPerFrame()
-	{
-		FileSource fs = getIOP().getFileSource();
-
-		if( fs.getType() == FileSource.IMAGE_FILE )
-			return false;
-		if( fs.getType() == FileSource.IMAGE_SEQUENCE ) 
-			return true;
-		if( fs.getType() == FileSource.SVG_FILE )
-			return false;
-		//--- fs.getType() == FileSource.MOVIE_FILE
-		return true;
-	}
-	*/
 	/**
 	* Returns AnimatedImageCoordinates object that controls animation affine transforms of plugin.
 	* @return AnimatedImageCoordinates object or <code>null</code> if plugin is of type that does not have this object. 

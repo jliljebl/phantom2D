@@ -74,6 +74,12 @@ public class IOPLibrary
 		groupForClassName.put(plugin.getIOP().getClassIDName(), group );
 	}
 
+	public static void registerPluginNOFS( PhantomPlugin plugin, String group )
+	{
+		plugin.getIOP().makeAvailableInFilterStack = false;
+		registerPlugin( plugin, group );
+	}
+	
 	public static void registerNonUserPlugin( PhantomPlugin plugin )
 	{
 		savePlugin( plugin );

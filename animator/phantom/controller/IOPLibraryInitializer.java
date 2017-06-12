@@ -238,27 +238,27 @@ public class IOPLibraryInitializer
 		IOPLibrary.registerNonUserPlugin( new FileImagePatternMergePlugin() );
 		*/
 		//--- Key 
-		IOPLibrary.registerPlugin( new LumaKeyPlugin(), "Key" );
-		IOPLibrary.registerPlugin( new MatteModifyPlugin(), "Key" );
-		IOPLibrary.registerPlugin( new GreenKeyPlugin(), "Key" );
-		IOPLibrary.registerPlugin( new ColorDifferenceKeyPlugin(), "Key" );
-		IOPLibrary.registerPlugin( new ColorSampleKeyPlugin(), "Key" );
-		IOPLibrary.registerPlugin( new SpillSuppressPlugin(), "Key" );
+		IOPLibrary.registerPluginNOFS( new LumaKeyPlugin(), "Key" );
+		IOPLibrary.registerPluginNOFS( new MatteModifyPlugin(), "Key" );
+		IOPLibrary.registerPluginNOFS( new GreenKeyPlugin(), "Key" );
+		IOPLibrary.registerPluginNOFS( new ColorDifferenceKeyPlugin(), "Key" );
+		IOPLibrary.registerPluginNOFS( new ColorSampleKeyPlugin(), "Key" );
+		IOPLibrary.registerPluginNOFS( new SpillSuppressPlugin(), "Key" );
 
 		//--- Alpha 
-		IOPLibrary.registerPlugin( new ImageToAlphaPlugin(), "Alpha" );
-		IOPLibrary.registerPlugin( new AlphaToImagePlugin(), "Alpha" );
-		IOPLibrary.registerPlugin( new DivideByAlphaPlugin(), "Alpha" );
+		IOPLibrary.registerPluginNOFS( new ImageToAlphaPlugin(), "Alpha" );
+		IOPLibrary.registerPluginNOFS( new AlphaToImagePlugin(), "Alpha" );
+		IOPLibrary.registerPluginNOFS( new DivideByAlphaPlugin(), "Alpha" );
 		//IOPLibrary.registerPlugin( new AlphaReplacePlugin(), "Alpha" );
 		//IOPLibrary.registerPlugin( new AlphaMergePlugin(), "Alpha" );
 		//IOPLibrary.registerPlugin( new ImageToAlphaMergePlugin(), "Alpha" );
 
 		//--- Mask
-		IOPLibrary.registerPlugin( new PolyLineMaskPlugin(), "Mask" );
-		IOPLibrary.registerPlugin( new PolyCurveMaskPlugin(), "Mask" );
-		IOPLibrary.registerPlugin( new GradientMaskPlugin(), "Mask" );
-		IOPLibrary.registerPlugin( new ShapeMaskPlugin(), "Mask" );
-		IOPLibrary.registerPlugin( new MaskJoinPlugin(), "Mask" );
+		IOPLibrary.registerPluginNOFS( new PolyLineMaskPlugin(), "Mask" );
+		IOPLibrary.registerPluginNOFS( new PolyCurveMaskPlugin(), "Mask" );
+		IOPLibrary.registerPluginNOFS( new GradientMaskPlugin(), "Mask" );
+		IOPLibrary.registerPluginNOFS( new ShapeMaskPlugin(), "Mask" );
+		IOPLibrary.registerPluginNOFS( new MaskJoinPlugin(), "Mask" );
 
 		//--- Distort
 		IOPLibrary.registerPlugin( new BumpPlugin(), "Distort" );

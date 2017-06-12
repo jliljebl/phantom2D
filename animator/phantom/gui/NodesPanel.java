@@ -184,7 +184,7 @@ public class NodesPanel extends JPanel
 	{
 		if ( source == nodesTable )
 		{
-			ParamEditController.addSelectedIOPToFilterStack();
+			//ParamEditController.addSelectedIOPToFilterStack();
 		}
 	}
 	
