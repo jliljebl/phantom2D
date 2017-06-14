@@ -19,6 +19,7 @@ public class LayerCompositorProject
 		this.layers = new Vector<LayerCompositorLayer>();
 	}
 	
+	//------------------------------------------------------------------------ edits
 	public LayerCompositorLayer addLayer( ImageOperation iop )
 	{
 		disconnectLayers();
@@ -67,6 +68,18 @@ public class LayerCompositorProject
 			
 	}
 
+	
+	public void addLayerMask( ImageOperation maskIop, ImageOperation layerIop )
+	{
+	
+		maskIop.copyTimeParams( layerIop );
+		LayerCompositorLayer layer = getLayer( layerIop );
+		layer.addLayerMask( maskIop );
+		
+		LayerCompositorUpdater.layerMaskAddUpdate( maskIop, layerIop );
+	}
+	
+	//-------------------------------------------------------------------- interface
 	public LayerCompositorLayer getLayer( ImageOperation iop )
 	{
 		for( LayerCompositorLayer layer : layers )
@@ -80,7 +93,6 @@ public class LayerCompositorProject
 	
 	public int getLayerIndex( LayerCompositorLayer layer ){ return layers.indexOf( layer ); }
 	
-	
 	public Vector<ImageOperation> getLayerGUIIops()
 	{
 		Vector<ImageOperation> layersIops = new Vector<ImageOperation>();
@@ -91,6 +103,7 @@ public class LayerCompositorProject
 		return layersIops;
 	}
 	
+	//--------------------------------------------------------------------- internal
 	private Project getNodeProject()
 	{
 		return ProjectController.getProject();

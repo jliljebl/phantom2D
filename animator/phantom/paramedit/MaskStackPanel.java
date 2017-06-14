@@ -99,8 +99,8 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 
 		JPanel stackButtons = new JPanel();
 		stackButtons.setLayout(new BoxLayout( stackButtons, BoxLayout.X_AXIS));
-		stackButtons.add( addFilterPopupArea );
-		stackButtons.add( Box.createRigidArea(new Dimension( 12, 0 ) ) );
+		//stackButtons.add( addFilterPopupArea );
+		//stackButtons.add( Box.createRigidArea(new Dimension( 12, 0 ) ) );
 		stackButtons.add( deleteFilter );
 		stackButtons.add( filterDown  );
 		stackButtons.add( filterUp );
@@ -182,6 +182,7 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 	*/
 	private void initPopupMenu()
 	{
+		/*
 		groups = IOPLibrary.getGroupKeys();
 		groupIops = new Vector<Vector<ImageOperation>>();
 		groupClasses = new Vector<Vector<String>>();
@@ -250,9 +251,9 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 		{
 			filtersPopup.add( subMenu );
 		}
-
+		*/
 	}
-	
+	/*
 	@SuppressWarnings("unchecked")
 	public Vector<JMenu> getNodesMenus(  ActionListener listener )
 	{
@@ -279,6 +280,7 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 		}
 		return groupMenus;
 	}
+//	*/
 	/*
 	private Vector<String> getRowVec( String str )
 	{

@@ -45,6 +45,7 @@ import animator.phantom.gui.ContentPaneLayout;
 import animator.phantom.gui.FileLoadWindow;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.GUIUtils;
+import animator.phantom.gui.IOPMenuItem;
 import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.gui.modals.MActionListener;
 import animator.phantom.gui.modals.MButton;
@@ -80,6 +81,8 @@ import animator.phantom.renderer.param.KeyFrameParam;
 import animator.phantom.renderer.param.Param;
 import animator.phantom.undo.PhantomUndoManager;
 import animator.phantom.undo.layercompositor.LCAddLayer;
+import animator.phantom.undo.layercompositor.LCAddLayerEffect;
+import animator.phantom.undo.layercompositor.LCAddLayerMask;
 import animator.phantom.undo.layercompositor.LCDeleteLayer;
 import animator.phantom.xml.ImageOperationXML;
 import animator.phantom.xml.PhantomXML;
@@ -889,6 +892,27 @@ public class LayerCompositorMenuActions
 		if( fs.getType() == FileSource.VIDEO_FILE )
 			return new VideoClipIOP( (VideoClipSource) fs );
 		return null; //this will crash very soon, and it should
+	}
+	
+	public static void addLayerEffect(  String className  )
+	{
+		ImageOperation layerIop = AppData.getParamEditFrame().getIOP();
+
+		if( layerIop.getFilterStack().size() < ImageOperation.STACK_MAX_SIZE )
+		{
+			ImageOperation filterIop = IOPLibrary.getNewInstance( className );
+			LCAddLayerEffect edit = new LCAddLayerEffect( filterIop, layerIop );
+			edit.doEdit();
+		}
+
+	}
+	
+	public static void addLayerMask(  String className  )
+	{
+		ImageOperation maskIop = IOPLibrary.getNewInstance( className );
+		ImageOperation layerIop = AppData.getParamEditFrame().getIOP();
+		LCAddLayerMask edit = new LCAddLayerMask( maskIop, layerIop );
+		edit.doEdit();
 	}
 	
 	/*

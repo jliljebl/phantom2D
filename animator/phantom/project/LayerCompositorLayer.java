@@ -18,6 +18,7 @@ public class LayerCompositorLayer
 	}
 
 	public RenderNode getNode(){ return this.node; }
+
 	public ImageOperation getIop(){ return this.node.getImageOperation(); }
 
 	public Vector<RenderNode> getLayerMasks() { return layerMasks; }
@@ -37,7 +38,7 @@ public class LayerCompositorLayer
 	
 	private void connectMasks()
 	{
-		if ( this.layerMasks.size() < 2 )
+		if ( this.layerMasks.size() > 1 )
 		{
 			for( int i = 0; i < this.layerMasks.size() - 1; i++ )
 			{
@@ -46,11 +47,18 @@ public class LayerCompositorLayer
 				AppData.getFlow().connectNodes( maskNode1, maskNode2, 0, 0);
 			}
 		}
+
+		if ( this.layerMasks.size() > 0 )
+		{
+			int maskInput = node.getImageOperation().getMaskInputIndex();
+			RenderNode masksOutNode = layerMasks.elementAt( layerMasks.size() - 1 );
+			AppData.getFlow().connectNodes( masksOutNode, node, 0, maskInput);
+		}
 	}
 
 	private void disconnectMasks()
 	{
-		if ( this.layerMasks.size() < 2 )
+		if ( this.layerMasks.size() > 1 )
 		{
 			for( int i = 0; i < this.layerMasks.size() - 1; i++ )
 			{

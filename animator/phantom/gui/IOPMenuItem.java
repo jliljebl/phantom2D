@@ -24,14 +24,21 @@ import javax.swing.JMenuItem;
 //--- Used to select iops to add to flow.
 public class IOPMenuItem extends JMenuItem
 {
+	public static final int ADJUSTMENT_LAYER_ITEM = 1;
+	public static final int LAYER_EFFECT_ITEM = 2;
+	public static final int LAYER_MASK_ITEM = 3;
+	
 	private String iopClassName;
-
-	public IOPMenuItem( String title, String iopClassName )
+	private int itemType;
+	
+	public IOPMenuItem( String title, String iopClassName, int itemType )
 	{
 		super( title );
 		this.iopClassName = iopClassName;
+		this.itemType = itemType;
 	}
 
 	public String getIopClassName(){ return iopClassName; }
-
+	public int getItemType() { return itemType; }
+	
 }//end class

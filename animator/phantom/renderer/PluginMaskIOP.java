@@ -66,6 +66,8 @@ public class PluginMaskIOP extends ImageOperation
 		registerParameter( invert );
 		setAsSource();
 		setIOPToHaveSwitches( true );
+
+		makeAvailableForLayerMasks = true;
 	}
 
 	public void doImageRendering( int frame, Vector<BufferedImage> sourceImages )

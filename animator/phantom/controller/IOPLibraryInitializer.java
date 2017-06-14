@@ -1,5 +1,10 @@
 package animator.phantom.controller;
 
+import java.util.Collections;
+import java.util.Vector;
+
+import javax.swing.JMenu;
+
 /*
     Copyright Janne Liljeblad 2006,2007,2008
 
@@ -238,27 +243,27 @@ public class IOPLibraryInitializer
 		IOPLibrary.registerNonUserPlugin( new FileImagePatternMergePlugin() );
 		*/
 		//--- Key 
-		IOPLibrary.registerPluginAlphaMask( new LumaKeyPlugin(), "Key" );
-		IOPLibrary.registerPluginAlphaMask( new MatteModifyPlugin(), "Key" );
-		IOPLibrary.registerPluginAlphaMask( new GreenKeyPlugin(), "Key" );
-		IOPLibrary.registerPluginAlphaMask( new ColorDifferenceKeyPlugin(), "Key" );
-		IOPLibrary.registerPluginAlphaMask( new ColorSampleKeyPlugin(), "Key" );
-		IOPLibrary.registerPluginAlphaMask( new SpillSuppressPlugin(), "Key" );
+		IOPLibrary.registerPlugin( new LumaKeyPlugin(), "Key" );
+		IOPLibrary.registerPlugin( new MatteModifyPlugin(), "Key" );
+		IOPLibrary.registerPlugin( new GreenKeyPlugin(), "Key" );
+		IOPLibrary.registerPlugin( new ColorDifferenceKeyPlugin(), "Key" );
+		IOPLibrary.registerPlugin( new ColorSampleKeyPlugin(), "Key" );
+		IOPLibrary.registerPlugin( new SpillSuppressPlugin(), "Key" );
 
 		//--- Alpha 
-		IOPLibrary.registerPluginAlphaMask( new ImageToAlphaPlugin(), "Alpha" );
-		IOPLibrary.registerPluginAlphaMask( new AlphaToImagePlugin(), "Alpha" );
-		IOPLibrary.registerPluginAlphaMask( new DivideByAlphaPlugin(), "Alpha" );
+		IOPLibrary.registerPlugin( new ImageToAlphaPlugin(), "Alpha" );
+		IOPLibrary.registerPlugin( new AlphaToImagePlugin(), "Alpha" );
+		IOPLibrary.registerPlugin( new DivideByAlphaPlugin(), "Alpha" );
 		//IOPLibrary.registerPlugin( new AlphaReplacePlugin(), "Alpha" );
 		//IOPLibrary.registerPlugin( new AlphaMergePlugin(), "Alpha" );
 		//IOPLibrary.registerPlugin( new ImageToAlphaMergePlugin(), "Alpha" );
 
 		//--- Mask
-		IOPLibrary.registerPluginAlphaMask( new PolyLineMaskPlugin(), "Mask" );
-		IOPLibrary.registerPluginAlphaMask( new PolyCurveMaskPlugin(), "Mask" );
-		IOPLibrary.registerPluginAlphaMask( new GradientMaskPlugin(), "Mask" );
-		IOPLibrary.registerPluginAlphaMask( new ShapeMaskPlugin(), "Mask" );
-		IOPLibrary.registerPluginAlphaMask( new MaskJoinPlugin(), "Mask" );
+		IOPLibrary.registerPlugin( new PolyLineMaskPlugin(), "Mask" );
+		IOPLibrary.registerPlugin( new PolyCurveMaskPlugin(), "Mask" );
+		IOPLibrary.registerPlugin( new GradientMaskPlugin(), "Mask" );
+		IOPLibrary.registerPlugin( new ShapeMaskPlugin(), "Mask" );
+		IOPLibrary.registerPlugin( new MaskJoinPlugin(), "Mask" );
 
 		//--- Distort
 		IOPLibrary.registerPlugin( new BumpPlugin(), "Distort" );
@@ -277,6 +282,35 @@ public class IOPLibraryInitializer
 		IOPLibrary.registerIOP( new NullIOP(), "Animation" );
 
 		System.out.println("DONE, " + IOPLibrary.getGroupKeys().size() + " groups and " + IOPLibrary.libSize() + " iops created." );
-	}
+		
+		Vector<String> groups = IOPLibrary.getGroupKeys();
+		for( String group : groups )
+			System.out.println("//------------ " + group);
 
+	}
+	
+	public static Vector<String> getLayerEffectGroups()
+	{
+		Vector<String> groups = new Vector<String>();
+		groups.add( "Color" );
+		groups.add( "Noise" );
+		groups.add( "Blur" );
+		groups.add( "Sharpen" );
+		groups.add( "Artistic" );
+		groups.add( "Source" );
+		groups.add( "Render" );
+		groups.add( "Distort" );
+		Collections.sort(groups);
+		return groups;
+	}
+	
+	public static Vector<String> getMasktGroups()
+	{
+		Vector<String> groups = new Vector<String>();
+		groups.add( "Key" );
+		groups.add( "Alpha" );
+		groups.add( "Mask" );
+		Collections.sort(groups);
+		return groups;
+	}
 }//end class

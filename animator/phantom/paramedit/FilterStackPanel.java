@@ -42,7 +42,7 @@ import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
 
-public class FilterStackPanel extends JPanel implements ActionListener, MouseListener
+public class FilterStackPanel extends JPanel implements ActionListener//, MouseListener
 {
 	private ImageOperation iop;
 	private JTable stackTable;
@@ -52,7 +52,7 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 	private Vector<Vector<ImageOperation>> groupIops;
 	private Vector<Vector<String>> groupClasses;
 
-	private JLabel addFilterPopupArea;
+	//private JLabel addFilterPopupArea;
 	private JButton addFilter;
 	private JButton deleteFilter;
 	private JButton filterDown;
@@ -71,13 +71,11 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 		this.iop = iop;
 		GUIComponents.filterStackPanel = this;
 
-		addFilterPopupArea = new JLabel(GUIResources.getIcon(  GUIResources.addClip ) );
+		//addFilterPopupArea = new JLabel(GUIResources.getIcon(  GUIResources.addClip ) );
 		addFilter = new JButton( GUIResources.getIcon(  GUIResources.addClip ) );
 		deleteFilter = new JButton( GUIResources.getIcon(  GUIResources.deleteClip ) );
 		filterDown = new JButton( GUIResources.getIcon(  GUIResources.clipDown ) );
 		filterUp = new JButton( GUIResources.getIcon( GUIResources.clipUp ) );
-		
-
 		
 		GUIResources.prepareMediumButton( addFilter, this, "Add Filter" );
 		GUIResources.prepareMediumButton( deleteFilter, this, "Delete Selected Filter" );
@@ -94,8 +92,8 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 
 		JPanel stackButtons = new JPanel();
 		stackButtons.setLayout(new BoxLayout( stackButtons, BoxLayout.X_AXIS));
-		stackButtons.add( addFilterPopupArea );
-		stackButtons.add( Box.createRigidArea(new Dimension( 12, 0 ) ) );
+		//stackButtons.add( addFilterPopupArea );
+		//stackButtons.add( Box.createRigidArea(new Dimension( 12, 0 ) ) );
 		stackButtons.add( deleteFilter );
 		stackButtons.add( filterDown  );
 		stackButtons.add( filterUp );
@@ -119,7 +117,7 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 		});
 		
 		initFilterStack( 0 );
-		initPopupMenu();
+		 //initPopupMenu();
 
 		JScrollPane stackScrollPane = new JScrollPane( stackTable );
 		GUIComponents.filterStackTablePane = stackScrollPane;
@@ -175,6 +173,7 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 		repaint();
 	}
 
+		/*
 	private void initPopupMenu()
 	{
 		groups = IOPLibrary.getGroupKeys();
@@ -242,7 +241,7 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 		
 		//--- Node context popup menu
 		filtersPopup = new JPopupMenu();
-		
+		/*
 		Vector<JMenu> nodeGroupMenus = getNodesMenus( this );
 		for( JMenu subMenu : nodeGroupMenus )
 		{
@@ -250,7 +249,8 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 		}
 
 	}
-	
+		*/
+	/*
 	@SuppressWarnings("unchecked")
 	public Vector<JMenu> getNodesMenus(  ActionListener listener )
 	{
@@ -277,7 +277,7 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 			groupMenus.add( subMenu );
 		}
 		return groupMenus;
-	}
+	}*/
 	
 	private Vector<String> getRowVec( String str )
 	{
@@ -331,15 +331,18 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 		{
 			setIOPEdited();
 		}
-
+		
+		/*
 		if( e.getSource() instanceof IOPMenuItem )
 		{
 			IOPMenuItem source = ( IOPMenuItem )e.getSource();
 			ImageOperation filterIop = IOPLibrary.getNewInstance( source.getIopClassName() );
 			ParamEditController.addSelectedIOPToFilterStack( filterIop );
 		}
+		*/
 	}
 
+		/*
 	public void mousePressed(MouseEvent e)
 	{
 		showFiltersPopUp( e );
@@ -354,7 +357,7 @@ public class FilterStackPanel extends JPanel implements ActionListener, MouseLis
 	{
 		filtersPopup.show( e.getComponent(), e.getX(), e.getY() );
 	}
-	
+	*/
 	private void setIOPEdited()
 	{
 		int index = stackTable.getSelectedRow();

@@ -72,7 +72,7 @@ public class FilterStackEdit extends JFrame implements ActionListener
 		
 		this.iop = iop;
 
-		filters = IOPLibrary.getFilters();
+		//filters = IOPLibrary.getFilters();
 		Collections.sort( filters );
 
 		GUIResources.prepareMediumButton( deleteFilter, this, "Delete Selected Filter" );

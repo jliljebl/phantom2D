@@ -21,6 +21,6 @@ public class AppData
 		public static LayerCompositorProject getLayerProject()	{ return layerProject; }
 
 		public static void setParamEditFrame( ParamEditFrame newpParamEditFrame )	{ paramEditFrame = newpParamEditFrame; }
-		public static ParamEditFrame getParamEditFrame()	{ return paramEditFrame; }
+		public static ParamEditFrame getParamEditFrame() { return paramEditFrame; }
 
 }// end class

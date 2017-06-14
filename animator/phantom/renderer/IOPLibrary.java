@@ -46,7 +46,7 @@ public class IOPLibrary
 	//--- Group keys in add order
 	private static Vector<String> groupsInAddOrder = new Vector<String>();
 	//--- Filters Vector for filter stack edit
-	private static Vector<ImageOperation> filterIops = new Vector<ImageOperation>();
+	//private static Vector<ImageOperation> filterIops = new Vector<ImageOperation>();
 	//--- ImageOperation groups
 	private static HashMap<String, String> 
 		groupForClassName = new HashMap<String, String>();
@@ -62,8 +62,8 @@ public class IOPLibrary
 		String hashKey = iop.getClass().getName();
 		imageOperations.put( hashKey, iop );
 		putToGroup( iop, group );
-		if( iop.makeAvailableInFilterStack == true )
-			filterIops.add( iop );
+		//if( iop.makeAvailableInFilterStack == true )
+		//	filterIops.add( iop );
 		groupForClassName.put(iop.getClassIDName(), group );
 	}
 
@@ -74,13 +74,14 @@ public class IOPLibrary
 		groupForClassName.put(plugin.getIOP().getClassIDName(), group );
 	}
 
+	/*
 	public static void registerPluginAlphaMask( PhantomPlugin plugin, String group )
 	{
 		plugin.getIOP().makeAvailableInFilterStack = false;
-		//plugin.getIOP().makeAvailableForLayerMasks = true;
+		plugin.getIOP().makeAvailableForLayerMasks = true;
 		registerPlugin( plugin, group );
 	}
-	
+	*/
 	public static void registerNonUserPlugin( PhantomPlugin plugin )
 	{
 		savePlugin( plugin );
@@ -91,6 +92,7 @@ public class IOPLibrary
 		String hashKey = plugin.getClass().getName();
 		plugins.put( hashKey, plugin );
 
+			/*
 		//--- Add to stack filters if filter
 		if( plugin.getType() == PhantomPlugin.FILTER )
 		{
@@ -103,6 +105,7 @@ public class IOPLibrary
 
 		if(  plugin.getIOP().makeAvailableInFilterStack == true )
 			filterIops.add( plugin.getIOP() );
+			*/
 	}
 
 	private static void putToGroup( Object groupItem, String group )
@@ -145,8 +148,9 @@ public class IOPLibrary
 
 	public static Vector<String> getGroupKeys()
 	{
-		Collections.sort(groupsInAddOrder);// remove this to get order defined in IOPLibraryInitializer
-		return groupsInAddOrder;
+		Vector<String> sortedKeys = (Vector<String> )groupsInAddOrder.clone();
+		Collections.sort(sortedKeys);// remove this to get order defined in IOPLibraryInitializer
+		return sortedKeys;
 	}
 	
 	public static int libSize(){ return imageOperations.size(); }
@@ -156,10 +160,10 @@ public class IOPLibrary
 		imageOperations = new Hashtable<String,ImageOperation>();
 		iopGroups = new Hashtable<String,Vector<Object>>();
 		groupsInAddOrder = new Vector<String>();
-		filterIops.clear();
+		//filterIops.clear();
 	}
 	
-	public static Vector<ImageOperation> getFilters(){ return filterIops; }
+	//public static Vector<ImageOperation> getFilters(){ return filterIops; }
 
 	public static int getBoxType( ImageOperation iop )
 	{

@@ -55,6 +55,18 @@ public class LayerCompositorUpdater
 		TimeLineController.initClipEditorGUI();		
 	}
 	
+	public static void layerEffectAddUpdate( ImageOperation layerIop, int selectedEffectIndex )
+	{
+		UpdateController.updateCurrentFrameDisplayers( false );
+		GUIComponents.filterStackPanel.initFilterStack( selectedEffectIndex );
+	}
+	
+	
+	public static void layerMaskAddUpdate( ImageOperation maskIop, ImageOperation layerIop )
+	{
+		UpdateController.updateCurrentFrameDisplayers( false );
+	}
+	
 	/*
 	EditorsController.setViewMode( EditorsController.FLOW_VIEW );
 	ParamEditController.clearEditframe();

@@ -14,7 +14,6 @@ public class PolyLineMaskPlugin extends PolyLinePlugin
 	public PolyLineMaskPlugin()
 	{
 		initPlugin( MASK );
-		getIOP().makeAvailableForLayerMasks = true;
 	}
 
 	public void buildDataModel()

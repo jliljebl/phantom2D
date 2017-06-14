@@ -28,10 +28,12 @@ import java.util.Vector;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 
 import animator.phantom.controller.EditorPersistance;
 import animator.phantom.controller.FlowController;
+import animator.phantom.controller.IOPLibraryInitializer;
 import animator.phantom.controller.LayerCompositorMenuActions;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.ProjectController;
@@ -68,8 +70,12 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 	JMenuItem projectSettings;
 	JMenuItem kfPreferences;
 
-	//--- Media Menu
+	//--- Layer Menu
+	JMenu newLayer;
+	JMenu addJustmentLayer;
 	JMenu mediaMenu;
+
+	//--- Project Menu
 	JMenuItem addImage;
 	JMenuItem addImageSequence;
 	JMenuItem addVideo;
@@ -190,14 +196,54 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		kfPreferences.addActionListener(this);
 		editMenu.add( kfPreferences );
 		*/
-		//--------------------------- Media menu
-		mediaMenu = new JMenu("Project");
+
+
+		//------------------------------------ Layer menu
+		JMenu layerMenu = new JMenu("Layer");
+		JMenu newLayer = new JMenu("New");
+		
+		mediaMenu = new JMenu("Media");
+		newLayer.add( mediaMenu );
+		JMenu addJustmentLayerMenu = new JMenu("Adjustmnent Layer");
+		buildIOPMenu( addJustmentLayerMenu, this );		
+		newLayer.add( addJustmentLayerMenu );
+
+		layerMenu.add( newLayer );
+		
+		JMenu layerEffect = new JMenu("Layer Effect");
+		fillLayerEffectMenu( layerEffect );
+		layerMenu.add( layerEffect );
+		
+		JMenu layerMask = new JMenu("Layer Mask");
+		fillLayerMaskMenu( layerMask );
+		layerMenu.add( layerMask );
+		
+
 		updateAppMediaMenu();
+		
+		
+		
+		//--------------------------- Project menu
+		JMenu projectMenu = new JMenu("Project");
+		
+		addVideo = new JMenuItem("Add Video Clips...");
+		addVideo.addActionListener(this);
+		projectMenu.add( addVideo );
 
-		//------------------------------------ Node menu
-		JMenu iopMenu = new JMenu("Layer");
+		addImage  = new JMenuItem("Add Images...");
+		addImage.addActionListener(this);
+		projectMenu.add( addImage );
 
-		buildIOPMenu( iopMenu, this );
+		addImageSequence  = new JMenuItem("Add Image Sequence...");
+		addImageSequence.addActionListener(this);
+		projectMenu.add( addImageSequence );
+
+		projectMenu.addSeparator();
+
+		projectSettings = new JMenuItem("Project Settings...");
+		projectSettings.addActionListener(this);
+		projectMenu.add( projectSettings);
+		
 
 		//--- ------------------------------- Render menu
 		JMenu renderMenu = new JMenu("Render");
@@ -229,6 +275,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		renderMovie.setAccelerator( KeyStroke.getKeyStroke( "F12"  ) );
 		renderMenu.add( renderMovie );
 
+		
 		//----------------------------------- Help menu
 		JMenu helpMenu = new JMenu("Help");
 
@@ -244,8 +291,8 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 
 		add( fileMenu );
 		add( editMenu );
-		add( iopMenu );
-		add( mediaMenu );
+		add( layerMenu );
+		add( projectMenu );
 		add( renderMenu );
 		add( helpMenu );
 	}
@@ -261,19 +308,32 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 	}
 
 	//--- Builds "ImageOperation" menu using input from IOPLibrary
-	public static void buildIOPMenu( JMenu iopMenu, ActionListener listener )
-	{
-		Vector<JMenu> groupMenus =  getNodesMenus(  listener );
-		for( JMenu subMenu : groupMenus )
-		{
-			iopMenu.add( subMenu );
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public static Vector<JMenu> getNodesMenus(  ActionListener listener )
+	public void buildIOPMenu( JMenu iopMenu, ActionListener listener )
 	{
 		Vector<String> groups = IOPLibrary.getGroupKeys();
+		Vector<JMenu> groupMenus = getNodesMenus( groups, IOPMenuItem.ADJUSTMENT_LAYER_ITEM  );
+		for( JMenu subMenu : groupMenus )
+			iopMenu.add( subMenu );
+	}
+
+	private void fillLayerEffectMenu( JMenu effectMenu )
+	{
+		Vector<String> groups = IOPLibraryInitializer.getLayerEffectGroups();
+		Vector<JMenu> groupMenus = getNodesMenus( groups, IOPMenuItem.LAYER_EFFECT_ITEM  );
+		for( JMenu subMenu : groupMenus )
+			effectMenu.add( subMenu );
+	}
+
+	private void fillLayerMaskMenu( JMenu maskMenu )
+	{
+		Vector<String> groups = IOPLibraryInitializer.getMasktGroups();
+		Vector<JMenu> groupMenus = getNodesMenus( groups, IOPMenuItem.LAYER_MASK_ITEM  );
+		for( JMenu subMenu : groupMenus )
+			maskMenu.add( subMenu );	
+	}
+	@SuppressWarnings("unchecked")
+	public Vector<JMenu> getNodesMenus( Vector<String> groups, int menuItemType )
+	{
 		Vector<JMenu> groupMenus = new Vector<JMenu>();
 
 		for( String group : groups )
@@ -289,14 +349,14 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 				if( o instanceof ImageOperation )
 				{
 					ImageOperation iop = (ImageOperation) o;
-					item = new IOPMenuItem( iop.getName(), iop.getClass().getName() );
+					item = new IOPMenuItem( iop.getName(), iop.getClass().getName(), menuItemType );
 				}
 				else
 				{
 					PhantomPlugin p = (PhantomPlugin) o;
-					item = new IOPMenuItem( p.getIOP().getName(), p.getClass().getName() );
+					item = new IOPMenuItem( p.getIOP().getName(), p.getClass().getName(), menuItemType );
 				}
-				item.addActionListener(listener);
+				item.addActionListener(this);
 				subMenu.add( item );
 			}
 			groupMenus.add( subMenu );
@@ -329,25 +389,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 	{
 		mediaMenu.removeAll();
 
-		projectSettings = new JMenuItem("Project Settings...");
-		projectSettings.addActionListener(this);
-		mediaMenu.add( projectSettings);
 
-		mediaMenu.addSeparator();
-
-		addVideo = new JMenuItem("Add Video Clips...");
-		addVideo.addActionListener(this);
-		mediaMenu.add( addVideo );
-
-		addImage  = new JMenuItem("Add Images...");
-		addImage.addActionListener(this);
-		mediaMenu.add( addImage );
-
-		addImageSequence  = new JMenuItem("Add Image Sequence...");
-		addImageSequence.addActionListener(this);
-		mediaMenu.add( addImageSequence );
-
-			mediaMenu.addSeparator();
 
 		Vector<FileSource> fileSources = ProjectController.getFileSources();
 
@@ -459,7 +501,12 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		if( e.getSource() instanceof IOPMenuItem )
 		{
 			IOPMenuItem source = ( IOPMenuItem )e.getSource();
-			LayerCompositorMenuActions.addIOP( source.getIopClassName() );
+			if (source.getItemType() == IOPMenuItem.ADJUSTMENT_LAYER_ITEM)
+				LayerCompositorMenuActions.addIOP( source.getIopClassName() );
+			if (source.getItemType() == IOPMenuItem.LAYER_EFFECT_ITEM)
+				LayerCompositorMenuActions.addLayerEffect( source.getIopClassName() );
+			if (source.getItemType() == IOPMenuItem.LAYER_MASK_ITEM)
+				LayerCompositorMenuActions.addLayerMask( source.getIopClassName() );
 		}
 
 		//-------------------------------------------------- Render menu.
