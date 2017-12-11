@@ -46,6 +46,11 @@ import animator.phantom.renderer.RenderNode;
 
 public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListener
 {
+	public static final int LAYER_BOX = 0;
+	public static final int PRECOMP_BOX = 1;
+	public static final int FILTER_BOX = 3;
+	
+
 	//--- Image opearation that this gui component represents.
 	private ImageOperation iop;
 	private JLabel idLabel;
@@ -68,10 +73,34 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 	
 	public TimeLineIOPBox2( ImageOperation iop )
 	{
+		initBox(  iop, LAYER_BOX);
+	}
+	
+	public TimeLineIOPBox2( ImageOperation iop, int boxtype )
+	{
+		initBox(  iop, boxtype );
+	}
+	
+	private void initBox(  ImageOperation iop, int boxtype )
+	{
 		this.iop = iop;
 		RenderNode node = AppData.getFlow().getNode( iop );
-		String idStr = Integer.toString( node.getID() );
-		this.idLabel = new JLabel( "#" + idStr );
+		String idStr = null;
+		if ( boxtype == LAYER_BOX )
+		{
+			idStr = "#" + Integer.toString( node.getID() );
+		}
+		else if( boxtype == PRECOMP_BOX  )
+		{
+			idStr = "  ";
+			
+		}
+		else
+		{
+			idStr = "  ";
+		}
+		
+		this.idLabel = new JLabel(  idStr );
 		this.idLabel.setForeground(new Color(140, 140, 140));
 		this.nameLabel = new JLabel( iop.getName() );
 		this.activeCheckBox = new JCheckBox();

@@ -9,61 +9,67 @@ import animator.phantom.renderer.RenderNode;
 public class LayerCompositorLayer 
 {
 	private RenderNode node;
-	private Vector<RenderNode> layerMasks;
+	private Vector<RenderNode> preCompLayers;
 	
 	public LayerCompositorLayer( RenderNode node )
 	{
 		this.node = node;
-		this.setLayerMasks(new Vector<RenderNode>());
+		this.setPreCompLayers(new Vector<RenderNode>());
 	}
 
 	public RenderNode getNode(){ return this.node; }
 
 	public ImageOperation getIop(){ return this.node.getImageOperation(); }
 
-	public Vector<RenderNode> getLayerMasks() { return layerMasks; }
+	public Vector<RenderNode> getPreCompLayers() { return preCompLayers; }
 
-	public void setLayerMasks(Vector<RenderNode> layerMasks) { this.layerMasks = layerMasks; }
+	public void setPreCompLayers(Vector<RenderNode> layerMasks) { this.preCompLayers = layerMasks; }
 	
-	public void addLayerMask( ImageOperation maskIop )
+	public void addPreCompLayer( ImageOperation precompIop )
 	{
-		disconnectMasks();
+		disconnectPreCompLayers();
 		
-		RenderNode maskNode = new RenderNode( maskIop );
-		this.layerMasks.add( maskNode );
-		AppData.getFlow().addNode( maskNode );
+		RenderNode preCompNode = new RenderNode( precompIop );
+		this.preCompLayers.add( preCompNode );
+		AppData.getFlow().addNode( preCompNode );
 
-		connectMasks();
+		connectPreCompLayers();
 	}
 	
-	private void connectMasks()
+	
+	public void deletePreCompLLayer(  ImageOperation maskIop )
 	{
-		if ( this.layerMasks.size() > 1 )
+		
+	}
+			
+	private void connectPreCompLayers()
+	{
+		if ( this.preCompLayers.size() > 1 )
 		{
-			for( int i = 0; i < this.layerMasks.size() - 1; i++ )
+			for( int i = 0; i < this.preCompLayers.size() - 1; i++ )
 			{
-				RenderNode maskNode1 = this.layerMasks.elementAt( i );
-				RenderNode maskNode2 = this.layerMasks.elementAt( i + 1 );
+				RenderNode maskNode1 = this.preCompLayers.elementAt( i );
+				RenderNode maskNode2 = this.preCompLayers.elementAt( i + 1 );
 				AppData.getFlow().connectNodes( maskNode1, maskNode2, 0, 0);
 			}
 		}
 
-		if ( this.layerMasks.size() > 0 )
+		if ( this.preCompLayers.size() > 0 )
 		{
 			int maskInput = node.getImageOperation().getMaskInputIndex();
-			RenderNode masksOutNode = layerMasks.elementAt( layerMasks.size() - 1 );
+			RenderNode masksOutNode = preCompLayers.elementAt( preCompLayers.size() - 1 );
 			AppData.getFlow().connectNodes( masksOutNode, node, 0, maskInput);
 		}
 	}
 
-	private void disconnectMasks()
+	private void disconnectPreCompLayers()
 	{
-		if ( this.layerMasks.size() > 1 )
+		if ( this.preCompLayers.size() > 1 )
 		{
-			for( int i = 0; i < this.layerMasks.size() - 1; i++ )
+			for( int i = 0; i < this.preCompLayers.size() - 1; i++ )
 			{
-				RenderNode maskNode1 = this.layerMasks.elementAt( i );
-				RenderNode maskNode2 = this.layerMasks.elementAt( i + 1 );
+				RenderNode maskNode1 = this.preCompLayers.elementAt( i );
+				RenderNode maskNode2 = this.preCompLayers.elementAt( i + 1 );
 				AppData.getFlow().disconnectNodes( maskNode1, maskNode2, 0, 0);
 			}
 		}

@@ -8,14 +8,14 @@ import animator.phantom.undo.PhantomUndoManager;
 
 public class LCAddLayerMask extends LCUndoableEdit
 {
-	private LayerCompositorLayer addLayer;
+	//private ImageOperation addLayer;
 	private ImageOperation layerIop;
 	
-	public LCAddLayerMask( ImageOperation filteIOP, ImageOperation layerIop )
+	public LCAddLayerMask( ImageOperation filterIOP, ImageOperation layerIop )
 	{
-		this.iop = filteIOP;
+		this.iop = filterIOP;
 		this.iop.initIOPTimelineValues();
-		PhantomUndoManager.newIOPCreated( iop ); //--- Create initial state for Paramvalue change  undos
+		PhantomUndoManager.newIOPCreated( iop ); //--- Create initial state for Paramvalue change undos
 		
 		this.layerIop = layerIop;
 	}
@@ -23,12 +23,12 @@ public class LCAddLayerMask extends LCUndoableEdit
 	public void undo()
 	{
 		
-		layerProject().deleteLayer( this.addLayer );
+		layerProject().deletePreCompLLayer( this.iop, this.layerIop );
 	}
 	
 	public void redo()
 	{
-		layerProject().addLayerMask( this.iop, this.layerIop );
+		layerProject().addPreCompLayer( this.iop, this.layerIop );
 	}
 
 }//end class

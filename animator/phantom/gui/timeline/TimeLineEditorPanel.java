@@ -36,6 +36,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import animator.phantom.controller.AppData;
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.ParamEditController;
 import animator.phantom.controller.PreviewController;
@@ -44,7 +45,9 @@ import animator.phantom.gui.AnimFrameGUIParams;
 import animator.phantom.gui.GUIColors;
 //import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.GUIUtils;
+import animator.phantom.project.LayerCompositorLayer;
 import animator.phantom.renderer.ImageOperation;
+import animator.phantom.renderer.RenderNode;
 import animator.phantom.undo.PhantomUndoManager;
 import animator.phantom.undo.TimeLineUndoEdit;
 
@@ -76,7 +79,6 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 		addMouseMotionListener( this );
 		addMouseWheelListener( this );
 
-
 		//--- Set Bg color
 		setBackground( GUIColors.flowBGColor );
 
@@ -90,8 +92,32 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 		Vector<ImageOperation> clips = TimeLineController.getClips();
 		for( int i = 0; i < clips.size(); i++ )
 		{
-			TimeLineEditorIOPClip addClip = new TimeLineEditorIOPClip(  clips.elementAt( i ) );
+			// layer clips
+			ImageOperation layerIop = clips.elementAt( i );
+			TimeLineEditorIOPClip addClip = new TimeLineEditorIOPClip(  layerIop );
 			iopClips.addElement( addClip );
+
+			//filter clips
+			Vector<ImageOperation> filterStack = layerIop.getFilterStack();
+			for( int k = 0; k < filterStack.size(); k++ )
+			{
+				System.out.println("in filter stack" );
+				ImageOperation filterStackIop = filterStack.elementAt( i );
+				TimeLineEditorIOPClip filterStackClip= new TimeLineEditorIOPClip( filterStackIop );
+				iopClips.addElement( filterStackClip );
+			}
+
+			//masks clips
+			LayerCompositorLayer layer = AppData.getLayerProject().getLayer( layerIop );
+			Vector<RenderNode> preCompNodes = layer.getPreCompLayers();
+			for( int j = 0; j < preCompNodes.size(); j++ )
+			{
+				System.out.println("in preCompNodes" );
+				ImageOperation preCompIop = preCompNodes.elementAt( i ).getImageOperation();
+				TimeLineEditorIOPClip preCompClip = new TimeLineEditorIOPClip(  preCompIop );
+				iopClips.addElement( preCompClip );
+			}
+			
 		}
 		//GUIComponents.clipVertSlider.setValue( 50 );
 		repaint();

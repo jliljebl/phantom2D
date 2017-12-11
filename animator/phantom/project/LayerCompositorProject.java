@@ -68,15 +68,19 @@ public class LayerCompositorProject
 			
 	}
 
-	
-	public void addLayerMask( ImageOperation maskIop, ImageOperation layerIop )
+	public void addPreCompLayer( ImageOperation precompIop, ImageOperation layerIop )
 	{
 	
-		maskIop.copyTimeParams( layerIop );
+		precompIop.copyTimeParams( layerIop );
 		LayerCompositorLayer layer = getLayer( layerIop );
-		layer.addLayerMask( maskIop );
+		layer.addPreCompLayer( precompIop );
 		
-		LayerCompositorUpdater.layerMaskAddUpdate( maskIop, layerIop );
+		LayerCompositorUpdater.layerMaskAddUpdate( precompIop, layerIop );
+	}
+	
+	public void deletePreCompLLayer( ImageOperation maskIop, ImageOperation layerIop )
+	{
+		
 	}
 	
 	//-------------------------------------------------------------------- interface

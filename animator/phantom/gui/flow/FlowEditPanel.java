@@ -20,14 +20,6 @@ package animator.phantom.gui.flow;
 */
 
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
 
@@ -36,36 +28,16 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
-import animator.phantom.controller.AppUtils;
-import animator.phantom.controller.DarkTheme;
-import animator.phantom.controller.FlowController;
-import animator.phantom.controller.GUIComponents;
-import animator.phantom.controller.KeyActionController;
-import animator.phantom.controller.KeyStatus;
-//import animator.phantom.controller.MenuActions;
-import animator.phantom.controller.ParamEditController;
-import animator.phantom.controller.PreviewController;
-import animator.phantom.controller.ProjectController;
-import animator.phantom.controller.UpdateController;
-import animator.phantom.controller.UserActions;
+
 import animator.phantom.controller.keyaction.CopyAction;
 import animator.phantom.controller.keyaction.DeSelectAllAction;
 import animator.phantom.controller.keyaction.DeleteAction;
 import animator.phantom.controller.keyaction.KeyUtils;
 import animator.phantom.controller.keyaction.PasteAction;
 import animator.phantom.controller.keyaction.SelectAllAction;
-//import animator.phantom.gui.AnimatorMenu;
 import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
-import animator.phantom.gui.IOPMenuItem;
-import animator.phantom.gui.MediaMenuItem;
-import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.ImageOperation;
-import animator.phantom.renderer.RenderNode;
-import animator.phantom.renderer.imagesource.MovingBlendedIOP;
-//import animator.phantom.undo.MultiDeleteUndoEdit;
-import animator.phantom.undo.NodeAddUndoEdit;
-import animator.phantom.undo.PhantomUndoManager;
 
 //--- GUI component used to edit the render flow.
 public class FlowEditPanel extends JPanel //implements MouseListener, MouseMotionListener, ActionListener

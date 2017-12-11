@@ -59,10 +59,12 @@ public class RenderFlow
 	{
 		renderedImages = new Hashtable<RenderNode, BufferedImage>( IMAGES_TABLE_INIT_CAPACITY );
 	}
+	
 	public BufferedImage getRenderedImage( RenderNode node )
 	{
 		return renderedImages.get( node );
 	}
+	
 	public void setRenderedImage( RenderNode node, BufferedImage img )
 	{
 		renderedImages.put( node, img );
@@ -136,7 +138,7 @@ public class RenderFlow
 		}
 
 		//--- Call flowChanged() of all iops in flow.
-		tellAllIopsFlowChanged();
+		//tellAllIopsFlowChanged();
 
 		if( DEBUG ) System.out.println("Node removed. " + renderNodes.size() + " nodes in flow." );
 	}
@@ -151,7 +153,7 @@ public class RenderFlow
 		target.addSource( source, targetCIndex );
 
 		//--- Call flowChanged() of all iops in flow.
-		tellAllIopsFlowChanged();
+		//tellAllIopsFlowChanged();
 	}
 
 	//--- Disonnects given nodes from each other.

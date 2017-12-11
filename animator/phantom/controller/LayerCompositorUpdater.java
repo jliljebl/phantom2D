@@ -58,13 +58,17 @@ public class LayerCompositorUpdater
 	public static void layerEffectAddUpdate( ImageOperation layerIop, int selectedEffectIndex )
 	{
 		UpdateController.updateCurrentFrameDisplayers( false );
-		GUIComponents.filterStackPanel.initFilterStack( selectedEffectIndex );
+		//GUIComponents.filterStackPanel.initFilterStack( selectedEffectIndex );
+		TimeLineController.loadClips();
+		TimeLineController.initClipEditorGUI();		
 	}
 	
 	
 	public static void layerMaskAddUpdate( ImageOperation maskIop, ImageOperation layerIop )
 	{
 		UpdateController.updateCurrentFrameDisplayers( false );
+		TimeLineController.loadClips();
+		TimeLineController.initClipEditorGUI();		
 	}
 	
 	/*

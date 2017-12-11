@@ -28,6 +28,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import animator.phantom.controller.AppData;
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.KeyStatus;
 import animator.phantom.controller.ParamEditController;
@@ -35,7 +36,9 @@ import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.gui.AnimFrameGUIParams;
 import animator.phantom.gui.GUIColors;
+import animator.phantom.project.LayerCompositorLayer;
 import animator.phantom.renderer.ImageOperation;
+import animator.phantom.renderer.RenderNode;
 
 //--- Left side panel of time line editor. Holds column of TimeLineIOPBoxes.
 public class TimeLineIOPColumnPanel2 extends JPanel implements MouseListener
@@ -58,9 +61,34 @@ public class TimeLineIOPColumnPanel2 extends JPanel implements MouseListener
 		Vector<ImageOperation> clips = TimeLineController.getClips();
 		for( int i = 0; i < clips.size(); i++ )
 		{
-			TimeLineIOPBox2 addBox = new TimeLineIOPBox2( clips.elementAt( i ));
+			// layer boxes
+			ImageOperation layerIop = clips.elementAt( i );
+			TimeLineIOPBox2 addBox = new TimeLineIOPBox2( layerIop );
 			iopBoxes.addElement( addBox );
 			add( addBox );
+			
+			// filter boxes
+			Vector<ImageOperation> filterStack = layerIop.getFilterStack();
+			for( int k = 0; k < filterStack.size(); k++ )
+			{
+				System.out.println("in filter stack" );
+				ImageOperation filterStackIop = filterStack.elementAt( i );
+				TimeLineIOPBox2 filterStackAddBox = new TimeLineIOPBox2( filterStackIop, TimeLineIOPBox2.FILTER_BOX );
+				iopBoxes.addElement( filterStackAddBox );
+				add( filterStackAddBox );
+			}
+			
+			// masks boxes
+			LayerCompositorLayer layer = AppData.getLayerProject().getLayer( layerIop );
+			Vector<RenderNode> preCompNodes = layer.getPreCompLayers();
+			for( int j = 0; j < preCompNodes.size(); j++ )
+			{
+				System.out.println("in preCompNodes" );
+				ImageOperation preCompIop = preCompNodes.elementAt( i ).getImageOperation();
+				TimeLineIOPBox2 precompAddBox = new TimeLineIOPBox2( preCompIop,  TimeLineIOPBox2.PRECOMP_BOX );
+				iopBoxes.addElement( precompAddBox );
+				add( precompAddBox );
+			}
 		}
 		
 		//add( Box.createVerticalGlue() );

@@ -459,7 +459,7 @@ public abstract class ImageOperation implements Comparable<Object>
 		//--- Do nothing if renderedImage is null and this needs input to be meaningful.
 		if( renderedImage == null && NO_INPUT_MEANS_NO_OP ) return;
 		//--- Copy received image if needed to do blend between rendered and unrendered image.
-		if( doReceivedCopyCombine() && inputMask != null )
+		if( doReceivedCopyCombine() && inputMask != null && renderedImage != null)
 		{
 			receivedCopy = RenderNode.getImageClone( renderedImage );
 		}
@@ -487,7 +487,7 @@ public abstract class ImageOperation implements Comparable<Object>
 			resetOriginalCoordinates();
 		}
 		//--- Do blend between rendered and unrendered image using input mask id needed.
-		if( doReceivedCopyCombine() && inputMask != null )
+		if( doReceivedCopyCombine() && inputMask != null && receivedCopy != null )
 		{
 			applyInputMask( renderedImage );
 			combineFilterResult( renderedImage, receivedCopy );
