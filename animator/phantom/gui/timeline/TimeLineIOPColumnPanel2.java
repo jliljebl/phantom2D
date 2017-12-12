@@ -19,23 +19,14 @@ package animator.phantom.gui.timeline;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Vector;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import animator.phantom.controller.AppData;
-import animator.phantom.controller.GUIComponents;
-import animator.phantom.controller.KeyStatus;
-import animator.phantom.controller.ParamEditController;
 import animator.phantom.controller.TimeLineController;
-import animator.phantom.controller.UpdateController;
-import animator.phantom.gui.AnimFrameGUIParams;
-import animator.phantom.gui.GUIColors;
 import animator.phantom.project.LayerCompositorLayer;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
@@ -72,7 +63,7 @@ public class TimeLineIOPColumnPanel2 extends JPanel implements MouseListener
 			for( int k = 0; k < filterStack.size(); k++ )
 			{
 				System.out.println("in filter stack" );
-				ImageOperation filterStackIop = filterStack.elementAt( i );
+				ImageOperation filterStackIop = filterStack.elementAt( k );
 				TimeLineIOPBox2 filterStackAddBox = new TimeLineIOPBox2( filterStackIop, TimeLineIOPBox2.FILTER_BOX );
 				iopBoxes.addElement( filterStackAddBox );
 				add( filterStackAddBox );
@@ -84,7 +75,7 @@ public class TimeLineIOPColumnPanel2 extends JPanel implements MouseListener
 			for( int j = 0; j < preCompNodes.size(); j++ )
 			{
 				System.out.println("in preCompNodes" );
-				ImageOperation preCompIop = preCompNodes.elementAt( i ).getImageOperation();
+				ImageOperation preCompIop = preCompNodes.elementAt( j ).getImageOperation();
 				TimeLineIOPBox2 precompAddBox = new TimeLineIOPBox2( preCompIop,  TimeLineIOPBox2.PRECOMP_BOX );
 				iopBoxes.addElement( precompAddBox );
 				add( precompAddBox );

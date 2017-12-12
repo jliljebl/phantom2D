@@ -37,7 +37,7 @@ public class BigEditorsLayout implements LayoutManager
 	private int TOP_GAP = 0;
 	private int VIEW_EDITOR_HEIGHT_REDUCTION = 0;
 	private int PARAM_EDIT_WIDTH = 360;
-
+	private int MEDIA_PANEL_WIDTH = 300;
 
 	public BigEditorsLayout(){}
 
@@ -53,28 +53,36 @@ public class BigEditorsLayout implements LayoutManager
 				Component c = cont.getComponent(i);
 				switch( i )
 				{
-					//--- View Editor
+				//--- Media Panel
 					case 0:
 						c.setBounds(	LEFT_GAP,
 										TOP_GAP,
-										containerSize.width - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH,
+										MEDIA_PANEL_WIDTH,
+										containerSize.height - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION );
+					break;
+					
+					//--- View Editor
+					case 1:
+						c.setBounds(	LEFT_GAP + MEDIA_PANEL_WIDTH,
+										TOP_GAP,
+										containerSize.width - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH - MEDIA_PANEL_WIDTH,
 										containerSize.height - STRIP_HEIGHT - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION );
 						Container c1 = (Container) c;
 						Component e1 = c1.getComponent( 0 );//--- There will be one.
 						e1.setPreferredSize(
-							new Dimension(  containerSize.width - BIG_EDITOR_INSET - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH ,
+							new Dimension(  containerSize.width - BIG_EDITOR_INSET - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH - MEDIA_PANEL_WIDTH,
 									containerSize.height - STRIP_HEIGHT - BIG_EDITOR_UP_INSET - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION) );
 
 						break;
 					//--- ActionButtons
-					case 1:
-						c.setBounds( 	LEFT_GAP + STRIP_INSET,
+					case 2:
+						c.setBounds( 	LEFT_GAP + STRIP_INSET + MEDIA_PANEL_WIDTH,
 								containerSize.height - STRIP_HEIGHT + 2,
-								containerSize.width - RIGHT_GAP,
+								containerSize.width - RIGHT_GAP - MEDIA_PANEL_WIDTH,
 								STRIP_HEIGHT);
 						break;
 					//--- Param edit frame
-					case 2:
+					case 3:
 						c.setBounds( 	containerSize.width - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH,
 								TOP_GAP,
 								PARAM_EDIT_WIDTH,

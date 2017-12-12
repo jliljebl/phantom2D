@@ -43,6 +43,7 @@ public class PluginStaticSourceIOP extends StaticSource
 	public void doImageRendering( int frame, Vector<BufferedImage> sourceImages )
 	{
 		plugin.doImageRendering( frame );
+		renderedImage = applyFilterStack( frame, this, renderedImage );
 	}
 
 	public ParamEditPanel getEditPanelInstance()

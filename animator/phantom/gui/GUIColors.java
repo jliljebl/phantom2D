@@ -87,4 +87,7 @@ public class GUIColors
 	public static Color KF_BEZ_VALUE_COLOR = Color.orange;
 	public static Color KF_NON_CLIP_COLOR = new Color( 100, 100, 100 );//new Color( 121, 39, 39 );
 
+	
+	public static Color NOT_LAYER_BOX_COLOR = new Color( 88, 92, 104 );//new Color( 121, 39, 39 );
+	
 }//end class

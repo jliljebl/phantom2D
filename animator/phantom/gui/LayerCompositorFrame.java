@@ -216,6 +216,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		paramEditPanelPanel.add( paramEditHolder );
 
 		//--------------------------------------------- view editor + button + param edit
+		screenViewsPanel.add( new JPanel() );
 		screenViewsPanel.add( viewPanel );
 		screenViewsPanel.add( buttonRowHolder );
 		screenViewsPanel.add( paramEditPanelPanel );

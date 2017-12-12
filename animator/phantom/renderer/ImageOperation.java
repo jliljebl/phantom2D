@@ -745,12 +745,10 @@ public abstract class ImageOperation implements Comparable<Object>
 
 			//--- Must have switches or OnOffPanel
 			AnimationParentPanel animParentPanel = null;
-			FilterStackPanel filterStackPanel = null;
+			//FilterStackPanel filterStackPanel = null;
 
-			if( switches == null && isFilterStackIop == true )
+			if( switches == null )
 				switchPanel = new OnOffPanel( this );
-			else if( switches == null && isFilterStackIop == false )
-				switchPanel = null;
 			else if( reducedSwitches )
 				switchPanel = new MaskSwitchPanel( this );
 			else
@@ -758,7 +756,7 @@ public abstract class ImageOperation implements Comparable<Object>
 				if( isFilterStackIop == false )
 				{
 					animParentPanel = new AnimationParentPanel( this );
-					filterStackPanel = new FilterStackPanel( this );
+					//filterStackPanel = new FilterStackPanel( this );
 				}
 				switchPanel = new SwitchPanel( this );
 			}
@@ -777,18 +775,18 @@ public abstract class ImageOperation implements Comparable<Object>
 			addPanel.add( new RowSeparator() );
 
 
-
+			/*
 			if( filterStackPanel != null )
 			{
 				addPanel.add( Box.createRigidArea( new Dimension( 0, 24 ) ) );
-				addPanel.add( filterStackPanel );
+				//addPanel.add( filterStackPanel );
 			}
 
 			if( isFilterStackIop == false )
 			{
 				addPanel.add( Box.createRigidArea( new Dimension( 0, 24 ) ) );
-				MaskStackPanel maskStackPanel = new MaskStackPanel( this );
-				addPanel.add( maskStackPanel );
+				//MaskStackPanel maskStackPanel = new MaskStackPanel( this );
+				//addPanel.add( maskStackPanel );
 			}
 			
 			if ( animParentPanel != null )
@@ -797,12 +795,13 @@ public abstract class ImageOperation implements Comparable<Object>
 				addPanel.add( animParentPanel );
 			}
 			
+
 			if( isFilterStackIop == true )
 			{
 				addPanel.add( Box.createRigidArea( new Dimension( 0, 24 ) ) );
 				addPanel.add( new StackEditExitPanel() );
 			}
-
+			*/
 			if( scrollPaneNeeded )
 			{
 				JScrollPane scrollPane = new JScrollPane( addPanel,
@@ -825,15 +824,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	{
 		JLabel name = new JLabel();
 		Color bgColor = GUIColors.MEDIA_ITEM_SELECTED_BG;
-
-		if( !isFilterStackIop )
-			name.setText( getName() );
-		else
-		{
-			name.setText( getName() + " <Stack>" );
-			bgColor = GUIColors.filterStackColor;
-			name.setForeground( new Color( 50, 50, 50 ) );
-		}
+		name.setText( getName() );
 
 		String idStr = "";
 		if( !isFilterStackIop )

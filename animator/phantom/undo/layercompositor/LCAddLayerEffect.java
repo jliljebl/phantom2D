@@ -1,5 +1,6 @@
 package animator.phantom.undo.layercompositor;
 
+import animator.phantom.controller.FilterStackController;
 import animator.phantom.controller.LayerCompositorUpdater;
 import animator.phantom.project.LayerCompositorLayer;
 import animator.phantom.renderer.ImageOperation;
@@ -28,7 +29,8 @@ public class LCAddLayerEffect extends LCUndoableEdit
 	
 	public void redo()
 	{
-		this.layerIop.getFilterStack().add( this.iop );
+		//this.layerIop.getFilterStack().add( this.iop );
+		FilterStackController.addFilter( this.layerIop, this.iop );
 		this.iop.setFilterStackIOP( true );
 		this.iop.copyTimeParams( this.layerIop );
 

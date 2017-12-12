@@ -56,7 +56,7 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 	private JLabel idLabel;
 	private JLabel nameLabel;
 	private JCheckBox activeCheckBox;
-	
+	private int type;
 	/*
 	private static final int NAME_DRAW_X = 15;
 	private static final int NAME_DRAW_Y = 15;
@@ -84,6 +84,7 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 	private void initBox(  ImageOperation iop, int boxtype )
 	{
 		this.iop = iop;
+		this.type = boxtype;
 		RenderNode node = AppData.getFlow().getNode( iop );
 		String idStr = null;
 		if ( boxtype == LAYER_BOX )
@@ -107,22 +108,36 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 		this.activeCheckBox.setSelected( iop. isOn() );
 		this.activeCheckBox.addItemListener(this);
 		this.activeCheckBox.setOpaque( false );
-		IntegerComboBox blendSelect = new IntegerComboBox( iop.blendMode,
-				"",
-				ImageOperation.blendModes );//so that blenders can be changed without recompiling
-		blendSelect.getComboBox().setOpaque( false );
-		blendSelect.setTransparent();
+		IntegerComboBox blendSelect = null;
+		if ( boxtype == LAYER_BOX )
+		{
+			blendSelect = new IntegerComboBox( iop.blendMode,
+					"",
+					ImageOperation.blendModes );//so that blenders can be changed without recompiling
+			blendSelect.getComboBox().setOpaque( false );
+			blendSelect.setTransparent();
+		}
+		
 		setLayout(new TimeLineColumnRowLayout());
 	
+
 		add( this.idLabel );
 		add( this.nameLabel );
 		add( this.activeCheckBox );
-		add( blendSelect );
+		
+		if ( blendSelect != null )
+		{
+			add( blendSelect );
+			blendSelect.addMouseListener( this );
+		}
+		else
+		{
+			add( new JLabel() );
+		}
 
 		this.idLabel.addMouseListener( this );
 		this.nameLabel.addMouseListener( this );
 		this.activeCheckBox.addMouseListener( this );
-		blendSelect.addMouseListener( this );
 	}
 	
 	public ImageOperation getIop(){ return iop; }
@@ -188,6 +203,12 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 
 		//super.paintComponent( g );
 
+		if( this.type != LAYER_BOX )
+		{
+			g.setColor( GUIColors.NOT_LAYER_BOX_COLOR );
+			g.fillRect( 0,0, AnimFrameGUIParams.TE_LEFT_COLUMN_WIDTH, AnimFrameGUIParams.TE_ROW_HEIGHT );
+		}
+		
 		if( AppData.getParamEditFrame().getIOP() == this.iop )
 		{
 			g.setColor( GUIColors.MEDIA_ITEM_SELECTED_BG );

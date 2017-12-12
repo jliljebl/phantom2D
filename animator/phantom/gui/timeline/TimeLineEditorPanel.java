@@ -102,7 +102,7 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 			for( int k = 0; k < filterStack.size(); k++ )
 			{
 				System.out.println("in filter stack" );
-				ImageOperation filterStackIop = filterStack.elementAt( i );
+				ImageOperation filterStackIop = filterStack.elementAt( k );
 				TimeLineEditorIOPClip filterStackClip= new TimeLineEditorIOPClip( filterStackIop );
 				iopClips.addElement( filterStackClip );
 			}
@@ -113,7 +113,7 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 			for( int j = 0; j < preCompNodes.size(); j++ )
 			{
 				System.out.println("in preCompNodes" );
-				ImageOperation preCompIop = preCompNodes.elementAt( i ).getImageOperation();
+				ImageOperation preCompIop = preCompNodes.elementAt( j ).getImageOperation();
 				TimeLineEditorIOPClip preCompClip = new TimeLineEditorIOPClip(  preCompIop );
 				iopClips.addElement( preCompClip );
 			}
