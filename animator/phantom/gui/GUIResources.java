@@ -65,6 +65,7 @@ public class GUIResources
 
 	//--- Project buttons.
 	public static String openMediaSmall = resourcePath + "openMediaSmall.png";
+	public static String openVideoSmall = resourcePath + "openVideoSmall.png";
 	public static String openFileSeqSmall = resourcePath + "openFileSeqSmall.png";
 	public static String deleteFileSmall = resourcePath + "deleteFileSmall.png";
 

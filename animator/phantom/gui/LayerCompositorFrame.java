@@ -216,7 +216,8 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		paramEditPanelPanel.add( paramEditHolder );
 
 		//--------------------------------------------- view editor + button + param edit
-		screenViewsPanel.add( new JPanel() );
+		MediaItemsPanel mediaPanel = new MediaItemsPanel();
+		screenViewsPanel.add( mediaPanel );
 		screenViewsPanel.add( viewPanel );
 		screenViewsPanel.add( buttonRowHolder );
 		screenViewsPanel.add( paramEditPanelPanel );
@@ -230,7 +231,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		JPanel scaleStrip = new JPanel();
 		scaleStrip.setLayout( new TimeLineRowLayout( timeDummyPanelTop, timeLineDisplay ) );
 		scaleStrip.add( timeDummyPanelTop );
-		scaleStrip.add( timeLineDisplay );
+		scaleStrip.add( timeLineDisplay ); 
 
 		JPanel timeLineEditorStrip = new JPanel();
 		timeLineEditorStrip.setLayout( new TimeLineRowLayout( iopColumn, timelineEditor ) );
@@ -410,7 +411,8 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		GUIComponents.kfControl = kfButtons;
 		GUIComponents.tlineControls = tlineControls;
 		GUIComponents.projectInfoLabel = projectInfoLabel;
-
+		GUIComponents.mediaPanel = mediaPanel;
+		
 		//--- This needs init.
 		TimeLineController.initClipEditorGUI();
 

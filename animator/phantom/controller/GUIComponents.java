@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import animator.phantom.gui.AnimatorFrame;
+import animator.phantom.gui.MediaItemsPanel;
 import animator.phantom.gui.MenuBarCallbackInterface;
 import animator.phantom.gui.NodesPanel;
 import animator.phantom.gui.flow.FlowEditPanel;
@@ -95,7 +96,8 @@ public class GUIComponents
 	public static JScrollPane viewScrollPane;
 	//---
 	public static FilterStackPanel filterStackPanel;
-
+	public static MediaItemsPanel mediaPanel;
+	
 	//---
 	public static TimeLineControls tlineControls;
 	public static NodesPanel nodesPanel;

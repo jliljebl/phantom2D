@@ -139,6 +139,7 @@ public class ProjectController
 	public static void addFileSourcesToProject( Vector<FileSource> addFileSources )
 	{
 		project.addFileSourcesToProject( addFileSources );
+		GUIComponents.mediaPanel.updateGUI();
 	}
 	//--- Returns all file sources.
 	public static Vector<FileSource> getFileSources(){ return project.getFileSources(); }

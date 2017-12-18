@@ -37,7 +37,7 @@ public class BigEditorsLayout implements LayoutManager
 	private int TOP_GAP = 0;
 	private int VIEW_EDITOR_HEIGHT_REDUCTION = 0;
 	private int PARAM_EDIT_WIDTH = 360;
-	private int MEDIA_PANEL_WIDTH = 300;
+	static int MEDIA_PANEL_WIDTH = 360;
 
 	public BigEditorsLayout(){}
 
