@@ -141,7 +141,7 @@ public class UserActions
 							"Remove forbidden character from file name and try again." };
 				DialogUtils.showTwoTextStyleDialog( JOptionPane.WARNING_MESSAGE, null, buttons, bLines, tLines );
 			}
-			FileSource addFS = new FileSequenceSource( addFile );
+			FileSequenceSource addFS = new FileSequenceSource( addFile );
 			Vector<FileSource> fsVec = new Vector<FileSource>();
 			fsVec.add( addFS );
 

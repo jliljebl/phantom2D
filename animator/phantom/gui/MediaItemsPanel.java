@@ -31,19 +31,12 @@ import javax.swing.border.Border;
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.KeyStatus;
 import animator.phantom.controller.ProjectController;
+import animator.phantom.controller.UserActions;
 import animator.phantom.project.Bin;
 import animator.phantom.renderer.FileSource;
 
 public class MediaItemsPanel extends JPanel implements ActionListener, MouseListener
 {
-
-
-		//--- Global data
-		//private Vector <Bin> bins;
-		//private Vector <FileSourceSelectPanel> binPanels;
-		//private Bin currentBin;
-		//public Hashtable<FileSource, ImageIcon> thumbIcons;
-
 		private Vector <MediaListItem> selected = new Vector<MediaListItem>();
 		
 		//--- GUI components
@@ -65,7 +58,6 @@ public class MediaItemsPanel extends JPanel implements ActionListener, MouseList
 		private static final int SCROLL_HEIGHT_INSET = 0;
 		private static final int BINPANEL_WIDTH = BigEditorsLayout.MEDIA_PANEL_WIDTH;
 		private static int BINPANEL_HEIGHT = 300;
-		//private static final int BINPANEL_HEIGHT_PAD = 121;
 	 	private static final int INFO_HEIGHT = 45;
 		public static int ICON_WIDTH = 60;
 		public static int ICON_HEIGHT = 45;
@@ -86,10 +78,6 @@ public class MediaItemsPanel extends JPanel implements ActionListener, MouseList
 		
 		public void updateGUI()
 		{
-			//Dimension prefSize = getPreferredSize();
-			//BINPANEL_HEIGHT = prefSize.height - 10;
-			//System.out.println("llllBINNNNNNllll");
-			//System.out.println(BINPANEL_HEIGHT);
 			removeAll();
 			
 			iconLabel = new JLabel();
@@ -116,7 +104,6 @@ public class MediaItemsPanel extends JPanel implements ActionListener, MouseList
 	
 			buttonsPanel.removeAll();
 			buttonsPanel.setLayout( new BoxLayout( buttonsPanel , BoxLayout.X_AXIS) );
-			//buttonsPanel.add( Box.createRigidArea(new Dimension(6, 0)));
 			buttonsPanel.add( addImage );
 			buttonsPanel.add( addVideo );		
 			buttonsPanel.add( addSequence );
@@ -125,7 +112,6 @@ public class MediaItemsPanel extends JPanel implements ActionListener, MouseList
 			buttonsPanel.add( Box.createHorizontalGlue() );
 	
 			mediaPanel = createMediaListPanel();
-					//sPanel.requestFocusInWindow();
 			
 			//--- Create scrollpane and put selectPanel in it.
 			scrollPane = new JScrollPane( mediaPanel,
@@ -148,6 +134,7 @@ public class MediaItemsPanel extends JPanel implements ActionListener, MouseList
 			binPanel.setLayout( new BoxLayout( binPanel, BoxLayout.Y_AXIS) );
 			binPanel.add( Box.createRigidArea(new Dimension(0, 3)));
 			binPanel.add( scrollPanePanel );
+			BINPANEL_HEIGHT = BigEditorsLayout.getLastMediaPanelHeight();
 			binPanel.setPreferredSize( new Dimension( BINPANEL_WIDTH, BINPANEL_HEIGHT ));
 			binPanel.setMaximumSize( new Dimension( BINPANEL_WIDTH, BINPANEL_HEIGHT ));
 			
@@ -178,8 +165,39 @@ public class MediaItemsPanel extends JPanel implements ActionListener, MouseList
 
 		
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
+		public void actionPerformed( ActionEvent e ) 
+		{
+			//--------------------------------------------- Media menu
+			if( e.getSource() == addImage )
+			{
+				new Thread()
+				{
+					public void run()
+					{
+						UserActions.addSingleFileSources(FileSource.IMAGE_FILE, -1, -1);
+					}
+				}.start();
+			}
+			if( e.getSource() == addSequence )
+			{
+				new Thread()
+				{
+					public void run()
+					{
+						UserActions.addFileSequenceSource();
+					}
+				}.start();
+			}
+			if( e.getSource() == addVideo )
+			{
+				new Thread()
+				{
+					public void run()
+					{
+						UserActions.addSingleFileSources(FileSource.VIDEO_FILE, -1, -1);
+					}
+				}.start();
+			}
 			
 		}
 

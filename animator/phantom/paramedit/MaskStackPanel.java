@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Collections;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -15,7 +14,6 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -26,20 +24,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-//import com.jhlabs.image.CellularFilter.Point;
-
-import animator.phantom.controller.FilterStackController;
 import animator.phantom.controller.GUIComponents;
-import animator.phantom.controller.LayerCompositorMenuActions;
 import animator.phantom.controller.ParamEditController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
-import animator.phantom.gui.IOPMenuItem;
-import animator.phantom.gui.NodesPanel;
 import animator.phantom.gui.PHButtonFactory;
-import animator.phantom.plugin.PhantomPlugin;
-import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
 
 public class MaskStackPanel extends JPanel implements ActionListener, MouseListener

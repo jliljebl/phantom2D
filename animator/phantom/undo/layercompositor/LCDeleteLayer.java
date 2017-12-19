@@ -1,13 +1,7 @@
 package animator.phantom.undo.layercompositor;
 
-import animator.phantom.controller.EditorsController;
-import animator.phantom.controller.ProjectController;
-import animator.phantom.controller.TimeLineController;
 import animator.phantom.project.LayerCompositorLayer;
 import animator.phantom.renderer.ImageOperation;
-import animator.phantom.renderer.RenderNode;
-import animator.phantom.undo.PhantomUndoManager;
-
 
 public class LCDeleteLayer extends LCUndoableEdit
 {

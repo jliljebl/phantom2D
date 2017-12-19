@@ -61,7 +61,7 @@ public class MediaListItem extends JPanel implements MouseListener, ActionListen
 	private  JMenuItem deleteFileSource;
 
 	private static final int HEIGHT = 22;
-	private static final int WIDTH = 120;
+	private static final int WIDTH = BigEditorsLayout.MEDIA_PANEL_WIDTH;
 	private static final Dimension COMP_SIZE = new Dimension( WIDTH, HEIGHT );
 	private static final Dimension NAME_SIZE = new Dimension( WIDTH - 35, HEIGHT );
 	private static final Dimension PAD = new Dimension( 5, 0);

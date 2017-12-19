@@ -141,6 +141,28 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 
 		fileMenu.addSeparator();
 
+		//--------------------------- Project menu
+		JMenu mediaItem = new JMenu("Add Media");
+		
+		addVideo = new JMenuItem("Add Video Clips...");
+		addVideo.addActionListener(this);
+		mediaItem.add( addVideo );
+
+		addImage  = new JMenuItem("Add Images...");
+		addImage.addActionListener(this);
+		mediaItem.add( addImage );
+
+		addImageSequence  = new JMenuItem("Add Image Sequence...");
+		addImageSequence.addActionListener(this);
+		mediaItem.add( addImageSequence );
+		fileMenu.add( mediaItem );
+
+		projectSettings = new JMenuItem("Project Settings...");
+		projectSettings.addActionListener(this);
+		fileMenu.add( projectSettings);
+		
+		fileMenu.addSeparator();
+		
 		closeProject = new JMenuItem( "Close" );
 		closeProject.addActionListener(this);
 		fileMenu.add( closeProject );
@@ -223,26 +245,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		
 		
 		
-		//--------------------------- Project menu
-		JMenu projectMenu = new JMenu("Project");
-		
-		addVideo = new JMenuItem("Add Video Clips...");
-		addVideo.addActionListener(this);
-		projectMenu.add( addVideo );
 
-		addImage  = new JMenuItem("Add Images...");
-		addImage.addActionListener(this);
-		projectMenu.add( addImage );
-
-		addImageSequence  = new JMenuItem("Add Image Sequence...");
-		addImageSequence.addActionListener(this);
-		projectMenu.add( addImageSequence );
-
-		projectMenu.addSeparator();
-
-		projectSettings = new JMenuItem("Project Settings...");
-		projectSettings.addActionListener(this);
-		projectMenu.add( projectSettings);
 		
 
 		//--- ------------------------------- Render menu
@@ -292,7 +295,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		add( fileMenu );
 		add( editMenu );
 		add( layerMenu );
-		add( projectMenu );
+		//add( projectMenu );
 		add( renderMenu );
 		add( helpMenu );
 	}

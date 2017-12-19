@@ -42,6 +42,7 @@ public class FileSequenceSource extends SequencePlaybackSource
 	public void loadInit()
 	{
 		init( file );
+		printInfo();
 	}
 
 	public void loadData(){}//--- not cached

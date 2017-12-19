@@ -38,7 +38,8 @@ public class BigEditorsLayout implements LayoutManager
 	private int VIEW_EDITOR_HEIGHT_REDUCTION = 0;
 	private int PARAM_EDIT_WIDTH = 360;
 	static int MEDIA_PANEL_WIDTH = 360;
-
+	private static int LAST_MEDIA_PANEL_HEIGHT = 500;
+	
 	public BigEditorsLayout(){}
 
 	//--- This all depends on order that components are added into container
@@ -55,10 +56,11 @@ public class BigEditorsLayout implements LayoutManager
 				{
 				//--- Media Panel
 					case 0:
+						LAST_MEDIA_PANEL_HEIGHT = containerSize.height - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION;
 						c.setBounds(	LEFT_GAP,
 										TOP_GAP,
 										MEDIA_PANEL_WIDTH,
-										containerSize.height - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION );
+										LAST_MEDIA_PANEL_HEIGHT);
 					break;
 					
 					//--- View Editor
@@ -103,4 +105,6 @@ public class BigEditorsLayout implements LayoutManager
 	public Dimension preferredLayoutSize(Container cont ){ return new Dimension( 100, 100 ); }
 	public Dimension minimumLayoutSize(Container cont ){ return new Dimension( 100, 100 ); }
 
+	
+	public static int getLastMediaPanelHeight(){ return LAST_MEDIA_PANEL_HEIGHT; }
 }//end class
