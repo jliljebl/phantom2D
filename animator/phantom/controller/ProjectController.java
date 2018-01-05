@@ -141,6 +141,11 @@ public class ProjectController
 		project.addFileSourcesToProject( addFileSources );
 		GUIComponents.mediaPanel.updateGUI();
 	}
+	public static void deleteFileSourcesFromProject( Vector<FileSource> deleteFileSources )
+	{
+		project.deleteFileSourcesFromProject( deleteFileSources );
+		GUIComponents.mediaPanel.updateGUI();
+	}
 	//--- Returns all file sources.
 	public static Vector<FileSource> getFileSources(){ return project.getFileSources(); }
 

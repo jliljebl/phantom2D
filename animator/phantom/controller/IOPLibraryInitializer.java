@@ -297,14 +297,12 @@ public class IOPLibraryInitializer
 		groups.add( "Blur" );
 		groups.add( "Sharpen" );
 		groups.add( "Artistic" );
-		groups.add( "Source" );
-		groups.add( "Render" );
 		groups.add( "Distort" );
 		Collections.sort(groups);
 		return groups;
 	}
 	
-	public static Vector<String> getMasktGroups()
+	public static Vector<String> getMaskGroups()
 	{
 		Vector<String> groups = new Vector<String>();
 		groups.add( "Key" );
@@ -313,4 +311,15 @@ public class IOPLibraryInitializer
 		Collections.sort(groups);
 		return groups;
 	}
+
+	public static Vector<String> getSolidGroups()
+	{
+		Vector<String> groups = new Vector<String>();
+		groups.add( "Source" );
+		groups.add( "Render" );
+
+		Collections.sort(groups);
+		return groups;
+	}
+	
 }//end class

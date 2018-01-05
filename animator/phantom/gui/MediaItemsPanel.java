@@ -65,7 +65,6 @@ public class MediaItemsPanel extends JPanel implements ActionListener, MouseList
 		//------------------------------------------------- CONSTRUCTOR	
 		public MediaItemsPanel()
 		{
-
 			//--- Prepare buttons.
 			GUIResources.prepareMediumButton( addImage, this, "Add Graphic" );
 			GUIResources.prepareMediumButton( addVideo, this, "Add Video" );
@@ -84,7 +83,6 @@ public class MediaItemsPanel extends JPanel implements ActionListener, MouseList
 			iconLabel.setBorder( BorderFactory.createLineBorder( GUIColors.THUMB_BORDER ) );
 			iconLabel.setPreferredSize( new Dimension( ICON_WIDTH, ICON_WIDTH ));
 			iconLabel.setMinimumSize( new Dimension( ICON_WIDTH, ICON_WIDTH ) );
-			//clearThumbIcon();
 			 
 			infoLabel = new JLabel();
 			infoLabel.setFont( new Font( "SansSerif", Font.PLAIN, 10 ) );
@@ -201,7 +199,6 @@ public class MediaItemsPanel extends JPanel implements ActionListener, MouseList
 			
 		}
 
-		
 		public void mouseClicked(MouseEvent e){	}
 		public void mouseEntered(MouseEvent e){}
 		public void mouseExited(MouseEvent e){}

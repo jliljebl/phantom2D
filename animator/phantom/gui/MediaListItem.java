@@ -30,6 +30,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -41,6 +42,8 @@ import javax.swing.SwingUtilities;
 
 import animator.phantom.controller.FlowController;
 import animator.phantom.controller.GUIComponents;
+import animator.phantom.controller.LayerCompositorMenuActions;
+import animator.phantom.controller.UserActions;
 //import animator.phantom.controller.KeyActionController;
 import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.renderer.FileSource;
@@ -55,8 +58,6 @@ public class MediaListItem extends JPanel implements MouseListener, ActionListen
 
 	private  JPopupMenu popup;
 	private  JMenuItem sendToFlow;
-	private  JMenuItem sendToFlowThreeDee;
-	private  JMenuItem sendToFlowFileMerge;
 	private  JMenuItem fileSourceInfo;
 	private  JMenuItem deleteFileSource;
 
@@ -86,30 +87,22 @@ public class MediaListItem extends JPanel implements MouseListener, ActionListen
 		add( Box.createHorizontalGlue() );
 		add( Box.createRigidArea( PAD ) );
 
-		//Create the popup menu.
+		// Create the popup menu.
 		popup = new JPopupMenu();
-		sendToFlow = new JMenuItem("Add To Flow");
+		sendToFlow = new JMenuItem("Add To Composition");
 		sendToFlow.addActionListener(this);
 		popup.add( sendToFlow );
-		sendToFlowThreeDee = new JMenuItem("Add To Flow As 3D Layer");
-		sendToFlowThreeDee.addActionListener(this);
-		popup.add( sendToFlowThreeDee );
-		sendToFlowFileMerge = new JMenuItem("Add To Flow As Image Pattern Wipe");
-		sendToFlowFileMerge.addActionListener(this);
-		popup.add( sendToFlowFileMerge );
-
+		deleteFileSource = new JMenuItem("Delete");
+		deleteFileSource.addActionListener(this);
+		popup.add( deleteFileSource );
+		
 		popup.addSeparator();
 
 		fileSourceInfo = new JMenuItem("Info");
 		fileSourceInfo.addActionListener(this);
 		popup.add( fileSourceInfo );
 
-		popup.addSeparator();
-
-		deleteFileSource = new JMenuItem("Delete");
-		deleteFileSource.addActionListener(this);
-		popup.add( deleteFileSource );
-
+		// Component building 
 		setBackground( GUIColors.BIN_BG );
 		setPreferredSize( COMP_SIZE );
 		setMinimumSize( COMP_SIZE );
@@ -216,26 +209,30 @@ public class MediaListItem extends JPanel implements MouseListener, ActionListen
 
 	public void actionPerformed(ActionEvent e)
 	{
-		/*
+		
 		if( e.getSource() == sendToFlow )
 		{
-			FlowController.addToCenterFromFileSource( fileSource );
+			LayerCompositorMenuActions.addFileSourceLayer( fileSource );
 		}
+		/*
 		if( e.getSource() == sendToFlowFileMerge )
 		{
 
 			FlowController.addFileMergeFromFileSource( fileSource );
 		}
+		*/
 		if( e.getSource() == deleteFileSource )
 		{
 			//KeyActionController.deleteItems( GUIComponents.binsPanel );
+			Vector<FileSource> delVec = new Vector<FileSource>();
+			delVec.add( fileSource );
+			UserActions.deleteFileSources( delVec  );
 		}
-
+		
 		if( e.getSource() == fileSourceInfo )
 		{
 			DialogUtils.showFileSourceInfoDialog( fileSource );
 		}
-		*/
 	}
 
 	private void maybeShowPopup(MouseEvent e) 

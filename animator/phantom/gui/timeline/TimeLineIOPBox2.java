@@ -22,6 +22,8 @@ import java.awt.Color;
 */
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
@@ -30,7 +32,9 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 import animator.phantom.controller.AppData;
 import animator.phantom.controller.KeyStatus;
@@ -44,7 +48,7 @@ import animator.phantom.paramedit.IntegerComboBox;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
 
-public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListener
+public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListener, ActionListener
 {
 	public static final int LAYER_BOX = 0;
 	public static final int PRECOMP_BOX = 1;
@@ -57,6 +61,11 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 	private JLabel nameLabel;
 	private JCheckBox activeCheckBox;
 	private int type;
+	
+	private  JPopupMenu popupMenu;
+	private JMenuItem moveUp;
+	private JMenuItem moveDown;
+	private JMenuItem delete;
 	/*
 	private static final int NAME_DRAW_X = 15;
 	private static final int NAME_DRAW_Y = 15;
@@ -138,6 +147,9 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 		this.idLabel.addMouseListener( this );
 		this.nameLabel.addMouseListener( this );
 		this.activeCheckBox.addMouseListener( this );
+		
+
+		
 	}
 	
 	public ImageOperation getIop(){ return iop; }
@@ -146,7 +158,11 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 	//------------------------------------------------- MOUSE EVENTS
 	public void mousePressed(MouseEvent e)
 	{
-
+		if( e.getButton() == MouseEvent.BUTTON3 )
+		{
+			showPopup(e);
+			return;
+		}
 
 		//--- if ctrl is not pressed, set as only selected.
 		if( !KeyStatus.ctrlIsPressed() ) 
@@ -195,7 +211,13 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 			UpdateController.valueChangeUpdate();
 		}
 	}
-	
+
+		/*
+	private void maybeShowPopup(MouseEvent e) 
+	{
+		popupMenu.show( e.getComponent(), e.getX(), e.getY() );
+	}
+	*/
 	public void paintComponent( Graphics g )
 	{
 			//int rowHeight = AnimFrameGUIParams.TE_ROW_HEIGHT;
@@ -257,5 +279,32 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 			
 	//}
 
+	//----------------------------------------- popup menu items
+	public void actionPerformed(ActionEvent e)
+	{
+		if( e.getSource() == moveUp )TimeLineController.moveSelectedClipsUp();
+		if( e.getSource() == moveDown ) TimeLineController.moveSelectedClipsDown();
+	}
+	
+	private void showPopup( MouseEvent e ) 
+	{
+		popupMenu = new JPopupMenu();
+		
+		moveUp = new JMenuItem("Move Up");
+		moveUp.addActionListener( this );
+		popupMenu.add( moveUp );
+
+		moveDown = new JMenuItem("Move Down");
+		moveDown.addActionListener( this );
+		popupMenu.add( moveDown );
+
+		popupMenu.addSeparator();
+		
+		delete = new JMenuItem("Delete");
+		delete.addActionListener( this );
+		popupMenu.add( delete );
+		
+		popupMenu.show( e.getComponent(), e.getX(), e.getY() );
+	}
 	
 }//end class

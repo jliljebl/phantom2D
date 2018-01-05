@@ -64,6 +64,7 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 	private JPopupMenu clipMenu;
 	private JMenuItem moveUp;
 	private JMenuItem moveDown;
+	private JMenuItem delete;
 	private JMenuItem clipOutToCurrent;
 	private JMenuItem clipInToCurrent;
 	private JMenuItem moveClipTailToCurrent;
@@ -119,7 +120,7 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 			}
 			
 		}
-		//GUIComponents.clipVertSlider.setValue( 50 );
+
 		repaint();
 	}
 
@@ -311,7 +312,13 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 		clipMenu.add( moveDown );
 
 		clipMenu.addSeparator();
-		
+
+		delete = new JMenuItem("Delete");
+		delete.addActionListener( this );
+		clipMenu.add( delete );
+
+		clipMenu.addSeparator();
+
 		clipOutToCurrent = new JMenuItem("Strecth clip out to current frame" );
 		clipOutToCurrent.addActionListener(this);
 		clipMenu.add( clipOutToCurrent );

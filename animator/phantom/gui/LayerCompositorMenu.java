@@ -45,6 +45,7 @@ import animator.phantom.project.MovieFormat;
 import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
+import animator.phantom.renderer.coordtransformer.NullIOP;
 
 public class LayerCompositorMenu extends JMenuBar implements ActionListener, MenuBarCallbackInterface
 {
@@ -71,10 +72,11 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 	JMenuItem kfPreferences;
 
 	//--- Layer Menu
-	JMenu newLayer;
-	JMenu addJustmentLayer;
 	JMenu mediaMenu;
 
+	//--- Effect
+	JMenuItem deleteAll;
+	
 	//--- Project Menu
 	JMenuItem addImage;
 	JMenuItem addImageSequence;
@@ -186,20 +188,6 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		editMenu.add( redo );
 
 		editMenu.addSeparator();
-
-		deleteSelected = new JMenuItem("Delete");
-		deleteSelected.addActionListener(this);
-		editMenu.add( deleteSelected );
-
-		renameSelected = new JMenuItem("Rename");
-		renameSelected.addActionListener(this);
-		editMenu.add( renameSelected );
-		
-		cloneSelected = new JMenuItem("Clone");
-		cloneSelected.addActionListener(this);
-		editMenu.add( cloneSelected );
-		
-		editMenu.addSeparator();
 		
 		memorySettings = new JMenuItem("Memory Manager...");
 		memorySettings.addActionListener(this);
@@ -209,45 +197,69 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		diskCache.addActionListener(this);
 		editMenu.add( diskCache );
 
-		/*
-		editorLayout = new JMenuItem("Panel sizes...");
-		editorLayout.addActionListener(this);
-		editMenu.add( editorLayout );
-
-		kfPreferences = new JMenuItem("Keyframe Preferences...");
-		kfPreferences.addActionListener(this);
-		editMenu.add( kfPreferences );
-		*/
-
-
 		//------------------------------------ Layer menu
 		JMenu layerMenu = new JMenu("Layer");
-		JMenu newLayer = new JMenu("New");
-		
+	
 		mediaMenu = new JMenu("Media");
-		newLayer.add( mediaMenu );
-		JMenu addJustmentLayerMenu = new JMenu("Adjustmnent Layer");
-		buildIOPMenu( addJustmentLayerMenu, this );		
-		newLayer.add( addJustmentLayerMenu );
-
-		layerMenu.add( newLayer );
+		layerMenu.add( mediaMenu );
 		
-		JMenu layerEffect = new JMenu("Layer Effect");
-		fillLayerEffectMenu( layerEffect );
+		layerMenu.addSeparator();
+
+		ImageOperation iop = (ImageOperation) new NullIOP();
+		IOPMenuItem nullItem = new IOPMenuItem( iop.getName(), iop.getClass().getName(), IOPMenuItem.ADJUSTMENT_LAYER_ITEM  );
+		nullItem.addActionListener(this);
+		layerMenu.add( nullItem );
+	
+		JMenu layerEffect = new JMenu("Filter");
+		fillLayerEffectMenu( layerEffect, IOPMenuItem.ADJUSTMENT_LAYER_ITEM );
 		layerMenu.add( layerEffect );
 		
-		JMenu layerMask = new JMenu("Layer Mask");
-		fillLayerMaskMenu( layerMask );
+		JMenu layerMask = new JMenu("Mask");
+		fillLayerMaskMenu( layerMask, IOPMenuItem.ADJUSTMENT_LAYER_ITEM );
 		layerMenu.add( layerMask );
+
+		JMenu layerSolid = new JMenu("Solid");
+		fillSolidMenu( layerSolid, IOPMenuItem.ADJUSTMENT_LAYER_ITEM );
+		layerMenu.add( layerSolid );
 		
+		layerMenu.addSeparator();
+
+		deleteSelected = new JMenuItem("Delete");
+		deleteSelected.addActionListener(this);
+		layerMenu.add( deleteSelected );
+
+		renameSelected = new JMenuItem("Rename");
+		renameSelected.addActionListener(this);
+		layerMenu.add( renameSelected );
+		
+		cloneSelected = new JMenuItem("Clone");
+		cloneSelected.addActionListener(this);
+		layerMenu.add( cloneSelected );
+		//buildIOPMenu( layerMenu, this );		
 
 		updateAppMediaMenu();
 		
+		//-------------------------------- Effect Menu
+		JMenu effectMenu = new JMenu("Effect");
 		
+		JMenu effectEffect = new JMenu("Filter");
+		fillLayerEffectMenu( effectEffect, IOPMenuItem.LAYER_EFFECT_ITEM  );
+		effectMenu.add( effectEffect );
 		
+		JMenu effectMask = new JMenu("Mask");
+		fillLayerMaskMenu( effectMask, IOPMenuItem.LAYER_MASK_ITEM  );
+		effectMenu.add( effectMask );
 
-		
+		JMenu effectSolid = new JMenu("Solid");
+		fillSolidMenu( effectSolid, IOPMenuItem.LAYER_EFFECT_ITEM  );
+		effectMenu.add( effectSolid );
+	
+		effectMenu.addSeparator();
 
+		deleteAll = new JMenuItem("Delete All");
+		deleteAll.addActionListener(this);
+		effectMenu.add( deleteAll );
+		
 		//--- ------------------------------- Render menu
 		JMenu renderMenu = new JMenu("Render");
 		threadsSettings = new JMenuItem("Rendering Settings...");
@@ -278,7 +290,6 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		renderMovie.setAccelerator( KeyStroke.getKeyStroke( "F12"  ) );
 		renderMenu.add( renderMovie );
 
-		
 		//----------------------------------- Help menu
 		JMenu helpMenu = new JMenu("Help");
 
@@ -295,7 +306,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		add( fileMenu );
 		add( editMenu );
 		add( layerMenu );
-		//add( projectMenu );
+		add( effectMenu );
 		add( renderMenu );
 		add( helpMenu );
 	}
@@ -319,21 +330,30 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 			iopMenu.add( subMenu );
 	}
 
-	private void fillLayerEffectMenu( JMenu effectMenu )
+	private void fillLayerEffectMenu( JMenu effectMenu, int menuItemType )
 	{
 		Vector<String> groups = IOPLibraryInitializer.getLayerEffectGroups();
-		Vector<JMenu> groupMenus = getNodesMenus( groups, IOPMenuItem.LAYER_EFFECT_ITEM  );
+		Vector<JMenu> groupMenus = getNodesMenus( groups, menuItemType );//IOPMenuItem.LAYER_EFFECT_ITEM  );
 		for( JMenu subMenu : groupMenus )
 			effectMenu.add( subMenu );
 	}
 
-	private void fillLayerMaskMenu( JMenu maskMenu )
+	private void fillLayerMaskMenu( JMenu maskMenu, int menuItemType )
 	{
-		Vector<String> groups = IOPLibraryInitializer.getMasktGroups();
-		Vector<JMenu> groupMenus = getNodesMenus( groups, IOPMenuItem.LAYER_MASK_ITEM  );
+		Vector<String> groups = IOPLibraryInitializer.getMaskGroups();
+		Vector<JMenu> groupMenus = getNodesMenus( groups, menuItemType );
 		for( JMenu subMenu : groupMenus )
 			maskMenu.add( subMenu );	
 	}
+
+	private void fillSolidMenu( JMenu maskMenu, int menuItemType )
+	{
+		Vector<String> groups = IOPLibraryInitializer.getSolidGroups();
+		Vector<JMenu> groupMenus = getNodesMenus( groups, menuItemType );// );
+		for( JMenu subMenu : groupMenus )
+			maskMenu.add( subMenu );	
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Vector<JMenu> getNodesMenus( Vector<String> groups, int menuItemType )
 	{
@@ -498,7 +518,6 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		{
 			MediaMenuItem source =  ( MediaMenuItem ) e.getSource();
 			LayerCompositorMenuActions.addFileSourceLayer( source.getFileSource() );
-			//FlowController.addToCenterFromFileSource( source.getFileSource() );
 		}
 
 		if( e.getSource() instanceof IOPMenuItem )

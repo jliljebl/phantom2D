@@ -178,8 +178,13 @@ public class UserActions
 		ProjectController.updateProjectInfo();
 	}
 
-	public static void deleteFileSources()
+	public static void deleteFileSources(  Vector<FileSource> delVec  )
 	{
+		
+		ProjectController.deleteFileSourcesFromProject( delVec );
+		mediaLoadUpdate();
+		MemoryManager.fileSourcesAdded();
+		
 		/*
 		Vector<FileSource> selected = bPanel.currentSelectPanel().getSelected();
 		String fsString = null;
