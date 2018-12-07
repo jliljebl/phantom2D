@@ -96,7 +96,6 @@ public class GUIComponents
 	public static JScrollPane viewScrollPane;
 	//---
 	public static FilterStackPanel filterStackPanel;
-	public static MediaItemsPanel mediaPanel;
 	
 	//---
 	public static TimeLineControls tlineControls;
@@ -109,7 +108,6 @@ public class GUIComponents
 		animatorMenu = null;
 		renderFlowPanel = null;
 		viewEditor = null;
-		//renderFlowButtons = null;
 		ParamEditController.paramEditFrame = null;
 		timeLineIOPColumnPanel = null;
 		timeLineEditorPanel = null;

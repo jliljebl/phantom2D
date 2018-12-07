@@ -46,11 +46,12 @@ public class ButtonsRowLayout implements LayoutManager
 					case 0:
 						c.setBounds(	0,
 										0,
-										containerSize.width - PREVIEW_BUTTONS_WIDTH,
+										containerSize.width,
 										containerSize.height);
 
 
 						break;
+						/*
 					//--- Preview Buttons
 					case 1:
 					c.setBounds(	containerSize.width - PREVIEW_BUTTONS_WIDTH,
@@ -58,6 +59,7 @@ public class ButtonsRowLayout implements LayoutManager
 									PREVIEW_BUTTONS_WIDTH,
 									containerSize.height);
 						break;
+						*/
 
 				}
 			}

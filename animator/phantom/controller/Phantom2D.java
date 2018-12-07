@@ -40,30 +40,10 @@ public class Phantom2D
 			if (arg.equals("-c"))
 				diskCacheDirPath = args[i + 1];
 
-			if (arg.equals("-app"))
-			{
-				String app = args[i + 1];
-				//if (app.equals("ganim"))
-				//	application = GRAPHIC_ANIMATOR;
-			}
-
 		}
-
-		//Application app = new Application();
-		//app.startUp(profile, diskCacheDirPath);
 		
 		LayerCompositorApplication app = new LayerCompositorApplication();
 		app.startUp(profile, diskCacheDirPath);
-		/*
-		System.out.println(profile);
-		if (application == PHANTOM2D)
-		{
-			Application app = new Application();
-			app.startUp(profile, diskCacheDirPath);
-		}
-		*/
-
-		
 	}
 
 }//end class

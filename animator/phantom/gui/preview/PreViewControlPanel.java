@@ -69,6 +69,7 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 
 		JPanel p2 = new JPanel();
 		p2.setLayout(new BoxLayout( p2, BoxLayout.X_AXIS));
+		p2.add( Box.createRigidArea( new Dimension( 10, 0 ) ) );
 		p2.add( toPreviousFrame );
 		p2.add( playStop );
 		p2.add( toNextFrame );

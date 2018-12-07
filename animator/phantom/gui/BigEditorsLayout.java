@@ -54,41 +54,33 @@ public class BigEditorsLayout implements LayoutManager
 				Component c = cont.getComponent(i);
 				switch( i )
 				{
-				//--- Media Panel
-					case 0:
-						LAST_MEDIA_PANEL_HEIGHT = containerSize.height - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION;
-						c.setBounds(	LEFT_GAP,
-										TOP_GAP,
-										MEDIA_PANEL_WIDTH,
-										LAST_MEDIA_PANEL_HEIGHT);
-					break;
-					
 					//--- View Editor
-					case 1:
-						c.setBounds(	LEFT_GAP + MEDIA_PANEL_WIDTH,
+					case 0:
+						c.setBounds(	0,
 										TOP_GAP,
-										containerSize.width - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH - MEDIA_PANEL_WIDTH,
+										containerSize.width - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH,
 										containerSize.height - STRIP_HEIGHT - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION );
+						
 						Container c1 = (Container) c;
-						Component e1 = c1.getComponent( 0 );//--- There will be one.
+						Component e1 = c1.getComponent( 0 );
 						e1.setPreferredSize(
-							new Dimension(  containerSize.width - BIG_EDITOR_INSET - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH - MEDIA_PANEL_WIDTH,
+							new Dimension(  containerSize.width - BIG_EDITOR_INSET - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH,
 									containerSize.height - STRIP_HEIGHT - BIG_EDITOR_UP_INSET - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION) );
 
 						break;
 					//--- ActionButtons
-					case 2:
-						c.setBounds( 	LEFT_GAP + STRIP_INSET + MEDIA_PANEL_WIDTH,
-								containerSize.height - STRIP_HEIGHT + 2,
-								containerSize.width - RIGHT_GAP - MEDIA_PANEL_WIDTH,
-								STRIP_HEIGHT);
+					case 1:
+						c.setBounds( 	0,
+										containerSize.height - STRIP_HEIGHT + 2,
+										containerSize.width - RIGHT_GAP - PARAM_EDIT_WIDTH,
+										STRIP_HEIGHT);
 						break;
 					//--- Param edit frame
-					case 3:
+					case 2:
 						c.setBounds( 	containerSize.width - LEFT_GAP - RIGHT_GAP - PARAM_EDIT_WIDTH,
-								TOP_GAP,
-								PARAM_EDIT_WIDTH,
-								containerSize.height - STRIP_HEIGHT - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION);
+										TOP_GAP,
+										PARAM_EDIT_WIDTH,
+										containerSize.height - TOP_GAP - VIEW_EDITOR_HEIGHT_REDUCTION);
 					default:
 						break;
 
@@ -102,9 +94,10 @@ public class BigEditorsLayout implements LayoutManager
 	public void addLayoutComponent(String name, Component comp) {}
 	//--- noop
 	public void removeLayoutComponent(Component comp) {}
+
 	public Dimension preferredLayoutSize(Container cont ){ return new Dimension( 100, 100 ); }
 	public Dimension minimumLayoutSize(Container cont ){ return new Dimension( 100, 100 ); }
 
-	
 	public static int getLastMediaPanelHeight(){ return LAST_MEDIA_PANEL_HEIGHT; }
+
 }//end class

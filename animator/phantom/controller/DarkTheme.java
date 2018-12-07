@@ -40,10 +40,12 @@ public class DarkTheme extends OceanTheme
 {
 	public static Font MENU_FONT = null;
 
-	public static ColorUIResource darkBg = new ColorUIResource( new Color( 56, 60, 74 ) );
-	public static ColorUIResource darkBgLighter = new ColorUIResource( new Color( 67, 75, 79 ) );
+	public static ColorUIResource darkBg = new ColorUIResource( new Color( 30, 35, 51 ));
+	public static ColorUIResource darkestBg = new ColorUIResource( new Color( 16, 19, 30  ));
+	public static ColorUIResource darkBgLighter = new ColorUIResource( new Color( 30, 35, 51 ) );
 	public static ColorUIResource darker = new ColorUIResource( new Color( 51, 55, 69 ) );//new Color( 63,64,61 ) );
-	public static ColorUIResource dark = new ColorUIResource( new Color( 56, 60, 74 )  );
+	public static ColorUIResource dark = new ColorUIResource( new Color( 30, 35, 51 ) );
+	public static ColorUIResource buttonLighter = new ColorUIResource( new Color( 39, 45, 65 ) );
 	public static ColorUIResource middark = new ColorUIResource( new Color( 110,110,110 ) );
 	public static ColorUIResource lighter = new ColorUIResource( new Color( 71, 75, 90 ) );//new Color( 80,80,90 ) );
 	public static ColorUIResource midlight = new ColorUIResource( new Color( 170,170,170 ) );
@@ -52,8 +54,9 @@ public class DarkTheme extends OceanTheme
 	public static ColorUIResource phantomOrange = new ColorUIResource( new Color( 52, 80, 132 ) );
 	public static ColorUIResource phantomOrangeLight = new ColorUIResource( new Color( 62, 90, 142 ) );
 	public static ColorUIResource black = new ColorUIResource( Color.black );
-
-
+	public static ColorUIResource red = new ColorUIResource( Color.red );
+	public static ColorUIResource menuBlue = new ColorUIResource( new Color( 25, 80, 147 ) );
+	
 	static
 	{
 		Font freeSans = GUIResources.getFont( GUIResources.FREE_SANS_PATH );
@@ -89,28 +92,28 @@ public class DarkTheme extends OceanTheme
 	public FontUIResource getMenuTextFont() { return menuFont;}
 
 	//--- Colors
-	public ColorUIResource getControl(){ return dark; }
-	public ColorUIResource getSystemTextColor(){ return light; }
-	public ColorUIResource getWindowBackground()  { return darkBg; }
+	public ColorUIResource getControl(){ return dark; } // panel bg
+	public ColorUIResource getSystemTextColor(){ return light; } // label text color
+	public ColorUIResource getWindowBackground()  { return darkestBg; } // text entry, file select bg
 
-	public ColorUIResource getWhite() { return midlight; }
-	public ColorUIResource getBlack() { return light; }
+	public ColorUIResource getWhite() { return midlight; } // slider middle
+	public ColorUIResource getBlack() { return light; } // combo box arrows text entry texts
 
-	public ColorUIResource getControlTextColor() { return light; }
-	public ColorUIResource getControlHighlight(){ return lighter; }
-	public ColorUIResource getControlShadow() { return darker; }
-	public ColorUIResource getControlDarkShadow(){ return black; }
+	public ColorUIResource getControlTextColor() { return light; } // button and combo box texts
+	public ColorUIResource getControlHighlight(){ return lighter; } // frame light part
+	public ColorUIResource getControlShadow() { return darker; } // button down, button down outline, combobox outline
+	public ColorUIResource getControlDarkShadow(){ return black; } //button, frames outline
 
-	public ColorUIResource getPrimaryControl() { return dark; }
-	public ColorUIResource getPrimaryControlHighlight() { return lighter; }
+	public ColorUIResource getPrimaryControl() { return dark; } //button mouse over outline, slider out line
+	public ColorUIResource getPrimaryControlHighlight() { return lighter; } // menu outline
 	public ColorUIResource getPrimaryControlShadow() { return middark; } // non-selected tabs
-	public ColorUIResource getPrimaryControlInfo() { return light; }
+	public ColorUIResource getPrimaryControlInfo() { return black; } // not seen
 
-	public ColorUIResource getPrimary1() { return black; }
-	public ColorUIResource getPrimary2() { return darkBg; }
-	public ColorUIResource getPrimary3() { return darkBgLighter; }
+	public ColorUIResource getPrimary1() { return black; } // selected menuitem outline, slider
+	public ColorUIResource getPrimary2() { return menuBlue; } // selected menu item, default button text highl light
+	public ColorUIResource getPrimary3() { return menuBlue; } // selected text and files
 
-	public ColorUIResource getSecondary2() { return dark; }
+	public ColorUIResource getSecondary2() { return dark; } // not seen
 
 	public ColorUIResource getMenuBackground(){ return dark; }
 	public ColorUIResource getMenuForeground(){ return light; }
@@ -127,11 +130,11 @@ public class DarkTheme extends OceanTheme
 		Object toglleui = table.get("ToggleButtonUI");
 
 		List<Object> buttonGradient = Arrays.asList(new Object[] { new Float(1f),
-			new Float(0.7f), lighter, dark,
+			new Float(0.7f), buttonLighter, dark,
 			dark });
 
 		List<Object> darkerButtonGradient = Arrays.asList(new Object[] { new Float(1f),
-			new Float(0.7f), lighter, darkBg,
+			new Float(0.7f), buttonLighter, darkBg,
 			darkBg });
 
 		List<Object> scrollBarGradient = Arrays.asList(new Object[] {
@@ -150,12 +153,12 @@ public class DarkTheme extends OceanTheme
 		"Button.gradient",
 		buttonGradient,
 		"Button.background",
-		darker,
+		menuBlue,
 
 		"ToggleButtonUI", "animator.phantom.controller.DarkToggleUI",
 		"ToggleButton.textShiftOffset", new Integer( 0 ),
 		"ToggleButton.background",
-		darker,
+		menuBlue,
 		"ToggleButton.margin",
 		darker,
 		"ToggleButton.gradient",

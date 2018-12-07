@@ -73,7 +73,9 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 
 	//--- Layer Menu
 	JMenu mediaMenu;
-
+	JMenu layerNewMenu;
+	JMenu adjustmentLayerMenu;
+	
 	//--- Effect
 	JMenuItem deleteAll;
 	
@@ -143,28 +145,6 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 
 		fileMenu.addSeparator();
 
-		//--------------------------- Project menu
-		JMenu mediaItem = new JMenu("Add Media");
-		
-		addVideo = new JMenuItem("Add Video Clips...");
-		addVideo.addActionListener(this);
-		mediaItem.add( addVideo );
-
-		addImage  = new JMenuItem("Add Images...");
-		addImage.addActionListener(this);
-		mediaItem.add( addImage );
-
-		addImageSequence  = new JMenuItem("Add Image Sequence...");
-		addImageSequence.addActionListener(this);
-		mediaItem.add( addImageSequence );
-		fileMenu.add( mediaItem );
-
-		projectSettings = new JMenuItem("Project Settings...");
-		projectSettings.addActionListener(this);
-		fileMenu.add( projectSettings);
-		
-		fileMenu.addSeparator();
-		
 		closeProject = new JMenuItem( "Close" );
 		closeProject.addActionListener(this);
 		fileMenu.add( closeProject );
@@ -189,6 +169,24 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 
 		editMenu.addSeparator();
 		
+		deleteSelected = new JMenuItem("Delete Layer");
+		deleteSelected.addActionListener(this);
+		editMenu.add( deleteSelected );
+
+		renameSelected = new JMenuItem("Rename Layer");
+		renameSelected.addActionListener(this);
+		editMenu.add( renameSelected );
+		
+		cloneSelected = new JMenuItem("Clone Layer");
+		cloneSelected.addActionListener(this);
+		editMenu.add( cloneSelected );
+
+		deleteAll = new JMenuItem("Delete All Layer Effects");
+		deleteAll.addActionListener(this);
+		editMenu.add( deleteAll );
+		
+		editMenu.addSeparator();
+		
 		memorySettings = new JMenuItem("Memory Manager...");
 		memorySettings.addActionListener(this);
 		editMenu.add( memorySettings );
@@ -197,49 +195,56 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		diskCache.addActionListener(this);
 		editMenu.add( diskCache );
 
+		editMenu.addSeparator();
+		
+		projectSettings = new JMenuItem("Project Settings...");
+		projectSettings.addActionListener(this);
+		editMenu.add( projectSettings);
+		
 		//------------------------------------ Layer menu
 		JMenu layerMenu = new JMenu("Layer");
 	
-		mediaMenu = new JMenu("Media");
-		layerMenu.add( mediaMenu );
+		layerNewMenu = new JMenu("New From Media");
+		layerMenu.add( layerNewMenu );
 		
-		layerMenu.addSeparator();
+		addVideo = new JMenuItem("Add Video Clips...");
+		addVideo.addActionListener(this);
+		layerNewMenu.add( addVideo );
 
+		addImage  = new JMenuItem("Add Images...");
+		addImage.addActionListener(this);
+		layerNewMenu.add( addImage );
+
+		addImageSequence  = new JMenuItem("Add Image Sequence...");
+		addImageSequence.addActionListener(this);
+		layerNewMenu.add( addImageSequence );
+
+		mediaMenu = new JMenu("Loaded Media");
+		layerNewMenu.add( mediaMenu );
+		
 		ImageOperation iop = (ImageOperation) new NullIOP();
-		IOPMenuItem nullItem = new IOPMenuItem( iop.getName(), iop.getClass().getName(), IOPMenuItem.ADJUSTMENT_LAYER_ITEM  );
+		IOPMenuItem nullItem = new IOPMenuItem( "New " + iop.getName(), iop.getClass().getName(), IOPMenuItem.ADJUSTMENT_LAYER_ITEM  );
 		nullItem.addActionListener(this);
 		layerMenu.add( nullItem );
-	
+
+		adjustmentLayerMenu = new JMenu("New Adjustment Layer");
+		
 		JMenu layerEffect = new JMenu("Filter");
 		fillLayerEffectMenu( layerEffect, IOPMenuItem.ADJUSTMENT_LAYER_ITEM );
-		layerMenu.add( layerEffect );
+		adjustmentLayerMenu.add( layerEffect );
 		
 		JMenu layerMask = new JMenu("Mask");
 		fillLayerMaskMenu( layerMask, IOPMenuItem.ADJUSTMENT_LAYER_ITEM );
-		layerMenu.add( layerMask );
+		adjustmentLayerMenu.add( layerMask );
 
 		JMenu layerSolid = new JMenu("Solid");
 		fillSolidMenu( layerSolid, IOPMenuItem.ADJUSTMENT_LAYER_ITEM );
-		layerMenu.add( layerSolid );
-		
+		adjustmentLayerMenu.add( layerSolid );
+
+		layerMenu.add( adjustmentLayerMenu );
+			
 		layerMenu.addSeparator();
 
-		deleteSelected = new JMenuItem("Delete");
-		deleteSelected.addActionListener(this);
-		layerMenu.add( deleteSelected );
-
-		renameSelected = new JMenuItem("Rename");
-		renameSelected.addActionListener(this);
-		layerMenu.add( renameSelected );
-		
-		cloneSelected = new JMenuItem("Clone");
-		cloneSelected.addActionListener(this);
-		layerMenu.add( cloneSelected );
-		//buildIOPMenu( layerMenu, this );		
-
-		updateAppMediaMenu();
-		
-		//-------------------------------- Effect Menu
 		JMenu effectMenu = new JMenu("Effect");
 		
 		JMenu effectEffect = new JMenu("Filter");
@@ -253,13 +258,11 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		JMenu effectSolid = new JMenu("Solid");
 		fillSolidMenu( effectSolid, IOPMenuItem.LAYER_EFFECT_ITEM  );
 		effectMenu.add( effectSolid );
-	
-		effectMenu.addSeparator();
 
-		deleteAll = new JMenuItem("Delete All");
-		deleteAll.addActionListener(this);
-		effectMenu.add( deleteAll );
+		layerMenu.add( effectMenu );
 		
+		updateAppMediaMenu();
+
 		//--- ------------------------------- Render menu
 		JMenu renderMenu = new JMenu("Render");
 		threadsSettings = new JMenuItem("Rendering Settings...");
@@ -306,7 +309,6 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		add( fileMenu );
 		add( editMenu );
 		add( layerMenu );
-		add( effectMenu );
 		add( renderMenu );
 		add( helpMenu );
 	}

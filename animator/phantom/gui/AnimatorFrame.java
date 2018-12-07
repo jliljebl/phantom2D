@@ -147,7 +147,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 	//--- Create gui. All components are recreated.
 	private void createGui()
 	{
-		AppUtils.printTitle( "INIT GUI" );
+		AppUtils.printTitle( "INIhhhhhT GUI" );
 
 		initializing = true;
 
@@ -214,7 +214,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		buttonRowHolder = new JPanel();
 		buttonRowHolder.setLayout(new ButtonsRowLayout());
 		buttonRowHolder.add( viewControlButtons );
-		buttonRowHolder.add( previewControl );
 
 
 		//-------------------------------------------- param edit
@@ -387,7 +386,6 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		JPanel realContentPanel = new JPanel();
 		ContentPaneLayout rclayout = new ContentPaneLayout();
 		realContentPanel.setLayout( rclayout );
-		//realContentPanel.add( flowPane );
 		realContentPanel.add( flowButtonsPane );
 		realContentPanel.add( contentPane );
 		realContentPanel.add( projectInfoLabel );

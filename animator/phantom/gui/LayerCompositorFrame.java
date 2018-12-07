@@ -128,6 +128,8 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 
 	private JPanel editSwitchButtons;
 
+	private JLabel projectInfoLabel;
+	
 	private boolean initializing = false;
 	private int displayedEditor = 0;
 
@@ -160,13 +162,13 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 
 		initializing = true;
 
-		//--- app menu
+		//--- main menu
 		LayerCompositorMenu menuBar = new LayerCompositorMenu();
 		setJMenuBar( menuBar );
 
 		//----------------------------------- flow Editor
-		int flowW = EditorPersistance.getIntPref( EditorPersistance.FLOW_WIDTH );
-		int flowH = EditorPersistance.getIntPref( EditorPersistance.FLOW_HEIGHT );
+		//int flowW = EditorPersistance.getIntPref( EditorPersistance.FLOW_WIDTH );
+		//int flowH = EditorPersistance.getIntPref( EditorPersistance.FLOW_HEIGHT );
 
 		//-------------------------------------- Timecode display
 		TCDisplay timecodeDisplay = new TCDisplay("00:00:00");
@@ -199,8 +201,6 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		buttonRowHolder = new JPanel();
 		buttonRowHolder.setLayout(new ButtonsRowLayout());
 		buttonRowHolder.add( viewControlButtons );
-		buttonRowHolder.add( previewControl );
-
 
 		//-------------------------------------------- param edit
 		editFrame = new ParamEditFrame();
@@ -213,11 +213,11 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		paramEditPanelPanel.setLayout(new BoxLayout( paramEditPanelPanel, BoxLayout.Y_AXIS));
 
 		paramEditPanelPanel.add( Box.createRigidArea( new Dimension( 0, 4 ) ) );
+		paramEditPanelPanel.add( previewControl );
+		paramEditPanelPanel.add( Box.createRigidArea( new Dimension( 0, 4 ) ) );
 		paramEditPanelPanel.add( paramEditHolder );
 
 		//--------------------------------------------- view editor + button + param edit
-		MediaItemsPanel mediaPanel = new MediaItemsPanel();
-		screenViewsPanel.add( mediaPanel );
 		screenViewsPanel.add( viewPanel );
 		screenViewsPanel.add( buttonRowHolder );
 		screenViewsPanel.add( paramEditPanelPanel );
@@ -337,6 +337,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		kfButtonsPane.setLayout(new BoxLayout( kfButtonsPane, BoxLayout.X_AXIS));
 		kfButtonsPane.add( kfButtons );
 
+		
 		//------------------------------------------- middle row, left side
 		middleRow = new JPanel();
 		middleRow.setLayout(new BoxLayout( middleRow, BoxLayout.X_AXIS));
@@ -363,7 +364,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		contentPane.add( editorsPane );
 		contentPane.add( bottomRow );
 
-		JLabel projectInfoLabel = new JLabel();
+		projectInfoLabel = new JLabel();
 		projectInfoLabel.setFont( GUIResources.BASIC_FONT_11 );
 
 		//--- global keyactions.
@@ -411,7 +412,6 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		GUIComponents.kfControl = kfButtons;
 		GUIComponents.tlineControls = tlineControls;
 		GUIComponents.projectInfoLabel = projectInfoLabel;
-		GUIComponents.mediaPanel = mediaPanel;
 		
 		//--- This needs init.
 		TimeLineController.initClipEditorGUI();
@@ -452,6 +452,8 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		bottomRow.add( tlineButtonsPane );
 		tlineControls.addComponentsToPanel( bottomRow );
 		bottomRow.add( Box.createHorizontalGlue() );
+		bottomRow.add( projectInfoLabel );
+		bottomRow.add( Box.createRigidArea(new Dimension( 12, 0 ) ) );
 
 		if( !initializing ) bottomRow.validate();
 		if( !initializing ) editorsPane.validate();
@@ -470,6 +472,8 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		bottomRow.add( kfButtonsPane );
 		tlineControls.addComponentsToPanel( bottomRow );
 		bottomRow.add( Box.createHorizontalGlue() );
+		bottomRow.add( projectInfoLabel );
+		bottomRow.add( Box.createRigidArea(new Dimension( 12, 0 ) ) );
 
 		if( !initializing ) bottomRow.validate();
 		if( !initializing ) editorsPane.validate();
