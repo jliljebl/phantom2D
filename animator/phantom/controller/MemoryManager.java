@@ -133,7 +133,7 @@ public class MemoryManager
 	public static void cacheViewEditFileSource( FileSource fs )
 	{
 		if( fs == null ) return;
-		if( Application.isLoading() ) return;
+		if( LayerCompositorApplication.isLoading() ) return;
 		
 		//--- Remove earlier version in cache.
 		viewEditorCache.remove( fs );

@@ -20,6 +20,7 @@ package animator.phantom.project;
 */
 
 import java.awt.Dimension;
+import animator.phantom.controller.LayerCompositorApplication;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -27,7 +28,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Vector;
 
-import animator.phantom.controller.Application;
 
 public class MovieFormat
 {
@@ -48,7 +48,7 @@ public class MovieFormat
 		formats.add( PAL_SQUARE );
 		formats.add( NTSC_SQUARE );
 
-		String formatPath = Application.getFormatPath();
+		String formatPath = LayerCompositorApplication.getFormatPath();
 		File[] files = new File(formatPath).listFiles();
 		for (File file : files) 
 		{

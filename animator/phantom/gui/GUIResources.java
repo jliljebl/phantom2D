@@ -30,13 +30,13 @@ import java.io.InputStream;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 
-import animator.phantom.controller.Application;
+import animator.phantom.controller.LayerCompositorApplication;
 
 
 public class GUIResources
 {
 	//--- PATHS
-	public static String resourcePath = Application.getResourcePath();
+	public static String resourcePath = LayerCompositorApplication.getResourcePath();
 
 	//--- FONTS
 	public static String FREE_SANS_PATH = resourcePath + "font/FreeSans.ttf";

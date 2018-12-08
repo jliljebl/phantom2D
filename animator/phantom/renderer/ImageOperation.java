@@ -47,8 +47,8 @@ import javax.swing.border.Border;
 
 import animator.phantom.blender.Blender;
 import animator.phantom.controller.AppData;
-import animator.phantom.controller.Application;
 import animator.phantom.controller.FlowController;
+import animator.phantom.controller.LayerCompositorApplication;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
@@ -810,7 +810,7 @@ public abstract class ImageOperation implements Comparable<Object>
 
 				scrollPane.setPreferredSize(
 					new Dimension( ParamEditResources.PARAM_COLUMN_WIDTH * 2,
-							Application.getParamEditHeight() - SCROLL_HEIGHT_PAD ) );
+							LayerCompositorApplication.getParamEditHeight() - SCROLL_HEIGHT_PAD ) );
 				JScrollBar vsb = scrollPane.getVerticalScrollBar();
 				vsb.setUI( new PHScrollUI() );
 				editFrame.add( scrollPane );

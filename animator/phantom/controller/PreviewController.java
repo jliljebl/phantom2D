@@ -140,7 +140,7 @@ public class PreviewController
 		if( locked ) return;
 		locked = true;
 
-		Application.setCurrentRenderType( Application.PREVIEW_RENDER );
+		LayerCompositorApplication.setCurrentRenderType( LayerCompositorApplication.PREVIEW_RENDER );
 		int currentFrame = TimeLineController.getCurrentFrame();
 
 		movieRenderer = new MovieRenderer(  ProjectController.getFlow(), renderSize, 1 );
@@ -171,7 +171,7 @@ public class PreviewController
 
 		GUIComponents.viewEditor.setPreviewDisplay();
 
-		Application.setCurrentRenderType( Application.PREVIEW_RENDER );
+		LayerCompositorApplication.setCurrentRenderType( LayerCompositorApplication.PREVIEW_RENDER );
 
 		previewSize = GUIComponents.viewControlButtons.getViewSize();
 

@@ -44,9 +44,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
 import animator.phantom.controller.AppUtils;
-import animator.phantom.controller.Application;
 import animator.phantom.controller.EditorPersistance;
 import animator.phantom.controller.GUIComponents;
+import animator.phantom.controller.LayerCompositorApplication;
 import animator.phantom.controller.ParamEditController;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.ProjectController;
@@ -263,7 +263,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		tvb.setUI(new PHScrollUI());
 
 		timelinePanel = new JPanel();
-		timelinePanel.setLayout( new TimeLineEditorLayout( Application.SMALL_WINDOW_WIDTH ) );
+		timelinePanel.setLayout( new TimeLineEditorLayout( LayerCompositorApplication.SMALL_WINDOW_WIDTH ) );
 		timelinePanel.add( scaleStrip );
 		timelinePanel.add( timeEditorScrollPane );
 
@@ -313,7 +313,7 @@ public class AnimatorFrame extends JFrame implements ActionListener
 		kvb.setUI(new PHScrollUI());
 
 		keyEditorPanel = new JPanel();
-		keyEditorPanel.setLayout( new TimeLineEditorLayout( Application.SMALL_WINDOW_WIDTH ) );
+		keyEditorPanel.setLayout( new TimeLineEditorLayout( LayerCompositorApplication.SMALL_WINDOW_WIDTH ) );
 		keyEditorPanel.add( keyEditorScaleStrip );
 		keyEditorPanel.add( keyEditorScrollPane );
 

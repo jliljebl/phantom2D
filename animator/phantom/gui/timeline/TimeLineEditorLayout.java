@@ -24,7 +24,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 
-import animator.phantom.controller.Application;
+import animator.phantom.controller.LayerCompositorApplication;
 import animator.phantom.gui.AnimFrameGUIParams;
 import animator.phantom.gui.AnimatorFrameLayout;
 
@@ -80,10 +80,10 @@ public class TimeLineEditorLayout implements LayoutManager
 	public void removeLayoutComponent(Component comp) {}
 
 	public Dimension preferredLayoutSize(Container cont ){ return new Dimension( 	
-											Application.getUsableScreen().width 
+											LayerCompositorApplication.getUsableScreen().width 
 											- SMALL_WINDOW_WIDTH
 											- AnimFrameGUIParams.TE_WIDTH_PAD,
-											Application.getUsableScreen().height
+											LayerCompositorApplication.getUsableScreen().height
 											- AnimatorFrameLayout.VIEW_H
 											- AnimFrameGUIParams.TE_HEIGHT_PAD ); }
 

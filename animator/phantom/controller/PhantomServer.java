@@ -13,7 +13,7 @@ import animator.phantom.project.Project;
 import animator.phantom.undo.PhantomUndoManager;
 import animator.phantom.xml.PhantomXML;
 
-public class PhantomServer extends Application 
+public class PhantomServer extends LayerCompositorApplication 
 {
 	private PhantomServerSocketListener socketlistener;
 	private String socketNumberFile;

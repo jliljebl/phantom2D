@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-import animator.phantom.controller.Application;
+import animator.phantom.controller.LayerCompositorApplication;
 import animator.phantom.paramedit.ParamEditResources;
 import animator.phantom.paramedit.panel.ParamEditPanel;
 import animator.phantom.renderer.ImageOperation;
@@ -54,7 +54,7 @@ public class ParamEditFrame extends JPanel
 		editIOP = null;
 		buildEmptyPanel();
 		displayGUI();
-		setPreferredSize( new Dimension( Application.SMALL_WINDOW_WIDTH - 10, Application.getParamEditHeight() - HEIGHT_PAD ));
+		setPreferredSize( new Dimension( LayerCompositorApplication.SMALL_WINDOW_WIDTH - 10, LayerCompositorApplication.getParamEditHeight() - HEIGHT_PAD ));
 		
 		Border b1 = BorderFactory.createLineBorder( GUIColors.frameBorder );
 		Border b2 = BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 0, AREA_BORDER_GAP + 4, AREA_BORDER_GAP + 2, AREA_BORDER_GAP), b1 );

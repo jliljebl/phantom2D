@@ -17,7 +17,7 @@ public class AbstractApplication
 {
 	public static final String FILE_URL_PROTOCOL = "file";
 	public static final String JAR_URL_PROTOCOL = "jar";
-	public static final String CLASS_PATH_TO_THIS = "animator/phantom/controller/Application.class";
+	public static final String CLASS_PATH_TO_THIS = "animator/phantom/controller/LayerCompositorApplication.class";
 	public static final String JAR_PATH_PART = "/Phantom2D.jar!";
 
 	public static String PERSISTANCE_PATH_IN_FILESYSTEM_FOR_JAR = "/phantomeditor.xml";

@@ -132,7 +132,7 @@ public class RenderModeController
 
 		//--- Prepare render
 		RenderModeController.setWriteRenderParams();
-		Application.setCurrentRenderType( Application.WRITE_RENDER );
+		LayerCompositorApplication.setCurrentRenderType( LayerCompositorApplication.WRITE_RENDER );
 		int renderFramesCount =  writeRangeEnd - writeRangeStart;
 		GUIComponents.renderWindow.getPanel().pbar.setPiecesCount( renderFramesCount );
 		GUIComponents.renderWindow.getPanel().renderStart( renderFramesCount );

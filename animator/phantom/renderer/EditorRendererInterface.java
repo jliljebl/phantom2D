@@ -21,7 +21,7 @@ package animator.phantom.renderer;
 
 import java.awt.Dimension;
 
-import animator.phantom.controller.Application;
+import animator.phantom.controller.LayerCompositorApplication;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.RenderModeController;
 
@@ -49,7 +49,7 @@ public class EditorRendererInterface
 	//--- Frame renderer aborted
 	public static void framerendererAbort()
 	{
-		Application.renderAbort();
+		LayerCompositorApplication.renderAbort();
 	}
 
 

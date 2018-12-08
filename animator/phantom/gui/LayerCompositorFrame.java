@@ -45,9 +45,9 @@ import javax.swing.WindowConstants;
 
 import animator.phantom.controller.AppData;
 import animator.phantom.controller.AppUtils;
-import animator.phantom.controller.Application;
 import animator.phantom.controller.EditorPersistance;
 import animator.phantom.controller.GUIComponents;
+import animator.phantom.controller.LayerCompositorApplication;
 import animator.phantom.controller.ParamEditController;
 import animator.phantom.controller.PreviewController;
 import animator.phantom.controller.ProjectController;
@@ -55,7 +55,6 @@ import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.keyaction.CTRLPressedAction;
 import animator.phantom.controller.keyaction.CTRLReleasedAction;
 import animator.phantom.controller.keyaction.CopyAction;
-//import animator.phantom.controller.keyaction.DeSelectAllAction;
 import animator.phantom.controller.keyaction.DeleteAction;
 import animator.phantom.controller.keyaction.PlayStopAction;
 import animator.phantom.controller.keyaction.FlowArrangeAction;
@@ -66,7 +65,6 @@ import animator.phantom.controller.keyaction.NextLayerAction;
 import animator.phantom.controller.keyaction.PasteAction;
 import animator.phantom.controller.keyaction.RenderPreviewAction;
 import animator.phantom.controller.keyaction.RenderPreviewFrameAction;
-//import animator.phantom.controller.keyaction.SelectAllAction;
 import animator.phantom.controller.keyaction.TimelineNextAction;
 import animator.phantom.controller.keyaction.TimelinePrevAction;
 import animator.phantom.controller.keyaction.TimelineZoomInAction;
@@ -100,7 +98,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 	private JPanel editorsPane = null;
 
 	private JPanel buttonRowHolder;
-	private JPanel middleRow;
+	//private JPanel middleRow;
 	private JPanel bottomRow;
 	private PreViewUpdater previewUpdater;
 
@@ -243,7 +241,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		tvb.setUI(new PHScrollUI());
 
 		timelinePanel = new JPanel();
-		timelinePanel.setLayout( new TimeLineEditorLayout( Application.SMALL_WINDOW_WIDTH ) );
+		timelinePanel.setLayout( new TimeLineEditorLayout( LayerCompositorApplication.SMALL_WINDOW_WIDTH ) );
 		timelinePanel.add( scaleStrip );
 		timelinePanel.add( timeEditorScrollPane );
 
@@ -293,7 +291,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		kvb.setUI(new PHScrollUI());
 
 		keyEditorPanel = new JPanel();
-		keyEditorPanel.setLayout( new TimeLineEditorLayout( Application.SMALL_WINDOW_WIDTH ) );
+		keyEditorPanel.setLayout( new TimeLineEditorLayout( LayerCompositorApplication.SMALL_WINDOW_WIDTH ) );
 		keyEditorPanel.add( keyEditorScaleStrip );
 		keyEditorPanel.add( keyEditorScrollPane );
 
@@ -329,14 +327,15 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		kfButtonsPane.setLayout(new BoxLayout( kfButtonsPane, BoxLayout.X_AXIS));
 		kfButtonsPane.add( kfButtons );
 
-		
 		//------------------------------------------- middle row, left side
+		/*
 		middleRow = new JPanel();
 		middleRow.setLayout(new BoxLayout( middleRow, BoxLayout.X_AXIS));
 		middleRow.add( Box.createRigidArea(new Dimension( 10, 0 ) ) );
  		buttonRowHolder.add( Box.createHorizontalGlue() );
 		buttonRowHolder.add( middleRow );
-
+		*/
+		
 		//------------------------------------------- bottom row
 		bottomRow = new JPanel();
 		bottomRow.setLayout(new BoxLayout( bottomRow, BoxLayout.X_AXIS));
@@ -375,7 +374,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		KeyUtils.setGlobalAction( new TimelineNextAction(), EditorPersistance.TLINE_NEXT_KEY_SC_DEFAULT );
 		KeyUtils.setGlobalAction( new NextLayerAction(), EditorPersistance.NEXT_LAYER_KEY_SC_DEFAULT );
 
-		//---  ancestor focus actions
+		//--- Ancestor focus actions
 		KeyUtils.setAncestorFocusAction( keyEditorPanel, new CopyAction(), "control C" );
 		KeyUtils.setAncestorFocusAction( keyEditorPanel, new PasteAction(), "control V" );
 		KeyUtils.setAncestorFocusAction( keyEditorPanel, new DeleteAction(), "DELETE" );
@@ -401,8 +400,8 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		GUIComponents.kfControl = kfButtons;
 		GUIComponents.tlineControls = tlineControls;
 		GUIComponents.projectInfoLabel = projectInfoLabel;
-		
-		//--- This needs init.
+		GUIComponents.animatorMenu = menuBar;
+
 		TimeLineController.initClipEditorGUI();
 
 		//--- Remove all components (why? reload?)

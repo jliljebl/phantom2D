@@ -170,10 +170,6 @@ public class UserActions
 
 	private static void mediaLoadUpdate()
 	{
-		if (GUIComponents.renderFlowPanel != null)
-		{
-			//GUIComponents.renderFlowPanel.updateMediaMenu();
-		}
 		GUIComponents.animatorMenu.updateAppMediaMenu();
 		ProjectController.updateProjectInfo();
 	}

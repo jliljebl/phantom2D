@@ -140,7 +140,7 @@ public class EditorsController
 		if( layer != null )
 		{
 			GUIComponents.viewEditor.addEditlayer( layer );
-			if( !Application.isLoading() )
+			if( !LayerCompositorApplication.isLoading() )
 				EditorsController.displayCurrentInViewEditor( false );
 		}
 	}

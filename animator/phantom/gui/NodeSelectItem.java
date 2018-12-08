@@ -36,9 +36,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import animator.phantom.controller.Application;
 import animator.phantom.controller.GUIComponents;
-import animator.phantom.controller.ParamEditController;
+import animator.phantom.controller.LayerCompositorApplication;
 
 public class NodeSelectItem extends JPanel implements MouseListener
 {
@@ -47,7 +46,7 @@ public class NodeSelectItem extends JPanel implements MouseListener
 	private JLabel nameLabel;
 
 	private static final int HEIGHT = 22;
-	private static final int WIDTH = Application.SMALL_WINDOW_WIDTH - 40;
+	private static final int WIDTH = LayerCompositorApplication.SMALL_WINDOW_WIDTH - 40;
 	private static final Dimension COMP_SIZE = new Dimension( WIDTH, HEIGHT );
 	private static final Dimension NAME_SIZE = new Dimension( WIDTH, HEIGHT );
 	private static final Dimension PAD = new Dimension( 5, 0 );

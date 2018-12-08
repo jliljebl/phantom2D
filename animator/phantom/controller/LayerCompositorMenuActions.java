@@ -102,14 +102,14 @@ public class LayerCompositorMenuActions
 		{
 			MovieFormat format = MovieFormat.formats.elementAt( selectionIndex - 1 );
 			Project project = new Project( "untitled.phr", format );
-			Application.getApplication().openProject( project );
+			LayerCompositorApplication.getApplication().openProject( project );
 		}
 		//--- custom == default + dialog
 		else
 		{
 			MovieFormat format = MovieFormat.formats.elementAt( 0 );// 0 == default
 			Project project = new Project( "untitled.phr", format );
-			Application.getApplication().openProject( project );
+			LayerCompositorApplication.getApplication().openProject( project );
 			setProjectProperties();
 		}
 	}
@@ -140,7 +140,7 @@ public class LayerCompositorMenuActions
 				loadWindow = new FileLoadWindow( GUIComponents.animatorFrame, loadFile.getName() );
 				Project project = PhantomXML.loadProject( doc );
 				project.setSaveFile( new File (loadFile.getAbsolutePath()) );
-				Application.getApplication().openProject( project );
+				LayerCompositorApplication.getApplication().openProject( project );
 				loadWindow.setVisible( false );
 				loadWindow = null;
 			}
@@ -210,7 +210,7 @@ public class LayerCompositorMenuActions
 								GUIComponents.getAnimatorFrame() );
 
 		if( answer != 1 ) return;
-		Application.getApplication().openDefaultProject();
+		LayerCompositorApplication.getApplication().openDefaultProject();
 	}
 
 	//--- Quits program if confirmed.
