@@ -47,7 +47,6 @@ import javax.swing.border.Border;
 
 import animator.phantom.blender.Blender;
 import animator.phantom.controller.AppData;
-import animator.phantom.controller.FlowController;
 import animator.phantom.controller.LayerCompositorApplication;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.gui.GUIColors;

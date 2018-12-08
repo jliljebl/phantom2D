@@ -23,7 +23,6 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.Vector;
 
-import animator.phantom.gui.flow.FlowBox;
 import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderFlow;
@@ -41,8 +40,6 @@ public class Project
 	//--- The main datastructure of the application that contains the rendering structure as
 	//--- specified by the user.
 	private RenderFlow renderFlow = new RenderFlow();
-	//--- Gui representations of RenderNodes.
-	private Vector<FlowBox> flowBoxes = new Vector<FlowBox>();
 	//--- Screen size
 	private Dimension screenSize;
 	//--- Default length of new movie.
@@ -96,8 +93,6 @@ public class Project
 	//--- flow
 	public RenderFlow getRenderFlow(){ return renderFlow; }
 	public void setRenderFlow( RenderFlow flow ){ renderFlow = flow; }
-	public Vector<FlowBox> getBoxes(){ return flowBoxes; }
-	public void setBoxes( Vector<FlowBox> boxes ){ flowBoxes = boxes; }
 	//--- Movie Screen size, defensive copying.
 	public Dimension getScreenDimensions(){ return new Dimension( screenSize.width, screenSize.height); }
 	public void setScreenDimensions( Dimension d ){ screenSize = d; }

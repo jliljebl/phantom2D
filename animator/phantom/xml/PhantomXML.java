@@ -24,10 +24,8 @@ import java.util.Vector;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import animator.phantom.controller.FlowController;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.ProjectController;
-import animator.phantom.gui.flow.FlowBox;
 import animator.phantom.project.Bin;
 import animator.phantom.project.Project;
 import animator.phantom.renderer.FileSource;
@@ -108,17 +106,6 @@ public class PhantomXML extends PhantomDocUtils
 		for( RenderNode node : rnodes )
 			node.buildConnections( rnodes );
 
-		//--- Flow boxes
-		Vector<FlowBox> boxes = new Vector<FlowBox>();
-		initIter( flowE, FlowBoxXML.ELEMENT_NAME );
-		while( iterMore() )
-		{
-			Element fboxE = iterNext();
-			FlowBox fb = FlowBoxXML.getObject( fboxE, project );
-			boxes.add( fb );
-		}
-		project.setBoxes( boxes );
-
 		//--- Timeline clips
 		Element tlcE = getFirstChild( projE, TIMELINECLIPS_ELEM );
 		Vector<ImageOperation> clips = new Vector<ImageOperation>();
@@ -195,12 +182,6 @@ public class PhantomXML extends PhantomDocUtils
 				node.appendChild( iop );
 				flow.appendChild( node );
 			}
-
-			//--- FlowBoxes
-			Vector<FlowBox> boxes = projObj.getBoxes();
-			for( FlowBox box : boxes )
-				flow.appendChild( FlowBoxXML.getElement( box ));
-			project.appendChild( flow );
 
 			//--- Timeline clips
 			Element clipsE = doc.createElement( TIMELINECLIPS_ELEM );

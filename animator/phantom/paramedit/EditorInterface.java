@@ -19,7 +19,6 @@ package animator.phantom.paramedit;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import animator.phantom.controller.FlowController;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.renderer.ImageOperation;

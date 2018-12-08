@@ -13,8 +13,7 @@ public abstract class LCUndoableEdit extends PhantomUndoableEdit
 		redo();
 		PhantomUndoManager.addUndoEdit( this );
 	}
-	
-	
+
 	public LayerCompositorProject layerProject()
 	{
 		return AppData.getLayerProject();

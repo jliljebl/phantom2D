@@ -28,7 +28,6 @@ import javax.swing.JScrollPane;
 import animator.phantom.gui.LayerCompositorFrame;
 import animator.phantom.gui.MenuBarCallbackInterface;
 import animator.phantom.gui.NodesPanel;
-import animator.phantom.gui.flow.FlowEditPanel;
 import animator.phantom.gui.keyframe.KFColumnPanel;
 import animator.phantom.gui.keyframe.KFToolButtons;
 import animator.phantom.gui.keyframe.KeyFrameEditorPanel;
@@ -54,7 +53,7 @@ public class GUIComponents
 	public static LayerCompositorFrame animatorFrame;
 	public static MenuBarCallbackInterface animatorMenu;
 	//--- GUI component used to edit composition.
-	public static FlowEditPanel renderFlowPanel;
+	//public static FlowEditPanel renderFlowPanel;
 	//--- GUI component for editing mainly image positions on movie screen.
 	public static ViewEditor viewEditor;
 	//--- GUI component for buttons used to control render flow
@@ -103,7 +102,6 @@ public class GUIComponents
 	public static void reset()
 	{
 		animatorMenu = null;
-		renderFlowPanel = null;
 		viewEditor = null;
 		ParamEditController.paramEditFrame = null;
 		timeLineIOPColumnPanel = null;

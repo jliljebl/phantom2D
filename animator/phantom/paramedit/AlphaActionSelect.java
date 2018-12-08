@@ -30,6 +30,8 @@ import animator.phantom.renderer.param.IntegerParam;
 */
 public class AlphaActionSelect extends ParamComboBox implements ActionListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private IntegerParam selection;
 	private boolean discardEvent;//to not call undo when init or undo update
 	

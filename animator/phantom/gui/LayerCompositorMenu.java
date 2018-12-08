@@ -28,11 +28,9 @@ import java.util.Vector;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 
 import animator.phantom.controller.EditorPersistance;
-import animator.phantom.controller.FlowController;
 import animator.phantom.controller.IOPLibraryInitializer;
 import animator.phantom.controller.LayerCompositorMenuActions;
 import animator.phantom.controller.PreviewController;

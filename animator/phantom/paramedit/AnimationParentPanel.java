@@ -6,7 +6,6 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
-import animator.phantom.controller.FlowController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.gui.modals.DialogUtils;
@@ -20,6 +19,8 @@ import animator.phantom.renderer.parent.AbstractParentMover;
 
 public class AnimationParentPanel extends JPanel implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+
 	private ImageOperation iop;
 	private Vector <ImageOperation> parentIops;
 	private MComboBox parents;

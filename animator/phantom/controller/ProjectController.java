@@ -23,7 +23,6 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
 
-import animator.phantom.gui.flow.FlowBox;
 import animator.phantom.project.Bin;
 import animator.phantom.project.Project;
 import animator.phantom.renderer.FileSource;
@@ -90,7 +89,6 @@ public class ProjectController
 
 	//--- RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW
 	public static RenderFlow getFlow(){ return project.getRenderFlow(); }
-	public static Vector<FlowBox> getBoxes(){ return project.getBoxes(); }
 
 
 	//--- BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT

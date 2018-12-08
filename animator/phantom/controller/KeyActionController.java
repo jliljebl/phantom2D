@@ -80,6 +80,7 @@ public class KeyActionController
 		if( lastItems == null || lastItems.size() < 1 )
 			return;
 
+		/*
 		if( source == GUIComponents.renderFlowPanel )
 		{
 			//MenuActions.cloneNode((RenderNode) lastItems.elementAt( 0 ) );
@@ -89,6 +90,7 @@ public class KeyActionController
 		{
 			EditorsController.addKeyFrameForValue( ((Float) lastItems.elementAt( 0 )).floatValue() );
 		}
+		*/
 	}
 		
 	public static void deleteItems( Object source )
@@ -98,21 +100,22 @@ public class KeyActionController
 			EditorsController.deleteKeyFrame();
 		}
 
+		/*
 		if( source == GUIComponents.renderFlowPanel )
 		{
 			//FlowController.deleteSelected(); 
 		}
-
+		*/
 	}
 
 	public static void selectAllItems( Object source )
 	{
-
+		/*
 		if( source == GUIComponents.renderFlowPanel )
 		{
 			//FlowController.selectAll(); 
 		}
-
+		*/
 		/*
 		if( source == GUIComponents.binsPanel )
 		{
@@ -124,11 +127,12 @@ public class KeyActionController
 	public static void deSelectAllItems( Object source )
 	{
 
+		/*
 		if( source == GUIComponents.renderFlowPanel )
 		{
 			//FlowController.clearSelection(); 
 		}
-
+		*/
 		/*
 		if( source == GUIComponents.binsPanel )
 		{
