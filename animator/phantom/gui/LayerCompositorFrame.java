@@ -83,7 +83,6 @@ import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 //import animator.phantom.gui.timeline.TimeLineEditButtons;
 import animator.phantom.gui.timeline.TimeLineEditorLayout;
 import animator.phantom.gui.timeline.TimeLineEditorPanel;
-import animator.phantom.gui.timeline.TimeLineIOPColumnPanel;
 import animator.phantom.gui.timeline.TimeLineIOPColumnPanel2;
 import animator.phantom.gui.timeline.TimeLineRowLayout;
 import animator.phantom.gui.timeline.TimeLineToolButtons;
@@ -91,21 +90,20 @@ import animator.phantom.gui.timeline.TimeLineControls;
 import animator.phantom.gui.view.component.ViewControlButtons;
 import animator.phantom.gui.view.component.ViewEditor;
 
-public class LayerCompositorFrame extends AnimatorFrame implements ActionListener
+public class LayerCompositorFrame extends JFrame implements ActionListener
 {
 	private JViewport flowViewPort;
 	private JPanel contentPane = null;
 	private JPanel editorsPane = null;
 
 	private JPanel buttonRowHolder;
-	//private JPanel middleRow;
 	private JPanel bottomRow;
 	private PreViewUpdater previewUpdater;
 
 	private JPanel paramEditHolder;
 
-	private JToggleButton timelineButton;
-	private JToggleButton splineButton;
+	public JToggleButton timelineButton;
+	public JToggleButton splineButton;
 
 	private	JPanel timelinePanel;
 	private JPanel keyEditorPanel;
@@ -327,15 +325,6 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		kfButtonsPane.setLayout(new BoxLayout( kfButtonsPane, BoxLayout.X_AXIS));
 		kfButtonsPane.add( kfButtons );
 
-		//------------------------------------------- middle row, left side
-		/*
-		middleRow = new JPanel();
-		middleRow.setLayout(new BoxLayout( middleRow, BoxLayout.X_AXIS));
-		middleRow.add( Box.createRigidArea(new Dimension( 10, 0 ) ) );
- 		buttonRowHolder.add( Box.createHorizontalGlue() );
-		buttonRowHolder.add( middleRow );
-		*/
-		
 		//------------------------------------------- bottom row
 		bottomRow = new JPanel();
 		bottomRow.setLayout(new BoxLayout( bottomRow, BoxLayout.X_AXIS));

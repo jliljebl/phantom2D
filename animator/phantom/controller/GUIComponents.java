@@ -25,12 +25,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import animator.phantom.gui.AnimatorFrame;
-import animator.phantom.gui.MediaItemsPanel;
+import animator.phantom.gui.LayerCompositorFrame;
 import animator.phantom.gui.MenuBarCallbackInterface;
 import animator.phantom.gui.NodesPanel;
 import animator.phantom.gui.flow.FlowEditPanel;
-//import animator.phantom.gui.flow.RenderFlowViewButtons;
 import animator.phantom.gui.keyframe.KFColumnPanel;
 import animator.phantom.gui.keyframe.KFToolButtons;
 import animator.phantom.gui.keyframe.KeyFrameEditorPanel;
@@ -42,7 +40,6 @@ import animator.phantom.gui.timeline.TCDisplay;
 import animator.phantom.gui.timeline.TimeLineControls;
 import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 import animator.phantom.gui.timeline.TimeLineEditorPanel;
-import animator.phantom.gui.timeline.TimeLineIOPColumnPanel;
 import animator.phantom.gui.timeline.TimeLineIOPColumnPanel2;
 import animator.phantom.gui.view.component.ViewControlButtons;
 import animator.phantom.gui.view.component.ViewEditor;
@@ -54,7 +51,7 @@ public class GUIComponents
 {
 	//--- GUI COMPONENTS, GUI COMPONENTS, GUI COMPONENTS, GUI COMPONENTS, GUI COMPONENTS
 	//--- The editor frame.
-	public static AnimatorFrame animatorFrame;
+	public static LayerCompositorFrame animatorFrame;
 	public static MenuBarCallbackInterface animatorMenu;
 	//--- GUI component used to edit composition.
 	public static FlowEditPanel renderFlowPanel;
@@ -128,10 +125,9 @@ public class GUIComponents
 		tcDisplay = null;
 		filterStackEdit = null;
 	}
-	
-	//--- Legacy
-	public static AnimatorFrame getAnimatorFrame(){ return animatorFrame; }
-	//public static FlowEditPanel getFlowEditPanel(){ return renderFlowPanel; }
+
+	public static LayerCompositorFrame getAnimatorFrame(){ return animatorFrame; }
+
 	public static ViewEditor getViewEditor(){ return viewEditor; }
 
  }//end class
