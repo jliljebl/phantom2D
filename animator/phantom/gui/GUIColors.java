@@ -29,6 +29,7 @@ public class GUIColors
 {
 	//--- Panel colors.
 	public static Color bgColor = ( new JPanel() ).getBackground();
+	public static Color flowbladeDark = new Color( 30, 35, 51 );
 	public static Color darkBgColor = new Color( 56, 60, 74 );
 	public static Color darker = new ColorUIResource( new Color( 51, 55, 69 ) );
 	public static Color selectedColor = new Color( 169, 192, 205 );
@@ -38,7 +39,7 @@ public class GUIColors
 	public static Color grayTitle = new Color( 120, 120, 120 );
 
 	//--- Flow Editor
-	public static Color flowBGColor = new Color( 56, 60, 74 );// new Color( 166, 166, 166 );
+	public static Color flowBGColor = new Color( 37, 43, 64 );// new Color( 166, 166, 166 );
 	public static Color flowGridColor = new Color( 52, 52, 52 );// new Color( 166, 166, 166 );
 	
 	//--- View Editor

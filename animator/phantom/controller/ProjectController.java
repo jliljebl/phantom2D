@@ -150,11 +150,10 @@ public class ProjectController
 	public static void updateProjectInfo()
 	{
 		//--- Display project info
-		String info = project.getName() + ",  " + Integer.toString(project.getScreenDimensions().width)
+		String info = "Comp 1  -  " + Integer.toString(project.getScreenDimensions().width)
 				+ " x " + Integer.toString(project.getScreenDimensions().height) + ",  "
 				+ Integer.toString(project.getFramesPerSecond()) + " fps,  "
-				+ Integer.toString(project.getLength()) + " frames, "
-				+ Integer.toString(ProjectController.getFileSources().size()) + " media source(s)";
+				+ Integer.toString(project.getLength()) + " frames";
 		GUIComponents.projectInfoLabel.setText( info );
 	}
 	

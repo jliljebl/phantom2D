@@ -42,7 +42,7 @@ public class TimeLinePositionSlider extends JPanel implements MouseListener, Mou
 		private static final int NOTHING_HIT = 0;
 		private static final int POS_BAR_HIT = 3;
 		
-		private static final Color AREA_COLOR = new Color( 62, 62, 70 );
+		private static final Color AREA_COLOR = new Color( 30, 35, 51 );
 		private static final Color HANDLE_COLOR = new Color( 163, 168, 172 );
 		private static final Color LINE_COLOR = new Color( 46, 52, 54 );
 		

@@ -123,7 +123,7 @@ public class TimeLineDisplayPanel extends JPanel implements MouseListener, Mouse
 		float pixPerFrame = TimeLineController.getCurrentScaleMultiplier();
 		int timeLinePos = TimeLineController.getTimeLinePosition();
 
-		g.setColor( GUIColors.darker );
+		g.setColor( GUIColors.flowbladeDark );
 		g.fillRect( 0, 0, d.width, d.height );
 
 		Graphics2D g2 = (Graphics2D) g;

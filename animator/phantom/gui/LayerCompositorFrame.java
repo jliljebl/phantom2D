@@ -106,21 +106,17 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 
 	private JPanel paramEditHolder;
 
-	public JToggleButton timelineButton;
-	public JToggleButton splineButton;
+	private JToggleButton timelineButton;
+	private JToggleButton splineButton;
 
-	//private JPanel flowHolder;
 	private	JPanel timelinePanel;
 	private JPanel keyEditorPanel;
 	private TimeLineControls tlineControls;
 
-	//private JPanel flowButtonsPane;
 	private JPanel tlineButtonsPane;
 	private JPanel kfButtonsPane;
 
 	private ParamEditFrame editFrame;
-
-	//private FlowEditPanel renderFlowPanel;
 
 	private JPanel screenViewsPanel;
 	private JPanel viewPanel;
@@ -165,10 +161,6 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		//--- main menu
 		LayerCompositorMenu menuBar = new LayerCompositorMenu();
 		setJMenuBar( menuBar );
-
-		//----------------------------------- flow Editor
-		//int flowW = EditorPersistance.getIntPref( EditorPersistance.FLOW_WIDTH );
-		//int flowH = EditorPersistance.getIntPref( EditorPersistance.FLOW_HEIGHT );
 
 		//-------------------------------------- Timecode display
 		TCDisplay timecodeDisplay = new TCDisplay("00:00:00");
@@ -365,7 +357,7 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 		contentPane.add( bottomRow );
 
 		projectInfoLabel = new JLabel();
-		projectInfoLabel.setFont( GUIResources.BASIC_FONT_11 );
+		projectInfoLabel.setFont( GUIResources.BOLD_FONT_12 );
 
 		//--- global keyactions.
 		KeyUtils.clearGlobalActions();
@@ -390,13 +382,10 @@ public class LayerCompositorFrame extends AnimatorFrame implements ActionListene
 
 		//--- Connect GUI components to be accessed elsewhere.
 		GUIComponents.animatorFrame = this;
-		GUIComponents.animatorMenu = menuBar;
-		//GUIComponents.renderFlowPanel = renderFlowPanel;//this has to be present when loading boxes.
 		GUIComponents.timeLineIOPColumnPanel = iopColumn;
 		GUIComponents.timeLineEditorPanel = timelineEditor;
 		GUIComponents.timeLineScaleDisplays.add( timeLineDisplay );
 		GUIComponents.timeLineScaleDisplays.add( KFtimeLineDisplay );
-		//GUIComponents.renderFlowButtons = renderFlowButtons;
 		GUIComponents.tcDisplay = timecodeDisplay;
 		ParamEditController.paramEditFrame = editFrame;
 		AppData.setParamEditFrame( editFrame );

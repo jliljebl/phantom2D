@@ -49,7 +49,6 @@ import animator.phantom.renderer.coordtransformer.NullIOP;
 
 public class LayerCompositorMenu extends JMenuBar implements ActionListener, MenuBarCallbackInterface
 {
-	//--- File
 	JMenuItem openProject;
 	JMenuItem openRecent;
 	JMenuItem saveProject;
@@ -57,7 +56,6 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 	JMenuItem closeProject;
 	JMenuItem quit;
 
-	//--- Edit
 	JMenuItem undo;
 	JMenuItem redo;
 	JMenuItem deleteSelected;
@@ -71,21 +69,18 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 	JMenuItem projectSettings;
 	JMenuItem kfPreferences;
 
-	//--- Layer Menu
 	JMenu mediaMenu;
 	JMenu layerNewMenu;
 	JMenu adjustmentLayerMenu;
-	
-	//--- Effect
+	JMenu compositionsMenu;
+
 	JMenuItem deleteAll;
-	
-	//--- Project Menu
+
 	JMenuItem addImage;
 	JMenuItem addImageSequence;
 	JMenuItem addVideo;
 	JMenuItem noRefs;
 
-	//--- Render
 	JMenuItem threadsSettings;
 	JMenuItem previewCurrent;
 	JMenuItem previewFromCurrent;
@@ -195,32 +190,30 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		diskCache.addActionListener(this);
 		editMenu.add( diskCache );
 
-		editMenu.addSeparator();
-		
-		projectSettings = new JMenuItem("Project Settings...");
-		projectSettings.addActionListener(this);
-		editMenu.add( projectSettings);
+
 		
 		//------------------------------------ Layer menu
 		JMenu layerMenu = new JMenu("Layer");
 	
-		layerNewMenu = new JMenu("New From Media");
+		layerNewMenu = new JMenu("New From File");
 		layerMenu.add( layerNewMenu );
 		
-		addVideo = new JMenuItem("Add Video Clips...");
+		addVideo = new JMenuItem("Video...");
 		addVideo.addActionListener(this);
 		layerNewMenu.add( addVideo );
 
-		addImage  = new JMenuItem("Add Images...");
+		addImage  = new JMenuItem("Image...");
 		addImage.addActionListener(this);
 		layerNewMenu.add( addImage );
 
-		addImageSequence  = new JMenuItem("Add Image Sequence...");
+		addImageSequence  = new JMenuItem("Image Sequence...");
 		addImageSequence.addActionListener(this);
 		layerNewMenu.add( addImageSequence );
 
 		mediaMenu = new JMenu("Loaded Media");
 		layerNewMenu.add( mediaMenu );
+		
+		layerMenu.add( layerNewMenu );
 		
 		ImageOperation iop = (ImageOperation) new NullIOP();
 		IOPMenuItem nullItem = new IOPMenuItem( "New " + iop.getName(), iop.getClass().getName(), IOPMenuItem.ADJUSTMENT_LAYER_ITEM  );
@@ -245,7 +238,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 			
 		layerMenu.addSeparator();
 
-		JMenu effectMenu = new JMenu("Effect");
+		JMenu effectMenu = new JMenu("Add Layer Effect");
 		
 		JMenu effectEffect = new JMenu("Filter");
 		fillLayerEffectMenu( effectEffect, IOPMenuItem.LAYER_EFFECT_ITEM  );
@@ -263,6 +256,28 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		
 		updateAppMediaMenu();
 
+		
+		//--- ------------------------------- Project menu
+		JMenu projectMenu = new JMenu("Project");
+		threadsSettings = new JMenuItem("New Composition...");
+		threadsSettings.addActionListener(this);
+		projectMenu.add( threadsSettings );
+
+		previewFromCurrent = new JMenuItem("Delete Composition" );
+		previewFromCurrent.addActionListener(this);
+		projectMenu.add( previewFromCurrent );
+
+		compositionsMenu = new JMenu("Edit Composition");
+		fillCompositionsMenu( compositionsMenu );
+
+		projectMenu.add( compositionsMenu );
+		
+		projectMenu.addSeparator();
+		
+		projectSettings = new JMenuItem("Project Settings...");
+		projectSettings.addActionListener(this);
+		projectMenu.add( projectSettings);
+		
 		//--- ------------------------------- Render menu
 		JMenu renderMenu = new JMenu("Render");
 		threadsSettings = new JMenuItem("Rendering Settings...");
@@ -309,6 +324,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		add( fileMenu );
 		add( editMenu );
 		add( layerMenu );
+		add( projectMenu );
 		add( renderMenu );
 		add( helpMenu );
 	}
@@ -354,6 +370,13 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		Vector<JMenu> groupMenus = getNodesMenus( groups, menuItemType );// );
 		for( JMenu subMenu : groupMenus )
 			maskMenu.add( subMenu );	
+	}
+
+	private void fillCompositionsMenu( JMenu compsMenu )
+	{
+		// Place holder
+		JMenuItem placeHolder = new JMenuItem("Comp 1" );
+		compsMenu.add( placeHolder );
 	}
 	
 	@SuppressWarnings("unchecked")

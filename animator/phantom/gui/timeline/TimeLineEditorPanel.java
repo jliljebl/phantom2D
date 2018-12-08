@@ -264,12 +264,13 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 	public void paintComponent( Graphics g )
 	{
 		//--- Erase bg
-		g.setColor( GUIColors.clipEditorBGColor );
+		g.setColor( GUIColors.flowBGColor );
 		g.fillRect( 0,0,getWidth(), getHeight() );
+		
 		//--- Draw tracks
 		int tracksCount = ( getHeight() / AnimFrameGUIParams.TE_ROW_HEIGHT) + 1;
 		int rowHeight = AnimFrameGUIParams.TE_ROW_HEIGHT;
-		g.setColor( GUIColors.trackLineColor );
+		g.setColor( GUIColors.flowBGColor );
 		for( int i = 0; i < tracksCount; i++ )
 		{	
 			g.drawLine( 0, i * rowHeight, getWidth(), i * rowHeight + verticalPos );

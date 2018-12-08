@@ -123,6 +123,7 @@ public class LightButtonFactory implements ButtonFactoryImpl
 	{
 		b.setPreferredSize( new Dimension( slices * SLICE_WIDTH, BUTTON_HEIGHT ) );
 		b.setMaximumSize(  new Dimension( slices * SLICE_WIDTH, BUTTON_HEIGHT ) );
+		b.setMinimumSize(  new Dimension( slices * SLICE_WIDTH, BUTTON_HEIGHT ) );
 	}
 
 }//end class
