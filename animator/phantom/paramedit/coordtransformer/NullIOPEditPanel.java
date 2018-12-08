@@ -25,6 +25,8 @@ import animator.phantom.renderer.coordtransformer.NullIOP;
 
 public class NullIOPEditPanel extends ParamEditPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	public NullIOPEditPanel( NullIOP niop )
 	{
 		initParamEditPanel();

@@ -36,6 +36,8 @@ import animator.phantom.controller.UpdateController;
 
 public class TimeLinePositionSlider extends JPanel implements MouseListener, MouseMotionListener
 {
+		private static final long serialVersionUID = 1L;
+	
 		public static final int BAR_WIDTH = 200;
 		public static final int BAR_HEIGHT = 26; 
 		private static final int END_PAD = 6;

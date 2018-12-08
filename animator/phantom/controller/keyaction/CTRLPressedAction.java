@@ -27,5 +27,7 @@ import animator.phantom.controller.KeyStatus;
 
 public class CTRLPressedAction extends AbstractAction
 {
+	private static final long serialVersionUID = 1L;
+	
 	public void actionPerformed( ActionEvent e ){ KeyStatus.ctrlPressed(); }
 }

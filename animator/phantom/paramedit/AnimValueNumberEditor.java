@@ -46,6 +46,7 @@ import animator.phantom.renderer.param.ParamKeyFrameInfo;
 */
 public class AnimValueNumberEditor extends JPanel implements PropertyChangeListener, FrameChangeListener
 {
+	private static final long serialVersionUID = 1L;
 	//--- AnimatedValue edited with this component
 	private AnimatedValue editValue;
 	//--- GUI component used to edit value.

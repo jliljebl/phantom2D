@@ -44,6 +44,8 @@ import animator.phantom.renderer.param.ParamKeyFrameInfo;
 */
 public class ParamKeyFramesEditor extends JPanel implements MouseListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	//---KFParam being navigated and edited.
 	private KeyFrameParam kfParam;
 	//--- Same param as param for undo	

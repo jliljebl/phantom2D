@@ -22,6 +22,6 @@ package animator.phantom.paramedit.panel;
 
 public class DummyEditPanel extends ParamEditPanel
 {
-
+	private static final long serialVersionUID = 1L;
 
 }//end class

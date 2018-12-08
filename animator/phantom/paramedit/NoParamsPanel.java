@@ -29,6 +29,8 @@ import javax.swing.JPanel;
 */
 public class NoParamsPanel extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	* Constructor with plugin name.
 	* @param pluginName Name of the plugin that has no editable parameters.

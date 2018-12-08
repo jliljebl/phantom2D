@@ -26,6 +26,8 @@ import javax.swing.JTextField;
 
 public class MTextField extends MInputField
 {
+	private static final long serialVersionUID = 1L;
+	
 	public JTextField textField;
 
 	public MTextField( String msg, Object defaultVal )

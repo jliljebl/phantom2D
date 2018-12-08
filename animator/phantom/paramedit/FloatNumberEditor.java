@@ -41,6 +41,8 @@ import animator.phantom.renderer.param.FloatParam;
 */
 public class FloatNumberEditor extends JPanel implements PropertyChangeListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	//--- AnimatedVlue edited with this component
 	private FloatParam editValue;
 	//--- GUI component used to edit value.

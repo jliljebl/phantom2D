@@ -30,6 +30,8 @@ import javax.swing.JPanel;
 //--- Custom progressbar component. Used in RenderWindow
 public class PHProgressBar extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	private float progress;
 	private int piecesCount;
 	private float pieceShare;

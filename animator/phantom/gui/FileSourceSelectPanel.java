@@ -30,6 +30,8 @@ import animator.phantom.renderer.FileSource;
 //--- This was used to interface deifferent media select panels, only exists currently
 public abstract class FileSourceSelectPanel extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	//--- Initializes for given bin.
 	public abstract void init( Bin bin );
 

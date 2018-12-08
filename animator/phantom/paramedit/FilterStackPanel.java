@@ -6,16 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.Collections;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -26,33 +22,23 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-//import com.jhlabs.image.CellularFilter.Point;
-
 import animator.phantom.controller.FilterStackController;
 import animator.phantom.controller.GUIComponents;
-import animator.phantom.controller.LayerCompositorMenuActions;
 import animator.phantom.controller.ParamEditController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
-import animator.phantom.gui.IOPMenuItem;
-import animator.phantom.gui.NodesPanel;
 import animator.phantom.gui.PHButtonFactory;
-import animator.phantom.plugin.PhantomPlugin;
-import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
 
 public class FilterStackPanel extends JPanel implements ActionListener//, MouseListener
 {
+	private static final long serialVersionUID = 1L;
 	private ImageOperation iop;
 	private JTable stackTable;
 
 	private JPopupMenu filtersPopup;
-	private Vector<String> groups;
-	private Vector<Vector<ImageOperation>> groupIops;
-	private Vector<Vector<String>> groupClasses;
 
-	//private JLabel addFilterPopupArea;
 	private JButton addFilter;
 	private JButton deleteFilter;
 	private JButton filterDown;
@@ -71,7 +57,6 @@ public class FilterStackPanel extends JPanel implements ActionListener//, MouseL
 		this.iop = iop;
 		GUIComponents.filterStackPanel = this;
 
-		//addFilterPopupArea = new JLabel(GUIResources.getIcon(  GUIResources.addClip ) );
 		addFilter = new JButton( GUIResources.getIcon(  GUIResources.addClip ) );
 		deleteFilter = new JButton( GUIResources.getIcon(  GUIResources.deleteClip ) );
 		filterDown = new JButton( GUIResources.getIcon(  GUIResources.clipDown ) );
@@ -371,6 +356,8 @@ public class FilterStackPanel extends JPanel implements ActionListener//, MouseL
 
 	class CustomTableModel extends DefaultTableModel
 	{
+		private static final long serialVersionUID = 1L;
+		
 		public CustomTableModel( Vector<Vector<String>> data, String columnName )
 		{
 			super( data.size(), 1);

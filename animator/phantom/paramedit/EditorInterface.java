@@ -21,7 +21,6 @@ package animator.phantom.paramedit;
 
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UpdateController;
-import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.param.KeyFrameParam;
 
 //--- Interface to editor data and gui-actions for paramedit classes. 

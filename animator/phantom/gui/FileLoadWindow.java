@@ -32,6 +32,8 @@ import javax.swing.WindowConstants;
 //--- Window that is displayed when loading projects
 public class FileLoadWindow extends JDialog
 {
+	private static final long serialVersionUID = 1L;
+	
 	public static JLabel infoLabel;
 
 	public FileLoadWindow( JFrame parent, String projectName )

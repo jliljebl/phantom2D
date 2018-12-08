@@ -59,6 +59,8 @@ import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 //--- GUI panel for render info setting and render progress display.
 public class RenderWindowPanel extends JPanel implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private static final int SIDE_GAP = 10;
 	private static final int BUTTONS_GAP = 20;
 	private static final int SET_BUTTONS_GAP = 10;

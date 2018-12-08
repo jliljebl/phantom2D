@@ -44,6 +44,8 @@ import  animator.phantom.gui.timeline.TCDisplay;
 
 public class ViewControlButtons extends JPanel implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private ViewSizeSelector viewSizeSelect = new ViewSizeSelector();
 	private LayerSelector layerSelect = new LayerSelector();
 

@@ -25,6 +25,8 @@ import animator.phantom.gui.GUIResources;
 
 public class MTextInfo extends MInputField
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JLabel valueLabel = null;
 
 	public MTextInfo( String key, int value )

@@ -25,7 +25,6 @@ import java.util.Vector;
 import animator.phantom.gui.AnimFrameGUIParams;
 import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 import animator.phantom.renderer.ImageOperation;
-import animator.phantom.renderer.RenderNode;
 import animator.phantom.renderer.param.AnimationKeyFrame;
 import animator.phantom.renderer.param.KeyFrameParam;
 import animator.phantom.undo.PhantomUndoManager;

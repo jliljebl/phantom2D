@@ -20,7 +20,6 @@ package animator.phantom.controller;
 */
 
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -45,7 +44,6 @@ import animator.phantom.gui.ContentPaneLayout;
 import animator.phantom.gui.FileLoadWindow;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.GUIUtils;
-import animator.phantom.gui.IOPMenuItem;
 import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.gui.modals.MActionListener;
 import animator.phantom.gui.modals.MButton;
@@ -365,7 +363,7 @@ public class LayerCompositorMenuActions
 
 		if( reloadNeeded )
 		{
-			Vector<ImageOperation> oldClips = new Vector<ImageOperation>( TimeLineController.getClips() );
+			//Vector<ImageOperation> oldClips = new Vector<ImageOperation>( TimeLineController.getClips() );
 
 			ProjectController.setScreenSize( new Dimension( editWidth, editHeight ) );
 			ProjectController.setFramesPerSecond( editFps );
@@ -1622,7 +1620,7 @@ public class LayerCompositorMenuActions
 		MLTFrameServerController.calculateCacheSize(dickCacheSize, clipsCount);
 
 		cacheDialog.setVisible( true );//this blocks until button pressed
-		int retVal = cacheDialog.getResponseValue();
+		//int retVal = cacheDialog.getResponseValue();
 	}
 
 	//------------------------------------------------------ help

@@ -27,6 +27,8 @@ import animator.phantom.controller.KeyActionController;
 
 public class SelectAllAction extends AbstractAction
 {
+	private static final long serialVersionUID = 1L;
+	
 	public void actionPerformed( ActionEvent e )
 	{
 		KeyActionController.selectAllItems( e.getSource() );

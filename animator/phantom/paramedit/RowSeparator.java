@@ -31,6 +31,8 @@ import animator.phantom.gui.GUIColors;
 */
 public class RowSeparator extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	private int SEPARATOR_HEIGHT = 6;
 	private int SEPARATOR_WIDTH = 2 * 160;//HUOM, korjaa pitää olla PARAM_COLUMN_WIDTH
 	private int LINE_Y = 2;

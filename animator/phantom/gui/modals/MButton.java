@@ -26,6 +26,8 @@ import animator.phantom.gui.PHButtonFactory;
 
 public class MButton extends MInputField
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JLabel textLabel;
 	private JButton button;
 

@@ -26,10 +26,8 @@ import java.awt.LayoutManager;
 
 public class BigEditorsLayout implements LayoutManager
 {
-	//public static int MID_Y = EditorPersistance.getIntPref( EditorPersistance.LAYOUT_MID );
 
 	private int STRIP_HEIGHT = 35;
-	private int STRIP_INSET = 0;
 	private int BIG_EDITOR_INSET = 0;
 	private int BIG_EDITOR_UP_INSET = 4;
 	private int LEFT_GAP = 0;
@@ -42,7 +40,7 @@ public class BigEditorsLayout implements LayoutManager
 	
 	public BigEditorsLayout(){}
 
-	//--- This all depends on order that components are added into container
+	//--- This all depends on the order that components are added into container
     public void layoutContainer(Container cont)
 	{
 		synchronized ( cont.getTreeLock() )

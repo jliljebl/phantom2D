@@ -3,8 +3,6 @@ package animator.phantom.controller;
 import java.util.Collections;
 import java.util.Vector;
 
-import javax.swing.JMenu;
-
 /*
     Copyright Janne Liljeblad 2006,2007,2008
 
@@ -25,16 +23,12 @@ import javax.swing.JMenu;
 */
 
 import animator.phantom.renderer.IOPLibrary;
-import animator.phantom.renderer.OutputIOP;
 import animator.phantom.renderer.coordtransformer.NullIOP;
 import animator.phantom.renderer.imagefilter.ColorCorrectorIOP;
 import animator.phantom.renderer.imagefilter.CurvesIOP;
-import animator.phantom.renderer.imagemerge.BasicTwoMergeIOP;
 import animator.phantom.renderer.imagesource.FileImageSource;
 import animator.phantom.renderer.imagesource.ImageSequenceIOP;
 import animator.phantom.renderer.imagesource.VideoClipIOP;
-import animator.phantom.renderer.plugin.AlphaMergePlugin;
-import animator.phantom.renderer.plugin.AlphaReplacePlugin;
 import animator.phantom.renderer.plugin.AlphaToImagePlugin;
 import animator.phantom.renderer.plugin.AnimatedColorRGBPlugin;
 import animator.phantom.renderer.plugin.BoxBlurPlugin;
@@ -58,7 +52,6 @@ import animator.phantom.renderer.plugin.DivideByAlphaPlugin;
 import animator.phantom.renderer.plugin.EdgesPlugin;
 import animator.phantom.renderer.plugin.EmbossPlugin;
 import animator.phantom.renderer.plugin.FBMPlugin;
-import animator.phantom.renderer.plugin.FileImagePatternMergePlugin;
 import animator.phantom.renderer.plugin.FlipPlugin;
 import animator.phantom.renderer.plugin.FourColorPlugin;
 import animator.phantom.renderer.plugin.GaussianBlurPlugin;
@@ -69,7 +62,6 @@ import animator.phantom.renderer.plugin.GreyscalePlugin;
 import animator.phantom.renderer.plugin.HalfTonePlugin;
 import animator.phantom.renderer.plugin.HighPassPlugin;
 import animator.phantom.renderer.plugin.HueSatBrightPlugin;
-import animator.phantom.renderer.plugin.ImageToAlphaMergePlugin;
 import animator.phantom.renderer.plugin.ImageToAlphaPlugin;
 import animator.phantom.renderer.plugin.InvertPlugin;
 import animator.phantom.renderer.plugin.KaleidoscopePlugin;
@@ -100,10 +92,8 @@ import animator.phantom.renderer.plugin.QuickSketchPlugin;
 import animator.phantom.renderer.plugin.RipplePlugin;
 import animator.phantom.renderer.plugin.ScatterRGBPlugin;
 import animator.phantom.renderer.plugin.ScratchPlugin;
-import animator.phantom.renderer.plugin.ShapeGridMergePlugin;
 import animator.phantom.renderer.plugin.ShapeGridPlugin;
 import animator.phantom.renderer.plugin.ShapeMaskPlugin;
-import animator.phantom.renderer.plugin.ShapeMergePlugin;
 import animator.phantom.renderer.plugin.ShapePlugin;
 import animator.phantom.renderer.plugin.SharpenPlugin;
 import animator.phantom.renderer.plugin.ShearPlugin;
@@ -112,7 +102,6 @@ import animator.phantom.renderer.plugin.SolarizePlugin;
 import animator.phantom.renderer.plugin.SolidNoisePlugin;
 import animator.phantom.renderer.plugin.SpherePlugin;
 import animator.phantom.renderer.plugin.SpillSuppressPlugin;
-import animator.phantom.renderer.plugin.SplitScreenPlugin;
 import animator.phantom.renderer.plugin.SpreadPlugin;
 import animator.phantom.renderer.plugin.StampPlugin;
 import animator.phantom.renderer.plugin.StripesPlugin;

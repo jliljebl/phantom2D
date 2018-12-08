@@ -35,6 +35,8 @@ import animator.phantom.gui.GUIResources;
 
 public class ViewSizeSelector extends JPanel implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JComboBox<String> comboBox;
 	private String[] options = {"200%","175%","150%","125%","100%","75%","50%","33%","25%"};
 	private float[] scales = {2.0f,1.75f,1.5f,1.25f,1.0f,0.75f,0.5f,0.33f,0.25f};

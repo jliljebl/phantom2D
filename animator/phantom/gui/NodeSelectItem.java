@@ -41,6 +41,8 @@ import animator.phantom.controller.LayerCompositorApplication;
 
 public class NodeSelectItem extends JPanel implements MouseListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private boolean isSelected = false;
 	private boolean draggable;
 	private JLabel nameLabel;

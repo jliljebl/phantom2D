@@ -33,6 +33,7 @@ import javax.swing.JPanel;
 
 public class ColorSelect extends JFrame implements ActionListener 
 {
+	private static final long serialVersionUID = 1L;
 	private JColorChooser tcc;
 	private PHButtonRow buttons;
 

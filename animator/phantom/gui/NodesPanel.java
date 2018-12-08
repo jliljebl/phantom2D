@@ -30,13 +30,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import animator.phantom.controller.ParamEditController;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
 
 public class NodesPanel extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	private Vector<String> groups;
 	private int groupIndex = 0;
 	

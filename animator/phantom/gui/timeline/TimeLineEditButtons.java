@@ -34,6 +34,8 @@ import animator.phantom.gui.GUIResources;
 
 public class TimeLineEditButtons extends JPanel implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JButton moveClipHeadToCurrent  = new JButton( GUIResources.getIcon( GUIResources.clipHeadToCurrent ) );
 	private JButton moveClipTailToCurrent = new JButton(  GUIResources.getIcon( GUIResources.clipTailToCurrent ) );
 	private JButton clipInToCurrent = new JButton(  GUIResources.getIcon( GUIResources.clipInToCurrent ) );

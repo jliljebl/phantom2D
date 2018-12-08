@@ -37,10 +37,11 @@ import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.gui.GUIResources;
-import animator.phantom.gui.timeline.TCDisplay;
 
 public class PreViewControlPanel extends JPanel implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JButton render = new JButton( GUIResources.getIcon( GUIResources.renderPreview));
 	private JToggleButton loop = new JToggleButton( GUIResources.getIcon( GUIResources.loop ));
 	private JButton stopPreviewRender = new JButton( GUIResources.getIcon( GUIResources.stopPreviewRender ));

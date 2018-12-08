@@ -27,6 +27,8 @@ import animator.phantom.controller.KeyActionController;
 
 public class PasteAction extends AbstractAction
 {
+	private static final long serialVersionUID = 1L;
+	
 	public void actionPerformed( ActionEvent e )
 	{
 		KeyActionController.pasteItems( e.getSource() );

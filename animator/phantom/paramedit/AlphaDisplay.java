@@ -38,6 +38,7 @@ import animator.phantom.plugin.PluginUtils;
 */
 public class AlphaDisplay extends JPanel
 {
+	private static final long serialVersionUID = 1L;
 	private static final int DEFAULT_WIDTH = 180;
 	private static final int DEFAULT_HEIGHT = 135;
 	private static final int HEIGHT_PAD = 40;

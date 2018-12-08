@@ -24,6 +24,8 @@ import javax.swing.JToggleButton;
 
 public class ModeButton extends JToggleButton
 {
+	private static final long serialVersionUID = 1L;
+	
 	private int mode;
 
 	public ModeButton( ImageIcon icon, int mode )

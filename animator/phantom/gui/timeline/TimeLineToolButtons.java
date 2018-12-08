@@ -33,6 +33,8 @@ import animator.phantom.gui.GUIResources;
 
 public class TimeLineToolButtons extends JPanel implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JButton clipDown = new JButton( GUIResources.getIcon(  GUIResources.clipDown ) );
 	private JButton clipUp = new JButton( GUIResources.getIcon( GUIResources.clipUp ) );
 

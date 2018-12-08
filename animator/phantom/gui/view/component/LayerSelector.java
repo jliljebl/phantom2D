@@ -35,6 +35,8 @@ import animator.phantom.gui.view.editlayer.ViewEditorLayer;
 
 public class LayerSelector extends JPanel implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JComboBox<String> comboBox;
 	private static String NONE = "no ViewEditor layer selected";
 

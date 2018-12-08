@@ -44,6 +44,8 @@ import animator.phantom.renderer.param.ColorSelectTarget;
 */
 public class ParamColorSelect extends JPanel implements ActionListener, UndoListener, ColorSelectTarget
 {
+	private static final long serialVersionUID = 1L;
+	
 	private ColorParam editColor;
 	private JButton colorButton;
 

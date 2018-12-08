@@ -47,7 +47,7 @@ public class TimeLineColumnRowLayout implements LayoutManager
 	{
     		synchronized ( cont.getTreeLock() )
     		{
-    			Dimension containerSize = cont.getSize();
+    			//Dimension containerSize = cont.getSize();
     			int comps = cont.getComponentCount();
     			for (int i = 0 ; i < comps ; i++)
     			{

@@ -34,6 +34,8 @@ import animator.phantom.gui.GUIResources;
 
 public class TCDisplay extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	private String timecode;
 	private Color tcColor = new Color( 180, 180, 180 );//180, 131, 20 );
 	private static final Dimension RECT_SIZE = new Dimension( 80, 36 );

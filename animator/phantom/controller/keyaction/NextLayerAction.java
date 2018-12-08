@@ -28,6 +28,8 @@ import animator.phantom.controller.KeyStatus;
 
 public class NextLayerAction extends AbstractAction
 {
+	private static final long serialVersionUID = 1L;
+	
 	public void actionPerformed( ActionEvent e )
 	{
 		if( KeyStatus.ctrlIsPressed() )	GUIComponents.viewEditor.rotateNextLayer( true );

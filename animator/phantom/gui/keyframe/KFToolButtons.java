@@ -38,6 +38,8 @@ import animator.phantom.renderer.param.KeyFrameParam;
 
 public class KFToolButtons extends JPanel implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JButton zoomIn = new JButton( GUIResources.getIcon(  GUIResources.scaleZoomIn ) );
 	private JButton zoomOut = new JButton( GUIResources.getIcon(  GUIResources.scaleZoomOut ) );
 	private JButton addKF = new JButton( GUIResources.getIcon(  GUIResources.addKF ) );

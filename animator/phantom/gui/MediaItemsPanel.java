@@ -1,26 +1,19 @@
 package animator.phantom.gui;
 
 
-import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Hashtable;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -28,15 +21,16 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-import animator.phantom.controller.GUIComponents;
+
 import animator.phantom.controller.KeyStatus;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.controller.UserActions;
-import animator.phantom.project.Bin;
 import animator.phantom.renderer.FileSource;
 
 public class MediaItemsPanel extends JPanel implements ActionListener, MouseListener
 {
+		private static final long serialVersionUID = 1L;
+
 		private Vector <MediaListItem> selected = new Vector<MediaListItem>();
 		
 		//--- GUI components

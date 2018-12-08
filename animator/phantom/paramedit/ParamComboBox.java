@@ -39,6 +39,8 @@ import animator.phantom.renderer.param.Param;
 */
 public abstract class ParamComboBox extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	* Combo box component.
 	*/

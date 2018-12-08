@@ -34,13 +34,13 @@ import animator.phantom.renderer.ImageOperation;
 
 public class MaskStackPanel extends JPanel implements ActionListener, MouseListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private ImageOperation iop;
 	private JTable stackTable;
 
 	private JPopupMenu filtersPopup;
-	private Vector<String> groups;
-	private Vector<Vector<ImageOperation>> groupIops;
-	private Vector<Vector<String>> groupClasses;
+
 
 	private JLabel addFilterPopupArea;
 	private JButton addFilter;
@@ -363,6 +363,8 @@ public class MaskStackPanel extends JPanel implements ActionListener, MouseListe
 
 	class CustomTableModel extends DefaultTableModel
 	{
+		private static final long serialVersionUID = 1L;
+		
 		public CustomTableModel( Vector<Vector<String>> data, String columnName )
 		{
 			super( data.size(), 1);

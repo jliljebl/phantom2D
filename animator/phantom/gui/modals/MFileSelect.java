@@ -33,6 +33,8 @@ import animator.phantom.gui.PHButtonFactory;
 
 public class MFileSelect extends MInputField implements ActionListener 
 {
+	private static final long serialVersionUID = 1L;
+	
 	private String title;
 	private JLabel fileLabel;
 	public File file;

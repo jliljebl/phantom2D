@@ -50,6 +50,8 @@ import animator.phantom.renderer.ImageOperation;
 
 public class ViewEditor extends JPanel implements MouseListener, MouseMotionListener, ComponentListener, MouseWheelListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	//--- Size of viewable area in real coordinates.
 	private Dimension screenSize;
 	//--- Minimum size of component.

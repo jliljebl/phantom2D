@@ -99,10 +99,15 @@ public class MovieFormat
 		int frame_rate_den  = 0;
 		int width  = 0;
 		int height  = 0;
+		@SuppressWarnings("unused")
 		int progressive = 0;
+		@SuppressWarnings("unused")
 		int sample_aspect_num  = 0;
+		@SuppressWarnings("unused")
 		int sample_aspect_den  = 0;
+		@SuppressWarnings("unused")
 		int display_aspect_num  = 0;// not used currently
+		@SuppressWarnings("unused")
 		int display_aspect_den = 0;// not used currently
 			
 		for( int i = 0; i < lines.size(); i++ )

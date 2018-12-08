@@ -27,6 +27,8 @@ import animator.phantom.controller.PreviewController;
 
 public class RenderPreviewFrameAction extends AbstractAction
 {
+	private static final long serialVersionUID = 1L;
+	
 	public void actionPerformed( ActionEvent e )
 	{ 
 		PreviewController.renderAndDisplayCurrent();

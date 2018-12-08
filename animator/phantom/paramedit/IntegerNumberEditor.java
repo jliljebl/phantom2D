@@ -41,6 +41,8 @@ import animator.phantom.renderer.param.IntegerParam;
 */
 public class IntegerNumberEditor extends JPanel implements PropertyChangeListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	//--- AnimatedVlue edited with this component
 	private IntegerParam editValue;
 	//--- GUI component used to edit value.

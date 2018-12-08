@@ -43,6 +43,7 @@ import animator.phantom.renderer.param.ParamKeyFrameInfo;
 */
 public class AnimValueSliderEditor extends JPanel implements ChangeListener, FrameChangeListener
 {
+	private static final long serialVersionUID = 1L;
 	//--- AnimatedValue edited with this component.
 	private AnimatedValue editValue;
 	//--- GUI component used to edit value.

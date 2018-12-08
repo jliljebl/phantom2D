@@ -40,6 +40,8 @@ import animator.phantom.renderer.param.IntegerParam;
 */
 public class IntegerValueSliderEditor extends JPanel implements ChangeListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	//--- AnimatedValue edited with this component.
 	private IntegerParam editValue;
 	//--- GUI component used to edit value.

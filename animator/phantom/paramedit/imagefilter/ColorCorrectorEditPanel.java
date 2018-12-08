@@ -44,6 +44,7 @@ import animator.phantom.renderer.imagefilter.ColorCorrectorIOP;
 
 public class ColorCorrectorEditPanel extends ParamEditPanel implements ColorWheelListener, ActionListener, PropertyChangeListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
 	private static final int SHADOW = 0;
 	private static final int MID = 1;
 	private static final int HI = 2;

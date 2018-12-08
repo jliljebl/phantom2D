@@ -35,6 +35,8 @@ import animator.phantom.renderer.imagesource.FileImageSource;
 
 public class FileImageSourceEditPanel extends ParamEditPanel implements ItemListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	FileImageSource fileImageSource;
 	CheckBoxEditor asCanvas;
 

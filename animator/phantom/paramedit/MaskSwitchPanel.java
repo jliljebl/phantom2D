@@ -44,6 +44,8 @@ import animator.phantom.renderer.SwitchData;
 */
 public class MaskSwitchPanel extends JPanel implements ItemListener, ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private ImageOperation iop;
 	private SwitchData switches;
 	

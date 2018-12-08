@@ -44,6 +44,8 @@ import animator.phantom.renderer.param.ParamKeyFrameInfo;
 */
 public class ParamVectorKeyFramesEditor extends JPanel implements MouseListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private AnimatedValueVectorParam param;
 
 	private JLabel leftTriangle;

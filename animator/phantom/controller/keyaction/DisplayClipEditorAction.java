@@ -27,6 +27,8 @@ import animator.phantom.controller.GUIComponents;
 
 public class DisplayClipEditorAction extends AbstractAction
 {
+	private static final long serialVersionUID = 1L;
+	
 	public void actionPerformed( ActionEvent e )
 	{ 
 		GUIComponents.getAnimatorFrame().timelineButton.doClick();

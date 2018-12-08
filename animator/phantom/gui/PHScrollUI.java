@@ -22,8 +22,9 @@ public class PHScrollUI extends MetalScrollBarUI
 	private int IN_PAD = 2;
 	
     private JButton b = new JButton() {
+		private static final long serialVersionUID = 1L;
 
-        @Override
+		@Override
         public Dimension getPreferredSize() {
             return new Dimension(0, 0);
         }

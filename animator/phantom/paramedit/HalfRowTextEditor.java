@@ -39,6 +39,8 @@ import animator.phantom.gui.GUIResources;
 */
 public class HalfRowTextEditor extends JPanel implements PropertyChangeListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	//--- GUI component used to edit value.
 	private JFormattedTextField numberField;
 	//--- This is a hack to get around the fact that setting value in numberField

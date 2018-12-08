@@ -36,6 +36,8 @@ import animator.phantom.renderer.param.Param;
 //--- Panel used select a parameter to edit in the keyframe editor.
 public class KFColumnPanel extends JPanel implements MouseListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private Vector<KFParamBox> params = new Vector<KFParamBox>();
 	//--- IOP being edited
 	private ImageOperation iop;

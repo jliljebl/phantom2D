@@ -43,6 +43,8 @@ import animator.phantom.renderer.param.CRCurveParam;
 //--- Special editor component for editing CurvesIOP
 public class CurvesEditor extends JPanel implements ActionListener, BoxEditorListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private CurvesIOP curvesIOP;
 	private CRCurve curve;
 	private CRCurveParam param;

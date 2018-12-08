@@ -29,6 +29,8 @@ import animator.phantom.gui.GUIUtils;
 
 public class RenderWindow extends JFrame implements WindowListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	public RenderWindowPanel panel;
 
 	public RenderWindow()

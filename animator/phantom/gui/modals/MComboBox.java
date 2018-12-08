@@ -25,6 +25,8 @@ import javax.swing.JComboBox;
 
 public class MComboBox extends MInputField
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JComboBox<String> comboBox;
 
 	public MComboBox( String msg, String[] options )

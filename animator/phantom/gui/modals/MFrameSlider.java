@@ -14,9 +14,10 @@ import animator.phantom.gui.timeline.TimeLineDisplayPanel;
 
 public class MFrameSlider extends MInputField implements ChangeListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JSlider slider;
 	private JLabel val;
-	//private JLabel maxVal;
 
 	public MFrameSlider(String msg,  int leftSize, int rightSize, int value, int min, int max )
 	{

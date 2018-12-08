@@ -24,6 +24,8 @@ import javax.swing.JMenuItem;
 //--- Used to select iops to add to flow.
 public class IOPMenuItem extends JMenuItem
 {
+	private static final long serialVersionUID = 1L;
+	
 	public static final int ADJUSTMENT_LAYER_ITEM = 1;
 	public static final int LAYER_EFFECT_ITEM = 2;
 	public static final int LAYER_MASK_ITEM = 3;

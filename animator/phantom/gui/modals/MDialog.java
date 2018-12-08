@@ -37,6 +37,8 @@ import javax.swing.JPanel;
 
 public class MDialog extends JDialog implements ActionListener,  WindowListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private static final int BUTTON_MIN_WIDTH = 70;
 	private static final int MULTI_INPUT_BUTTON_END_PAD = 0;
 	private static final int BORDER_GAP = 10;

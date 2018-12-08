@@ -36,6 +36,7 @@ import animator.phantom.gui.GUIResources;
 */
 public class ButtonRow extends JPanel
 {
+	private static final long serialVersionUID = 1L;
 	//--- GUI param
 	private int height = 30;
 	private Insets buttonInsets = new Insets( 3,3,3,3 );

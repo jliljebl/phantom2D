@@ -26,6 +26,8 @@ import javax.swing.JMenuItem;
 //--- Used to select and open recent files.
 public class RecentMenuItem extends JMenuItem
 {
+	private static final long serialVersionUID = 1L;
+	
 	private File recentFile;
 
 	public RecentMenuItem( String title, File f )

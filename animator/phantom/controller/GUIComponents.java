@@ -45,55 +45,30 @@ import animator.phantom.gui.view.component.ViewEditor;
 import animator.phantom.gui.view.component.ViewSizeSelector;
 import animator.phantom.paramedit.FilterStackPanel;
 
-//--- Class to hold references to all GUI components.
+//--- Class to hold references to GUI components.
 public class GUIComponents
 {
-	//--- GUI COMPONENTS, GUI COMPONENTS, GUI COMPONENTS, GUI COMPONENTS, GUI COMPONENTS
-	//--- The editor frame.
+
 	public static LayerCompositorFrame animatorFrame;
 	public static MenuBarCallbackInterface animatorMenu;
-	//--- GUI component used to edit composition.
-	//public static FlowEditPanel renderFlowPanel;
-	//--- GUI component for editing mainly image positions on movie screen.
 	public static ViewEditor viewEditor;
-	//--- GUI component for buttons used to control render flow
-	//public static RenderFlowViewButtons renderFlowButtons;
-	//--- GUI component that displays names of components in timeline editing.
 	public static TimeLineIOPColumnPanel2 timeLineIOPColumnPanel;
-	//--- GUI component for doing timeline editing
 	public static TimeLineEditorPanel timeLineEditorPanel;
-	//--- Gui components (2) for displaying timeline scale
-	public static Vector<TimeLineDisplayPanel> timeLineScaleDisplays
-						= new Vector<TimeLineDisplayPanel>();
-	//--- Gui components for timecode display.
+	public static Vector<TimeLineDisplayPanel> timeLineScaleDisplays = new Vector<TimeLineDisplayPanel>();
 	public static TCDisplay tcDisplay;
-	//--- Gui component for selecting params for key frame editing.
 	public static KFColumnPanel kfColumnPanel;
- 	//--- Gui component for editing keyframes
 	public static KeyFrameEditorPanel keyFrameEditPanel;
-	//--- Panel that displays the name of IOP currently edited in keyframe editor.
 	public static JPanel kfNamePanel;
 	public static KFToolButtons kfControl;
-	//--- Gui component for managin bins of project.
- 	//public static BinsAreaPanel projectPanel;
-	//--- Preview
 	public static PreViewUpdater previewUpdater;
 	public static PreViewControlPanel previewControls;
-	//--- Static view control buttons.
 	public static ViewControlButtons viewControlButtons;
 	public static ViewSizeSelector viewSizeSelector;
-	//--- toplevel for rendering info and progrewss
 	public static RenderWindow renderWindow;
-	//--- Top level for editing pre-transform filter stack
 	public static FilterStackEdit filterStackEdit;
-	//--- KEyframe editors container
 	public static JPanel keyEditorContainerPanel;
-	//--- View editor scroll pane
 	public static JScrollPane viewScrollPane;
-	//---
 	public static FilterStackPanel filterStackPanel;
-	
-	//---
 	public static TimeLineControls tlineControls;
 	public static NodesPanel nodesPanel;
 	public static JLabel projectInfoLabel;

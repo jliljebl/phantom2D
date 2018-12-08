@@ -33,6 +33,8 @@ import animator.phantom.gui.PHButtonFactory;
 
 public class PHButtonRow extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	private Vector<JButton> buttons = new Vector<JButton>();
 	private static final int BUTTON_GAP = 8;
 

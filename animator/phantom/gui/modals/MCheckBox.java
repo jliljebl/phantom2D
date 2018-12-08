@@ -23,6 +23,8 @@ import javax.swing.JCheckBox;
 
 public class MCheckBox extends MInputField
 {
+	private static final long serialVersionUID = 1L;
+	
 	public JCheckBox box;
 
 	public MCheckBox( String msg, boolean defaultVal )

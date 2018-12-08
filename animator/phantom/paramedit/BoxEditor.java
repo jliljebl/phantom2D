@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 */
 public abstract class BoxEditor extends JPanel implements MouseListener, MouseMotionListener
 {
+	private static final long serialVersionUID = 1L;
 	protected static final Color BG_COLOR = Color.white;
 	protected static final Color LINE_COLOR = Color.darkGray;
 

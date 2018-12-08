@@ -7,6 +7,8 @@ import animator.phantom.renderer.FileSource;
 
 public class MediaMenuItem extends JMenuItem 
 {
+	private static final long serialVersionUID = 1L;
+	
 	private FileSource fileSource;
 
 	public MediaMenuItem( String title, FileSource f )

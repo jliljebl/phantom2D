@@ -27,8 +27,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
-import javax.swing.JLabel;
-
 import animator.phantom.controller.AppData;
 import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UpdateController;

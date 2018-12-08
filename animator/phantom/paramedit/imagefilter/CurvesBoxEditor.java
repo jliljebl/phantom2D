@@ -37,6 +37,8 @@ import animator.phantom.paramedit.BoxEditorListener;
 */
 public class CurvesBoxEditor extends BoxEditor
 {
+	private static final long serialVersionUID = 1L;
+	
 	private Color CURVE_COLOR = Color.black;
 	private static final int POINT_SIZE = 8;
 	

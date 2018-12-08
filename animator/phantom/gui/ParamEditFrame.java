@@ -37,6 +37,8 @@ import animator.phantom.renderer.ImageOperation;
 //--- GUI area that holds edit panel, switches, outputs number selector and name label.
 public class ParamEditFrame extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	//--- The ImageOperation that has is being edited
 	private ImageOperation editIOP;
 

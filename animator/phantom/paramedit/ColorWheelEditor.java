@@ -45,6 +45,7 @@ import animator.phantom.gui.view.SVec;
 */ 
 public class ColorWheelEditor extends JPanel implements MouseListener, MouseMotionListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
 	/**
 	* Mouse has been pressed or dragged.
 	*/

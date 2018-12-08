@@ -148,7 +148,8 @@ public class IOPLibrary
 
 	public static Vector<String> getGroupKeys()
 	{
-		Vector<String> sortedKeys = (Vector<String> )groupsInAddOrder.clone();
+		@SuppressWarnings("unchecked")
+		Vector<String> sortedKeys = (Vector<String>) groupsInAddOrder.clone();
 		Collections.sort(sortedKeys);// remove this to get order defined in IOPLibraryInitializer
 		return sortedKeys;
 	}

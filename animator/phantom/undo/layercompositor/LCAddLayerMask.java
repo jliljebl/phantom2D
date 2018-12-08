@@ -1,7 +1,5 @@
 package animator.phantom.undo.layercompositor;
 
-import animator.phantom.controller.LayerCompositorUpdater;
-import animator.phantom.project.LayerCompositorLayer;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.undo.PhantomUndoManager;
 

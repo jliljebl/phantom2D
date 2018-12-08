@@ -12,6 +12,8 @@ import animator.phantom.gui.modals.MInputField;
 
 public class MSlider extends MInputField implements ChangeListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JSlider slider;
 	private JLabel valueDisplay;
 

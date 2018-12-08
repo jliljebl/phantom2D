@@ -34,6 +34,8 @@ import animator.phantom.gui.GUIColors;
 
 public class MultiInputDialogPanel extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	public MultiInputDialogPanel( MInputPanel iPanel )
 	{
 		JPanel inputPane = new JPanel();

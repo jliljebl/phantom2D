@@ -28,7 +28,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -84,6 +83,8 @@ import animator.phantom.gui.view.component.ViewEditor;
 
 public class LayerCompositorFrame extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JViewport flowViewPort;
 	private JPanel contentPane = null;
 	private JPanel editorsPane = null;

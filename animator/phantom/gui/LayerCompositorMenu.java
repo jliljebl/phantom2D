@@ -47,6 +47,8 @@ import animator.phantom.renderer.coordtransformer.NullIOP;
 
 public class LayerCompositorMenu extends JMenuBar implements ActionListener, MenuBarCallbackInterface
 {
+	private static final long serialVersionUID = 1L;
+	
 	JMenuItem openProject;
 	JMenuItem openRecent;
 	JMenuItem saveProject;

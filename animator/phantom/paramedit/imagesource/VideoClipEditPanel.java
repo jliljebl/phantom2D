@@ -17,6 +17,8 @@ import animator.phantom.renderer.imagesource.VideoClipIOP;
 
 public class VideoClipEditPanel extends ParamEditPanel  implements ItemListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	VideoClipIOP vc;
 	CheckBoxEditor asCanvas;
 

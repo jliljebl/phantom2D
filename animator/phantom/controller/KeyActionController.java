@@ -21,9 +21,6 @@ package animator.phantom.controller;
 
 import java.util.Vector;
 
-//import animator.phantom.gui.ListFileSourcePanel;
-//import animator.phantom.project.Bin;
-import animator.phantom.renderer.RenderNode;
 
 //--- handles copy-paste, delete actions.
 public class KeyActionController

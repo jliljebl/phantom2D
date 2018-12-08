@@ -24,6 +24,8 @@ import animator.phantom.renderer.imagefilter.CurvesIOP;
 
 public class CurvesEditPanel extends ParamEditPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	public CurvesEditPanel( CurvesIOP ciop )
 	{
 		initParamEditPanel();

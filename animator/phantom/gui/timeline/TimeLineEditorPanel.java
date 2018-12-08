@@ -53,6 +53,8 @@ import animator.phantom.undo.TimeLineUndoEdit;
 
 public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListener
 {	
+	private static final long serialVersionUID = 1L;
+	
 	//--- ImageOperations currently in timeline editing.
 	private Vector <TimeLineEditorIOPClip> iopClips = new Vector<TimeLineEditorIOPClip>();
 

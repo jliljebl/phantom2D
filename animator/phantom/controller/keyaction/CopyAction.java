@@ -27,6 +27,8 @@ import animator.phantom.controller.KeyActionController;
 
 public class CopyAction extends AbstractAction
 {
+	private static final long serialVersionUID = 1L;
+	
 	public void actionPerformed( ActionEvent e )
 	{
 		KeyActionController.copyItems( e.getSource() );

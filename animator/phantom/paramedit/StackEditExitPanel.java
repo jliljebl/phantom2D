@@ -15,6 +15,8 @@ import animator.phantom.gui.PHButtonFactory;
 
 public class StackEditExitPanel  extends JPanel implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	public StackEditExitPanel()
 	{
 		JButton exitButton = PHButtonFactory.getButton( "Exit To Node Editor" );

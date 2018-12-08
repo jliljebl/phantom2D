@@ -32,6 +32,8 @@ import animator.phantom.renderer.param.IntegerParam;
 */
 public class IntegerComboBox extends ParamComboBox implements ActionListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	//--- Parameter to be edited.
 	private IntegerParam editParam;
 	private boolean discardEvent;//to not call undo when init or undo update

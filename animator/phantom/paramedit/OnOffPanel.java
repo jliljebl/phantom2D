@@ -41,6 +41,8 @@ import animator.phantom.renderer.ImageOperation;
 */
 public class OnOffPanel extends JPanel implements ItemListener, ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private ImageOperation iop;
 	private JLabel visLabel = new JLabel( GUIResources.getIcon( GUIResources.iris ) );
 	private JCheckBox visBox = new JCheckBox();

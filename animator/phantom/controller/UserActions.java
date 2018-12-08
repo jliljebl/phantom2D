@@ -20,7 +20,6 @@ package animator.phantom.controller;
 */
 
 import java.awt.Cursor;
-import java.awt.Point;
 import java.io.File;
 import java.util.Vector;
 

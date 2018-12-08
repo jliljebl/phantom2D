@@ -30,6 +30,7 @@ import animator.phantom.renderer.param.BooleanParam;
 */
 public class BooleanComboBox extends ParamComboBox implements ActionListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
 	//--- Param to be edited
 	private BooleanParam editParam;
 	//--- True if option corresponding to boolean value true is diplayed first.

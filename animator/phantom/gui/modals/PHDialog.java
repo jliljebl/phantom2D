@@ -41,14 +41,12 @@ import animator.phantom.gui.GUIResources;
 
 public class PHDialog extends JDialog implements ActionListener,  WindowListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	public static final int PLAIN_MESSAGE = 0;
 	public static final int WARNING_MESSAGE = 1;	
 
 	private static final int MID_GAP = 25;
-	//private static final int MULTI_INPUT_MID_GAP = 8;
-	//private static final int MULTI_INPUT_BUTTON_END_PAD = 0;
-	//private static final int MULTI_INPUT_TOP_PAD = 2;
-	//private static final int MULTI_INPUT_TITLE_PAD = 2;
 	private static final int BORDER_GAP = 10;
 	private static final int BUTTON_MIN_WIDTH = 70;
 

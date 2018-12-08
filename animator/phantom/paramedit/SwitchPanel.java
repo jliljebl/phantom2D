@@ -52,6 +52,8 @@ import animator.phantom.renderer.imagemerge.BasicTwoMergeIOP;
 */
 public class SwitchPanel extends JPanel implements ItemListener, ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private ImageOperation iop;
 	private SwitchData switches;
 	

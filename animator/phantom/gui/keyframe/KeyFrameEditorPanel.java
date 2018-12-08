@@ -58,6 +58,8 @@ import animator.phantom.renderer.param.KeyFrameParam;
 //--- GUI component for editing keyframes values and places. Value splines are displayed between keyframes.
 public class KeyFrameEditorPanel extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	//--- JEEBUS...Quite enough (class) global state...
 	//--- ... try to fix this.
 

@@ -42,7 +42,8 @@ import animator.phantom.gui.GUIColors;
 //--- This class displays timeline scale.
 public class TimeLineDisplayPanel extends JPanel implements MouseListener, MouseMotionListener
 {
-
+	private static final long serialVersionUID = 1L;
+	
 	//--- Scale mark sizes
 	private static final float SMALL_MARK_HEIGHT = 4;
 	private static final int BIG_MARK_HEIGHT = 17;

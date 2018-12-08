@@ -38,6 +38,8 @@ import animator.phantom.renderer.param.CRCurveParam;
 */
 public class SingleCurveEditor extends JPanel implements BoxEditorListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private CRCurve curve;
 	private CRCurveParam param;
 	private Point lastPoint;

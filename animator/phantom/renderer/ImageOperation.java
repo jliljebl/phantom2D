@@ -54,13 +54,10 @@ import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.PHScrollUI;
 import animator.phantom.gui.view.editlayer.ViewEditorLayer;
 import animator.phantom.paramedit.AnimationParentPanel;
-import animator.phantom.paramedit.FilterStackPanel;
-import animator.phantom.paramedit.MaskStackPanel;
 import animator.phantom.paramedit.MaskSwitchPanel;
 import animator.phantom.paramedit.OnOffPanel;
 import animator.phantom.paramedit.ParamEditResources;
 import animator.phantom.paramedit.RowSeparator;
-import animator.phantom.paramedit.StackEditExitPanel;
 import animator.phantom.paramedit.SwitchPanel;
 import animator.phantom.paramedit.panel.ParamEditPanel;
 import animator.phantom.plugin.PhantomPlugin;
@@ -743,7 +740,8 @@ public abstract class ImageOperation implements Comparable<Object>
 			editFrame.add( Box.createRigidArea( new Dimension( 0, 5 ) ) );
 
 			//--- Must have switches or OnOffPanel
-			AnimationParentPanel animParentPanel = null;
+			@SuppressWarnings("unused")
+			AnimationParentPanel animParentPanel;
 			//FilterStackPanel filterStackPanel = null;
 
 			if( switches == null )

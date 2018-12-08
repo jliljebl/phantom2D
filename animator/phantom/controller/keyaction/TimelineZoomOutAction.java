@@ -27,6 +27,8 @@ import animator.phantom.controller.TimeLineController;
 
 public class TimelineZoomOutAction extends AbstractAction
 {
+	private static final long serialVersionUID = 1L;
+	
 	public void actionPerformed( ActionEvent e )
 	{  
 		TimeLineController.zoomOut();

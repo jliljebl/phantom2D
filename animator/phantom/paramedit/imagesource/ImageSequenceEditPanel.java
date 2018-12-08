@@ -36,6 +36,8 @@ import animator.phantom.renderer.ImageOperation;
 
 public class ImageSequenceEditPanel extends ParamEditPanel  implements ItemListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	ImageSequenceIOP iss;
 	CheckBoxEditor asCanvas;
 

@@ -30,6 +30,8 @@ import animator.phantom.renderer.ImageOperation;
 
 public class BasicTwoMergeEditPanel extends ParamEditPanel
 {
+	private static final long serialVersionUID = 1L;
+
 	public BasicTwoMergeEditPanel( BasicTwoMergeIOP btm   )
 	{
 		initParamEditPanel();

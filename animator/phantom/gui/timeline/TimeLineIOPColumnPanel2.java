@@ -34,6 +34,8 @@ import animator.phantom.renderer.RenderNode;
 //--- Left side panel of time line editor. Holds column of TimeLineIOPBoxes.
 public class TimeLineIOPColumnPanel2 extends JPanel implements MouseListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private Vector <TimeLineIOPBox2> iopBoxes = new Vector <TimeLineIOPBox2>();
 
 	//------------------------------------------------- CONSTRUCTOR	

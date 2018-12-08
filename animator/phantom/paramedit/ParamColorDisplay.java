@@ -42,6 +42,8 @@ import animator.phantom.renderer.param.ColorParam;
 */
 public class ParamColorDisplay extends JPanel implements ActionListener, FrameChangeListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private ColorParam editColor;
 	private JButton colorButton;
 	private JLabel textLabel;

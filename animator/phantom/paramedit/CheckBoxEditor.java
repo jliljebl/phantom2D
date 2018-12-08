@@ -38,6 +38,7 @@ import animator.phantom.renderer.param.BooleanParam;
 */
 public class CheckBoxEditor extends JPanel implements ItemListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
 	//--- Param to be edited
 	private BooleanParam editParam;
 	//--- True if option corresponding to boolean value true is a checked box;

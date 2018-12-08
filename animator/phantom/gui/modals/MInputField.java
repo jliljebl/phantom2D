@@ -32,6 +32,8 @@ import animator.phantom.gui.GUIResources;
 
 public abstract class MInputField extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	protected Object value;
 
 	protected Component leftComponent;

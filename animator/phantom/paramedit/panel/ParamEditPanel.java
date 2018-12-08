@@ -39,6 +39,8 @@ import animator.phantom.paramedit.UndoListener;
 //--- Base class for all iop edit panels. All iops must provide one class extending this using method ImageOperation.getEditPanelInstance()
 public class ParamEditPanel extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	private Vector<FrameChangeListener> frameChangeListeners = new Vector<FrameChangeListener> ();
 	private Vector<UndoListener> undoListeners = new Vector<UndoListener>();
 

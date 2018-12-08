@@ -38,18 +38,18 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
 
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.controller.LayerCompositorMenuActions;
 import animator.phantom.controller.UserActions;
-//import animator.phantom.controller.KeyActionController;
 import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.renderer.FileSource;
 
 //--- GUI component for selecting a FileSource.
 public class MediaListItem extends JPanel implements MouseListener, ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private FileSource fileSource;
 	private boolean isSelected = false;
 
@@ -68,6 +68,7 @@ public class MediaListItem extends JPanel implements MouseListener, ActionListen
 
 	private boolean isFirst = false;
 	private boolean isPressed = false;
+	@SuppressWarnings("unused")
 	private boolean dragOn = false;
 
 	public MediaListItem( FileSource fs, MouseListener l )

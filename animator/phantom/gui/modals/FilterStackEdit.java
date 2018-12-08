@@ -40,12 +40,13 @@ import animator.phantom.controller.FilterStackController;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.gui.NodesPanel;
 import animator.phantom.gui.PHButtonFactory;
-import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
 
 //--- Window for editing pre-trasform filter stack of a ImageOperation.
 public class FilterStackEdit extends JFrame implements ActionListener 
 {
+	private static final long serialVersionUID = 1L;
+	
 	private ImageOperation iop;
 	private JTable stackTable;
 	private JTable pluginTable ;
@@ -267,6 +268,8 @@ public class FilterStackEdit extends JFrame implements ActionListener
 
 	class CustomTableModel extends DefaultTableModel
 	{
+		private static final long serialVersionUID = 1L;
+		
 		public CustomTableModel( Vector<Vector<String>> data, String columnName )
 		{
 			super( data.size(), 1);

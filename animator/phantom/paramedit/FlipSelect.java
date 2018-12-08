@@ -31,6 +31,8 @@ import animator.phantom.renderer.param.IntegerParam;
 */
 public class FlipSelect extends ParamComboBox implements ActionListener, UndoListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	private IntegerParam flipParam;
 	
 	private static String[] flipOptions = {	"none",

@@ -50,6 +50,8 @@ import animator.phantom.renderer.RenderNode;
 
 public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListener, ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	public static final int LAYER_BOX = 0;
 	public static final int PRECOMP_BOX = 1;
 	public static final int FILTER_BOX = 3;
@@ -66,19 +68,6 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 	private JMenuItem moveUp;
 	private JMenuItem moveDown;
 	private JMenuItem delete;
-	/*
-	private static final int NAME_DRAW_X = 15;
-	private static final int NAME_DRAW_Y = 15;
-	private static final int LOCK_DRAW_X = 3;
-	private static final int LOCK_DRAW_Y = 4;
-	private static final int EDIT_DRAW_X = 157; 
-	private static final int EDIT_DRAW_Y = 4;
-	*/
-	//private static final BufferedImage lockIcon = GUIResources.getResourceBufferedImage( GUIResources.lockIcon );
-	//private static final BufferedImage editIcon = GUIResources.getResourceBufferedImage( GUIResources.editTargetInFlow );
-
-	//--- Font
-	//private static Font boxFont = GUIResources.EDITOR_COLUMN_ITEM_FONT;
 	
 	public TimeLineIOPBox2( ImageOperation iop )
 	{

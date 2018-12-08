@@ -21,14 +21,14 @@ package animator.phantom.controller;
 
 public class Phantom2D
 {
-	static private int PHANTOM2D = 0;
+	//static private int PHANTOM2D = 0;
 
 	public static void main( String args[] )
 	{
-		boolean runServer = false;
+		//boolean runServer = false;
 		String profile = null;
 		String diskCacheDirPath = null;
-		int application = PHANTOM2D;
+		//int application = PHANTOM2D;
 
 		for (int i=0; i < args.length; i++)
 		{

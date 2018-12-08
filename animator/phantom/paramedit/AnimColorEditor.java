@@ -47,6 +47,7 @@ import animator.phantom.renderer.param.ParamKeyFrameInfo;
 */
 public class AnimColorEditor extends JPanel implements ColorSelectTarget, FrameChangeListener, ActionListener
 {
+	private static final long serialVersionUID = 1L;
 	//--- AnimatedValue edited with this component
 	private AnimatedValueVectorParam editValue;
 	//--- GUI component used to edit value.
