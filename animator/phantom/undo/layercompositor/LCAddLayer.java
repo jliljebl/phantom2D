@@ -14,19 +14,17 @@ public class LCAddLayer extends LCUndoableEdit
 	{
 		this.iop = addIOP;
 		this.iop.initIOPTimelineValues();
-		PhantomUndoManager.newIOPCreated( iop ); //--- Create initial state for Paramvalue change  undos
+		PhantomUndoManager.newIOPCreated( this.iop ); //--- Create initial state for Paramvalue change  undos
 	}
 	
 	public void undo()
 	{
-		
-		layerProject().deleteLayer( this.addLayer );
+		layerComposition().deleteLayer( this.addLayer );
 	}
 	
 	public void redo()
 	{
-		
-		this.addLayer = layerProject().addLayer( this.iop );
+		this.addLayer = layerComposition().addLayer( this.iop );
 	}
 
 }//end class

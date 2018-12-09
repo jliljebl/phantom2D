@@ -24,10 +24,10 @@ import java.util.Vector;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.ProjectController;
 import animator.phantom.project.Bin;
 import animator.phantom.project.Project;
+import animator.phantom.project.ProjectNamedFlow;
 import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderFlow;
@@ -40,6 +40,7 @@ public class PhantomXML extends PhantomDocUtils
 	public static final String ROOT_ELEMENT_NAME = "phantom2D";
 	public static final String FILE_SOURCE_LIB_ELEM = "filesourcelib";
 	public static final String BINS_ELEM = "bins";
+	public static final String COMPOSITIONS_ELEM = "compositions";
 	public static final String FLOW_ELEM = "flow";
 	public static final String TIMELINECLIPS_ELEM = "timelineclips";
 	public static final String TIMELINE_MARK_ELEM = "timelinemark";
@@ -169,28 +170,37 @@ public class PhantomXML extends PhantomDocUtils
 				bins.appendChild( BinXML.getElement( bin ) );
 			project.appendChild( bins );
 
-			//--- Flow
-			Element flow = doc.createElement( FLOW_ELEM );
-			flow.setAttribute( "nextid",
-				AbstractXML.intStr( projObj.getCurrentRenderFlow().getNextNodeID() ) );
-
-			//--- Nodes
-			Vector<RenderNode> nodes = projObj.getCurrentRenderFlow().getNodes();
-			for( RenderNode nodeObj : nodes )
+			//--- ProjectnamdFlow s a.a.k compositions
+			Element compositions =  doc.createElement( COMPOSITIONS_ELEM );
+			project.appendChild( compositions );
+			Vector<ProjectNamedFlow> projComps = projObj.getCompositions();
+			for( ProjectNamedFlow comp : projComps )
 			{
-				Element node = RenderNodeXML.getElement( nodeObj );
-				Element iop = ImageOperationXML.getElement( nodeObj.getImageOperation() );
-				node.appendChild( iop );
-				flow.appendChild( node );
+				Element compElem = CompositionXML.getElement( comp );
+				compositions.appendChild(compElem);
+				
+				//--- Flow
+				Element flow = doc.createElement( FLOW_ELEM );
+				flow.setAttribute( "nextid", AbstractXML.intStr(comp.getFlow().getNextNodeID() ) );
+
+				//--- Nodes
+				Vector<RenderNode> nodes = comp.getFlow().getNodes();
+				for( RenderNode nodeObj : nodes )
+				{
+					Element node = RenderNodeXML.getElement( nodeObj );
+					Element iop = ImageOperationXML.getElement( nodeObj.getImageOperation() );
+					node.appendChild( iop );
+					flow.appendChild( node );
+				}
+				
+				//--- Timeline Clips
+				Element clipsE = doc.createElement( TIMELINECLIPS_ELEM );
+				Vector<ImageOperation> clips = comp.getTimelineClips();
+				for( ImageOperation iop : clips )
+					clipsE.appendChild( TimeLineClipXML.getElement( ProjectController.getFlow().getNode( iop ) ));
+				compositions.appendChild( clipsE );
 			}
-
-			//--- Timeline clips
-			Element clipsE = doc.createElement( TIMELINECLIPS_ELEM );
-			Vector<ImageOperation> clips = TimeLineController.getClips();
-			for( ImageOperation iop : clips )
-				clipsE.appendChild( TimeLineClipXML.getElement( ProjectController.getFlow().getNode( iop ) ));
-			project.appendChild( clipsE );
-
+			
 			//--- Timeline marks
 			/*
 			Vector<Integer> marks = TimeLineController.getMarks();
@@ -210,7 +220,7 @@ public class PhantomXML extends PhantomDocUtils
 		{
 			System.out.println("in catch");
 			System.out.println(e);
-        	}
+        }
 
 		return doc;
 	}

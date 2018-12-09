@@ -92,7 +92,7 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 	public void initGUI()
 	{
 		iopClips = new Vector<TimeLineEditorIOPClip>();
-		Vector<ImageOperation> clips = TimeLineController.getClips();
+		Vector<ImageOperation> clips = TimeLineController.getCurrentClips();
 		for( int i = 0; i < clips.size(); i++ )
 		{
 			// layer clips
@@ -111,7 +111,7 @@ public class TimeLineEditorPanel extends JPanel implements MouseListener, MouseM
 			}
 
 			//masks clips
-			LayerCompositorLayer layer = AppData.getLayerProject().getLayer( layerIop );
+			LayerCompositorLayer layer = AppData.getLayerComposition().getLayer( layerIop );
 			Vector<RenderNode> preCompNodes = layer.getPreCompLayers();
 			for( int j = 0; j < preCompNodes.size(); j++ )
 			{

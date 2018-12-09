@@ -21,12 +21,12 @@ public class LCAddLayerMask extends LCUndoableEdit
 	public void undo()
 	{
 		
-		layerProject().deletePreCompLLayer( this.iop, this.layerIop );
+		layerComposition().deletePreCompLLayer( this.iop, this.layerIop );
 	}
 	
 	public void redo()
 	{
-		layerProject().addPreCompLayer( this.iop, this.layerIop );
+		layerComposition().addPreCompLayer( this.iop, this.layerIop );
 	}
 
 }//end class

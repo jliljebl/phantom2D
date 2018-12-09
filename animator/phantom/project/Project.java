@@ -100,15 +100,13 @@ public class Project
 	public void setCurrentComposition( int compositionId )
 	{ 
 		for( ProjectNamedFlow comp : compositions )
-		{
-			if ( comp.getID() == compositionId );
+		{					
+			if ( comp.getID() == compositionId )
 			{
 				currentComposition = comp;
 				return;
 			}
 		}
-		// Should unreachable, print protest.
-		System.out.println("setCurrentComposition(..) end reached, something went wrong!!");
 	}
 	public Vector<ProjectNamedFlow> getCompositions() 
 	{
@@ -119,7 +117,7 @@ public class Project
 	//public void setRenderFlow( RenderFlow flow ){ renderFlow = flow; }
 	//--- Movie Screen size, defensive copying.
 	public Dimension getDefaultScreenDimensions(){ return new Dimension( screenSize.width, screenSize.height); }
-	public Dimension getCurrentScreenDimensions(){ return new Dimension( currentComposition.getSreeenDimensions().width, currentComposition.getSreeenDimensions().height); }
+	public Dimension getCurrentScreenDimensions(){ return new Dimension( currentComposition.getScreenDimensions().width, currentComposition.getScreenDimensions().height); }
 	public void setScreenDimensions( Dimension d ){ screenSize = d; }
 	
 	public int getFramesPerSecond(){ return framesPerSecond; }

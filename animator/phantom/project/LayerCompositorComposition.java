@@ -23,20 +23,14 @@ public class LayerCompositorComposition
 	public LayerCompositorLayer addLayer( ImageOperation iop )
 	{
 		disconnectLayers();
-		System.out.println("1");
+
 		RenderNode addNode = new RenderNode( iop );
-		System.out.println("1");
 		LayerCompositorLayer addLayer = new LayerCompositorLayer( addNode );
-		System.out.println("1");
 		this.layers.add( addLayer );
-		System.out.println("1");
 		getFlow().addNode( addLayer.getNode() );
-		System.out.println("1");
 
 		connectLayers();
-		System.out.println("1");
 		LayerCompositorUpdater.layerAddUpdate( iop );
-		System.out.println("1");
 		return addLayer;
 	}
 	

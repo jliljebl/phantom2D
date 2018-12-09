@@ -23,7 +23,7 @@ import org.w3c.dom.Element;
 
 import animator.phantom.renderer.ImageOperation;
 
-//--- All extending are signifigant non-compound edits that are always placed inside a compound edit.
+//--- All extending are significant non-compound edits that are always placed inside a compound edit.
 public abstract class PhantomUndoableEdit
 {
 	protected Element beforeState;

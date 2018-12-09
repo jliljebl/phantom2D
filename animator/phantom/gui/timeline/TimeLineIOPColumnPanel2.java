@@ -51,7 +51,7 @@ public class TimeLineIOPColumnPanel2 extends JPanel implements MouseListener
 		removeAll();
 		
 		iopBoxes = new Vector <TimeLineIOPBox2>();
-		Vector<ImageOperation> clips = TimeLineController.getClips();
+		Vector<ImageOperation> clips = TimeLineController.getCurrentClips();
 		for( int i = 0; i < clips.size(); i++ )
 		{
 			// layer boxes
@@ -72,7 +72,7 @@ public class TimeLineIOPColumnPanel2 extends JPanel implements MouseListener
 			}
 			
 			// masks boxes
-			LayerCompositorLayer layer = AppData.getLayerProject().getLayer( layerIop );
+			LayerCompositorLayer layer = AppData.getLayerComposition().getLayer( layerIop );
 			Vector<RenderNode> preCompNodes = layer.getPreCompLayers();
 			for( int j = 0; j < preCompNodes.size(); j++ )
 			{

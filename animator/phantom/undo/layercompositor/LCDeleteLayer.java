@@ -15,14 +15,14 @@ public class LCDeleteLayer extends LCUndoableEdit
 	
 	public void undo()
 	{
-		layerProject().insertLayer( this.deleteLayer, this.layerIndex );
+		layerComposition().insertLayer( this.deleteLayer, this.layerIndex );
 	}
 	
 	public void redo()
 	{
-		this.deleteLayer = layerProject().getLayer( this.iop );
-		this.layerIndex = layerProject().getLayerIndex( this.deleteLayer );
-		layerProject().deleteLayer( this.deleteLayer );
+		this.deleteLayer = layerComposition().getLayer( this.iop );
+		this.layerIndex = layerComposition().getLayerIndex( this.deleteLayer );
+		layerComposition().deleteLayer( this.deleteLayer );
 	}
 
 }//end class

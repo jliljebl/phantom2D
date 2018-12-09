@@ -52,7 +52,7 @@ public class TimeLineIOPColumnPanel extends JPanel implements MouseListener
 	public void initGUI()
 	{
 		iopBoxes = new Vector <TimeLineIOPBox>();
-		Vector<ImageOperation> clips = TimeLineController.getClips();
+		Vector<ImageOperation> clips = TimeLineController.getCurrentClips();
 		for( int i = 0; i < clips.size(); i++ )
 		{
 			TimeLineIOPBox addBox = new TimeLineIOPBox( clips.elementAt( i ));

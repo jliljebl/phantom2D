@@ -321,35 +321,12 @@ public class ProjectController
 		String compName = name.getStringValue();
 		
 		ProjectNamedFlow newComp  = AppData.getProject().addNewComposition( compName, editLength, new Dimension( editWidth, editHeight) );
-		System.out.println( compName );
-		System.out.println( newComp.getID() );
 		AppData.getProject().setCurrentComposition( newComp.getID() );
-	
-		
-		//setScreenSize( new Dimension( editWidth, editHeight ) );
-		//setFramesPerSecond( editFps );
-		//setLength( editLength );
 			
 		LayerCompositorApplication.getApplication().openProject( AppData.getProject() );
 
 		TimeLineController.loadClips();
 		TimeLineController.initClipEditorGUI();
-		
-		/*
-			//Vector<ImageOperation> oldClips = new Vector<ImageOperation>( TimeLineController.getClips() );
-
-			setScreenSize( new Dimension( editWidth, editHeight ) );
-			setFramesPerSecond( editFps );
- 			setLength( editLength );
- 			
-			//--- Open old project with updated settings.
-			LayerCompositorApplication.getApplication().openProject( ProjectController.getProject() );
-
-			TimeLineController.loadClips();
-			TimeLineController.initClipEditorGUI();
-		}
-		*/
-		//setCurrentComposition
 	}
 	
 }//end class

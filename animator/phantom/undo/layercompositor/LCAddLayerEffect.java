@@ -24,7 +24,7 @@ public class LCAddLayerEffect extends LCUndoableEdit
 	public void undo()
 	{
 		
-		layerProject().deleteLayer( this.addLayer );
+		layerComposition().deleteLayer( this.addLayer );
 	}
 	
 	public void redo()

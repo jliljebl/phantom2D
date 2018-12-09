@@ -44,7 +44,7 @@ public class TimeLineController
 	private static final float ZOOM_OUT_MULT = 0.66f;
 	private static final float ZOOM_IN_MULT = 1.0f / ZOOM_OUT_MULT;
 	//--- Clips in timeline editor, marked by iops they contain.
-	private static Vector<ImageOperation> timelineClips = new Vector<ImageOperation>();
+	//private static Vector<ImageOperation> timelineClips = new Vector<ImageOperation>();
 	//--- Selected timeline clips, marked by iops they contain.
 	private static Vector<ImageOperation> selectedClips = new Vector<ImageOperation>();
 
@@ -56,7 +56,7 @@ public class TimeLineController
 		timeLinePosition = 0;
 		currentFrame = 0;
 		selectedClips = new Vector<ImageOperation>();
-		timelineClips = new Vector<ImageOperation>();
+		//timelineClips = new Vector<ImageOperation>();
 	}
 	//--- Timeline init for project. Frame multipliers depend on project length.
 	public static void init()
@@ -270,17 +270,18 @@ public class TimeLineController
 
 	//----------------------------------------------- TIMELINE CLIP ACTIONS
 	//--- Clips being edited in timeline
-	public static Vector<ImageOperation> getClips(){ return timelineClips; }
+	public static Vector<ImageOperation> getCurrentClips(){ return AppData.getProject().getCurrentComposition().getTimelineClips(); }
 	
 	public static void loadClips()
 	{
-		timelineClips = AppData.getLayerProject().getLayerGUIIops();
+		AppData.getProject().getCurrentComposition().setTimelineClips( AppData.getLayerComposition().getLayerGUIIops() );
+		//timelineClips = AppData.getLayerComposition().getLayerGUIIops();
 	}
 
 	//--- Return true if clips contain iop
 	public static boolean clipsContain( ImageOperation iop )
 	{
-		return timelineClips.contains( iop );
+		return getCurrentClips().contains( iop );
 	}
 
 	public static void targetIopChanged( ImageOperation iop )
@@ -397,11 +398,11 @@ public class TimeLineController
 		for( int i = 0; i < selectedInOrder.size(); i++ )
 		{
 			
-			int index = timelineClips.indexOf( selectedInOrder.elementAt( i ) );
+			int index = getCurrentClips().indexOf( selectedInOrder.elementAt( i ) );
 			if( index > 0 )
 				index --;
-			timelineClips.remove( selectedInOrder.elementAt( i ) );
-			timelineClips.add( index, selectedInOrder.elementAt( i ) ); 
+			getCurrentClips().remove( selectedInOrder.elementAt( i ) );
+			getCurrentClips().add( index, selectedInOrder.elementAt( i ) ); 
 		}
 		initClipEditorGUI();
 	}
@@ -413,11 +414,11 @@ public class TimeLineController
 		for( int i = 0; i < selectedInOrder.size(); i++ )
 		{
 			
-			int index = timelineClips.indexOf( selectedInOrder.elementAt( i ) );
-			if( index < timelineClips.size() - 1 )
+			int index = getCurrentClips().indexOf( selectedInOrder.elementAt( i ) );
+			if( index < getCurrentClips().size() - 1 )
 				index ++;
-			timelineClips.remove( selectedInOrder.elementAt( i ) );
-			timelineClips.add( index, selectedInOrder.elementAt( i ) ); 
+			getCurrentClips().remove( selectedInOrder.elementAt( i ) );
+			getCurrentClips().add( index, selectedInOrder.elementAt( i ) ); 
 		}
 		initClipEditorGUI();
 	}
@@ -425,10 +426,10 @@ public class TimeLineController
 	public static Vector<ImageOperation> getSelectedInOrder()
 	{
 		Vector<ImageOperation> selectedInOrder = new Vector<ImageOperation>();
-		for( int i = 0; i < timelineClips.size(); i++ )
+		for( int i = 0; i < getCurrentClips().size(); i++ )
 		{
-			if( selectedClips.contains( timelineClips.elementAt( i )) )
-				selectedInOrder.add( timelineClips.elementAt( i ) );
+			if( selectedClips.contains( getCurrentClips().elementAt( i )) )
+				selectedInOrder.add( getCurrentClips().elementAt( i ) );
 		}
 		
 		return selectedInOrder;
