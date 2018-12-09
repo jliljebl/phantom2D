@@ -65,7 +65,7 @@ public class ViewSizeSelector extends JPanel implements ActionListener
 			return 6;// 75%
 		}
 
-		Dimension screenSize = ProjectController.getScreenSize();
+		Dimension screenSize = ProjectController.getCurrentScreenSize();
 		for (int i = 8; i >= 0; i--)
 		{
 			float scale = scales[i];

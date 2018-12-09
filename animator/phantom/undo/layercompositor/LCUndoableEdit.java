@@ -2,7 +2,7 @@ package animator.phantom.undo.layercompositor;
 
 
 import animator.phantom.controller.AppData;
-import animator.phantom.project.LayerCompositorProject;
+import animator.phantom.project.LayerCompositorComposition;
 import animator.phantom.undo.PhantomUndoManager;
 import animator.phantom.undo.PhantomUndoableEdit;
 
@@ -14,7 +14,7 @@ public abstract class LCUndoableEdit extends PhantomUndoableEdit
 		PhantomUndoManager.addUndoEdit( this );
 	}
 
-	public LayerCompositorProject layerProject()
+	public LayerCompositorComposition layerProject()
 	{
 		return AppData.getLayerProject();
 	}

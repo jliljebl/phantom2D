@@ -60,7 +60,7 @@ public class TimeLinePositionSlider extends JPanel implements MouseListener, Mou
 		public TimeLinePositionSlider()
 		{
 			inFrame = 0;
-			outFrame = ProjectController.getLength();
+			outFrame = ProjectController.getCurrentLength();
 
 			setPreferredSize( new Dimension( BAR_WIDTH,  BAR_HEIGHT ) );
 			setMaximumSize(  new Dimension( BAR_WIDTH,  BAR_HEIGHT ) );
@@ -141,7 +141,7 @@ public class TimeLinePositionSlider extends JPanel implements MouseListener, Mou
 			int active_width = BAR_WIDTH - 2 * END_PAD;
 			float normalizedPos = (float)x / (float)active_width;
 			
-			return (int) ((float) ProjectController.getLength() * normalizedPos );
+			return (int) ((float) ProjectController.getCurrentLength() * normalizedPos );
 		}
 
 		public static int legalizeX( int x )
@@ -157,7 +157,7 @@ public class TimeLinePositionSlider extends JPanel implements MouseListener, Mou
 		public static int getX( int frame )
 		{
 			float active_width = BAR_WIDTH - 2 * END_PAD;
-			float normalizedFrame = (float) frame / (float) ProjectController.getLength();
+			float normalizedFrame = (float) frame / (float) ProjectController.getCurrentLength();
 			return END_PAD + ((int) ( normalizedFrame * active_width ) );
 		}
 
@@ -167,7 +167,7 @@ public class TimeLinePositionSlider extends JPanel implements MouseListener, Mou
 			g.fillRect( 0,0, BAR_WIDTH, BAR_HEIGHT );	
 
 			int inX = getX( 0  );
-			int outX = getX( ProjectController.getLength() );
+			int outX = getX( ProjectController.getCurrentLength() );
 			g.setColor( LINE_COLOR );
 			g.fillRect( inX, HANDLE_Y + 2, outX - inX, 2 );
 			

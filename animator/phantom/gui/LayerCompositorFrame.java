@@ -128,7 +128,7 @@ public class LayerCompositorFrame extends JFrame implements ActionListener
 	//--- project loaded.
 	public void initializeEditor()
 	{
-		setTitle(  ProjectController.getName() + " - LayerCompositor" );
+		setTitle(  AppData.getProject().getName() + " - LayerCompositor" );
 
 		try
 		{
@@ -155,7 +155,7 @@ public class LayerCompositorFrame extends JFrame implements ActionListener
 		TCDisplay timecodeDisplay = new TCDisplay("00:00:00");
 
 		//---------------------------------------- view editor
-		ViewEditor viewEdit = new ViewEditor( ProjectController.getScreenSize() );
+		ViewEditor viewEdit = new ViewEditor( ProjectController.getCurrentScreenSize() );
 
 		screenViewsPanel = new JPanel();
 		screenViewsPanel.setLayout( new BigEditorsLayout() );

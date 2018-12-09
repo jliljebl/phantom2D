@@ -108,7 +108,7 @@ public class LayerCompositorMenuActions
 			MovieFormat format = MovieFormat.formats.elementAt( 0 );// 0 == default
 			Project project = new Project( "untitled.phr", format );
 			LayerCompositorApplication.getApplication().openProject( project );
-			setProjectProperties();
+			ProjectController.setProjectProperties();
 		}
 	}
 	//---
@@ -217,7 +217,7 @@ public class LayerCompositorMenuActions
 		//--- Confirm
 		String[] opts = {  "Quit and Discard", "Cancel",  "Save", };
 		String[] bLines = { "Are you sure you want to quit?" };
-		String[] tLines = { "All unsaved changes for " + ProjectController.getName() + " will be lost." };
+		String[] tLines = { "All unsaved changes for " +  AppData.getProject().getName() + " will be lost." };
 		int answer
 			= DialogUtils.showTwoTextStyleDialog(
 								JOptionPane.WARNING_MESSAGE,
@@ -285,97 +285,7 @@ public class LayerCompositorMenuActions
 		LCDeleteLayer edit = new LCDeleteLayer( currentIOP );
 		edit.doEdit();
 	}
-	
-	//--- Display properties panel and changes.
-	public static void setProjectProperties()
-	{
-		String[] options = new String[ MovieFormat.formats.size() ];
-		for( int i = 0; i < MovieFormat.formats.size(); i++ )
-		{
-			options[ i ] = MovieFormat.formats.elementAt( i ).getName();
-		}
 
-		final MComboBox formats = new MComboBox( "Format", options );
-		formats.setBuffering( 0, 20 );
-		final MTextField width = new MTextField( "Screen width", new Integer( ProjectController.getScreenSize().width ) );
-		final MTextField height = new MTextField( "Screen height", new Integer( ProjectController.getScreenSize().height) );
-		final MTextField fps = new MTextField( "Frames per second", new Integer( ProjectController.getFramesPerSecond() ) );
-		MTextField length  = new MTextField( "Length in frames", new Integer( ProjectController.getLength() ));
-
-		MInputArea mArea = new MInputArea( "Format" );
-		mArea.add( formats );
-		mArea.add( width );
-		mArea.add( height );
-		mArea.add( fps );
-
-		MInputArea mArea2 = new MInputArea( "Length" );
-		mArea2.add( length );
-
-		final MInputPanel pPanel = new MInputPanel( "Project Properties" );
-		pPanel.add( mArea );
-		pPanel.add( mArea2 );
-
-		formats.addActionListener
-		(
-			new MActionListener()
-			{
-				public void actionPerformed(ActionEvent e)
-				{
-					String formatName = (String) formats.getValue();
-					int index = -1;
-					for( int i = 0; i < MovieFormat.formats.size(); i++ )
-					{
-						 if( MovieFormat.formats.elementAt( i ).getName().equals( formatName ) )
-							index = i;
-					}
-
-					if( index == -1 )
-						return;
-
-					MovieFormat format = MovieFormat.formats.elementAt( index );
-					width.textField.setText( ( new Integer( format.getScreenSize().width ) ).toString() );
-					height.textField.setText( ( new Integer( format.getScreenSize().height ) ).toString() );
-					fps.textField.setText( ( new Float( format.getFPS() ) ).toString() );
-
-					pPanel.repaint();
-
-				}
-			}
-		);
-
-		int retVal = DialogUtils.showMultiInput( pPanel, 480, 300 );
-
-		//--- After user inter action.
-		if( retVal != DialogUtils.OK_OPTION ) return;
-		boolean reloadNeeded = false;
-
-		int editWidth = width.getIntValue();
-		int editHeight = height.getIntValue();
-		int editFps = (int) fps.getFloatValue();
-		int editLength = length.getIntValue();
-		if(	ProjectController.getScreenSize().width != editWidth ||
-			ProjectController.getScreenSize().height != editHeight ||
-			ProjectController.getFramesPerSecond() != editFps ||
- 			ProjectController.getLength() != editLength )
-		{
-			reloadNeeded = true;
-		}
-
-		if( reloadNeeded )
-		{
-			//Vector<ImageOperation> oldClips = new Vector<ImageOperation>( TimeLineController.getClips() );
-
-			ProjectController.setScreenSize( new Dimension( editWidth, editHeight ) );
-			ProjectController.setFramesPerSecond( editFps );
- 			ProjectController.setLength( editLength );
- 			
-			//--- Open old project with updated settings.
-			LayerCompositorApplication.getApplication().openProject( ProjectController.getProject() );
-
-			TimeLineController.loadClips();
-			TimeLineController.initClipEditorGUI();
-		}
-	}
 
 	public static void showProjectInfo()
 	{
@@ -586,7 +496,7 @@ public class LayerCompositorMenuActions
 		ImageOperation iop = ParamEditController.getParamEditIOP();
 		if( iop == null ) return;
 		
-		RenderNode node = AppData.getProject().getRenderFlow().getNode( iop );
+		RenderNode node = AppData.getProject().getCurrentRenderFlow().getNode( iop );
 		
 		String newName = DialogUtils.getTextInput( "Rename Node",
 							"New name",
@@ -644,7 +554,7 @@ public class LayerCompositorMenuActions
 		ImageOperation iop = ParamEditController.getParamEditIOP();
 		if( iop == null ) return;
 		
-		RenderNode node = AppData.getProject().getRenderFlow().getNode( iop );
+		RenderNode node = AppData.getCurrentFlow().getNode( iop );
 		cloneNode( node );
 	}
 

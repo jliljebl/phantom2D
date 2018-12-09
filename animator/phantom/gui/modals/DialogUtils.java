@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
+import animator.phantom.controller.AppData;
 import animator.phantom.controller.GUIComponents;
 import animator.phantom.gui.GUIResources;
 import animator.phantom.project.Project;
@@ -243,7 +244,7 @@ public class DialogUtils
 		right.add( getSmallRigid() );
 		right.add( getRightLabel( project.getFormatName() ) );
 
-		Dimension sized = project.getScreenDimensions();
+		Dimension sized = project.getDefaultScreenDimensions();
 		String screenSize = ( new Integer( sized.width ) ).toString() + " x " + ( new Integer( sized.height ) ).toString();
 		left.add( new JLabel( "Screen size:" ) );
 		right.add( getSmallRigid() );
@@ -259,7 +260,7 @@ public class DialogUtils
 
 		left.add( new JLabel( "Nodes in flow:" ) );
 		right.add( getSmallRigid() );
-		right.add( getRightLabel( ( new Integer( project.getRenderFlow().getSize() ) ).toString()  ) );
+		right.add( getRightLabel( ( new Integer( AppData.getCurrentFlow().getSize() ) ).toString()  ) );
 
 		left.add( new JLabel( "File sources:" ) );
 		right.add( getSmallRigid() );

@@ -178,8 +178,8 @@ public class TimeLineController
 		//--- bounds check
 		if( frame < 0 ) 
 			frame = 0;
-		if( frame >= ProjectController.getLength() - 1 ) 
-			frame = ProjectController.getLength() - 1;
+		if( frame >= ProjectController.getCurrentLength() - 1 ) 
+			frame = ProjectController.getCurrentLength() - 1;
 		return frame;
 	}
 
@@ -204,7 +204,7 @@ public class TimeLineController
 	private static float getPixPerFrameMin()
 	{
 		float scalewidth = AnimFrameGUIParams.getTimeEditRightColWidth();
-		float val = scalewidth / (float) ProjectController.getLength();
+		float val = scalewidth / (float) ProjectController.getCurrentLength();
 		return val;
 	}
 		
@@ -227,7 +227,7 @@ public class TimeLineController
 		if( pos < 0 )
 			pos = 0;
 		
-		int maxPos = ProjectController.getLength() - (int) ((float) AnimFrameGUIParams.getTimeEditRightColWidth() / pixPerFrame );
+		int maxPos = ProjectController.getCurrentLength() - (int) ((float) AnimFrameGUIParams.getTimeEditRightColWidth() / pixPerFrame );
 		if( pos > maxPos )
 			pos = maxPos;
 		

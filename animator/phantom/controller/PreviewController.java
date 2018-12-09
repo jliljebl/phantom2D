@@ -155,7 +155,7 @@ public class PreviewController
 
 	public static void renderAndPlay()
 	{
-		renderAndPlayRange( TimeLineController.getCurrentFrame(), ProjectController.getLength() - 1 );
+		renderAndPlayRange( TimeLineController.getCurrentFrame(), ProjectController.getCurrentLength() - 1 );
 	}
 
 	public static void renderAndPlayRange()
@@ -280,7 +280,7 @@ public class PreviewController
 				if( wasStopped ) playBackInfo();
 				return;
 			}
-			else if( frame == ProjectController.getLength() - 1 )
+			else if( frame == ProjectController.getCurrentLength() - 1 )
 			{
 				stopPlayback();
 				return;

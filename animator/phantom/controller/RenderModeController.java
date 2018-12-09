@@ -110,7 +110,7 @@ public class RenderModeController
 	public static void setZeroPadding( int val ){ zeroPadDigits = val; }
 	public static int getZeroPadding(){ return zeroPadDigits; }
 
-	public static void writeMovie(){ writeRange( 0, ProjectController.getLength() ); }
+	public static void writeMovie(){ writeRange( 0, ProjectController.getCurrentLength() ); }
 	private static void writeRange( int startFrame, int endFrame )//endframe exclusive
 	{
 		writeRangeStart = startFrame;

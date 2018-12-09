@@ -30,6 +30,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import animator.phantom.controller.AppData;
 import animator.phantom.controller.EditorPersistance;
 import animator.phantom.controller.IOPLibraryInitializer;
 import animator.phantom.controller.LayerCompositorMenuActions;
@@ -40,6 +41,7 @@ import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UserActions;
 import animator.phantom.plugin.PhantomPlugin;
 import animator.phantom.project.MovieFormat;
+import animator.phantom.project.ProjectNamedFlow;
 import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.IOPLibrary;
 import animator.phantom.renderer.ImageOperation;
@@ -81,6 +83,9 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 	JMenuItem addVideo;
 	JMenuItem noRefs;
 
+	JMenuItem newComposition;
+	JMenuItem deleteComposition;
+	
 	JMenuItem threadsSettings;
 	JMenuItem previewCurrent;
 	JMenuItem previewFromCurrent;
@@ -259,16 +264,17 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		
 		//--- ------------------------------- Project menu
 		JMenu projectMenu = new JMenu("Project");
-		threadsSettings = new JMenuItem("New Composition...");
-		threadsSettings.addActionListener(this);
-		projectMenu.add( threadsSettings );
+		
+		newComposition = new JMenuItem("New Composition...");
+		newComposition.addActionListener(this);
+		projectMenu.add( newComposition );
 
-		previewFromCurrent = new JMenuItem("Delete Composition" );
-		previewFromCurrent.addActionListener(this);
-		projectMenu.add( previewFromCurrent );
+		deleteComposition = new JMenuItem("Delete Composition" );
+		deleteComposition.addActionListener(this);
+		projectMenu.add( deleteComposition );
 
-		compositionsMenu = new JMenu("Edit Composition");
-		fillCompositionsMenu( compositionsMenu );
+		compositionsMenu = new JMenu("Change Edit Composition");
+		updateCompositionsMenu();
 
 		projectMenu.add( compositionsMenu );
 		
@@ -372,13 +378,16 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 			maskMenu.add( subMenu );	
 	}
 
-	private void fillCompositionsMenu( JMenu compsMenu )
+	public void updateCompositionsMenu()
 	{
-		// Place holder
-		JMenuItem placeHolder = new JMenuItem("Comp 1" );
-		compsMenu.add( placeHolder );
+		compositionsMenu.removeAll();
+		for( ProjectNamedFlow comp : AppData.getProject().getCompositions() )
+		{
+			JMenuItem item = new JMenuItem(comp.getName());
+			compositionsMenu.add( item );
+		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Vector<JMenu> getNodesMenus( Vector<String> groups, int menuItemType )
 	{
@@ -436,8 +445,6 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 	public void updateAppMediaMenu()
 	{
 		mediaMenu.removeAll();
-
-
 
 		Vector<FileSource> fileSources = ProjectController.getFileSources();
 
@@ -502,13 +509,17 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		if( e.getSource() == cloneSelected ) LayerCompositorMenuActions.cloneSelected();
 		if( e.getSource() == disableSelected ) LayerCompositorMenuActions.disableSelected();
 		if( e.getSource() == enableSelected ) LayerCompositorMenuActions.enableSelected();
-		if( e.getSource() == projectSettings ) LayerCompositorMenuActions.setProjectProperties();
+
 		if( e.getSource() == kfPreferences ) LayerCompositorMenuActions.keyframePreferences();
 		if( e.getSource() == memorySettings ) LayerCompositorMenuActions.setMemorySettings();
 		if( e.getSource() == diskCache ) LayerCompositorMenuActions.diskCacheDialog();
 		if( e.getSource() == editorLayout ) LayerCompositorMenuActions.setFlowWidth();
 
-		//--------------------------------------------- Media menu
+		//---------------------------------------------------- Project menu
+		if( e.getSource() == newComposition ) ProjectController.newComposition();
+		if( e.getSource() == projectSettings ) ProjectController.setProjectProperties();
+		
+		//---------------------------------------------------- Layer menu
 		if( e.getSource() == addImage )
 		{
 			new Thread()
@@ -559,8 +570,8 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		//-------------------------------------------------- Render menu.
 		if( e.getSource() == threadsSettings ) LayerCompositorMenuActions.setThreadsAndBlenders();
 		if( e.getSource() == previewCurrent ) PreviewController.renderAndDisplayCurrent();
-		if( e.getSource() == previewFromStart ) PreviewController.renderAndPlayRange( 0, ProjectController.getLength() - 1 );
-		if( e.getSource() == previewFromCurrent ) PreviewController.renderAndPlayRange( TimeLineController.getCurrentFrame(), ProjectController.getLength() - 1 );
+		if( e.getSource() == previewFromStart ) PreviewController.renderAndPlayRange( 0, ProjectController.getCurrentLength() - 1 );
+		if( e.getSource() == previewFromCurrent ) PreviewController.renderAndPlayRange( TimeLineController.getCurrentFrame(), ProjectController.getCurrentLength() - 1 );
 		if( e.getSource() == renderMovie ) RenderModeController.writeMovie();
 
 		//----------------------------------------------------- Help menu

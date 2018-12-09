@@ -7,5 +7,5 @@ public interface MenuBarCallbackInterface
 {
 	public void updateAppMediaMenu();
 	public void updateRecentMenu();
-
+	public void updateCompositionsMenu();
 }//end interface

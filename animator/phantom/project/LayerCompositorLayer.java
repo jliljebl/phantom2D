@@ -31,7 +31,7 @@ public class LayerCompositorLayer
 		
 		RenderNode preCompNode = new RenderNode( precompIop );
 		this.preCompLayers.add( preCompNode );
-		AppData.getFlow().addNode( preCompNode );
+		AppData.getCurrentFlow().addNode( preCompNode );
 
 		connectPreCompLayers();
 	}
@@ -50,7 +50,7 @@ public class LayerCompositorLayer
 			{
 				RenderNode maskNode1 = this.preCompLayers.elementAt( i );
 				RenderNode maskNode2 = this.preCompLayers.elementAt( i + 1 );
-				AppData.getFlow().connectNodes( maskNode1, maskNode2, 0, 0);
+				AppData.getCurrentFlow().connectNodes( maskNode1, maskNode2, 0, 0);
 			}
 		}
 
@@ -58,7 +58,7 @@ public class LayerCompositorLayer
 		{
 			int maskInput = node.getImageOperation().getMaskInputIndex();
 			RenderNode masksOutNode = preCompLayers.elementAt( preCompLayers.size() - 1 );
-			AppData.getFlow().connectNodes( masksOutNode, node, 0, maskInput);
+			AppData.getCurrentFlow().connectNodes( masksOutNode, node, 0, maskInput);
 		}
 	}
 
@@ -70,7 +70,7 @@ public class LayerCompositorLayer
 			{
 				RenderNode maskNode1 = this.preCompLayers.elementAt( i );
 				RenderNode maskNode2 = this.preCompLayers.elementAt( i + 1 );
-				AppData.getFlow().disconnectNodes( maskNode1, maskNode2, 0, 0);
+				AppData.getCurrentFlow().disconnectNodes( maskNode1, maskNode2, 0, 0);
 			}
 		}
 	}

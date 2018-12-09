@@ -31,43 +31,31 @@ import animator.phantom.renderer.RenderNode;
 
 public class Project
 {
-	//--- Name of the project.
+
 	private String name;	
-	//--- File that project was last saved.
-	private File saveFile;
-	//--- File sources in this project.
+	private File saveFile; 	//--- File that project was last saved.
 	private Vector<FileSource> fileSources = new Vector<FileSource>();
+	private Vector<ProjectNamedFlow> compositions = new Vector<ProjectNamedFlow>();
+	private ProjectNamedFlow currentComposition;
+	private int nextCompositionId;
 	//--- The main datastructure of the application that contains the rendering structure as
 	//--- specified by the user.
-	private RenderFlow renderFlow = new RenderFlow();
-	//--- Screen size
+	//private RenderFlow renderFlow = new RenderFlow();
 	private Dimension screenSize;
-	//--- Default length of new movie.
 	private int movieDefaultLength = 125;
-	//--- Length of the movie in frames, default value is set in Project.
 	private int lengthInFrames = movieDefaultLength;
-	//--- Frames displayed per second in this project, default 25. 
 	private int framesPerSecond = 25;
-	//--- FlowBoxes are here when loded or saved, othewise handled elswhere.
-	//public Vector<FlowBox> tempFlowBoxes = new Vector<FlowBox>();
-	//--- Bins of media files.
-	private Vector<Bin> bins;
-	//--- Currently selected bin.
+	private Vector<Bin> bins; //--- Not used currently, but keep if later re-activated in some way
 	private Bin currentBin;
-	//--- Load clips
 	private Vector<ImageOperation> loadClips = new Vector<ImageOperation>();
-	//--- format name
 	private String formatName;
 
 	
-	//--- Project xml files are aved with extension .phr
-	public static final String PROJECT_FILE_EXTENSION = "phr";
 
-	//--- Flags for printing debug info when loading or saving.
-	//public static boolean IO_DEBUG = true;
-	//public static boolean IO_DEBUG_VERBOSE = true;
+	public static final String PROJECT_FILE_EXTENSION = "phr"; //--- Project xml files are have with extension .phr
 
-	//--- This constructor called when projects are loaded.
+
+	//--- This constructor is called when projects are loaded.
 	public Project(){}
 
 	//--- This constructor called when projects created.
@@ -83,29 +71,69 @@ public class Project
 		bins = new Vector<Bin>();
 		addBin( new Bin( "bin1" ) );
 
+		nextCompositionId = 0;
+		
+		currentComposition = addNewDefaultSizeComposition("Comp 1");
+		
 		System.out.println("PROJECT \"" + name + "\" CREATED IN FORMAT: "  + formatName );
 	}
 
 	//-------------------------------------------- PROJECT DATA INTERFACE
-	//--- Project name.
+	//--- name.
 	public void setName( String name ){ this.name = name; }
 	public String getName(){ return name; }
+	//--- Compositions
+	public ProjectNamedFlow addNewDefaultSizeComposition( String name )
+	{
+		return addNewComposition( name, movieDefaultLength, screenSize );
+	}
+
+	public ProjectNamedFlow addNewComposition( String name, int length, Dimension newScreenSize )
+	{
+		ProjectNamedFlow comp = new ProjectNamedFlow( nextCompositionId, name, length, newScreenSize );
+		compositions.add( comp );
+		nextCompositionId += 1;
+
+		return comp;
+	}
+	public ProjectNamedFlow getCurrentComposition(){ return currentComposition; }
+	public void setCurrentComposition( int compositionId )
+	{ 
+		for( ProjectNamedFlow comp : compositions )
+		{
+			if ( comp.getID() == compositionId );
+			{
+				currentComposition = comp;
+				return;
+			}
+		}
+		// Should unreachable, print protest.
+		System.out.println("setCurrentComposition(..) end reached, something went wrong!!");
+	}
+	public Vector<ProjectNamedFlow> getCompositions() 
+	{
+		return compositions;
+	}
 	//--- flow
-	public RenderFlow getRenderFlow(){ return renderFlow; }
-	public void setRenderFlow( RenderFlow flow ){ renderFlow = flow; }
+	public RenderFlow getCurrentRenderFlow(){ return currentComposition.getFlow(); }
+	//public void setRenderFlow( RenderFlow flow ){ renderFlow = flow; }
 	//--- Movie Screen size, defensive copying.
-	public Dimension getScreenDimensions(){ return new Dimension( screenSize.width, screenSize.height); }
+	public Dimension getDefaultScreenDimensions(){ return new Dimension( screenSize.width, screenSize.height); }
+	public Dimension getCurrentScreenDimensions(){ return new Dimension( currentComposition.getSreeenDimensions().width, currentComposition.getSreeenDimensions().height); }
 	public void setScreenDimensions( Dimension d ){ screenSize = d; }
-	//--- Frames per second.
-	public int getFramesPerSecond(){ return  framesPerSecond; }
+	
+	public int getFramesPerSecond(){ return framesPerSecond; }
 	public void setFramesPerSecond( int fps){ framesPerSecond = fps; }
-	//--- Movie length
+
 	public void setLength( int lengthInFrames ){ this.lengthInFrames = lengthInFrames;}
 	public int getLength(){ return lengthInFrames; }
-	//--- Last project save file. For Save as ans Save func.
+	
+	public int getDefaultLength() { return movieDefaultLength; }
+	
+	//--- Last project save file.
 	public File getSaveFile(){ return saveFile; }
 	public void setSaveFile( File newSaveFile ){ saveFile = newSaveFile; }
-	//---
+
 	public String getFormatName(){ return formatName; }
 	public void setFormatName( String fname ){ formatName = fname; }
 
@@ -130,12 +158,12 @@ public class Project
 			else currentBin = bins.elementAt( 0 );
 	}
 
-	//----------------------------------------------- CLIPS
+	//--- CLIPS
 	public void setLoadClips( Vector<ImageOperation> clips ){ loadClips = clips; }
 	public Vector<ImageOperation>  getLoadClips( ){ return loadClips; }
 
-	//----------------------------------------------- FILE SOURCES
-	//--- All filesources are given continually increasing id.
+	//--- FILE SOURCES
+	//--- All file sources are given a continually increasing id.
 	public void addFileSourcesToProject( Vector<FileSource> addSources )
 	{
 		for( FileSource fs : addSources )
@@ -154,7 +182,6 @@ public class Project
 	{
 		fileSources = addFileSources;
 	}
-	//--- We're doing this dynamically
 	private int getNextFileSourceID()
 	{
 		int nextFileSourceId = 0;
@@ -165,7 +192,6 @@ public class Project
 		}
 		return nextFileSourceId;
 	}
-
 	public FileSource getFileSource( int id )
 	{
 		for( FileSource fs : fileSources )
@@ -174,16 +200,18 @@ public class Project
 		return null;
 	}
 
-	//------------------------------------------------ PARENTS
+	//------------------------------------------------ PARENTING
 	public void setParents()
 	{
-		Vector<RenderNode> nodes = renderFlow.getNodes();
+		Vector<RenderNode> nodes = currentComposition.getFlow().getNodes();
 		for( RenderNode node : nodes )
 		{
 			ImageOperation iop = node.getImageOperation();
-			iop.loadParentIOP( renderFlow );
+			iop.loadParentIOP( currentComposition.getFlow() );
 		}
 	}
+
+
 	
 
 }//end class

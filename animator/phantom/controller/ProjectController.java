@@ -20,11 +20,21 @@ package animator.phantom.controller;
 */
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
 
+import animator.phantom.gui.modals.DialogUtils;
+import animator.phantom.gui.modals.MActionListener;
+import animator.phantom.gui.modals.MComboBox;
+import animator.phantom.gui.modals.MInputArea;
+import animator.phantom.gui.modals.MInputPanel;
+import animator.phantom.gui.modals.MTextField;
+import animator.phantom.gui.modals.MTextInfo;
 import animator.phantom.project.Bin;
+import animator.phantom.project.MovieFormat;
 import animator.phantom.project.Project;
+import animator.phantom.project.ProjectNamedFlow;
 import animator.phantom.renderer.FileSource;
 import animator.phantom.renderer.RenderFlow;
 
@@ -61,34 +71,34 @@ public class ProjectController
 	}
 	
 	//--- returns current project
-	public static Project getProject(){ return project; }
+	public static Project getProject(){ return AppData.getProject(); }
 	//--- Get and set for global motion blur
 	public static boolean getMotionBlur(){ return motionBlur; }
 	public static void setMotionBlur( boolean val ){ motionBlur = val; }
 
 
 	//--- PROJECT DATA INTERFACE, PROJECT DATA INTERFACE, PROJECT DATA INTERFACE
-	public static String getName(){ return project.getName(); }
+	//public static String getName(){ return project.getName(); }
 	public static void changeName( String newName )
 	{
-		project.setName( newName );
-		GUIComponents.animatorFrame.setTitle( ProjectController.getName() + " - Phantom2D" );
+		AppData.getProject().setName( newName );
+		GUIComponents.animatorFrame.setTitle( AppData.getProject().getName() + " - Phantom2D" );
 	}
-	public static int getFramesPerSecond(){ return project.getFramesPerSecond(); }
+	public static int getFramesPerSecond(){ return AppData.getProject().getFramesPerSecond(); }
 	public static void setFramesPerSecond( int fps ){ project.setFramesPerSecond( fps );  }
-	public static int getLength(){ return project.getLength(); }
+	public static int getCurrentLength(){ return AppData.getProject().getCurrentComposition().getLength(); }
 	public static void setLength( int length ){ project.setLength( length ); }
-	public static Dimension getScreenSize(){ return project.getScreenDimensions(); }
+	public static Dimension getCurrentScreenSize(){ return AppData.getProject().getCurrentScreenDimensions(); }
 	public static void setScreenSize( Dimension size ){ project.setScreenDimensions( size );  }
 	public static BufferedImage getScreenSample()
 	{
-		return new BufferedImage( 	project.getScreenDimensions().width,
-						project.getScreenDimensions().height,
-						BufferedImage.TYPE_INT_ARGB );
+		return new BufferedImage( 	project.getCurrentScreenDimensions().width,
+									project.getCurrentScreenDimensions().height,
+									BufferedImage.TYPE_INT_ARGB );
 	}
 
 	//--- RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW, RENDER FLOW
-	public static RenderFlow getFlow(){ return project.getRenderFlow(); }
+	public static RenderFlow getFlow(){ return AppData.getCurrentFlow(); }
 
 
 	//--- BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT, BIN MANAGEMENT
@@ -148,11 +158,198 @@ public class ProjectController
 	public static void updateProjectInfo()
 	{
 		//--- Display project info
-		String info = "Comp 1  -  " + Integer.toString(project.getScreenDimensions().width)
-				+ " x " + Integer.toString(project.getScreenDimensions().height) + ",  "
-				+ Integer.toString(project.getFramesPerSecond()) + " fps,  "
-				+ Integer.toString(project.getLength()) + " frames";
+		String info = AppData.getProject().getCurrentComposition().getName() + "  -  " + Integer.toString(project.getCurrentScreenDimensions().width)
+				+ " x " + Integer.toString(AppData.getProject().getCurrentScreenDimensions().height) + ",  "
+				+ Integer.toString(AppData.getProject().getFramesPerSecond()) + " fps,  "
+				+ Integer.toString(AppData.getProject().getLength()) + " frames";
 		GUIComponents.projectInfoLabel.setText( info );
+	}
+
+	
+	//--- Display properties panel and changes.
+	public static void setProjectProperties()
+	{
+		String[] options = new String[ MovieFormat.formats.size() ];
+		for( int i = 0; i < MovieFormat.formats.size(); i++ )
+		{
+			options[ i ] = MovieFormat.formats.elementAt( i ).getName();
+		}
+
+		final MComboBox formats = new MComboBox( "Format", options );
+		formats.setBuffering( 0, 20 );
+		final MTextField width = new MTextField( "Screen width", new Integer( ProjectController.getCurrentScreenSize().width ) );
+		final MTextField height = new MTextField( "Screen height", new Integer( ProjectController.getCurrentScreenSize().height) );
+		final MTextField fps = new MTextField( "Frames per second", new Integer( ProjectController.getFramesPerSecond() ) );
+		MTextField length  = new MTextField( "Length in frames", new Integer( ProjectController.getCurrentLength() ));
+
+		MInputArea mArea = new MInputArea( "Format" );
+		mArea.add( formats );
+		mArea.add( width );
+		mArea.add( height );
+		mArea.add( fps );
+
+		MInputArea mArea2 = new MInputArea( "Length" );
+		mArea2.add( length );
+
+		final MInputPanel pPanel = new MInputPanel( "Project Properties" );
+		pPanel.add( mArea );
+		pPanel.add( mArea2 );
+
+		formats.addActionListener
+		(
+			new MActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					String formatName = (String) formats.getValue();
+					int index = -1;
+					for( int i = 0; i < MovieFormat.formats.size(); i++ )
+					{
+						 if( MovieFormat.formats.elementAt( i ).getName().equals( formatName ) )
+							index = i;
+					}
+
+					if( index == -1 )
+						return;
+
+					MovieFormat format = MovieFormat.formats.elementAt( index );
+					width.textField.setText( ( new Integer( format.getScreenSize().width ) ).toString() );
+					height.textField.setText( ( new Integer( format.getScreenSize().height ) ).toString() );
+					fps.textField.setText( ( new Float( format.getFPS() ) ).toString() );
+
+					pPanel.repaint();
+
+				}
+			}
+		);
+
+		int retVal = DialogUtils.showMultiInput( pPanel, 480, 300 );
+
+		//--- After user inter action.
+		if( retVal != DialogUtils.OK_OPTION ) return;
+		boolean reloadNeeded = false;
+
+		int editWidth = width.getIntValue();
+		int editHeight = height.getIntValue();
+		int editFps = (int) fps.getFloatValue();
+		int editLength = length.getIntValue();
+		if(	getCurrentScreenSize().width != editWidth ||
+			getCurrentScreenSize().height != editHeight ||
+			getFramesPerSecond() != editFps ||
+ 			getCurrentLength() != editLength )
+		{
+			reloadNeeded = true;
+		}
+
+		if( reloadNeeded )
+		{
+
+			setScreenSize( new Dimension( editWidth, editHeight ) );
+			setFramesPerSecond( editFps );
+ 			setLength( editLength );
+ 			
+			//--- Open old project with updated settings.
+			LayerCompositorApplication.getApplication().openProject( ProjectController.getProject() );
+
+			TimeLineController.loadClips();
+			TimeLineController.initClipEditorGUI();
+		}
+	}
+	
+	public static void newComposition()
+	{
+		String[] options = new String[ MovieFormat.formats.size() ];
+		for( int i = 0; i < MovieFormat.formats.size(); i++ )
+		{
+			options[ i ] = MovieFormat.formats.elementAt( i ).getName();
+		}
+
+		final MTextInfo fps = new MTextInfo( "Frames per second", new Integer( ProjectController.getFramesPerSecond() ) );
+		MInputArea projInfoArea = new MInputArea( "Project Properties" );
+		projInfoArea.add( fps );
+		
+		final MTextField name = new MTextField( "Name", "Comp 2");
+		final MComboBox formats = new MComboBox( "Format", options );
+		formats.setBuffering( 0, 20 );
+		final MTextField width = new MTextField( "Screen width", new Integer( ProjectController.getCurrentScreenSize().width ) );
+		final MTextField height = new MTextField( "Screen height", new Integer( ProjectController.getCurrentScreenSize().height) );
+		MTextField length  = new MTextField( "Length in frames", new Integer( AppData.getProject().getDefaultLength() ));
+		MInputArea mArea = new MInputArea( "New Composition Properties" );
+		mArea.add( name );
+		mArea.add( formats );
+		mArea.add( width );
+		mArea.add( height );
+		mArea.add( length );
+
+		final MInputPanel pPanel = new MInputPanel( "Create New Composition" );
+		pPanel.add( projInfoArea );
+		pPanel.add( mArea );
+
+		formats.addActionListener
+		(
+			new MActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					String formatName = (String) formats.getValue();
+					int index = -1;
+					for( int i = 0; i < MovieFormat.formats.size(); i++ )
+					{
+						 if( MovieFormat.formats.elementAt( i ).getName().equals( formatName ) )
+							index = i;
+					}
+
+					if( index == -1 )
+						return;
+
+					MovieFormat format = MovieFormat.formats.elementAt( index );
+					width.textField.setText( ( new Integer( format.getScreenSize().width ) ).toString() );
+					height.textField.setText( ( new Integer( format.getScreenSize().height ) ).toString() );
+
+					pPanel.repaint();
+
+				}
+			}
+		);
+
+		int retVal = DialogUtils.showMultiInput( pPanel, 480, 350 );
+		if( retVal != DialogUtils.OK_OPTION ) return;
+
+		int editWidth = width.getIntValue();
+		int editHeight = height.getIntValue();
+		int editLength = length.getIntValue();
+		String compName = name.getStringValue();
+		
+		ProjectNamedFlow newComp  = AppData.getProject().addNewComposition( compName, editLength, new Dimension( editWidth, editHeight) );
+		System.out.println( compName );
+		System.out.println( newComp.getID() );
+		AppData.getProject().setCurrentComposition( newComp.getID() );
+	
+		
+		//setScreenSize( new Dimension( editWidth, editHeight ) );
+		//setFramesPerSecond( editFps );
+		//setLength( editLength );
+			
+		LayerCompositorApplication.getApplication().openProject( AppData.getProject() );
+
+		TimeLineController.loadClips();
+		TimeLineController.initClipEditorGUI();
+		
+		/*
+			//Vector<ImageOperation> oldClips = new Vector<ImageOperation>( TimeLineController.getClips() );
+
+			setScreenSize( new Dimension( editWidth, editHeight ) );
+			setFramesPerSecond( editFps );
+ 			setLength( editLength );
+ 			
+			//--- Open old project with updated settings.
+			LayerCompositorApplication.getApplication().openProject( ProjectController.getProject() );
+
+			TimeLineController.loadClips();
+			TimeLineController.initClipEditorGUI();
+		}
+		*/
+		//setCurrentComposition
 	}
 	
 }//end class

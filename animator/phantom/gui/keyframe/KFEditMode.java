@@ -54,7 +54,7 @@ public abstract class KFEditMode
 		*/
 		
 		if( startFrame + frameDelta < 0 
-				|| startFrame + frameDelta >  ProjectController.getLength() - 1 ) frameDelta = lastFrameDelta;
+				|| startFrame + frameDelta >  ProjectController.getCurrentLength() - 1 ) frameDelta = lastFrameDelta;
 		if(  startFrame + frameDelta < iop.getClipStartFrame() ) frameDelta = startFrame - iop.getClipStartFrame();
 		if(  startFrame + frameDelta > iop.getClipEndFrame() ) frameDelta = iop.getClipEndFrame() - startFrame;
 			

@@ -19,7 +19,6 @@ package animator.phantom.controller;
     along with Phantom2D.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -27,7 +26,7 @@ import javax.swing.plaf.metal.MetalTheme;
 
 import animator.phantom.blender.Blender;
 import animator.phantom.gui.LayerCompositorFrame;
-import animator.phantom.project.LayerCompositorProject;
+import animator.phantom.project.LayerCompositorComposition;
 import animator.phantom.project.MovieFormat;
 import animator.phantom.project.Project;
 import animator.phantom.undo.PhantomUndoManager;
@@ -121,13 +120,15 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 		projectLoading = true;
 
 		//--- Save view editor size for auto size setting for project dimensions.
+		/*
 		if (GUIComponents.animatorFrame != null)
 		{
 			Dimension viewPortSize = GUIComponents.animatorFrame.getViewEditorSize();
 			EditorsController.setViewEditorSize(viewPortSize);
 		}
-
-		//--- (re-)read editor persistance for recent documents
+		*/
+		
+		//--- (re-)read editor persistence for recent documents
 		if( !inJar )
 			EditorPersistance.read( PERSISTANCE_PATH + EditorPersistance.DOC_NAME, false );
 		else
@@ -144,9 +145,8 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 		AppData.setProject( project );
 		
 		//--- 
-		AppData.setLayerProject( new LayerCompositorProject() );
+		AppData.setLayerProject( new LayerCompositorComposition() );
 		
-
 		//--- Blender
 		Blender.initBlenders();
 
@@ -166,16 +166,15 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 		//--- Notify MemoryManager to start guessing
 		MemoryManager.calculateCacheSizes();
 
-		//---
+		//--- Show window
 		animatorFrame.setVisible( true );
-		//GUIComponents.renderFlowPanel.setIgnoreRepaint( false );// bugs when not visible?
 
 		ProjectController.updateProjectInfo();
 
 		//--- First render for view editor
 		EditorsController.fillViewEditor();
 		EditorsController.displayCurrentInViewEditor( false );
-		int viewSize = GUIComponents.viewSizeSelector. getViewSize();
+		int viewSize = GUIComponents.viewSizeSelector.getViewSize();
 		EditorsController.setViewSize( viewSize );
 
 		//--- Display loaded clips
@@ -186,6 +185,10 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 		MemoryManager.initCache();
 
 		GUIComponents.animatorFrame.centerViewEditor();
+		
+		ProjectController.updateProjectInfo();
+		GUIComponents.animatorMenu.updateCompositionsMenu();
+		
 		//--- Unblock cache and view editor updates.
 		projectLoading = false;
 

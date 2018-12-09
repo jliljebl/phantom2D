@@ -112,7 +112,7 @@ public class TimeLineDisplayPanel extends JPanel implements MouseListener, Mouse
 		int frame = Math.round( ( x + xOffset) / pixPerFrame );
 		//--- clamp into movie length.
 		if( frame < 0 ) frame = 0;
-		if( frame > ( ProjectController.getLength() - 1 ) ) frame =  ProjectController.getLength() - 1;
+		if( frame > ( ProjectController.getCurrentLength() - 1 ) ) frame =  ProjectController.getCurrentLength() - 1;
 		return frame;
 	}
 
@@ -157,7 +157,7 @@ public class TimeLineDisplayPanel extends JPanel implements MouseListener, Mouse
 		//--- scale and position
 		float pixPerFrame = TimeLineController.getCurrentScaleMultiplier();
 		int timeLinePos = TimeLineController.getTimeLinePosition();
-		int movieLength = ProjectController.getLength();
+		int movieLength = ProjectController.getCurrentLength();
 
 		int xOffset = Math.round( pixPerFrame * timeLinePos );
 
@@ -217,7 +217,7 @@ public class TimeLineDisplayPanel extends JPanel implements MouseListener, Mouse
 	{
 		//--- Determine how many numbers at most from end in form hh:mm:ss:ff are drawn
 		int framesPerSecond = ProjectController.getFramesPerSecond();
-		int secondsInMovie = ProjectController.getLength() / framesPerSecond;
+		int secondsInMovie = ProjectController.getCurrentLength() / framesPerSecond;
 
 		//--- draw Time code for every second
 		int x, frame, step;

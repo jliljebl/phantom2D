@@ -45,7 +45,7 @@ public class SynchronizedImageBlender
 
 	public SynchronizedImageBlender()
 	{
-		blender = new ImageBlender( ProjectController.getScreenSize() );
+		blender = new ImageBlender( ProjectController.getCurrentScreenSize() );
 	}
 
 	private ImageBlender getBlender()

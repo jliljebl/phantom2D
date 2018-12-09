@@ -83,7 +83,7 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 	{
 		this.iop = iop;
 		this.type = boxtype;
-		RenderNode node = AppData.getFlow().getNode( iop );
+		RenderNode node = AppData.getCurrentFlow().getNode( iop );
 		String idStr = null;
 		if ( boxtype == LAYER_BOX )
 		{

@@ -31,11 +31,11 @@ public class EditorRendererInterface
 {
 	public static int getMovieLength()
 	{
-		return ProjectController.getLength();
+		return ProjectController.getCurrentLength();
 	}
 	public static Dimension getScreenDimensions()
 	{
-		return ProjectController.getScreenSize();
+		return ProjectController.getCurrentScreenSize();
 	}
 	public static RenderNode getNode( int nodeID )
 	{

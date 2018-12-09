@@ -28,16 +28,14 @@ import animator.phantom.renderer.RenderNode;
 public class TimeLineClipXML extends AbstractXML
 {
 	public static String ELEMENT_NAME = "clip";
-	//public static String TLC_NODE_ELEMENT_NAME = "tlcnode";
 	public static String NODEID_ATTR = "nodeid";
-	//public static String OPEN_ATTR = "isopen";
 
 	public static ImageOperation getObject( Element e, Project projectObj )
 	{
-		RenderNode node = projectObj.getRenderFlow().getNode( getInt( e, "nodeid" ));
+		RenderNode node = projectObj.getCurrentRenderFlow().getNode( getInt( e, "nodeid" ));
 		return node.getImageOperation();
 	}
-
+	
 	public static Element getElement( RenderNode node )
 	{
 		Element e = doc.createElement( ELEMENT_NAME );

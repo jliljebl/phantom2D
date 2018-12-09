@@ -129,12 +129,12 @@ public class EditorsController
 		GUIComponents.viewEditor.setBeingFilled( true );
 		Vector<RenderNode> nodes = ProjectController.getFlow().getNodes();
 		for( RenderNode node : nodes )
-			addLayerForIop( node.getImageOperation() );
+			addViewEditorLayerForIop( node.getImageOperation() );
 		GUIComponents.viewEditor.updateLayerSelector();
 		GUIComponents.viewEditor.setBeingFilled( false );
 	}
 	//--- Add layer for iop.
-	public static void addLayerForIop( ImageOperation iop )
+	public static void addViewEditorLayerForIop( ImageOperation iop )
 	{
 		ViewEditorLayer layer = iop.getEditorlayer();
 		if( layer != null )

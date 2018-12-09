@@ -532,7 +532,7 @@ public abstract class ImageOperation implements Comparable<Object>
 	//--- and crop into screen size if needed
 	public void cropRenderedImageToScreenSize()
 	{
-		Dimension screenSize = ProjectController.getScreenSize();
+		Dimension screenSize = ProjectController.getCurrentScreenSize();
 		if( 	screenSize.width >= renderedImage.getWidth()
 			&& screenSize.height >= renderedImage.getHeight() )
 			return;
@@ -826,7 +826,7 @@ public abstract class ImageOperation implements Comparable<Object>
 		String idStr = "";
 		if( !isFilterStackIop )
 		{
-			RenderNode node = AppData.getFlow().getNode( this );
+			RenderNode node = AppData.getCurrentFlow().getNode( this );
 			idStr =  "#" + Integer.toString( node.getID() );
 		}	
 		JLabel idLabel = new JLabel( idStr );

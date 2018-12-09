@@ -466,7 +466,7 @@ public class RenderWindowPanel extends JPanel implements ActionListener
 		{
 			DialogUtils.setDialogParent( window );
 			
-			int endFrame = DialogUtils.showFrameSelectDialog("Set Render End Frame", "Render end frame:", RenderModeController.writeRangeEnd, RenderModeController.writeRangeStart,  ProjectController.getLength());
+			int endFrame = DialogUtils.showFrameSelectDialog("Set Render End Frame", "Render end frame:", RenderModeController.writeRangeEnd, RenderModeController.writeRangeStart,  ProjectController.getCurrentLength());
 
 			if ( endFrame != -1)
 			{

@@ -94,13 +94,14 @@ public class PhantomXML extends PhantomDocUtils
 
 			RenderNode rnode = RenderNodeXML.getObject( rnodeE );
 			ImageOperation iop = ImageOperationXML.getObject( iopE, project, false );
-			if (iop == null) System.out.println("ipo null");
+			if (iop == null) System.out.println("iop null");
 			PhantomUndoManager.newIOPCreated( iop );
 			rnode.setImageOperation( iop );
 			rnodes.add( rnode );
 		}
 		flow.setNodes( rnodes );
-		project.setRenderFlow( flow );
+		// SAVE AND LOAD ARE BROKEN UNTILL THIS REPLACED WITH NEW CODE
+		//project.setRenderFlow( flow );
 
 		//--- Build connections
 		for( RenderNode node : rnodes )
@@ -171,10 +172,10 @@ public class PhantomXML extends PhantomDocUtils
 			//--- Flow
 			Element flow = doc.createElement( FLOW_ELEM );
 			flow.setAttribute( "nextid",
-				AbstractXML.intStr( projObj.getRenderFlow().getNextNodeID() ) );
+				AbstractXML.intStr( projObj.getCurrentRenderFlow().getNextNodeID() ) );
 
 			//--- Nodes
-			Vector<RenderNode> nodes = projObj.getRenderFlow().getNodes();
+			Vector<RenderNode> nodes = projObj.getCurrentRenderFlow().getNodes();
 			for( RenderNode nodeObj : nodes )
 			{
 				Element node = RenderNodeXML.getElement( nodeObj );

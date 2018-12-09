@@ -194,7 +194,7 @@ public class RenderFlow
 	//--- Tells all ImageOperations that flow is changed. Some may update GUI, most ignore.
 	private void tellAllIopsFlowChanged()
 	{
-		/* NOTHING USES FEATURE CURRENTLY, REMOVE THIS NEXT TIME YOU SEE THIS
+		/* NOTHING USES FEATURE CURRENTLY,CONSIDER REMOVING
 		for( RenderNode node : renderNodes )
 			node.getImageOperation().flowChanged();
 		*/

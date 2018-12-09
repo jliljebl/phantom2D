@@ -44,7 +44,7 @@ public class PreViewUpdater
 
 	public PreViewUpdater()
 	{
-		screenSize = ProjectController.getScreenSize();
+		screenSize = ProjectController.getCurrentScreenSize();
 		
 		noPreview = GUIResources.getResourceBufferedImage( GUIResources.noPreview );
 		noPreviewScaled = noPreview;

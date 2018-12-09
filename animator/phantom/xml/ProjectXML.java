@@ -46,8 +46,8 @@ public class ProjectXML extends AbstractXML
 	{
 		Element e = doc.createElement( ELEMENT_NAME );
 		e.setAttribute( "name", project.getName()  );
-		e.setAttribute( "width" , intStr( project.getScreenDimensions().width  ) );
-		e.setAttribute( "height", intStr(  project.getScreenDimensions().height )  );
+		e.setAttribute( "width" , intStr( project.getDefaultScreenDimensions().width  ) );
+		e.setAttribute( "height", intStr(  project.getDefaultScreenDimensions().height )  );
 		e.setAttribute( "length", intStr( project.getLength() ) );
 		e.setAttribute( "fps", intStr( project.getFramesPerSecond() ) );
 		e.setAttribute( "fname",  project.getFormatName() );

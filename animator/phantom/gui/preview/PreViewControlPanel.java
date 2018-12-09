@@ -90,7 +90,7 @@ public class PreViewControlPanel extends JPanel implements ActionListener
 	public void updatePreviewRenderInfo( int millis, int frame )
 	{
 		String frameTime = 	AppUtils.createTimeString( millis, true );
-		previewTimeInfo.setText(Integer.toString(frame) + "/" + Integer.toString(ProjectController.getLength()) + ", " + frameTime);
+		previewTimeInfo.setText(Integer.toString(frame) + "/" + Integer.toString(ProjectController.getCurrentLength()) + ", " + frameTime);
 	}
 
 	public void updatePlayButton()

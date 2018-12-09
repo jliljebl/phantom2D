@@ -147,7 +147,7 @@ public abstract class ViewEditorLayer
 	*/
 	public void setName( String newName )
 	{ 
-		RenderNode node = AppData.getFlow().getNode( iop );
+		RenderNode node = AppData.getCurrentFlow().getNode( iop );
 		String idStr = "#" + Integer.toString( node.getID() ) + " ";
 		name = idStr + newName; 
 	}
