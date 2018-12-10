@@ -39,7 +39,7 @@ public class FileSourceXML extends AbstractXML
 
 	public static FileSource getObject( Element e )
 	{
-		//--- Creae object
+		//--- Create object
 		FileSource fs = null;
 		int type = getInt( e, "type" );
 		if( type == FileSource.IMAGE_FILE ) fs = new FileSingleImageSource();

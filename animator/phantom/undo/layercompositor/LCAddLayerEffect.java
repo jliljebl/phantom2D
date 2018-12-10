@@ -29,7 +29,6 @@ public class LCAddLayerEffect extends LCUndoableEdit
 	
 	public void redo()
 	{
-		//this.layerIop.getFilterStack().add( this.iop );
 		FilterStackController.addFilter( this.layerIop, this.iop );
 		this.iop.setFilterStackIOP( true );
 		this.iop.copyTimeParams( this.layerIop );

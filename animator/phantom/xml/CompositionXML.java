@@ -1,13 +1,27 @@
 package animator.phantom.xml;
 
+import java.awt.Dimension;
+
 import org.w3c.dom.Element;
 
 import animator.phantom.project.ProjectNamedFlow;
 
+
 public class CompositionXML extends AbstractXML
 {
 	public static final String ELEMENT_NAME = "composition";
-	
+
+	public static ProjectNamedFlow getObject( Element e )
+	{
+		ProjectNamedFlow comp = new ProjectNamedFlow();
+		comp.setName( e.getAttribute( "name" ) );
+		int w = getInt( e,"width" );
+		int h = getInt( e, "height" );
+		comp.setScreenDimensions( new Dimension( w, h ) );
+		comp.setLength( getInt( e, "length" ) );
+		return comp;
+	}
+
 	public static Element getElement( ProjectNamedFlow comp )
 	{
 		Element e = doc.createElement( ELEMENT_NAME );

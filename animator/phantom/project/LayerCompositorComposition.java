@@ -1,5 +1,6 @@
 package animator.phantom.project;
 
+import java.util.Collections;
 import java.util.Vector;
 
 import animator.phantom.controller.AppData;
@@ -19,7 +20,38 @@ public class LayerCompositorComposition
 		this.layers = new Vector<LayerCompositorLayer>();
 	}
 	
+	// When composition is opened (after composition change or project load) we get layer clip iops from ProjectNamdFlow object 
+	// with Project.getCurrentComposition()) here so that layers can be initially created.
+	//
+	// When layers are added or removed during editing layer clip iops go to ProjectNamdFlow object from here, see TimelineContoller.loadClips() called after all
+	// layer changes.
+	public void loadLayersFromCurrentCompositionTimelineClips()
+	{
+		Vector<ImageOperation> clips = AppData.getProject().getCurrentComposition().getTimelineClips();
+		Collections.reverse(clips);
+		
+		for( int i = 0; i < clips.size(); i++ )
+		{
+			// Layer clips, image sources and adjustment layers.
+			ImageOperation layerIop = clips.elementAt( i );
+			RenderNode layerNode = AppData.getCurrentFlow().getNode( layerIop );
+			LayerCompositorLayer addLayer = addLayerForNode( layerNode );
+	
+			// filter clips are not represented as layers here, they are represented as layers only in timeline GUI,
+			// where they are created from filter stack data.
+			
+			// Masks clips
+			Vector<RenderNode> maskNodes = layerNode.getMaskInputFirstNodes();
+			for( int j = 0; j < maskNodes.size(); j++ )
+			{
+				RenderNode maskNode = maskNodes.elementAt( j );
+				addLayer.addMaskLayerForNode( maskNode );
+			}
+		}
+	}
+	
 	//------------------------------------------------------------------------ edits
+	// Used on user action, we need to create the node and structure.
 	public LayerCompositorLayer addLayer( ImageOperation iop )
 	{
 		disconnectLayers();
@@ -31,6 +63,14 @@ public class LayerCompositorComposition
 
 		connectLayers();
 		LayerCompositorUpdater.layerAddUpdate( iop );
+		return addLayer;
+	}
+	// Used on load and composition change, we have the nodes and structure available
+	private LayerCompositorLayer addLayerForNode( RenderNode addNode )
+	{
+ 
+		LayerCompositorLayer addLayer = new LayerCompositorLayer( addNode );
+		this.layers.add( addLayer );
 		return addLayer;
 	}
 	
@@ -62,20 +102,27 @@ public class LayerCompositorComposition
 		connectLayers();
 		
 		LayerCompositorUpdater.layerDeleteUpdate( deleteVec );
-			
 	}
 
-	public void addPreCompLayer( ImageOperation precompIop, ImageOperation layerIop )
+	public void addMaskLayer( ImageOperation maskIop, ImageOperation layerIop )
 	{
-	
-		precompIop.copyTimeParams( layerIop );
+		maskIop.copyTimeParams( layerIop );
 		LayerCompositorLayer layer = getLayer( layerIop );
-		layer.addPreCompLayer( precompIop );
+		layer.addMaskLayer( maskIop );
 		
-		LayerCompositorUpdater.layerMaskAddUpdate( precompIop, layerIop );
+		LayerCompositorUpdater.layerMaskAddUpdate( maskIop, layerIop );
+	}
+
+	public void addMaskLayerForNode( ImageOperation maskIop, ImageOperation layerIop )
+	{
+		maskIop.copyTimeParams( layerIop );
+		LayerCompositorLayer layer = getLayer( layerIop );
+		layer.addMaskLayer( maskIop );
+		
+
 	}
 	
-	public void deletePreCompLLayer( ImageOperation maskIop, ImageOperation layerIop )
+	public void deleteMaskLLayer( ImageOperation maskIop, ImageOperation layerIop )
 	{
 		
 	}

@@ -25,24 +25,29 @@ public class LayerCompositorLayer
 
 	public void setPreCompLayers(Vector<RenderNode> layerMasks) { this.preCompLayers = layerMasks; }
 	
-	public void addPreCompLayer( ImageOperation precompIop )
+	public void addMaskLayer( ImageOperation precompIop )
 	{
-		disconnectPreCompLayers();
+		disconnectMaskLayers();
 		
-		RenderNode preCompNode = new RenderNode( precompIop );
-		this.preCompLayers.add( preCompNode );
-		AppData.getCurrentFlow().addNode( preCompNode );
+		RenderNode maskNode = new RenderNode( precompIop );
+		this.preCompLayers.add( maskNode );
+		AppData.getCurrentFlow().addNode( maskNode );
 
-		connectPreCompLayers();
+		connectMaskLayers();
+	}
+
+	public void addMaskLayerForNode( RenderNode maskNode )
+	{
+		this.preCompLayers.add( maskNode );
 	}
 	
 	
-	public void deletePreCompLLayer(  ImageOperation maskIop )
+	public void deleteMaskLLayer(  ImageOperation maskIop )
 	{
 		
 	}
 			
-	private void connectPreCompLayers()
+	private void connectMaskLayers()
 	{
 		if ( this.preCompLayers.size() > 1 )
 		{
@@ -62,7 +67,7 @@ public class LayerCompositorLayer
 		}
 	}
 
-	private void disconnectPreCompLayers()
+	private void disconnectMaskLayers()
 	{
 		if ( this.preCompLayers.size() > 1 )
 		{

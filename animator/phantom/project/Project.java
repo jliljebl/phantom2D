@@ -31,27 +31,23 @@ import animator.phantom.renderer.RenderNode;
 
 public class Project
 {
-
 	private String name;	
 	private File saveFile; 	//--- File that project was last saved.
 	private Vector<FileSource> fileSources = new Vector<FileSource>();
 	private Vector<ProjectNamedFlow> compositions = new Vector<ProjectNamedFlow>();
-	private ProjectNamedFlow currentComposition;
+	private int currentCompositionLoadID; //we get this value before we have the object, so save it here.
+	private ProjectNamedFlow currentComposition;	
 	private int nextCompositionId;
-	//--- The main datastructure of the application that contains the rendering structure as
-	//--- specified by the user.
-	//private RenderFlow renderFlow = new RenderFlow();
 	private Dimension screenSize;
 	private int movieDefaultLength = 125;
 	private int lengthInFrames = movieDefaultLength;
 	private int framesPerSecond = 25;
-	private Vector<Bin> bins; //--- Not used currently, but keep if later re-activated in some way
+	private Vector<Bin> bins; //--- Not used currently, but keep if later re-activated in some way.
 	private Bin currentBin;
 	private Vector<ImageOperation> loadClips = new Vector<ImageOperation>();
 	private String formatName;
 
 	
-
 	public static final String PROJECT_FILE_EXTENSION = "phr"; //--- Project xml files are have with extension .phr
 
 
@@ -97,6 +93,8 @@ public class Project
 		return comp;
 	}
 	public ProjectNamedFlow getCurrentComposition(){ return currentComposition; }
+	public void setCurrentCompositionLoadID( int compID) { currentCompositionLoadID = compID; }
+	public void makeCurrentCompositionAvailable() { setCurrentComposition( currentCompositionLoadID );}
 	public void setCurrentComposition( int compositionId )
 	{ 
 		for( ProjectNamedFlow comp : compositions )
@@ -108,10 +106,8 @@ public class Project
 			}
 		}
 	}
-	public Vector<ProjectNamedFlow> getCompositions() 
-	{
-		return compositions;
-	}
+	public Vector<ProjectNamedFlow> getCompositions() { return compositions; }
+	public void setCompositions(Vector<ProjectNamedFlow> comps) { compositions = comps; }
 	//--- flow
 	public RenderFlow getCurrentRenderFlow(){ return currentComposition.getFlow(); }
 	//public void setRenderFlow( RenderFlow flow ){ renderFlow = flow; }
@@ -158,7 +154,7 @@ public class Project
 
 	//--- CLIPS
 	public void setLoadClips( Vector<ImageOperation> clips ){ loadClips = clips; }
-	public Vector<ImageOperation>  getLoadClips( ){ return loadClips; }
+	public Vector<ImageOperation> getLoadClips( ){ return loadClips; }
 
 	//--- FILE SOURCES
 	//--- All file sources are given a continually increasing id.
@@ -201,15 +197,17 @@ public class Project
 	//------------------------------------------------ PARENTING
 	public void setParents()
 	{
-		Vector<RenderNode> nodes = currentComposition.getFlow().getNodes();
-		for( RenderNode node : nodes )
+		for (ProjectNamedFlow comp : compositions )
 		{
-			ImageOperation iop = node.getImageOperation();
-			iop.loadParentIOP( currentComposition.getFlow() );
+			Vector<RenderNode> nodes = comp.getFlow().getNodes();
+			for( RenderNode node : nodes )
+			{
+				ImageOperation iop = node.getImageOperation();
+				iop.loadParentIOP( comp.getFlow() );
+			}
 		}
+
 	}
 
-
-	
 
 }//end class

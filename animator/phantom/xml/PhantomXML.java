@@ -80,47 +80,62 @@ public class PhantomXML extends PhantomDocUtils
 		}
 		project.setBins( bins );
 
-		//--- Flow
-		Element flowE = getFirstChild( projE, FLOW_ELEM );
-		RenderFlow flow = new RenderFlow();
-		flow.setNextNodeID( AbstractXML.getInt( flowE, "nextid" ) );
+		//--- Compositions
+		Element compositionsE = getFirstChild( projE, COMPOSITIONS_ELEM );
+		Vector<ProjectNamedFlow> comps = new Vector<ProjectNamedFlow>();
 
-		//--- RenderNodes
-		Vector<RenderNode> rnodes =  new Vector<RenderNode>();
-		initIter( flowE, RenderNodeXML.ELEMENT_NAME);
+		initIter( compositionsE, CompositionXML.ELEMENT_NAME);
 		while( iterMore() )
 		{
-			Element rnodeE = iterNext();
-			Element iopE = getFirstChild( rnodeE, ImageOperationXML.ELEMENT_NAME );
+			Element compE = iterNext();
+			ProjectNamedFlow comp = CompositionXML.getObject( compE );
 
-			RenderNode rnode = RenderNodeXML.getObject( rnodeE );
-			ImageOperation iop = ImageOperationXML.getObject( iopE, project, false );
-			if (iop == null) System.out.println("iop null");
-			PhantomUndoManager.newIOPCreated( iop );
-			rnode.setImageOperation( iop );
-			rnodes.add( rnode );
+			//--- Flow
+			Element flowE = getFirstChild( compE, FLOW_ELEM );
+			RenderFlow flow = new RenderFlow();
+			flow.setNextNodeID( AbstractXML.getInt( flowE, "nextid" ) );
+
+			//--- RenderNodes
+			Vector<RenderNode> rnodes =  new Vector<RenderNode>();
+			initIter( flowE, RenderNodeXML.ELEMENT_NAME);
+			while( iterMore() )
+			{
+				Element rnodeE = iterNext();
+				Element iopE = getFirstChild( rnodeE, ImageOperationXML.ELEMENT_NAME );
+
+				RenderNode rnode = RenderNodeXML.getObject( rnodeE );
+				ImageOperation iop = ImageOperationXML.getObject( iopE, project, false );
+				if (iop == null) System.out.println("iop null");
+				PhantomUndoManager.newIOPCreated( iop );
+				rnode.setImageOperation( iop );
+				rnodes.add( rnode );
+			}
+			flow.setNodes( rnodes );
+
+			//--- Build connections
+			for( RenderNode node : rnodes )
+				node.buildConnections( rnodes );
+			
+			comp.setFlow( flow );
+
+			//--- Timeline clips
+			Element tlcE = getFirstChild( compE, TIMELINECLIPS_ELEM );
+			Vector<ImageOperation> clips = new Vector<ImageOperation>();
+			initIter( tlcE, TimeLineClipXML.ELEMENT_NAME );
+			while( iterMore() )
+			{
+				Element clip = iterNext();
+				ImageOperation iop = TimeLineClipXML.getObject( clip, project, flow );
+				clips.add( iop );
+			}
+			comp.setTimelineClips( clips );
+			
+			comps.add( comp );
 		}
-		flow.setNodes( rnodes );
-		// SAVE AND LOAD ARE BROKEN UNTILL THIS REPLACED WITH NEW CODE
-		//project.setRenderFlow( flow );
-
-		//--- Build connections
-		for( RenderNode node : rnodes )
-			node.buildConnections( rnodes );
-
-		//--- Timeline clips
-		Element tlcE = getFirstChild( projE, TIMELINECLIPS_ELEM );
-		Vector<ImageOperation> clips = new Vector<ImageOperation>();
-		initIter( tlcE, TimeLineClipXML.ELEMENT_NAME );
-		while( iterMore() )
-		{
-			Element clip = iterNext();
-			ImageOperation iop = TimeLineClipXML.getObject( clip, project );
-			clips.add( iop );
-		}
-		project.setLoadClips( clips );
+		project.setCompositions( comps );
 
 		//--- Timeline marks
+		/*
 		loadMarks = new Vector<Integer>();
 		initIter( root, TIMELINE_MARK_ELEM);
 		while( iterMore() )
@@ -128,11 +143,14 @@ public class PhantomXML extends PhantomDocUtils
 			Element markE = iterNext();
 			addMark( AbstractXML.getInt( markE, "frame" ) );
 		}
-
+		*/
+		
 		//--- Render out values
 		RenderOutXML.setRenderOutValues( projE );
 
 		project.setParents();
+		project.makeCurrentCompositionAvailable();
+
 		return project;
 	}
 
@@ -170,7 +188,7 @@ public class PhantomXML extends PhantomDocUtils
 				bins.appendChild( BinXML.getElement( bin ) );
 			project.appendChild( bins );
 
-			//--- ProjectnamdFlow s a.a.k compositions
+			//--- ProjectNamdFlow vec a.k.k compositions
 			Element compositions =  doc.createElement( COMPOSITIONS_ELEM );
 			project.appendChild( compositions );
 			Vector<ProjectNamedFlow> projComps = projObj.getCompositions();
@@ -192,13 +210,14 @@ public class PhantomXML extends PhantomDocUtils
 					node.appendChild( iop );
 					flow.appendChild( node );
 				}
-				
+				compElem.appendChild( flow );
+
 				//--- Timeline Clips
 				Element clipsE = doc.createElement( TIMELINECLIPS_ELEM );
 				Vector<ImageOperation> clips = comp.getTimelineClips();
 				for( ImageOperation iop : clips )
 					clipsE.appendChild( TimeLineClipXML.getElement( ProjectController.getFlow().getNode( iop ) ));
-				compositions.appendChild( clipsE );
+				compElem.appendChild( clipsE );
 			}
 			
 			//--- Timeline marks

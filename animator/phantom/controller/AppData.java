@@ -17,7 +17,7 @@ public class AppData
 		
 		public static RenderFlow getCurrentFlow(){ return project.getCurrentRenderFlow(); }
 		
-		public static void setLayerProject( LayerCompositorComposition newComposition )	{ composition = newComposition; }
+		public static void setLayerComposition( LayerCompositorComposition newComposition )	{ composition = newComposition; }
 		public static LayerCompositorComposition getLayerComposition()	{ return composition; }
 
 		public static void setParamEditFrame( ParamEditFrame newpParamEditFrame )	{ paramEditFrame = newpParamEditFrame; }

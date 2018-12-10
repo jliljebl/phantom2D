@@ -102,6 +102,23 @@ public class RenderNode
 
 		return activeSources;
 	}
+	//--- return list of nodes connected to mask input and after that always the one connected to input 0.
+	public Vector<RenderNode> getMaskInputFirstNodes()
+	{
+		Vector<RenderNode> retNodes = new Vector<RenderNode>(); 
+		RenderNode maskInputNode = sources.elementAt( iop.getMaskInputIndex() );
+		if (maskInputNode != null)
+		{
+			retNodes.add(maskInputNode);
+			RenderNode nextNode = maskInputNode.sources.elementAt( 0 );
+			while ( nextNode != null )
+			{
+				retNodes.add(nextNode);
+				nextNode = nextNode.sources.elementAt( 0 );
+			}
+		}
+		return retNodes;
+	}
 	//--- Return index of first null source.
 	public int getFreeSourceID()
 	{
@@ -219,7 +236,6 @@ public class RenderNode
 		//System.out.println( "before iop:" + iop.getName() );
 		synchronized( iop )// only one thread can work one a ImageOperation object at a time
 		{
-		//System.out.println( "after iop:" + iop.getName() );
 			//--- Collect source images.
 			Vector<BufferedImage> sourceImages = new Vector<BufferedImage>();
 			for( int i = 0; i < sources.size() ; i++ )

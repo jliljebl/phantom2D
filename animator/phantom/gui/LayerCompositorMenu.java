@@ -383,7 +383,8 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		compositionsMenu.removeAll();
 		for( ProjectNamedFlow comp : AppData.getProject().getCompositions() )
 		{
-			JMenuItem item = new JMenuItem(comp.getName());
+			CompositionMenuItem item = new CompositionMenuItem( comp.getName(), comp.getID() );
+			item.addActionListener( this );
 			compositionsMenu.add( item );
 		}
 	}
@@ -567,6 +568,12 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 				LayerCompositorMenuActions.addLayerMask( source.getIopClassName() );
 		}
 
+		if( e.getSource() instanceof CompositionMenuItem )
+		{
+			CompositionMenuItem source =  ( CompositionMenuItem ) e.getSource();
+			ProjectController.openComposition( source.getCompsitionID() );
+		}
+		
 		//-------------------------------------------------- Render menu.
 		if( e.getSource() == threadsSettings ) LayerCompositorMenuActions.setThreadsAndBlenders();
 		if( e.getSource() == previewCurrent ) PreviewController.renderAndDisplayCurrent();

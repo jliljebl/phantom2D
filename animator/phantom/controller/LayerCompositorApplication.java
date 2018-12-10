@@ -144,8 +144,9 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 		ProjectController.setProject( project );
 		AppData.setProject( project );
 		
-		//--- 
-		AppData.setLayerProject( new LayerCompositorComposition() );
+		//--- Init layers data from current composition flow data.
+		AppData.setLayerComposition( new LayerCompositorComposition() );
+		AppData.getLayerComposition().loadLayersFromCurrentCompositionTimelineClips();
 		
 		//--- Blender
 		Blender.initBlenders();
@@ -157,6 +158,9 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 		//--- Undo
 		PhantomUndoManager.init();
 
+		// We need clips
+		TimeLineController.loadClips();
+		
 		//--- Windows
 		animatorFrame.initializeEditor();
 
@@ -178,12 +182,11 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 		EditorsController.setViewSize( viewSize );
 
 		//--- Display loaded clips
-		TimeLineController.loadClips();
+
 		TimeLineController.initClipEditorGUI();
 
 		//--- Set cache sizes with current information.
 		MemoryManager.initCache();
-
 		GUIComponents.animatorFrame.centerViewEditor();
 		
 		ProjectController.updateProjectInfo();

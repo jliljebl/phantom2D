@@ -275,7 +275,6 @@ public class TimeLineController
 	public static void loadClips()
 	{
 		AppData.getProject().getCurrentComposition().setTimelineClips( AppData.getLayerComposition().getLayerGUIIops() );
-		//timelineClips = AppData.getLayerComposition().getLayerGUIIops();
 	}
 
 	//--- Return true if clips contain iop

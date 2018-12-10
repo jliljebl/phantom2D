@@ -23,6 +23,7 @@ import org.w3c.dom.Element;
 
 import animator.phantom.project.Project;
 import animator.phantom.renderer.ImageOperation;
+import animator.phantom.renderer.RenderFlow;
 import animator.phantom.renderer.RenderNode;
 
 public class TimeLineClipXML extends AbstractXML
@@ -30,9 +31,9 @@ public class TimeLineClipXML extends AbstractXML
 	public static String ELEMENT_NAME = "clip";
 	public static String NODEID_ATTR = "nodeid";
 
-	public static ImageOperation getObject( Element e, Project projectObj )
+	public static ImageOperation getObject( Element e, Project projectObj, RenderFlow flow )
 	{
-		RenderNode node = projectObj.getCurrentRenderFlow().getNode( getInt( e, "nodeid" ));
+		RenderNode node = flow.getNode( getInt( e, "nodeid" ));
 		return node.getImageOperation();
 	}
 	

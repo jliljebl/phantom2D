@@ -321,10 +321,16 @@ public class ProjectController
 		String compName = name.getStringValue();
 		
 		ProjectNamedFlow newComp  = AppData.getProject().addNewComposition( compName, editLength, new Dimension( editWidth, editHeight) );
-		AppData.getProject().setCurrentComposition( newComp.getID() );
-			
-		LayerCompositorApplication.getApplication().openProject( AppData.getProject() );
+		openComposition( newComp.getID() );
 
+	}
+	
+	public static void openComposition( int compositionID )
+	{
+		AppData.getProject().setCurrentComposition( compositionID );
+		
+		LayerCompositorApplication.getApplication().openProject( AppData.getProject() );
+	
 		TimeLineController.loadClips();
 		TimeLineController.initClipEditorGUI();
 	}

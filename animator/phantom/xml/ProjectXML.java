@@ -38,7 +38,8 @@ public class ProjectXML extends AbstractXML
 		project.setScreenDimensions( new Dimension( w, h ) );
 		project.setLength( getInt( e, "length" ) );
 		project.setFramesPerSecond( getInt( e, "fps" ) );
-		project.setFormatName(  e.getAttribute( "fname" ) );
+		project.setFormatName( e.getAttribute( "fname" ) );
+		project.setCurrentCompositionLoadID( getInt(e, "currentCompositionIndex" ));
 		return project;
 	}
 
@@ -51,6 +52,7 @@ public class ProjectXML extends AbstractXML
 		e.setAttribute( "length", intStr( project.getLength() ) );
 		e.setAttribute( "fps", intStr( project.getFramesPerSecond() ) );
 		e.setAttribute( "fname",  project.getFormatName() );
+		e.setAttribute( "currentCompositionIndex", intStr(project.getCurrentComposition().getID()) );
 		return e;
 	}
 

@@ -31,8 +31,8 @@ public class LayerCompositorUpdater
 			}
 		}.start();
 		
-		Vector<ImageOperation> addClips = new  Vector<ImageOperation>();
-		addClips.add( addIOP );
+		//Vector<ImageOperation> addClips = new Vector<ImageOperation>();
+		//addClips.add( addIOP );
 		
 		TimeLineController.loadClips();
 		TimeLineController.initClipEditorGUI();
