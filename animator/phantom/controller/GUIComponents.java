@@ -73,6 +73,8 @@ public class GUIComponents
 	public static NodesPanel nodesPanel;
 	public static JLabel projectInfoLabel;
 	public static JScrollPane filterStackTablePane;
+	public static JLabel compNameLabel;
+	public static JLabel layerNameLabel;
 
 	public static void reset()
 	{

@@ -25,12 +25,11 @@ import javax.swing.JToggleButton;
 public class PHButtonFactory
 {
 	
-	//--- Themes may set this.
 	public static ButtonFactoryImpl factoryImpl;
 
 	static
 	{
-		factoryImpl = new LightButtonFactory();
+		factoryImpl = new CurrentThemeButtonFactory();
 	}
 
 	public static JButton getButton( String text )

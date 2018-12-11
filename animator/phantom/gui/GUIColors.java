@@ -27,6 +27,10 @@ import javax.swing.plaf.ColorUIResource;
 //--- Collection of GUI clor definitions
 public class GUIColors
 {
+	
+	
+	// NOTE: SOME OF THESE ARESET FROM DarkTheme.java, refactor this.
+	
 	//--- Panel colors.
 	public static Color bgColor = ( new JPanel() ).getBackground();
 	public static Color flowbladeDark = new Color( 30, 35, 51 );
@@ -37,7 +41,7 @@ public class GUIColors
 	public static Color lineBorderColor = new Color( 169, 192, 205 );
 	public static Color frameBorder = selectedColor;
 	public static Color grayTitle = new Color( 120, 120, 120 );
-
+	public static Color menuBlue = new Color( 25, 80, 147 );
 	//--- Flow Editor
 	public static Color flowBGColor = new Color( 37, 43, 64 );// new Color( 166, 166, 166 );
 	public static Color flowGridColor = new Color( 52, 52, 52 );// new Color( 166, 166, 166 );
@@ -55,8 +59,8 @@ public class GUIColors
 	//--- Bin
 	public static Color BIN_BG = bgColor;
 	public static Color MEDIA_ITEM_TEXT_COLOR = Color.black;
-	public static Color MEDIA_ITEM_SELECTED_BG = GUIColors.selectedColor;
-	public static Color MEDIA_ITEM_BG = bgColor;
+	public static Color MEDIA_ITEM_SELECTED_BG = Color.red;
+	public static Color MEDIA_ITEM_BG = Color.green;
 	public static Color THUMB_BORDER = selectedColor;
 
 	//--- Param Editor

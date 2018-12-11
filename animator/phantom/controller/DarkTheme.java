@@ -31,10 +31,8 @@ import javax.swing.plaf.IconUIResource;
 import javax.swing.plaf.InsetsUIResource;
 import javax.swing.plaf.metal.OceanTheme;
 
-import animator.phantom.gui.CurrentThemeButtonFactory;
 import animator.phantom.gui.GUIColors;
 import animator.phantom.gui.GUIResources;
-import animator.phantom.gui.PHButtonFactory;
 
 public class DarkTheme extends OceanTheme
 {
@@ -66,7 +64,7 @@ public class DarkTheme extends OceanTheme
 			MENU_FONT = GUIResources.BASIC_FONT_13;
 
 		GUIColors.MEDIA_ITEM_TEXT_COLOR = light;
-		GUIColors.MEDIA_ITEM_SELECTED_BG = new Color( 48, 52, 65 );
+		GUIColors.MEDIA_ITEM_SELECTED_BG = menuBlue;
 		GUIColors.MEDIA_ITEM_BG = dark;
 		GUIColors.lineBorderColor = new Color( 48, 52, 65 );
 		GUIColors.SEPARATOR_BG = dark;
@@ -82,9 +80,6 @@ public class DarkTheme extends OceanTheme
 		GUIResources.rTriActiveTheme = GUIResources.rTriActiveDark;
 		GUIResources.kfOffTheme = GUIResources.kfOffDark;
 		GUIResources.renderClockTheme = GUIResources.renderClockDark;
-
-
-		PHButtonFactory.factoryImpl = new CurrentThemeButtonFactory();
 	}
 
 	//--- Fonts
@@ -195,7 +190,9 @@ public class DarkTheme extends OceanTheme
 		darkBg,
 
 		"Menu.selectionBackground",
-		darkBg,
+		menuBlue,
+		"MenuItem.disabledForeground",
+		lighter,
 
 		"Slider.altTrackColor",
 		phantomOrangeLight,

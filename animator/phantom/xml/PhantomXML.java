@@ -23,6 +23,7 @@ import java.util.Vector;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import animator.phantom.controller.ProjectController;
 import animator.phantom.project.Bin;
@@ -84,10 +85,12 @@ public class PhantomXML extends PhantomDocUtils
 		Element compositionsE = getFirstChild( projE, COMPOSITIONS_ELEM );
 		Vector<ProjectNamedFlow> comps = new Vector<ProjectNamedFlow>();
 
-		initIter( compositionsE, CompositionXML.ELEMENT_NAME);
-		while( iterMore() )
+		NodeList nodeIterList = compositionsE.getElementsByTagName(  CompositionXML.ELEMENT_NAME );
+		int iterIndex = 0;
+		while( iterIndex < nodeIterList.getLength() )
 		{
-			Element compE = iterNext();
+			Element compE = (Element) nodeIterList.item( iterIndex );
+			iterIndex++;
 			ProjectNamedFlow comp = CompositionXML.getObject( compE );
 
 			//--- Flow
@@ -121,14 +124,17 @@ public class PhantomXML extends PhantomDocUtils
 			//--- Timeline clips
 			Element tlcE = getFirstChild( compE, TIMELINECLIPS_ELEM );
 			Vector<ImageOperation> clips = new Vector<ImageOperation>();
-			initIter( tlcE, TimeLineClipXML.ELEMENT_NAME );
-			while( iterMore() )
+			if ( tlcE != null ) // this get dropped by lib if no clips at save time, some optimization maybe.
 			{
-				Element clip = iterNext();
-				ImageOperation iop = TimeLineClipXML.getObject( clip, project, flow );
-				clips.add( iop );
+				initIter( tlcE, TimeLineClipXML.ELEMENT_NAME );
+				while( iterMore() )
+				{
+					Element clip = iterNext();
+					ImageOperation iop = TimeLineClipXML.getObject( clip, project, flow );
+					clips.add( iop );
+				}
+				comp.setTimelineClips( clips );
 			}
-			comp.setTimelineClips( clips );
 			
 			comps.add( comp );
 		}

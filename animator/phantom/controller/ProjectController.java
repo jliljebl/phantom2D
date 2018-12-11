@@ -320,9 +320,8 @@ public class ProjectController
 		int editLength = length.getIntValue();
 		String compName = name.getStringValue();
 		
-		ProjectNamedFlow newComp  = AppData.getProject().addNewComposition( compName, editLength, new Dimension( editWidth, editHeight) );
+		ProjectNamedFlow newComp  = AppData.getProject().addNewComposition( compName, editLength, new Dimension( editWidth, editHeight ) );
 		openComposition( newComp.getID() );
-
 	}
 	
 	public static void openComposition( int compositionID )

@@ -55,8 +55,8 @@ public class CurrentThemeButtonFactory implements ButtonFactoryImpl
 	private void setSize( AbstractButton b, int width )
 	{
 		Dimension d = b.getPreferredSize();
-		b.setPreferredSize( new Dimension( width, d.height ) );
-		b.setMaximumSize(  new Dimension( width, d.height ) );
+		b.setPreferredSize( new Dimension( width, d.height + 7 ) );
+		b.setMaximumSize(  new Dimension( width, d.height + 7 ) );
 	}
 
 }//end class

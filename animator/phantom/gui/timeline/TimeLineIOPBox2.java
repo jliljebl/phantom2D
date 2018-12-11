@@ -43,7 +43,7 @@ import animator.phantom.controller.TimeLineController;
 import animator.phantom.controller.UpdateController;
 import animator.phantom.gui.AnimFrameGUIParams;
 import animator.phantom.gui.GUIColors;
-//import animator.phantom.gui.GUIResources;
+import animator.phantom.gui.modals.DialogUtils;
 import animator.phantom.paramedit.IntegerComboBox;
 import animator.phantom.renderer.ImageOperation;
 import animator.phantom.renderer.RenderNode;
@@ -55,19 +55,18 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 	public static final int LAYER_BOX = 0;
 	public static final int PRECOMP_BOX = 1;
 	public static final int FILTER_BOX = 3;
-	
 
-	//--- Image opearation that this gui component represents.
 	private ImageOperation iop;
 	private JLabel idLabel;
 	private JLabel nameLabel;
 	private JCheckBox activeCheckBox;
 	private int type;
 	
-	private  JPopupMenu popupMenu;
+	private JPopupMenu popupMenu;
 	private JMenuItem moveUp;
 	private JMenuItem moveDown;
 	private JMenuItem delete;
+	private JMenuItem fileSourceInfo;
 	
 	public TimeLineIOPBox2( ImageOperation iop )
 	{
@@ -109,9 +108,9 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 		IntegerComboBox blendSelect = null;
 		if ( boxtype == LAYER_BOX )
 		{
-			blendSelect = new IntegerComboBox( iop.blendMode,
-					"",
-					ImageOperation.blendModes );//so that blenders can be changed without recompiling
+			blendSelect = new IntegerComboBox(  iop.blendMode,
+												"",
+												ImageOperation.blendModes );//so that blenders can be changed without recompiling
 			blendSelect.getComboBox().setOpaque( false );
 			blendSelect.setTransparent();
 		}
@@ -135,10 +134,7 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 
 		this.idLabel.addMouseListener( this );
 		this.nameLabel.addMouseListener( this );
-		this.activeCheckBox.addMouseListener( this );
-		
-
-		
+		this.activeCheckBox.addMouseListener( this );	
 	}
 	
 	public ImageOperation getIop(){ return iop; }
@@ -165,28 +161,9 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 		ParamEditController.displayEditFrame( this.iop );
 	}
 	
-	//Only clicks are handled
 	public void mouseEntered(MouseEvent e){}
 	public void mouseExited(MouseEvent e){}
-	//public void mouseMoved(MouseEvent e){}
-	//--- Double click opens iop in ParamEditor
-	public void mouseClicked(MouseEvent e)
-	{
-		/*
-		int y = e.getY() - GUIComponents.timeLineEditorPanel.getVerticalPos();
-		if( y > ( iopBoxes.size() * AnimFrameGUIParams.TE_ROW_HEIGHT ) - 1 )
-			return;
-		//if( e.getClickCount() == 2 )
-		//{
-
-			int selectedIndex = y / AnimFrameGUIParams.TE_ROW_HEIGHT;
-			TimeLineIOPBox clickedBox = iopBoxes.elementAt( selectedIndex );
-			ParamEditController.displayEditFrame( clickedBox.getIop() );
-			repaint();
-		//}
-		 * */
-		 
-	}
+	public void mouseClicked(MouseEvent e){}
 	public void mouseReleased(MouseEvent e){}
 
 	public void itemStateChanged(ItemEvent e)
@@ -201,22 +178,12 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 		}
 	}
 
-		/*
-	private void maybeShowPopup(MouseEvent e) 
-	{
-		popupMenu.show( e.getComponent(), e.getX(), e.getY() );
-	}
-	*/
 	public void paintComponent( Graphics g )
 	{
-			//int rowHeight = AnimFrameGUIParams.TE_ROW_HEIGHT;
-		//int leftColumn = AnimFrameGUIParams.TE_LEFT_COLUMN_WIDTH;
-
-		//super.paintComponent( g );
 
 		if( this.type != LAYER_BOX )
 		{
-			g.setColor( GUIColors.NOT_LAYER_BOX_COLOR );
+			g.setColor( Color.red );
 			g.fillRect( 0,0, AnimFrameGUIParams.TE_LEFT_COLUMN_WIDTH, AnimFrameGUIParams.TE_ROW_HEIGHT );
 		}
 		
@@ -225,54 +192,16 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 			g.setColor( GUIColors.MEDIA_ITEM_SELECTED_BG );
 			g.fillRect( 0,0, AnimFrameGUIParams.TE_LEFT_COLUMN_WIDTH, AnimFrameGUIParams.TE_ROW_HEIGHT );
 		}
-		
-		//g.setColor( GUIColors.lineBorderColor );
-		//g.drawLine( 0, 10, leftColumn, 10 );
-		//g.drawLine( 0, 0, 0, rowHeight +1 );
-		//g.drawLine( 0 + leftColumn, 0, leftColumn, rowHeight + 1 );
+
 	}
-	
-	/*
 
-		
-		int rowHeight = AnimFrameGUIParams.TE_ROW_HEIGHT - 15;
-		int leftColumn = AnimFrameGUIParams.TE_LEFT_COLUMN_WIDTH;
-
-		
-		boolean selected = TimeLineController.clipForIopIsSelected( iop );
-		if( selected )
-		{
-			g.setColor( GUIColors.MEDIA_ITEM_SELECTED_BG );
-			g.fillRect( 0,0, leftColumn, rowHeight + 1 );
-		}
-		
-		g.setColor( GUIColors.lineBorderColor );
-		g.drawLine( 0, 0, leftColumn, 0 );
-		g.drawLine( 0, 0, 0, rowHeight +1 );
-		g.drawLine( 0 + leftColumn, 0, leftColumn, rowHeight + 1 );
-
-		//--- Draw lock
-		//if( iop.getLocked() )
-		//	g.drawImage( lockIcon, LOCK_DRAW_X, y + LOCK_DRAW_Y, null );
-
-		//--- Draw text
-		/*
-		g.setFont( boxFont );
-		g.setColor( GUIColors.timeLineFontColor );
-		g.drawString( iop.getName(), NAME_DRAW_X, y + NAME_DRAW_Y );
-
-
-		if( ParamEditController.getEditTarget() == iop )
-			g.drawImage( editIcon, EDIT_DRAW_X, y + EDIT_DRAW_Y, null );
-			*/
-			
-	//}
 
 	//----------------------------------------- popup menu items
 	public void actionPerformed(ActionEvent e)
 	{
-		if( e.getSource() == moveUp )TimeLineController.moveSelectedClipsUp();
+		if( e.getSource() == moveUp ) TimeLineController.moveSelectedClipsUp();
 		if( e.getSource() == moveDown ) TimeLineController.moveSelectedClipsDown();
+		if( e.getSource() == fileSourceInfo ) { DialogUtils.showFileSourceInfoDialog( iop.getFileSource() ); }
 	}
 	
 	private void showPopup( MouseEvent e ) 
@@ -292,6 +221,17 @@ public class TimeLineIOPBox2 extends JPanel implements MouseListener, ItemListen
 		delete = new JMenuItem("Delete");
 		delete.addActionListener( this );
 		popupMenu.add( delete );
+
+		popupMenu.addSeparator();
+
+		fileSourceInfo = new JMenuItem("File Source Info");
+		fileSourceInfo.addActionListener( this );
+		if ( iop.getFileSource() == null )
+		{
+			fileSourceInfo.setEnabled(false);
+			fileSourceInfo.setForeground(Color.red);
+		}
+		popupMenu.add( fileSourceInfo );
 		
 		popupMenu.show( e.getComponent(), e.getX(), e.getY() );
 	}

@@ -39,10 +39,10 @@ public class KFParamBox
 	//--- Selected state 
 	private boolean isSelected = false;
 	//--- GUI parameters
-	private static final int NAME_DRAW_X = 40;
-	private static final int NAME_DRAW_Y = 15;
+	private static final int NAME_DRAW_X = 10;
+	private static final int NAME_DRAW_Y = 16;
 	//--- Font
-	private static Font boxFont = GUIResources.EDITOR_COLUMN_ITEM_FONT;
+	private static Font boxFont = GUIResources.BOLD_FONT_11;
 
 	public KFParamBox( Param p )
 	{
@@ -64,14 +64,13 @@ public class KFParamBox
 		int rowHeight = AnimFrameGUIParams.TE_ROW_HEIGHT;
 		int leftColumn = AnimFrameGUIParams.TE_LEFT_COLUMN_WIDTH;
 
-		System.out.println("dd");
-		//--- Draw bg for selected boxes.
 		if( isSelected )
 		{
 			System.out.println("selected");
 			g.setColor( GUIColors.MEDIA_ITEM_SELECTED_BG );
 			g.fillRect( x,y, leftColumn, rowHeight + 1 );
 		}
+	
 		//--- Draw lines.
 		g.setColor( GUIColors.lineBorderColor );
 		g.drawLine( x, y, x + leftColumn, y );

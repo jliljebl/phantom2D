@@ -215,16 +215,13 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		addImageSequence.addActionListener(this);
 		layerNewMenu.add( addImageSequence );
 
-		mediaMenu = new JMenu("Loaded Media");
-		layerNewMenu.add( mediaMenu );
-		
 		layerMenu.add( layerNewMenu );
-		
-		ImageOperation iop = (ImageOperation) new NullIOP();
-		IOPMenuItem nullItem = new IOPMenuItem( "New " + iop.getName(), iop.getClass().getName(), IOPMenuItem.ADJUSTMENT_LAYER_ITEM  );
-		nullItem.addActionListener(this);
-		layerMenu.add( nullItem );
 
+		mediaMenu = new JMenu("New From Loaded Media");
+		layerMenu.add( mediaMenu );
+
+		layerMenu.addSeparator();
+		
 		adjustmentLayerMenu = new JMenu("New Adjustment Layer");
 		
 		JMenu layerEffect = new JMenu("Filter");
@@ -239,6 +236,11 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		fillSolidMenu( layerSolid, IOPMenuItem.ADJUSTMENT_LAYER_ITEM );
 		adjustmentLayerMenu.add( layerSolid );
 
+		ImageOperation iop = (ImageOperation) new NullIOP();
+		IOPMenuItem nullItem = new IOPMenuItem( "New " + iop.getName(), iop.getClass().getName(), IOPMenuItem.ADJUSTMENT_LAYER_ITEM  );
+		nullItem.addActionListener(this);
+		layerMenu.add( nullItem );
+		
 		layerMenu.add( adjustmentLayerMenu );
 			
 		layerMenu.addSeparator();
@@ -385,6 +387,8 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		{
 			CompositionMenuItem item = new CompositionMenuItem( comp.getName(), comp.getID() );
 			item.addActionListener( this );
+			if ( comp.getID() == AppData.getProject().getCurrentComposition().getID() )
+				item.setEnabled(false);
 			compositionsMenu.add( item );
 		}
 	}
@@ -455,7 +459,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 		}
 		else
 		{
-			noRefs = new JMenuItem("No media sources");
+			noRefs = new JMenuItem("No loaded media sources");
 			noRefs.setEnabled(false);
 			noRefs.setFont(GUIResources.BASIC_FONT_ITALIC_14);
 			mediaMenu.add(noRefs);
@@ -527,7 +531,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 			{
 				public void run()
 				{
-					UserActions.addSingleFileSources(FileSource.IMAGE_FILE, -1, -1);
+					UserActions.addSingleFileSources(FileSource.IMAGE_FILE );
 				}
 			}.start();
 		}
@@ -547,7 +551,7 @@ public class LayerCompositorMenu extends JMenuBar implements ActionListener, Men
 			{
 				public void run()
 				{
-					UserActions.addSingleFileSources(FileSource.VIDEO_FILE, -1, -1);
+					UserActions.addSingleFileSources(FileSource.VIDEO_FILE );
 				}
 			}.start();
 		}

@@ -46,7 +46,7 @@ public class UserActions
 {
 	private static String[] loopOptions = { "no looping","loop","ping-pong" };
 
-	public static void addSingleFileSources(int fileType, int mouseX, int mouseY)
+	public static void addSingleFileSources(int fileType ) //, int mouseX, int mouseY)
 	{
 		try
 		{
@@ -97,6 +97,12 @@ public class UserActions
 
 			//--- MemoryManager needs to update cache.
 			MemoryManager.fileSourcesAdded();
+			
+			//--- Create layers for file sources
+			for( FileSource addFS : addFileSources )
+			{
+				LayerCompositorMenuActions.addFileSourceLayer( addFS );
+			}
 		}
 		catch( Exception e )
 		{
@@ -109,6 +115,8 @@ public class UserActions
 								"files of a type that is not supported by Phantom2D." };
 					DialogUtils.showTwoTextStyleDialog( JOptionPane.WARNING_MESSAGE, null, buttons, bLines, tLines );
 		}
+
+
 		GUIComponents.animatorFrame.setCursor(Cursor.getDefaultCursor());
 	}
 

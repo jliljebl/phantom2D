@@ -191,7 +191,7 @@ public class LayerCompositorApplication extends AbstractApplication implements W
 		
 		ProjectController.updateProjectInfo();
 		GUIComponents.animatorMenu.updateCompositionsMenu();
-		
+		GUIComponents.compNameLabel.setText(AppData.getProject().getCurrentComposition().getName());
 		//--- Unblock cache and view editor updates.
 		projectLoading = false;
 

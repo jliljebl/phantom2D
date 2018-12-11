@@ -80,6 +80,7 @@ import animator.phantom.gui.timeline.TimeLineToolButtons;
 import animator.phantom.gui.timeline.TimeLineControls;
 import animator.phantom.gui.view.component.ViewControlButtons;
 import animator.phantom.gui.view.component.ViewEditor;
+import animator.phantom.renderer.ImageOperation;
 
 public class LayerCompositorFrame extends JFrame implements ActionListener
 {
@@ -208,10 +209,10 @@ public class LayerCompositorFrame extends JFrame implements ActionListener
 		TimeLineIOPColumnPanel2 iopColumn = new TimeLineIOPColumnPanel2();
 		TimeLineEditorPanel timelineEditor = new TimeLineEditorPanel();
 
-		JPanel timeDummyPanelTop = new JPanel();
+		JLabel compNameLabel = new JLabel();
 		JPanel scaleStrip = new JPanel();
-		scaleStrip.setLayout( new TimeLineRowLayout( timeDummyPanelTop, timeLineDisplay ) );
-		scaleStrip.add( timeDummyPanelTop );
+		scaleStrip.setLayout( new TimeLineRowLayout( compNameLabel, timeLineDisplay ) );
+		scaleStrip.add( compNameLabel );
 		scaleStrip.add( timeLineDisplay ); 
 
 		JPanel timeLineEditorStrip = new JPanel();
@@ -265,9 +266,9 @@ public class LayerCompositorFrame extends JFrame implements ActionListener
 		keyButtonsStrip.add( kfNamePanel );
 
 		JPanel keyEditorScaleStrip = new JPanel();
- 		JPanel iopLabel = new JPanel();
-		keyEditorScaleStrip.setLayout( new TimeLineRowLayout( iopLabel, KFtimeLineDisplay ) );
-		keyEditorScaleStrip.add( iopLabel );
+ 		JLabel layerNameLabel = new JLabel();
+		keyEditorScaleStrip.setLayout( new TimeLineRowLayout( layerNameLabel, KFtimeLineDisplay ) );
+		keyEditorScaleStrip.add( layerNameLabel );
 		keyEditorScaleStrip.add( KFtimeLineDisplay );
 
 		JPanel keyFrameEditorStrip = new JPanel();
@@ -385,7 +386,9 @@ public class LayerCompositorFrame extends JFrame implements ActionListener
 		GUIComponents.tlineControls = tlineControls;
 		GUIComponents.projectInfoLabel = projectInfoLabel;
 		GUIComponents.animatorMenu = menuBar;
-
+		GUIComponents.compNameLabel = compNameLabel;
+		GUIComponents.layerNameLabel = layerNameLabel;
+		
 		TimeLineController.initClipEditorGUI();
 
 		//--- Remove all components (why? reload?)
@@ -447,6 +450,12 @@ public class LayerCompositorFrame extends JFrame implements ActionListener
 		bottomRow.add( projectInfoLabel );
 		bottomRow.add( Box.createRigidArea(new Dimension( 12, 0 ) ) );
 
+		ImageOperation editedIOP = GUIComponents.keyFrameEditPanel.getIOP();
+		if ( editedIOP != null )
+			GUIComponents.layerNameLabel.setText(editedIOP.getName());
+		else
+			GUIComponents.layerNameLabel.setText("");
+		
 		if( !initializing ) bottomRow.validate();
 		if( !initializing ) editorsPane.validate();
 		if( !initializing ) repaint();
